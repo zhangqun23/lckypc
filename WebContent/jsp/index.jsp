@@ -15,7 +15,7 @@
 
 	<div class="mainindex" ng-controller="IndexController">
 		<div class="welinfo">
-			<span><img src="${ctx}/images/sun.png" alt="天气" /></span> <b>欢迎使用光电项目设计进度到款跟踪系统</b>
+			<span><img src="${ctx}/images/sun.png" alt="天气" /></span> <b>欢迎使用洛川客运信息系统</b>
 			<!-- <a href="#">帐号设置</a> -->
 		</div>
 

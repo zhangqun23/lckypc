@@ -2,8 +2,8 @@
 	<span>位置：</span>
 	<ul class="placeul">
 		<li><a href="/CIMS/login/toIndex.do">首页</a></li>
-		<li>用户管理</li>
-		<li>用户列表</li>
+		<li>旅游信息管理</li>
+		<li>旅游信息列表</li>
 	</ul>
 </div>
 
@@ -34,7 +34,7 @@
 				<th>部门</th>
 				<th>角色</th>
 				<th>电话</th>
-				<th>邮箱</th>
+				<th>公司</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -43,11 +43,11 @@
 				<td>{{$index + 1 }}</td>
 				<td>{{user.user_num}}</td>
 				<td>{{user.user_name}}</td>
-				<td>{{user.user_sex | userSex}}</td>
+				<td>{{user.travel_title}}</td>
 				<td>{{user.user_dept | userDept}}</td>
 				<td>{{user.role.role_name}}</td>
 				<td>{{user.user_tel}}</td>
-				<td>{{user.user_email}}</td>
+				<td>{{user.travel_firm}}</td>
 				<td><a ng-click="editUserBtn(this)" class="tablelink"
 					has-permission='uUserEdit'> 修改</a><a href="#userList"
 					ng-click="deleteUser(user.user_id)" class="tablelink"
@@ -74,7 +74,7 @@
 	<div class="formbody">
 		<form id="addUser-form" class="hidden">
 			<ul class="forminfo">
-				<li><label>用户账号<b>*</b></label><input type="text"
+				<li><label>用户账号11<b>*</b></label><input type="text"
 					name="userNum" class="dfinput" ng-model="addinguser.user_num"
 					id="mustInput" /> <span id="userExistError" class="error-span">用户已存在</span>
 					<span id="userNumError" class="error-span">账号不能为空</span></li>

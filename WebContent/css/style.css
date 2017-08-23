@@ -1653,7 +1653,7 @@ h2 {
 /* 下拉框 */
 .dfselect {
 	width: 280px;
-	height: 36px;
+	height: 32px;
 	margin-right: 12px;
 	line-height: 32px;
 	border-top: solid 1px #a7b5bc;
@@ -1670,7 +1670,7 @@ h2 {
 }
 
 .textarea {
-	width: 260px;
+	width: 265px;
 	height: 80px;
 	padding: 8px;
 	line-height: 16px;
