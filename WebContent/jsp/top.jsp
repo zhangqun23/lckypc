@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8" />
-<title>合同信息管理</title>
+<title>旅游信息管理</title>
 <link href="${ctx}/css/style.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/css/admin.css" rel="stylesheet" type="text/css" />
 <link href="${ctx}/css/zhou.css" rel="stylesheet" type="text/css" />
