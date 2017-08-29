@@ -3,7 +3,11 @@
 	width: 300px !important;
 	height: 100% !important
 }
-
+.dateLayoutStyle {
+	width: 280px;
+	height: 32px;
+	margin-left: 0px;
+}
 .text_border {
 	overflow: auto;
 	background-attachment: fixed;

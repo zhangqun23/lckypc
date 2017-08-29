@@ -484,7 +484,7 @@ app
 								$(".roleEdit").show();
 								return false;
 							};
-							// 点击查看按钮时弹出模态框
+							// 点击查看按钮时弹出1模态框
 							user.detailRoleBtn = function(obj) {
 								var roleID = this.role.role_id;
 								initCheckBoxData();
@@ -539,7 +539,7 @@ app
 							$(".cancel").click(function() {
 								// sessionStorage.setItem("contractId", "");
 
-								$(".overlayer").fadeOut(100);
+								$(".overlayer").fadeOutselectUserByName()(100);
 								$(".tip").fadeOut(100);
 							});
 							// 添加角色
@@ -625,16 +625,16 @@ app
 							}
 
 							// 根据输入筛选用户
-							user.selectUserByName = function() {
-								searchKey = user.cName;
-								services.getUserListByPage({
-									page : 1,
-									searchKey : searchKey
-								}).success(function(data) {
-									user.users = data.list;
-									pageTurn(data.totalPage, 1, getUserListByPage)
-								});
-							};
+//							user.selectUserByName = function() {
+//								searchKey = user.cName;
+//								services.getUserListByPage({
+//									page : 1,
+//									searchKey : searchKey
+//								}).success(function(data) {
+//									user.users = data.list;
+//									pageTurn(data.totalPage, 1, getUserListByPage)
+//								});
+//							};
 							function findRoleFromCookie() {
 								var cookie = {};
 

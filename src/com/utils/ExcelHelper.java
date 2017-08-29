@@ -32,7 +32,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.mvc.entity.ProjectStatisticForm;
+//import com.mvc.entity.ProjectStatisticForm;
 
 /**
  * Excel操作类
@@ -214,6 +214,11 @@ public class ExcelHelper<T> {
 		}
 	}
 
+	private Field[] hidField(Field[] fieldSource, Class<? extends Object> class1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * 将输出流写入工作薄(2007版)
 	 * 
@@ -255,26 +260,26 @@ public class ExcelHelper<T> {
 	 * @param cla
 	 * @return
 	 */
-	private Field[] hidField(Field[] fields, Class<? extends Object> cla) {
-		List<Field> list = new ArrayList<Field>();
-		if (cla == ProjectStatisticForm.class) {// 需要隐藏的字段，并列加到这里
-			String str = null;
-			for (short i = 0; i < fields.length; i++) {
-				str = fields[i].getName();
-				if (!str.equals("cont_type") && !str.equals("cont_stime")) {
-					list.add(fields[i]);
-				}
-			}
-		}
-		Field[] arr = null;
-		if (list.size() > 0) {
-			arr = new Field[list.size()];
-			for (int i = 0; i < list.size(); i++) {
-				arr[i] = (Field) list.get(i);
-			}
-		}
-		return arr;
-	}
+//	private Field[] hidField(Field[] fields, Class<? extends Object> cla) {
+//		List<Field> list = new ArrayList<Field>();
+//		if (cla == ProjectStatisticForm.class) {// 需要隐藏的字段，并列加到这里
+//			String str = null;
+//			for (short i = 0; i < fields.length; i++) {
+//				str = fields[i].getName();
+//				if (!str.equals("cont_type") && !str.equals("cont_stime")) {
+//					list.add(fields[i]);
+//				}
+//			}
+//		}
+//		Field[] arr = null;
+//		if (list.size() > 0) {
+//			arr = new Field[list.size()];
+//			for (int i = 0; i < list.size(); i++) {
+//				arr[i] = (Field) list.get(i);
+//			}
+//		}
+//		return arr;
+//	}
 
 	/**
 	 * 设置标题样式

@@ -10,7 +10,7 @@
 <script type="text/javascript" src="${ctx}/js/app/exportForm.js"></script>
 <script type="text/javascript">
 	$(function() {
-		//Ã©Â¡Â¶Ã©ÂÂ¨Ã¥Â¯Â¼Ã¨ÂÂªÃ¥ÂÂÃ¦ÂÂ¢
+		
 		$(".nav li a").click(function() {
 			$(".nav li a.selected").removeClass("selected");
 			$(this).addClass("selected");
@@ -18,7 +18,7 @@
 	});
 	
 	$(function() {
-		//Ã¥Â¯Â¼Ã¨ÂÂªÃ¥ÂÂÃ¦ÂÂ¢
+		
 		$(".menuson li").click(function() {
 			$(".menuson li.active").removeClass("active");
 			$(this).addClass("active");
