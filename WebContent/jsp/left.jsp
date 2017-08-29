@@ -14,7 +14,8 @@
 					href="${ctx}/role/toUserManagePage.do#/roleList">角色管理</a><i></i></li>
 				<li id="userList"><cite></cite> <a
 					href="${ctx}/role/toUserManagePage.do#/userList">用户管理</a><i></i></li>
-				
+				<li id="workerInfoList"><cite></cite> <a
+					href="${ctx}/workerInfo/toWoinPage.do#/workerInfoList">工作人员管理</a><i></i></li>
 			</ul>
 		</dd>
 		
