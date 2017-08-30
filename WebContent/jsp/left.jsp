@@ -41,7 +41,6 @@
 			<ul id="ad-ul" class="menuson">
 				<li id="adList"><cite></cite> <a
 					href="${ctx}/ad/toAdPage.do#/adList">广告信息查询</a><i></i></li>
-			<%-- href="${ctx}/travelTrade/toTravelPage.do#/travelTradeList"> --%>
 			</ul>
 		</dd>
 	</dl>

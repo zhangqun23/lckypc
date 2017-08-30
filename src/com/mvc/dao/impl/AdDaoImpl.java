@@ -13,15 +13,12 @@ import org.springframework.stereotype.Repository;
 import com.base.enums.IsDelete;
 import com.mvc.dao.AdDao;
 import com.mvc.entity.Ad;
-import com.mvc.repository.AdRepository;
 
 @Repository("adDaoImpl")
 public class AdDaoImpl implements AdDao {
 		@Autowired
 		@Qualifier("entityManagerFactory")
 		EntityManagerFactory emf;
-		@Autowired
-		AdRepository adRepository;
 		/**
 		 * 删除旅游信息
 		 */

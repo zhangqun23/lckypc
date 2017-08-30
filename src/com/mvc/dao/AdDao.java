@@ -12,7 +12,10 @@ public interface AdDao {
 	// 根据页数筛选全部旅游信息列表
 	List<Ad> findAdByPage(String searchKey, Integer offset, Integer end);
 	
-	// 根据id修改
+	// 根据id删除ad
 	Boolean updateState(Integer ad_id);
+
+	//根据id修改ad
+	Boolean updateAdById(Integer ad_id, Ad ad);
 	
     }

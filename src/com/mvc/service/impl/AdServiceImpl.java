@@ -50,8 +50,27 @@ public class AdServiceImpl implements AdService {
 		
 		// 根据id获取ad
 		@Override
-		public Ad selectAdById(Integer ad_id) {
-			return adRepository.selectAdById(ad_id);
+		public Ad selectAdById(String adId) {
+			int adid = Integer.parseInt(adId);
+			return adRepository.selectAdById(adid);
+		}
+		
+		@Override
+		public Ad selectAdByType(String adType) {
+			// TODO 自动生成的方法存根
+			return adRepository.selectAdByType(adType);
+		}
+
+		@Override
+		public Ad selectAdByState(String adState) {
+			// TODO 自动生成的方法存根
+			return adRepository.selectAdByState(adState);
+		}
+		
+		@Override
+		public Ad selectAdByTitle(String adTitle) {
+			// TODO 自动生成的方法存根
+			return adRepository.selectAdByTitle(adTitle);
 		}
 		
 		// 根据id修改ad基本信息

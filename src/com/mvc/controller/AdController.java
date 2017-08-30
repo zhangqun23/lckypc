@@ -92,11 +92,69 @@ public class AdController {
 		 */
 		@RequestMapping("/selectAdById.do")
 		public @ResponseBody String selectAdById(HttpServletRequest request, HttpSession session) {
-			int ad_id = Integer.parseInt(request.getParameter("ad_id"));
-			session.setAttribute("ad_id", ad_id);
-			Ad ad = adService.selectAdById(ad_id);
+			Ad list;
+			String adId = request.getParameter("ad_id");
+			list = adService.selectAdById(adId);
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("ad", ad);
+			jsonObject.put("list", list);
+			return jsonObject.toString();
+		}
+		
+		/**
+		 * 
+		 * 
+		 *@Title: selectAdByTitle 
+		 *@Description: TODO
+		 *@param @param request
+		 *@param @param session
+		 *@param @return
+		 *@return String
+		 *@throws
+		 */
+		@RequestMapping("/selectAdByTitle.do")
+		public @ResponseBody String selectAdByTitle(HttpServletRequest request, HttpSession session){
+			Ad list;
+			String adTitle = request.getParameter("ad_title");
+			list = adService.selectAdByTitle(adTitle);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("list", list);
+			return jsonObject.toString();
+		}
+		/**
+		 * 广告查询
+		 * 根据类型查询 若为空则返回全部类型广告，否则返回相应类型广告
+		 * @param request
+		 * @param session
+		 * @return  list
+		 */
+		@RequestMapping("/selectAdByType.do")
+		public @ResponseBody String selectAdByType(HttpServletRequest request, HttpSession session){
+			Ad list;
+			String adType = request.getParameter("ad_type");
+			list = adService.selectAdByType(adType);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("list", list);
+			return jsonObject.toString();
+		}
+		
+		/**
+		 * 
+		 * 
+		 *@Title: selectAdByState 
+		 *@Description: TODO
+		 *@param @param request
+		 *@param @param session
+		 *@param @return
+		 *@return String
+		 *@throws
+		 */
+		@RequestMapping("/selectAdByState.do")
+		public @ResponseBody String selectAdByState(HttpServletRequest request, HttpSession session){
+			Ad list;
+			String adState = request.getParameter("ad_state");	
+			list = adService.selectAdByState(adState);
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("list", list);
 			return jsonObject.toString();
 		}
 		/**

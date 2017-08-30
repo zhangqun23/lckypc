@@ -69,7 +69,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 											
 	}).when('/adInfor',{
 		templateUrl : '/lckypc/jsp/adInformation/adInfor.html',
-		controller : 'adcontroller'
+		controller : 'adController'
 	});
 } ]);
 app.constant('baseUrl', '/lckypc/');
@@ -140,6 +140,7 @@ app
 						'$scope',
 						'services',
 						'$location',
+						'$routeParams',
 						function($scope, services, $location) {
 
 							var ad = $scope;
@@ -170,7 +171,6 @@ app
 									
 								});
 							}
-							// 添加旅游信息
 							
 							// 根据输入筛选信息
 							ad.selectAdByTitle = function() {
@@ -204,7 +204,6 @@ app
 								});
 							};
 							
-							// 根据页数获取列表
 							// 删除旅游信息
 							ad.deleteAd = function(ad_id) {
 								if (confirm("是否删除该旅游信息？") == true) {
@@ -242,7 +241,7 @@ app
 								services.updateAdById({
 									ad : aFormData
 								}).success(function(data) {
-									alert("修改合同成功！");
+									alert("修改成功！");
 								});
 							};
 	// 查看ID，并记入sessionStorage
@@ -301,14 +300,10 @@ app
 										})
 										.success(
 												function(data) {
-													ad.a = data.ad;
 													ad.ad = data.ad;
 												});
-								
 							}
-
 							initData();
-							
 							$scope.$on('reGetData', function() {
 								console.log("重新获取数据！");
 								initData();
@@ -326,7 +321,7 @@ app
 					services.selectAdInfo({
 						ad_id : $routeParams.adid
 					}).success(function(data) {
-						$scope.adIList = data.list;
+						$scope.adList = data.list;
 					});
 				} ]);
 

@@ -28,10 +28,23 @@ public interface AdService {
 	boolean deleteIsdelete(Integer ad_id);
 	
 	//根据id筛选ad
-	Ad selectAdById(Integer ad_id);
+	Ad selectAdById(String adId);
 	
-	//根据di修改ad
+	//根据type选择ad
+	Ad selectAdByType(String adType);
+	
+	//根据state选择ad
+	Ad selectAdByState(String adState);
+	
+	//根据state选择ad
+	Ad selectAdByTitle(String adTitle);
+	
+	//根据id修改ad
 	Boolean updateAdBase(Integer ad_id, JSONObject jsonObject, User user) throws ParseException;
+
+	
+
+	
 	
 		
 		//boolean save(Ad ad);
