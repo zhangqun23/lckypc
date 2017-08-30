@@ -86,18 +86,7 @@ public class TravelController {
 	 * @return
 	 */
 
-	/**
-	 * 获取旅游信息列表，无翻页功能
-	 * 
-	 * @param request
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping(value = "/getAllTravelList.do")
-	public @ResponseBody String getAllTravels(HttpServletRequest request, HttpSession session) {
-		List<Travel> result = travelService.findTravelAlls();
-		return JSON.toJSONString(result);
-	}
+	
 
 	/**
 	 * 删除旅游信息
@@ -143,9 +132,11 @@ public class TravelController {
 			travel.setTravel_insurance(Float.parseFloat(jsonObject.getString("travel_insurance")));
 		}
 		if (jsonObject.containsKey("travel_discount")) {
+			
 //			DecimalFormat df = new DecimalFormat("#.00");
 //			String str = df.format(Float.parseFloat(jsonObject.getString("travel_discount")));
 //			travel.setTravel_discount(Float.parseFloat(str));
+			
 			travel.setTravel_discount(Float.parseFloat(jsonObject.getString("travel_discount")));
 		}
 		
@@ -169,6 +160,7 @@ public class TravelController {
 		if (jsonObject.containsKey("travel_firm")) {
 			travel.setTravel_firm(jsonObject.getString("travel_firm"));}
 		travel.setIs_delete(0);
+		
 		boolean result;
 		if (jsonObject.containsKey("travel_id")) {
 			travel.setTravel_id(Integer.valueOf(jsonObject.getString("travel_id")));
@@ -231,7 +223,7 @@ public class TravelController {
 	 * @throws ParseException 
 	 */
 	@RequestMapping("/updateTravelById.do")
-	public @ResponseBody Integer updateConById(HttpServletRequest request, HttpSession session) throws ParseException {
+	public @ResponseBody Integer updateTravelById(HttpServletRequest request, HttpSession session) throws ParseException {
 		User user = (User) session.getAttribute(SessionKeyConstants.LOGIN);
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("travel"));
 		Integer travel_id = null;

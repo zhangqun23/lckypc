@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +24,7 @@ public class WorkerInfo implements Serializable {
 	private String woin_num;// 工作人员登录账号
 	private String woin_pwd;// 密码
 	private String woin_name;// 姓名
+	private Role role;// 职位
 	private Integer woin_permission;// 角色权限
 	private Integer woin_state;// 是否删除
 
@@ -78,6 +81,15 @@ public class WorkerInfo implements Serializable {
 
 	public void setWoin_state(Integer woin_state) {
 		this.woin_state = woin_state;
+	}
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 }
