@@ -39,7 +39,7 @@ public class WorkerInfoController {
 	 */
 	@RequestMapping("/toWoinPage.do")
 	public String woinPage() {
-		return "wokerInfomation/index";
+		return "workerInfomation/index";
 	}
 	/**
 	 * 根据页数筛选用户列表

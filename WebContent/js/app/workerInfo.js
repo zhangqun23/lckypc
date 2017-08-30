@@ -90,7 +90,7 @@ app.run([ '$rootScope', '$location', function($rootScope, $location) {
 // 路由配置
 app.config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/workerInfoList', {
-		templateUrl : '/lckypc/jsp/systemManagement/workerInfoList.html',
+		templateUrl : '/lckypc/jsp/workerInfomation/workerInfoList.html',
 		controller : 'workerInfoController'
 	});
 } ]);

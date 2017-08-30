@@ -1,5 +1,6 @@
 package com.mvc.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,7 +18,8 @@ import javax.persistence.Table;
  * */
 @Entity
 @Table(name="travel")
-public class Travel {
+public class Travel implements Serializable {
+	private static final long serialVersionUID = 1L;
 private Integer travel_id;//旅游信息Id
 private String travel_title;//标题
 private String travel_content;//活动描述

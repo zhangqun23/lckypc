@@ -18,7 +18,17 @@
 					href="${ctx}/workerInfo/toWoinPage.do#/workerInfoList">工作人员管理</a><i></i></li>
 			</ul>
 		</dd>
-		
+	<%-- 	<!-- 工作人员信息管理 -->
+		<dd id="workerInfo" class="woinManager" >
+			<div class="title">
+				<span><img src="${ctx}/images/leftico02.png" /></span>工作人员管理
+			</div>
+			<ul id="workerInfo-ul" class="menuson">
+				<li id="workerInfoList"><cite></cite> 
+				<a href="${ctx}/workerInfo/toWoinPage.do#/workerInfoList">工作人员管理</a><i></i></li>
+			</ul>
+		</dd> --%>
+<!-- 		/workerInfo/toWoinPage.do#/workerInfoList -->
 		<!-- 旅游信息管理 -->
 		<dd id="travel" class="travelManager" >
 			<div class="title ">
@@ -43,7 +53,7 @@
 						//根据权限显示左侧栏相关条目
 						$
 								.get(
-										"/CIMS/login/getLeftbarPermission.do",
+										"/lckypc/login/getLeftbarPermission.do",
 										function(data) {
 											console.log("左侧栏权限：" + data);
 											var leftbarPermission = data

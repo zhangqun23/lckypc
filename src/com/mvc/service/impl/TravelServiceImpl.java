@@ -17,7 +17,7 @@ import com.mvc.entity.User;
 import com.mvc.repository.TravelRepository;
 import com.mvc.repository.TravelTradeRepository;
 import com.mvc.service.TravelService;
-import com.utils.Pager;
+
 /**
  * Travel相关Service层接口实现
  * 
@@ -59,13 +59,7 @@ public  class TravelServiceImpl implements TravelService {
 			return result;
 		}
 
-	// 根据标题查询旅游信息
-//	public List<Travel> findTravelByTitle(String travel_title, Pager pager) {
-//		return travelRepository.findTravelByTitle(travel_title);
-//	}
-//		public Travel findtravelByTitle(String travel_title) {
-//			return travelRepository.findtravelByTitle(travel_title);
-//		}
+	
 
 	// 查询所有旅游信息列表
 	public List<Travel> findTravelAlls() {
@@ -77,12 +71,12 @@ public  class TravelServiceImpl implements TravelService {
 	public List<Travel> findTravelByPage(String searchKey, Integer offset, Integer end) {
 		return travelDao.findTravelByPage(searchKey, offset, end);
 	}
-
-	// 获取旅游信息列表，无翻页功能
-//	@Override
-//	public List<Travel> findAlls() {
-//		return travelRepository.findAlls();
-//	}
+	// 根据页数筛选全部旅游信息列表
+		@Override
+		public List<TravelTrade> findTravelTradeByPage(String searchKey, Integer offset, Integer end) {
+			return travelDao.findTravelTradeByPage(searchKey, offset, end);
+		}
+	
 	// 查询同公司总条数
 		@Override
 		public Integer countTotal(String searchKey) {
@@ -106,37 +100,23 @@ public  class TravelServiceImpl implements TravelService {
 	public List<Travel> findTravelByFirm(Integer travelFirm) {
 		return travelRepository.findTravelByFirm(travelFirm);
 	}
-	@Override
-	public List<Travel> findtravelByTitle(String travelTitle) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public List<Travel> findTravelByTitle(String travelTitle, Pager pager) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
-	// 根据页数筛选全部旅游信息列表
-		@Override
-		public List<TravelTrade> findTravelTradeByPage(String searchKey, Integer offset, Integer end) {
-			return travelDao.findTravelTradeByPage(searchKey, offset, end);
-		}
 
-		// 查询旅游交易总条数
+	// 查询旅游交易总条数
 			@Override
 			public Integer countTrTotal(String searchKey) {
 				return travelDao.countTrTotal(searchKey);
 			}
 
-		// 根据合同ID获取合同
+	// 根据合同ID获取合同
 			@Override
 			public Travel selectTravelById(Integer travel_id) {
 				return travelRepository.selectTravelById(travel_id);
 			}
 		
 	
-		// 修改旅游基本信息
+	// 修改旅游基本信息
 			@Override
 			public Boolean updateTravelBase(Integer travel_id, JSONObject jsonObject, User user) throws ParseException {
 				Travel travel = travelRepository.selectTravelById(travel_id);
@@ -181,6 +161,7 @@ public  class TravelServiceImpl implements TravelService {
 						if (jsonObject.containsKey("travel_firm")) {
 							travel.setTravel_firm(jsonObject.getString("travel_firm"));}
 				}
+				travel = travelRepository.saveAndFlush(travel);
 				if (travel.getTravel_id() != null)
 					return true;
 				else

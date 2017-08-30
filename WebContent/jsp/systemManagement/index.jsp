@@ -15,7 +15,6 @@
 <jsp:include page="/jsp/left.jsp" />
 <jsp:include page="/jsp/footer.jsp" />
 
-<script src="${ctx}/js/app/workerInfo.js"></script>
 <script src="${ctx}/js/app/user.js"></script>
 <script src="${ctx}/js/app/alarmSet.js"></script>
 <script type="text/javascript">
