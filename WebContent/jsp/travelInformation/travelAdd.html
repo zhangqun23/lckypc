@@ -1,7 +1,7 @@
 <div class="place">
 	<span>位置：</span>
 	<ul class="placeul">
-		<li><a href="/CIMS/login/toIndex.do">首页</a></li>
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
 		<li>旅游管理</li>
 		<li>新建旅游信息</li>
 	</ul>
@@ -18,18 +18,21 @@
 			<li><label>标题<b>*</b></label><input type="text"
 				ng-model="travelInfo.travel_title" class="dfinput" required /></li>
 			<li><label>活动描述</label>
-			<textarea ng-model="travelInfo.travel_content"
-					class="textarea" required /></textarea></li>
+			<textarea ng-model="travelInfo.travel_content"  maxlength="130"
+					class="textarea" required /></textarea>  最多可输入130个汉字字符</li>
 			<li><label>路线</label><input type="text"
 				ng-model="travelInfo.travel_route" class="dfinput" required /></li>
 			<li><label>成人票价格<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_mprice" class="dfinput" required/></li>
+				ng-model="travelInfo.travel_mprice" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
 			<li><label>儿童票价格<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_cprice" class="dfinput" required/></li>
+				ng-model="travelInfo.travel_cprice" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
 			<li><label>保险费<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_insurance" class="dfinput" required/></li>
+				ng-model="travelInfo.travel_insurance" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
 			<li><label>折扣<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_discount" class="dfinput" required/></li>
+				ng-model="travelInfo.travel_discount" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')"
+				 required/>若无折扣则输入1；若打88折可输入0.88</li>
+				<!--  onkeyup="this.value=this.value.replace(^\d+(\.\d{2})?$,'')" 
+				onblur="this.value=this.value.replace(^\d+(\.\d{2})?$,'')" -->
 			<li><label>出发日期</label><input type="text" name="travelstime" required
 					ng-model="travelInfo.travel_stime" class="dfselect dateLayoutStyle"
 					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></li>

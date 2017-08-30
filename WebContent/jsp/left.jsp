@@ -33,6 +33,17 @@
 			<%-- href="${ctx}/travelTrade/toTravelPage.do#/travelTradeList"> --%>
 			</ul>
 		</dd>
+		<!-- 广告信息管理 -->
+		<dd id="ad" class="adManager" >
+			<div class="title ">
+				<span><img src="${ctx}/images/leftico01.png" /></span>广告管理
+			</div>
+			<ul id="ad-ul" class="menuson">
+				<li id="adList"><cite></cite> <a
+					href="${ctx}/ad/toAdPage.do#/adList">广告信息查询</a><i></i></li>
+			<%-- href="${ctx}/travelTrade/toTravelPage.do#/travelTradeList"> --%>
+			</ul>
+		</dd>
 	</dl>
 </section>
 <script>

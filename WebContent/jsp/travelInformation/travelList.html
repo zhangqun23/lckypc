@@ -18,7 +18,7 @@
 		</form>
 
 		<ul class="toolbar1" has-permission='tTravelAdd'>
-			<li class="click" ng-click="addNewTravel()"><a href=""><span><img
+			<li class="click" ng-click="addTravel()"><a href="#/travelAdd"><span><img
 						src="../images/t01.png" /></span>新建</a></li>
 		</ul>
 
@@ -49,12 +49,12 @@
 			<tr ng-repeat="travel in travels" id={{travel.travel_id}}>
 				<td>{{$index + 1 }}</td>
 				<td>{{travel.travel_title}}</td>
-				<td>{{travel.travel_content}}</td>
+				<td>{{travel.travel_content |cutString}}</td>
 				<td>{{travel.travel_route}}</td>
-				<td>{{travel.travel_mprice}}</td>
-				<td>{{travel.travel_cprice}}</td>
-				<td>{{travel.travel_insurance}}</td>
-				<td>{{travel.travel_discount}}</td>
+				<td>{{travel.travel_mprice |number:2}}</td>
+				<td>{{travel.travel_cprice |number:2}}</td>
+				<td>{{travel.travel_insurance |number:2}}</td>
+				<td>{{travel.travel_discount |number:2}}</td>
 				<td>{{travel.travel_stime.time | dateType}}</td>
 				<td>{{travel.travel_location}}</td>
 				<td>{{travel.travel_days}}</td>
@@ -62,9 +62,9 @@
 				<td>{{travel.travel_total_num}}</td>
 				<td>{{travel.travel_left_num}}</td>
 				<td>{{travel.travel_firm}}</td>
-				<td><a ng-click="editTravelBtn(this)" class="tablelink"
-					has-permission='tTravelEdit'> 修改</a><a href="#travelList"
-					ng-click="deleteTravel(travel.travel_id)" class="tablelink"
+				<td><a href="#/travelUpdate" ng-click="getTravelId(con.cont_id)"class="tablelink"	has-permission='tTravelEdit'> 修改</a>
+					
+					<a href="#travelList" ng-click="deleteTravel(travel.travel_id)" class="tablelink"
 					has-permission='tTravelDel'> 删除</a></td>
 			</tr>
 		</tbody>

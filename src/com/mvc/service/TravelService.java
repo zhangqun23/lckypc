@@ -1,11 +1,15 @@
 package com.mvc.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 
 
+import net.sf.json.JSONObject;
+
 import com.mvc.entity.Travel;
 import com.mvc.entity.TravelTrade;
+import com.mvc.entity.User;
 import com.utils.Pager;
 
 /**
@@ -52,6 +56,10 @@ public interface TravelService {
 	// 查询总条数
 		Integer countTrTotal(String searchKey);	
 		
-
+	// 根据合同ID获取合同
+		Travel selectTravelById(Integer travel_id);
+	
+	// 修改旅游基本信息
+		Boolean updateTravelBase(Integer travel_id, JSONObject jsonObject, User user) throws ParseException;
 	
 }

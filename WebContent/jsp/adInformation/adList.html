@@ -1,0 +1,67 @@
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>广告信息管理</li>
+		<li>广告信息列表</li>
+	</ul>
+</div>
+<div class="rightinfo">
+
+	<div ng-app="" class="tools">
+
+		<form class="toolbar">
+			<input name="" type="text" class="dfinput" id="aTitle"
+				ng-model="aTitle" placeholder="标题关键字" /> <input class="btn click"
+				type="submit" value="查询" ng-click="selectAdByTitle()">
+			<select class="dfinput" ng-model="aType" id="aType" required>
+						<option>类型选择</option>
+						<option value="0">旅游</option>
+						<option value="1">招工</option>
+						<option value="2">其他</option>				
+			</select>
+			<select class="dfinput" ng-model="aState" id="aState" required>
+						<option>审核状态</option>
+						<option value="0">未审核</option>
+						<option value="1">已审核</option>			
+			</select>
+		</form>
+	</div>
+
+	<table class="tablelist">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>标题</th>
+				<th>广告类型</th>
+				<th>审核状态</th>
+				<th>联系人</th>
+				<th>联系电话</th>
+				<th>备注</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="ad in ads" id={{ad.ad_id}}>
+				<td>{{$index + 1 }}</td>
+				<td>{{ad.ad_title}}</td>
+				<td>{{ad.ad_content |cutString}}</td>
+				<td>{{ad.ad_type}}</td>
+				<td>{{ad.ad_state}}</td>
+				<td>{{ad.ad_name}}</td>
+				<td>{{ad.ad_tel}}</td>
+				<td>{{ad.ad_remark |cutString}}</td>
+				<td><a href="#/adUpdate" ng-click="getAdId(ad.ad_id)"class="tablelink"
+					has-permission='aAdEdit'> 修改</a>	
+					<a href="#/adList" ng-click="deleteAd(ad.ad_id)" class="tablelink"
+					has-permission='aAdDel'> 删除</a>
+					<a href="#/adInfor" ng-click="getAdId(ad.ad_id)"class="tablelink"
+					has-permission='aAd'>详情</a></td>
+			<!-- 还用不用添加“审核”“详情”；“修改”足以充当详情 -->
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+

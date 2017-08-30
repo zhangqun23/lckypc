@@ -1,0 +1,47 @@
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>广告管理</li>
+		<li>修改广告信息</li>
+	</ul>
+</div>
+<!-- 录入旅游信息 -->
+<div class="formbody">
+	
+	<form ng-submit="updateAd()">
+		<div class="formtitle">
+			<span>广告信息</span>
+		</div>
+
+		<ul class="forminfo">
+			<li><label>标题<b>*</b></label><input type="text"
+				ng-model="adInfo.ad_title" class="dfinput" 
+				onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required /></li>
+			<li><label>活动描述</label>
+			<textarea ng-model="adInfo.ad_content"  maxlength="130" class="textarea"
+			    onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required /></textarea></li>
+			<li><label>广告类型</label><input type="text"
+				ng-model="adInfo.ad_type" class="dfinput" 
+				onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required /></li>
+			<li><label>审核状态<b>*</b></label><input type="text"
+				ng-model="adInfo.ad_state" class="dfinput" 
+				onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
+			<li><label>联系人<b>*</b></label><input type="text"
+				ng-model="adInfo.ad_name" class="dfinput"  
+				onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
+			<li><label>联系电话<b>*</b></label><input type="text"
+				ng-model="adInfo.ad_tel" class="dfinput"  
+				onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
+			<li><label>备注<b>*</b></label><input type="text"
+				ng-model="adInfo.ad_remark" class="dfinput"  
+				onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
+			<li><label>&nbsp;</label><input type="submit" id="selectAd"
+				class="btn" value="提交修改" /></li>
+		</ul>
+	</form>
+</div>
+
+
+
+

@@ -84,7 +84,7 @@ public Float getTravel_insurance() {
 public void setTravel_insurance(Float travel_insurance) {
 	this.travel_insurance = travel_insurance;
 }
-@Column(columnDefinition = "float(10,1) not null default '0.0'")
+@Column(columnDefinition = "float(10,2) not null default '0.00'")
 public Float getTravel_discount() {
 	return travel_discount;
 }

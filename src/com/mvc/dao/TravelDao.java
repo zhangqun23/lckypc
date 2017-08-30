@@ -14,8 +14,10 @@ import com.mvc.entity.TravelTrade;
 	 */
 	public interface TravelDao {
 
+		// 根据id修改
+			Boolean updateState(Integer travel_id);
 		// 根据id修改旅游信息
-		boolean updateState(Integer travel_id);
+			Boolean updateTravelById(Integer travel_id, Travel travel);
 
 		// 根据页数筛选全部旅游信息列表
 		 List<Travel> findTravelByPage(String searchKey, Integer offset, Integer end);

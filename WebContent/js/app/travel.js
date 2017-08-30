@@ -77,7 +77,10 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/travelTradeList', {
 				templateUrl : '/lckypc/jsp/travelInformation/travelTradeList.html',
 				controller : 'travelController'
-							
+	}).when('/travelUpdate',	{
+				templateUrl : '/lckypc/jsp/travelInformation/travelUpdate.html',
+				controller : 'travelController'
+											
 	});
 } ]);
 app.constant('baseUrl', '/lckypc/');
@@ -128,7 +131,20 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-
+	services.updateTravelById = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'travel/updateTravelById.do',
+			data : data,
+		});
+	};
+	services.selectTraveltById = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'travel/selectTravelById.do',
+			data : data
+		});
+	};
 	return services;
 
 } ]);
@@ -215,7 +231,56 @@ app
 									
 								});
 							}
+							// 删除旅游信息
+							travel.deleteTravel = function(travel_id) {
+								if (confirm("是否删除该旅游信息？") == true) {
+									services.deleteTravel({
+										travelId : travel_id
+									}).success(function(data) {
+
+										travel.result = data;
+										if (data == "true") {
+											console.log("删除旅游信息成功！");
+										} else {
+											console.log("删除失败！");
+										}
+										initData();
+									});
+								}
+							}
+							// 读取旅游信息
+							function selectTravelById() {
+								var travel_id = sessionStorage.getItem('travelId');
+								services
+										.selectTravelById({
+											travel_id : travel_id
+										})
+										.success(
+												function(data) {
+													travel.tra = data.travel;
+													travel.travel = data.travel;
+													if (data.travel.travel_stime) {
+														travel.travel.travel_stime = changeDateType(data.travel.travel_stime);
+													}
+
+												});
+							}
 							
+		// 修改旅游信息
+							travel.updateTravel = function() {
+								
+								var traFormData = JSON
+										.stringify(travel.travel);
+								services.updateTravelById({
+									travel : traFormData
+								}).success(function(data) {
+									alert("修改合同成功！");
+								});
+							};
+	// 查看ID，并记入sessionStorage
+							travel.getTravelId = function(travelId) {
+								sessionStorage.setItem('travelId', travelId);
+							};
 							
 							function initData() {
 								
@@ -274,6 +339,24 @@ app
 										'/travelAdd') == 0) {
 									
 								}
+								 else if ($location.path().indexOf(
+									'/travelUpdate') == 0) {
+								// 根据ID获取信息
+								var travel_id = sessionStorage
+										.getItem('travelId');
+								services
+										.selectTravelById({
+											travel_id : travel_id
+										})
+										.success(
+												function(data) {
+													travel.tra = data.travel;
+													travel.travel = data.travel;
+													if (data.travel.travel_stime) {
+														travel.travel.travel_stime = changeDateType(data.travel.travel_stime);
+													}
+													
+												});
 								
 							}
 
@@ -283,7 +366,7 @@ app
 								console.log("重新获取数据！");
 								initData();
 							});
-						}]);
+							}}]);
 
 //时间的格式化的判断
 app.filter('dateType', function() {
@@ -297,3 +380,23 @@ app.filter('dateType', function() {
 		return type;
 	}
 });
+//截取任务内容
+app.filter('cutString', function() {
+	return function(input) {
+		var content = "";
+		if (input != "") {
+			var shortInput = input.substr(0, 8);
+			content = shortInput + "……";
+		}
+
+		return content;
+	}
+});
+
+//鼠标放置显示详情
+app.filter('onmouse', function() {
+	
+	$('table').find('td').mouseover(function() {
+	var content = $(this).text(); // 获取到内容
+	});
+	});

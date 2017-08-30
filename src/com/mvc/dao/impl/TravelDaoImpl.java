@@ -36,7 +36,7 @@ public  class TravelDaoImpl implements TravelDao {
 	/**
 	 * 删除旅游信息
 	 */
-	public boolean updateState(Integer travel_id) {
+	public Boolean updateState(Integer travel_id) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		try {
@@ -122,7 +122,19 @@ public  class TravelDaoImpl implements TravelDao {
 			em.close();
 			return list;
 		}
-
+		// 修改旅游信息
+		@Override
+		public Boolean updateTravelById(Integer travel_id, Travel travel) {
+			EntityManager em = emf.createEntityManager();
+			try {
+				em.getTransaction().begin();
+				em.merge(travel);
+				em.getTransaction().commit();
+			} finally {
+				em.close();
+			}
+			return true;
+		}
 		//  查询旅游交易信息总条数
 		@SuppressWarnings("unchecked")
 		public Integer countTrTotal(String searchKey) {

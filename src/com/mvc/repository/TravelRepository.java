@@ -44,6 +44,8 @@ public interface TravelRepository extends JpaRepository<Travel, Integer> {
 	@Query("select tr from Travel tr where travel_firm = :travel_firm")
 	public List<Travel> findTravelByFirm(@Param("travel_firm") Integer travelFirm);
 	
-	
+	//根据ID获取旅游信息
+		@Query("select tr from Travel tr where travel_id=:travel_id ")
+		Travel selectTravelById(@Param("travel_id") Integer travel_id);
 
 }

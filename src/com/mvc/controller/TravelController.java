@@ -1,6 +1,5 @@
 package com.mvc.controller;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,11 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.base.constants.SessionKeyConstants;
 import com.mvc.entity.Travel;
 import com.mvc.entity.TravelTrade;
+import com.mvc.entity.User;
 import com.mvc.service.TravelService;
 import com.mvc.service.UserService;
 import com.utils.Pager;
+
+
+
+
 
 
 
@@ -138,8 +143,12 @@ public class TravelController {
 			travel.setTravel_insurance(Float.parseFloat(jsonObject.getString("travel_insurance")));
 		}
 		if (jsonObject.containsKey("travel_discount")) {
+//			DecimalFormat df = new DecimalFormat("#.00");
+//			String str = df.format(Float.parseFloat(jsonObject.getString("travel_discount")));
+//			travel.setTravel_discount(Float.parseFloat(str));
 			travel.setTravel_discount(Float.parseFloat(jsonObject.getString("travel_discount")));
 		}
+		
 		if (jsonObject.containsKey("travel_stime")) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(jsonObject.getString("travel_stime"));
@@ -197,6 +206,44 @@ public class TravelController {
 		return "travelInformation/index";
 	}
 	
+	/**
+	 * 根据ID获取旅游信息
+	 * 
+	 * @param request
+	 * @param session
+	 * @return Travel对象
+	 */
+	@RequestMapping("/selectTravelById.do")
+	public @ResponseBody String selectTravelById(HttpServletRequest request, HttpSession session) {
+		int travel_id = Integer.parseInt(request.getParameter("travel_id"));
+		session.setAttribute("travel_id", travel_id);
+		Travel travel = travelService.selectTravelById(travel_id);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("travel", travel);
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据合同ID修改旅游信息
+	 * 
+	 * @param request
+	 * @param session
+	 * @return 成功返回1，失败返回0
+	 * @throws ParseException 
+	 */
+	@RequestMapping("/updateTravelById.do")
+	public @ResponseBody Integer updateConById(HttpServletRequest request, HttpSession session) throws ParseException {
+		User user = (User) session.getAttribute(SessionKeyConstants.LOGIN);
+		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("travel"));
+		Integer travel_id = null;
+		if (jsonObject.containsKey("travel_id")) {
+			travel_id = Integer.parseInt(jsonObject.getString("travel_id"));
+		}
+		Boolean flag = travelService.updateTravelBase(travel_id, jsonObject, user);
+		if (flag == true)
+			return 1;
+		else
+			return 0;
+	}
 	/**
 	 * 根据页数筛选旅游信息列表
 	 * 
