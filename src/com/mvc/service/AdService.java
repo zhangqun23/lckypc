@@ -18,26 +18,15 @@ import net.sf.json.JSONObject;
  *
  */
 public interface AdService {
-	//根据toitle获取所有信息列表
-	Integer countTotal(String searchKey);
-	
-	//根据page获取ad
-	List<Ad> findAdByPage(String searchKey, Integer offset, Integer end);
 	
 	//根据id删除ad
 	boolean deleteIsdelete(Integer ad_id);
 	
 	//根据id筛选ad
 	Ad selectAdById(String adId);
-	
-	//根据type选择ad
-	Ad selectAdByType(String adType);
-	
+
 	//根据state选择ad
 	Ad selectAdByState(String adState);
-	
-	//根据state选择ad
-	Ad selectAdByTitle(String adTitle);
 	
 	//根据id修改ad
 	Boolean updateAdBase(Integer ad_id, JSONObject jsonObject, User user) throws ParseException;

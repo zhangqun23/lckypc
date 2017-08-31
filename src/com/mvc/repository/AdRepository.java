@@ -12,17 +12,9 @@ public interface AdRepository extends JpaRepository<Ad, Integer> {
 	@Query("select a from Ad a where ad_id=:ad_id ")
 	Ad selectAdById(@Param("ad_id") Integer ad_id);
 	
-	//根据type获取ad信息
-	@Query("select a from Ad a where ad_type=:ad_type ")
-	Ad selectAdByType(@Param("ad_type") String ad_type);
-	
 	//根据state获取ad信息
 	@Query("select a from Ad a where ad_state=:ad_state ")
 	Ad selectAdByState(@Param("ad_state") String ad_state);
-	
-	// 根据title查询旅游信息
-	@Query("select a from Ad a where ad_title = :ad_title and is_delete=0")
-    Ad selectAdByTitle(@Param("ad_title") String ad_title);
 	
 	
 		// 根据ID查询旅游信息

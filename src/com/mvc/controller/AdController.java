@@ -37,31 +37,12 @@ public class AdController {
 		AdService adService;
 		@Autowired
 		UserService userService;
-		/**
-		 * 
-		 * 
-		 *@Title: getAdsByPrarm 
-		 *@Description: 根据页数筛选ad信息列表
-		 *@param @param request
-		 *@param @param session
-		 *@param @return
-		 *@return String
-		 *@throws
-		 */
-		@RequestMapping(value = "/getAdListByPage.do")
-		public @ResponseBody String getAdsByPrarm(HttpServletRequest request, HttpSession session) {
-			JSONObject jsonObject = new JSONObject();
-			String searchKey = request.getParameter("searchKey");
-			Integer totalRow = adService.countTotal(searchKey);
-			Pager pager = new Pager();
-			pager.setPage(Integer.valueOf(request.getParameter("page")));
-			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-			List<Ad> list = adService.findAdByPage(searchKey, pager.getOffset(), pager.getLimit());
-			jsonObject.put("list", list);
-			jsonObject.put("totalPage", pager.getTotalPage());
-			System.out.println("totalPage:" + pager.getTotalPage());
-			return jsonObject.toString();
+		
+		@RequestMapping("/toAdPage.do")
+		public String adPage() {
+			return "adInformation/index";
 		}
+		
 		/**
 		 * 
 		 * 
@@ -78,63 +59,6 @@ public class AdController {
 			Integer adid = Integer.valueOf(request.getParameter("adId"));
 			boolean result = adService.deleteIsdelete(adid);
 			return JSON.toJSONString(result);
-		}
-		/**
-		 * 
-		 * 
-		 *@Title: selectAdById 
-		 *@Description: 根据id选择ad信息
-		 *@param @param request
-		 *@param @param session
-		 *@param @return
-		 *@return String
-		 *@throws
-		 */
-		@RequestMapping("/selectAdById.do")
-		public @ResponseBody String selectAdById(HttpServletRequest request, HttpSession session) {
-			Ad list;
-			String adId = request.getParameter("ad_id");
-			list = adService.selectAdById(adId);
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("list", list);
-			return jsonObject.toString();
-		}
-		
-		/**
-		 * 
-		 * 
-		 *@Title: selectAdByTitle 
-		 *@Description: TODO
-		 *@param @param request
-		 *@param @param session
-		 *@param @return
-		 *@return String
-		 *@throws
-		 */
-		@RequestMapping("/selectAdByTitle.do")
-		public @ResponseBody String selectAdByTitle(HttpServletRequest request, HttpSession session){
-			Ad list;
-			String adTitle = request.getParameter("ad_title");
-			list = adService.selectAdByTitle(adTitle);
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("list", list);
-			return jsonObject.toString();
-		}
-		/**
-		 * 广告查询
-		 * 根据类型查询 若为空则返回全部类型广告，否则返回相应类型广告
-		 * @param request
-		 * @param session
-		 * @return  list
-		 */
-		@RequestMapping("/selectAdByType.do")
-		public @ResponseBody String selectAdByType(HttpServletRequest request, HttpSession session){
-			Ad list;
-			String adType = request.getParameter("ad_type");
-			list = adService.selectAdByType(adType);
-			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("list", list);
-			return jsonObject.toString();
 		}
 		
 		/**
@@ -157,6 +81,7 @@ public class AdController {
 			jsonObject.put("list", list);
 			return jsonObject.toString();
 		}
+		
 		/**
 		 * 
 		 * 

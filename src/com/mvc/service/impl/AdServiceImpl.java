@@ -29,18 +29,6 @@ public class AdServiceImpl implements AdService {
 		AdRepository adRepository;
 		@Autowired
 		AdDao adDao;
-		
-		// 查询广告交易总条数
-		@Override
-		public Integer countTotal(String searchKey) {
-			return adDao.countTotal(searchKey);
-		}
-		
-		// 根据page筛选全部ad信息列表
-		@Override
-		public List<Ad> findAdByPage(String searchKey, Integer offset, Integer end) {
-			return adDao.findAdByPage(searchKey, offset, end);
-		}
 
 		// 根据id删除ad
 		@Override
@@ -56,21 +44,9 @@ public class AdServiceImpl implements AdService {
 		}
 		
 		@Override
-		public Ad selectAdByType(String adType) {
-			// TODO 自动生成的方法存根
-			return adRepository.selectAdByType(adType);
-		}
-
-		@Override
 		public Ad selectAdByState(String adState) {
 			// TODO 自动生成的方法存根
 			return adRepository.selectAdByState(adState);
-		}
-		
-		@Override
-		public Ad selectAdByTitle(String adTitle) {
-			// TODO 自动生成的方法存根
-			return adRepository.selectAdByTitle(adTitle);
 		}
 		
 		// 根据id修改ad基本信息

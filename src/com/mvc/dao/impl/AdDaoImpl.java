@@ -46,10 +46,6 @@ public class AdDaoImpl implements AdDao {
 		public List<Ad> findAdByPage(String searchKey, Integer offset, Integer end) {
 			EntityManager em = emf.createEntityManager();
 			String selectSql = "select * from Ad where is_delete=0";
-		// 判断查找关键字是否为空
-			if (null != searchKey) {
-				selectSql += " and ( ad_title like '%" + searchKey + "%')";
-			}
 			selectSql += " order by ad_id desc limit :offset, :end";
 			Query query = em.createNativeQuery(selectSql, Ad.class);
 			query.setParameter("offset", offset);
@@ -62,10 +58,7 @@ public class AdDaoImpl implements AdDao {
 		@SuppressWarnings("unchecked")
 		public Integer countTotal(String searchKey) {
 			EntityManager em = emf.createEntityManager();
-			String countSql = " select count(ad_id) from Ad tr where is_delete=0 ";
-			if (null != searchKey) {
-				countSql += "   and (ad_title like '%" + searchKey + "%')";
-			}
+			String countSql = " select count(ad_id) from Ad a where is_delete=0 ";
 			Query query = em.createNativeQuery(countSql);
 			List<Object> totalRow = query.getResultList();
 			em.close();
