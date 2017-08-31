@@ -1,0 +1,45 @@
+<article style="margin-top: 54px;">
+           
+	<ul class="order-tab clearfix">
+		<li class="green">广告信息</li>
+	</ul>
+	<ul class="order-box" >
+		<li class="inner">
+			<div class="item-name">编号：</div>
+			<div class="item-value">{{adIList.ad_id|adFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">标题：</div>
+			<div class="item-value">{{adIList.ad_title|adFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">内容：</div>
+			<div class="item-value">{{adIList.ad_content|adFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">类型：</div>
+			<div class="item-value">{{adIList.ad_type|adFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">审核状态：</div>
+			<div class="item-value green">{{adIList.ad_state}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">联系人：</div>
+			<div class="item-value">{{adIList.ad_name|adFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">联系方式：</div>
+			<div class="item-value">{{adIList.ad_tel|adFilter}}</div>
+		</li>
+		<li class="inner">
+			<div class="item-name">备注：</div>
+			<div class="item-value">{{adIList.ad_remark|adFilter}}</div>
+		</li>
+		
+           <!-- <li class="inner no-padding">
+            <a href="javascript:;" class="weui_btn weui_btn_primary">确定交易</a>
+         </li> -->
+	</ul>
+        
+</article>

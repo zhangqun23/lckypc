@@ -3,54 +3,65 @@ package com.mvc.service;
 import java.text.ParseException;
 import java.util.List;
 
+import net.sf.json.JSONObject;
+
 import com.mvc.entity.Ad;
 import com.mvc.entity.User;
-
-import net.sf.json.JSONObject;
 
 /**
  * 
  * @ClassName: AdService
  * @Description: TODO
  * @author ycj
- * @date 2017年8月30日 上午10:46:32 
+ * @date 2017年8月31日 下午3:38:28 
  * 
  *
  */
+
 public interface AdService {
 	
-	//根据id删除ad
+	// 查询同公司总条数
+	Integer countTotal(String searchKey);
+	
+	// 根据页数筛选全部旅游信息列表
+	List<Ad> findAdByPage(String searchKey, Integer offset, Integer end);
+	
+	// 根据id删除
 	boolean deleteIsdelete(Integer ad_id);
 	
-	//根据id筛选ad
-	Ad selectAdById(String adId);
+	// 根据标题查询旅游信息是否存在,返回1存在，返回0不存在
+	Long isExist(String adTitle);
+	
+	// 根据合同ID获取合同
+	Ad selectAdById(Integer ad_id);
+	
+	// 修改旅游基本信息
+    Boolean updateAdBase(Integer ad_id, JSONObject jsonObject, User user) throws ParseException;
+    
+    // 根据ID查询旅游信息()
+ 	Ad findAdById(Integer ad_id);
+ 	
+ 	//根据title获取ad
 
-	//根据state选择ad
-	Ad selectAdByState(String adState);
-	
-	//根据id修改ad
-	Boolean updateAdBase(Integer ad_id, JSONObject jsonObject, User user) throws ParseException;
+	List<Ad> selectAdByTitle(String aTitle, Integer offset, Integer end);
+
+	//
+	Ad selectAdInfo(String adId);
+ 	
+
+
+    
+    
+    
+
+//	// 添加旅游信息
+//	Travel addTravel(User user,JSONObject jsonObject);
 
 	
+	
+//	// 根据标题获取列表
+//		List<Travel> findTravelByTitle(String travelTitle, Pager pager);
 
 	
-	
 		
-		//boolean save(Ad ad);
-		//Long isExist(String adTitle);
-		//List<Ad> findAdByTitle(String adTitle);
-		//List<Ad> findAdByType(String adType);
-		//List<Ad> findAdByState(String adState);
-		//List<Ad> findAdAlls();
-		//Ad findAdById(Integer ad_id);
-		//	List<Ad> findAdByTitle(String adTitle, Pager pager);
-			
-		
-		
-			
-		
-		
-		
-		
-			
-	}
+}

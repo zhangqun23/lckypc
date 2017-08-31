@@ -8,6 +8,14 @@ var app = angular
 
 					// Override $http service's default transformRequest
 					$httpProvider.defaults.transformRequest = [ function(data) {
+						/**
+						 * The workhorse; converts an object to
+						 * x-www-form-urlencoded serialization.
+						 * 
+						 * @param {Object}
+						 *            obj
+						 * @return {String}
+						 */
 						var param = function(obj) {
 							var query = '';
 							var name, value, fullSubName, subName, subValue, innerObj, i;
@@ -67,11 +75,21 @@ app.config([ '$routeProvider', function($routeProvider) {
 				templateUrl : '/lckypc/jsp/adInformation/adUpdate.html',
 				controller : 'adController'
 											
-	})
+	}).when('/adInfo/:adId', {
+		templateUrl : '/lckypc/jsp/ad/adInfo.html',
+		controller : 'SelectAdController'
+	});
 } ]);
 app.constant('baseUrl', '/lckypc/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
+	services.getAdListByPage = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/getAdListByPage.do',
+			data : data
+		});
+	};
 	
 	services.deleteAd = function(data) {
 		return $http({
@@ -80,11 +98,11 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	
-	services.selectAdByState = function(data) {
+
+	services.selectAdByTitle = function(data) {
 		return $http({
 			method : 'post',
-			url : baseUrl + 'ad/selectAdByState.do',
+			url : baseUrl + 'ad/selectAdByTitle.do',
 			data : data
 		});
 	};
@@ -93,6 +111,22 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'ad/updateAdById.do',
+			data : data,
+		});
+	};
+	
+	services.selectAdtById = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/selectAdById.do',
+			data : data
+		});
+	};
+	
+	services.selectAdInfo = function(data) {    //加上
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/selectAdInfo.do',
 			data : data
 		});
 	};
@@ -107,61 +141,49 @@ app
 						'$scope',
 						'services',
 						'$location',
-						'$routeParams',
-						function($scope, services, $location,$routeParams) {
+						function($scope, services, $location) {
 
 							var ad = $scope;
-							ad.ADLimit={
-									ad_type:"",
-									ad_name:"",
-									ad_title:"",
-									ad_content:"",
-									ad_tel:"",
-									ad_remark:"",
-									ad_state:""
+							var searchKey = null;
+							// 换页
+							function pageTurn(totalPage, page, Func) {
+
+								var $pages = $(".tcdPageCode");
+								if ($pages.length != 0) {
+									$(".tcdPageCode").createPage({
+										pageCount : totalPage,
+										current : page,
+										backFn : function(p) {
+											Func(p);
+										}
+									});
 								}
-								ad.ADSLimit={
-									ad_state:"请选择审核状态"
-									}
-							ad.selectAdByState = function(){
-								
-								if(ad.ADSLimit.ad_state == "请选择审核状态"){
-									return alert("请选择审核状态！")
-									}
-								
-								console.log("dawda");
-								
-								var adLimit = JSON.stringify(ad.ADSLimit);
-								services.selectAdByState({
-									adState : adLimit
-									
+							}
+
+							
+							// 根据页数获取用户列表
+							function getAdListByPage(page) {
+								services.getAdListByPage({
+									page : page,
+									searchKey : searchKey
 								}).success(function(data) {
-									ad.adList = data.list;
-								
+									ad.ads = data.list;
+									
 								});
 							}
-							ad.adList=function(adId){
-								$location.path('adList/'+adId);
-							}
 							
-							//初始化
-                            function initData() {
-								
-								console.log("初始化页面信息");
-								
-								if ($location.path().indexOf('/adList') == 0) {
-									services.adList({
-										
-									}).success(function(data) {
-										ad.adList = data.list;
-										
-										console.log("dawda");
-									});
-								} 
-							}
-							initData();
-						} ]);
-		
+							// 根据输入筛选信息
+							ad.selectAdByTitle = function() {
+								searchKey = ad.aTitle;
+								services.getAdListByPage({
+									page : 1,
+									searchKey : searchKey
+								}).success(function(data) {
+									ad.ads = data.list;
+									pageTurn(data.totalPage, 1, getAdListByPage)
+								});
+							};
+							
 							// 删除旅游信息
 							ad.deleteAd = function(ad_id) {
 								if (confirm("是否删除该旅游信息？") == true) {
@@ -179,7 +201,21 @@ app
 									});
 								}
 							}
-		// 修改旅游信息
+							// 读取旅游信息
+							function selectAdById() {
+								var ad_id = sessionStorage.getItem('adId');
+								services
+										.selectAdById({
+											ad_id : ad_id
+										})
+										.success(
+												function(data) {
+													ad.a = data.ad;
+													ad.ad = data.ad;
+												});
+							}
+							
+		                    // 修改旅游信息
 							ad.updateAd = function() {
 								
 								var aFormData = JSON
@@ -190,12 +226,78 @@ app
 									alert("修改成功！");
 								});
 							};
-	// 查看ID，并记入sessionStorage
+	                        // 查看ID，并记入sessionStorage
 							ad.getAdId = function(adId) {
 								sessionStorage.setItem('adId', adId);
 							};
-							// 初始化
 							
+							function initData() {
+								
+								console.log("初始化页面信息");
+								
+								$("#ad").show();
+								if ($location.path().indexOf('/adList') == 0) {
+									searchKey = null;
+									services.getAdListByPage({
+										page : 1,
+										searchKey : searchKey
+									}).success(function(data) {
+										ad.ads = data.list;
+										pageTurn(data.totalPage, 1, getAdListByPage)
+									});
+								}
+//								if($location.path().indexOf('/travelList') == 0) {
+//										
+//										travel.flag = 1; // 标志位，用于控制按钮是否显示
+////										services.getTravelList({
+//											services.getTravelListByPage({
+//													page : 1
+//												})
+//												.success(
+//														function(data) {
+//															
+//															travel.travels = data.list;
+//															travel.totalPage = data.totalPage;
+//															var $pages = $(".tcdPageCode");
+//															if ($pages.length != 0) {
+//																$pages
+//																		.createPage({
+//																			pageCount : contract.totalPage,
+//																			current : 1,
+//																			backFn : function(
+//																					p) {
+////																				travel.getTravelList(p);
+//																				travel.getTravelListByPage(p);// 点击页码时获取第p页的数据
+//																			}
+//																		});
+//															}
+//														});
+
+								 else if ($location.path().indexOf(
+									'/adUpdate') == 0) {
+								// 根据ID获取信息
+								var ad_id = sessionStorage
+										.getItem('adId');
+								services
+										.selectAdById({
+											ad_id : ad_id
+										})
+										.success(
+												function(data) {
+													ad.a = data.ad;
+													ad.ad = data.d;
+												});
+								
+							}
+
+							initData();
+							
+							$scope.$on('reGetData', function() {
+								console.log("重新获取数据！");
+								initData();
+							});
+							}}]);
+
 //时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
@@ -216,20 +318,10 @@ app.filter('cutString', function() {
 			var shortInput = input.substr(0, 8);
 			content = shortInput + "……";
 		}
+
 		return content;
 	}
 });
-app.filter('adFilter',function(){ 
-	return function(input){ 
-		if(input == ""|| input == null){
-			var input = "空";
-			return input; 		
-		}
-		else{
-			return input;
-		}
-	}
-	});
 
 //鼠标放置显示详情
 app.filter('onmouse', function() {
@@ -238,3 +330,18 @@ app.filter('onmouse', function() {
 	var content = $(this).text(); // 获取到内容
 	});
 	});
+app
+.controller(
+		'SelectAdController',
+		[
+				'$scope',
+				'services',
+				'$location',
+				'$routeParams',
+				function($scope, services, $location, $routeParams) {
+					services.selectAdInfo({
+						ad_id : $routeParams.adId
+					}).success(function(data) {
+						$scope.adIList = data.list;
+					});
+				} ]);
