@@ -9,9 +9,20 @@
 
 <div class="rightinfo">
 	<div ng-app="" class="tools">
-		<form class="toolbar">
-		 <input class="btn click"
-				type="submit" value="查询" ng-click="selectAdByTitle()">
+		<form class="toolbar" >
+		  <ul class="form-box">
+		    <li>
+		     <div>
+		      <select class="select-box" ng-model="ADSLimit.ad_state" id="ad_state" ng-click="selectAdByState()" required>
+		         <option>审核状态</option>
+		         <option value="0">未审核</option>
+		         <option value="1">已审核</option>
+		      </select>
+		     </div>
+		    </li>	      
+		   <!-- <input class="btn click"
+				type="submit" value="查询" ng-click="selectAdByState()"> -->      
+		  </ul>
 		</form>
 	</div>
 	<table class="tablelist">

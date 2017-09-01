@@ -72,12 +72,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : '/lckypc/jsp/adInformation/adList.html',
 		controller : 'adController'
 	}).when('/adUpdate',	{
-				templateUrl : '/lckypc/jsp/adInformation/adUpdate.html',
-				controller : 'adController'
+		templateUrl : '/lckypc/jsp/adInformation/adUpdate.html',
+		controller : 'adController'
 											
-	}).when('/adInfo/:adId', {
-		templateUrl : '/lckypc/jsp/ad/adInfo.html',
-		controller : 'SelectAdController'
 	});
 } ]);
 app.constant('baseUrl', '/lckypc/');
@@ -91,6 +88,38 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	
+/*	service.editAd = function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'ad/editAd.do',
+			data : data
+		});
+	};
+	
+	service.selectAdByType = function(data){
+		return $http({
+			method : 'post',
+		    url : baseUrl + 'selectAdByType.do',
+		    data : data
+		});
+	};
+	
+	service.selectAdByState = function(data){
+		return $http({
+			method : 'post',
+		    url : baseUrl + 'selectAdByState.do',
+		    data : data
+		});
+	};
+	
+	service.selectAdInfo = function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'selectAdInfo.do',
+			data : data
+		});
+	};
+	
 	services.deleteAd = function(data) {
 		return $http({
 			method : 'post',
@@ -98,38 +127,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-
-	services.selectAdByTitle = function(data) {
-		return $http({
-			method : 'post',
-			url : baseUrl + 'ad/selectAdByTitle.do',
-			data : data
-		});
-	};
-	
-	services.updateAdById = function(data) {
-		return $http({
-			method : 'post',
-			url : baseUrl + 'ad/updateAdById.do',
-			data : data,
-		});
-	};
-	
-	services.selectAdtById = function(data) {
-		return $http({
-			method : 'post',
-			url : baseUrl + 'ad/selectAdById.do',
-			data : data
-		});
-	};
-	
-	services.selectAdInfo = function(data) {    //加上
-		return $http({
-			method : 'post',
-			url : baseUrl + 'ad/selectAdInfo.do',
-			data : data
-		});
-	};
+	*/
 	return services;
 
 } ]);
@@ -142,8 +140,33 @@ app
 						'services',
 						'$location',
 						function($scope, services, $location) {
-
+							
 							var ad = $scope;
+							
+							ad.ADLimit={
+									ad_type:"",//ad_type:"0"???
+									ad_name:"",
+									ad_title:"",
+									ad_content:"",
+									ad_tel:"",
+									ad_remark:"",
+									ad_state:""//ad_state:"0"???
+							}
+							ad.ADSLimit={
+									ad_state:"审核状态"
+							}
+							ad.selectAdByState=function(){
+								if(ad.ADSLimit.ad_state == "审核状态"){return alert("请选择审核状态")}
+							    var adLimit = JSON.stringify(ad.ADSLimit);
+							    service.selectAdByState({
+							    	adState : adLimit
+							    }).success(function(data){
+							    	ad.adList = data.list;
+							    });
+							    ad.selectAdInfo=function(adId){
+							    	$location.path('selectAdInfo/' + adId);
+							    }
+							}	
 							var searchKey = null;
 							// 换页
 							function pageTurn(totalPage, page, Func) {
@@ -159,9 +182,8 @@ app
 									});
 								}
 							}
-
-							
-							// 根据页数获取用户列表
+	
+							// 根据页数获取ad列表
 							function getAdListByPage(page) {
 								services.getAdListByPage({
 									page : page,
@@ -171,29 +193,28 @@ app
 									
 								});
 							}
-							
-							// 根据输入筛选信息
-							ad.selectAdByTitle = function() {
-								searchKey = ad.aTitle;
-								services.getAdListByPage({
-									page : 1,
-									searchKey : searchKey
-								}).success(function(data) {
-									ad.ads = data.list;
-									pageTurn(data.totalPage, 1, getAdListByPage)
+								
+							//
+							ad.selectAdInfo = function(ad_id){
+								var adFormData = JSON
+								       .stringify(ad.adInfo);
+								service.selectAdInfo({
+									adId : $routeParams.ad_id
+								}).success(function(data){
+									$scope.adIList = data.list;
+								//initData();??
 								});
-							};
-							
+								initData();//位置是否正确
+							}
 							// 删除旅游信息
 							ad.deleteAd = function(ad_id) {
-								if (confirm("是否删除该旅游信息？") == true) {
+								if (confirm("是否删除该ad信息？") == true) {
 									services.deleteAd({
 										adId : ad_id
 									}).success(function(data) {
-
 										ad.result = data;
 										if (data == "true") {
-											console.log("删除旅游信息成功！");
+											console.log("删除ad信息成功！");
 										} else {
 											console.log("删除失败！");
 										}
@@ -201,40 +222,34 @@ app
 									});
 								}
 							}
-							// 读取旅游信息
-							function selectAdById() {
-								var ad_id = sessionStorage.getItem('adId');
+							// 读取ad信息
+							function selectAdInfo() {
+								var adId = sessionStorage.getItem('ad_id');
 								services
-										.selectAdById({
+										.selectAdInfo({
 											ad_id : ad_id
 										})
 										.success(
 												function(data) {
-													ad.a = data.ad;
 													ad.ad = data.ad;
 												});
 							}
 							
-		                    // 修改旅游信息
-							ad.updateAd = function() {
+		                    // 修改ad信息
+							ad.editAd = function() {
 								
 								var aFormData = JSON
 										.stringify(ad.ad);
-								services.updateAdById({
+								services.editAd({
 									ad : aFormData
 								}).success(function(data) {
 									alert("修改成功！");
 								});
 							};
-	                        // 查看ID，并记入sessionStorage
-							ad.getAdId = function(adId) {
-								sessionStorage.setItem('adId', adId);
-							};
-							
-							function initData() {
-								
+	                       
+							//初始化
+							function initData() {//有问题初始化未成功
 								console.log("初始化页面信息");
-								
 								$("#ad").show();
 								if ($location.path().indexOf('/adList') == 0) {
 									searchKey = null;
@@ -245,68 +260,38 @@ app
 										ad.ads = data.list;
 										pageTurn(data.totalPage, 1, getAdListByPage)
 									});
-								}
-//								if($location.path().indexOf('/travelList') == 0) {
-//										
-//										travel.flag = 1; // 标志位，用于控制按钮是否显示
-////										services.getTravelList({
-//											services.getTravelListByPage({
-//													page : 1
-//												})
-//												.success(
-//														function(data) {
-//															
-//															travel.travels = data.list;
-//															travel.totalPage = data.totalPage;
-//															var $pages = $(".tcdPageCode");
-//															if ($pages.length != 0) {
-//																$pages
-//																		.createPage({
-//																			pageCount : contract.totalPage,
-//																			current : 1,
-//																			backFn : function(
-//																					p) {
-////																				travel.getTravelList(p);
-//																				travel.getTravelListByPage(p);// 点击页码时获取第p页的数据
-//																			}
-//																		});
-//															}
-//														});
-
+								 }
 								 else if ($location.path().indexOf(
 									'/adUpdate') == 0) {
-								// 根据ID获取信息
-								var ad_id = sessionStorage
-										.getItem('adId');
-								services
-										.selectAdById({
-											ad_id : ad_id
+									 
+								// 根据id获取ad
+								 var adId = sessionStorage
+										.getItem('ad_id');
+								 services
+										.selectAdInfo({
+											adId : adId
 										})
 										.success(
 												function(data) {
-													ad.a = data.ad;
-													ad.ad = data.d;
+													ad.ad = data.ad;
 												});
-								
 							}
-
-							initData();
 							
-							$scope.$on('reGetData', function() {
-								console.log("重新获取数据！");
-								initData();
-							});
-							}}]);
+//							$scope.$on('reGetData', function() {
+//								console.log("重新获取数据！");
+//								initData();
+//							});
+							}
+							initData();
+							}]);
 
 //时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
-
 		var type = "";
 		if (input != null) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
 		}
-
 		return type;
 	}
 });
@@ -345,3 +330,46 @@ app
 						$scope.adIList = data.list;
 					});
 				} ]);
+//根据输入筛选信息
+//ad.selectAdByTitle = function() {
+//	searchKey = ad.aTitle;
+//	services.getAdListByPage({
+//		page : 1,
+//		searchKey : searchKey
+//	}).success(function(data) {
+//		ad.ads = data.list;
+//	pageTurn(data.totalPage, 1, getAdListByPage)
+//	});
+//};
+
+// 查看ID，并记入sessionStorage
+//ad.getAdId = function(adId) {
+//	sessionStorage.setItem('adId', adId);
+//};
+
+//if($location.path().indexOf('/travelList') == 0) {
+//
+//travel.flag = 1; // 标志位，用于控制按钮是否显示
+////services.getTravelList({
+//	services.getTravelListByPage({
+//			page : 1
+//		})
+//		.success(
+//				function(data) {
+//					
+//					travel.travels = data.list;
+//					travel.totalPage = data.totalPage;
+//					var $pages = $(".tcdPageCode");
+//					if ($pages.length != 0) {
+//						$pages
+//								.createPage({
+//									pageCount : contract.totalPage,
+//									current : 1,
+//									backFn : function(
+//											p) {
+////										travel.getTravelList(p);
+//										travel.getTravelListByPage(p);// 点击页码时获取第p页的数据
+//									}
+//								});
+//					}
+//				});

@@ -19,43 +19,53 @@ import com.mvc.entity.Ad;
  */
 public interface AdRepository extends JpaRepository<Ad, Integer> {
 	
-	// 根据标题查询旅游信息是否存在,返回1存在，返回0不存在
-	@Query("select count(ad_id) from Ad a where ad_title = :ad_title and is_delete=0")
-	public Long countByAdTitle(@Param("ad_title") String ad_title);
+	//返回相应类型广告
+	@Query("select a from Ad a where ad_type = :ad_type and is_delete=0")
+	public List<Ad> findAdByType(@Param("ad_type")Integer ad_type);
+
+	//返回相应状态ad
+	@Query("select a from Ad a where ad_state =:ad_state and is_delete=0")
+	public List<Ad> findAdByState(@Param("ad_state")Integer ad_state);
+
+	//类型为空返回全部广告
+	@Query("select a from Ad a where is_delete=0")
+	public List<Ad> findAlls();
 	
-	//根据ID获取旅游信息
-	@Query("select a from Ad a where ad_id=:ad_id ")
-	Ad selectAdById(@Param("ad_id") Integer ad_id);
-	
-	// 根据ID查询旅游信息
+	// 根据id查询ad
     @Query("select a from Ad a where ad_id = :ad_id")
 	public Ad findAdById(@Param("ad_id") Integer adId);
+	
+	
+	
+	
+	
+	
+	
+	
     
+    
+	
+	// 根据标题查询旅游信息是否存在,返回1存在，返回0不存在
+//	@Query("select count(ad_id) from Ad a where ad_title = :ad_title and is_delete=0")
+//	public Long countByAdTitle(@Param("ad_title") String ad_title);
+	
+	//根据ID获取旅游信息
+//	@Query("select a from Ad a where ad_id=:ad_id ")
+//	Ad selectAdById(@Param("ad_id") Integer ad_id);
+	
     // 根据ID查询全部旅游信息
- 	@Query("select a from Ad a where is_delete=0 ")
- 	public List<Ad> findAdAlls();
+// 	@Query("select a from Ad a where is_delete=0 ")
+// 	public List<Ad> findAdAlls();
 	
-	
-		
-		
-	
-	
-
-	
-
 	// 根据id删除
-	@Query("update Ad set is_delete=1 where ad_id = :ad_id")
-	public boolean deleteByAdId(@Param("ad_id") Integer ad_id);
+//	@Query("update Ad set is_delete=1 where ad_id = :ad_id")
+//	public boolean deleteByAdId(@Param("ad_id") Integer ad_id);
 	
-	
-
 	// 根据标题查询旅游信息
-	@Query("select a from Ad a where ad_title = :ad_title and is_delete=0")
-	public Ad selectAdByTitle(@Param("ad_title") String ad_title);
+//	@Query("select a from Ad a where ad_title = :ad_title and is_delete=0")
+//	public Ad selectAdByTitle(@Param("ad_title") String ad_title);
 	// 查询总条数
 //	@Query("select count(travel_id) from travel tr where is_delete=0")
-//		Long countTotal(@Param("creator_id") Integer creator_id);
-	
-	
+//		Long countTotal(@Param("creator_id") Integer creator_id);	
 
 }
