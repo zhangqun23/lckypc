@@ -20,6 +20,7 @@ private String ad_title;//广告名称
 private String ad_pic_path;//广告图片路径
 private String ad_remark;//广告备注
 private String ad_content;//广告内容
+private Boolean is_delete;//默认为0未删除
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -101,5 +102,11 @@ public String getAd_content() {
 }
 public void setAd_content(String ad_content) {
 	this.ad_content = ad_content;
+}
+public Boolean getIs_delete() {
+	return is_delete;
+}
+public void setIs_delete(Boolean is_delete) {
+	this.is_delete = is_delete;
 }
 }
