@@ -24,7 +24,7 @@ import net.sf.json.JSONObject;
 /**
  * 
  * @ClassName: SmgoCotroller
- * @Description: smgo
+ * @Description: smgo信息
  * @author ycj
  * @date 2017年9月6日 下午8:41:53 
  * 
