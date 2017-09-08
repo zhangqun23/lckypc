@@ -138,7 +138,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data,
 		});
 	};
-	services.selectTravelById = function(data) {
+	services.selectTraveltById = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'travel/selectTravelById.do',
@@ -270,33 +270,18 @@ app
 							travel.updateTravel = function() {
 								
 								var traFormData = JSON
-										.stringify(travel.travelInfo);
+										.stringify(travel.travel);
 								services.updateTravelById({
 									travel : traFormData
 								}).success(function(data) {
-									alert("修改成功！");
+									alert("修改合同成功！");
 								});
 							};
 	// 查看ID，并记入sessionStorage
 							travel.getTravelId = function(travelId) {
-								
 								sessionStorage.setItem('travelId', travelId);
-								/*console.log(JSON.stringify(travelId));
-								travel.travelInfo=travelId;*/
 							};
-							// 2017-8-30wdh更改时间的样式
-							function changeDateType(date) {
-								console.log("传进来的时间" + date);
-								if (date != "") {
-									var DateTime = new Date(date.time)
-											.toLocaleDateString().replace(
-													/\//g, '-');
-								} else {
-									var DateTime = "";
-								}
-								console.log("转化后的的时间" + DateTime);
-								return DateTime;
-							}
+							
 							function initData() {
 								
 								console.log("初始化页面信息");
@@ -322,35 +307,67 @@ app
 										pageTurn(data.totalPage, 1, getTravelTradeListByPage)
 									});
 								}
+//								if($location.path().indexOf('/travelList') == 0) {
+//										
+//										travel.flag = 1; // 标志位，用于控制按钮是否显示
+////										services.getTravelList({
+//											services.getTravelListByPage({
+//													page : 1
+//												})
+//												.success(
+//														function(data) {
+//															
+//															travel.travels = data.list;
+//															travel.totalPage = data.totalPage;
+//															var $pages = $(".tcdPageCode");
+//															if ($pages.length != 0) {
+//																$pages
+//																		.createPage({
+//																			pageCount : contract.totalPage,
+//																			current : 1,
+//																			backFn : function(
+//																					p) {
+////																				travel.getTravelList(p);
+//																				travel.getTravelListByPage(p);// 点击页码时获取第p页的数据
+//																			}
+//																		});
+//															}
+//														});
+
+									
 								 else if ($location.path().indexOf(
 										'/travelAdd') == 0) {
 									
-								}else if ($location.path().indexOf('/travelUpdate') == 0) {
-									
+								}
+								 else if ($location.path().indexOf(
+									'/travelUpdate') == 0) {
 								// 根据ID获取信息
 								var travel_id = sessionStorage
 										.getItem('travelId');
-							
-								
 								services
 										.selectTravelById({
 											travel_id : travel_id
 										})
 										.success(
 												function(data) {
-//													console.log("wdh"+JSON.stringify(data.travel));
-													travel.travelInfo = data.travel;
-													
+													travel.tra = data.travel;
+													travel.travel = data.travel;
 													if (data.travel.travel_stime) {
-														travel.travelInfo.travel_stime = changeDateType(data.travel.travel_stime);
+														travel.travel.travel_stime = changeDateType(data.travel.travel_stime);
 													}
 													
 												});
 								
 							}
 
+							initData();
 							
-							}initData();}]);
+							$scope.$on('reGetData', function() {
+								console.log("重新获取数据！");
+								initData();
+							});
+							}}]);
+
 //时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
@@ -367,7 +384,6 @@ app.filter('dateType', function() {
 app.filter('cutString', function() {
 	return function(input) {
 		var content = "";
-		
 		if (input != "") {
 			var shortInput = input.substr(0, 8);
 			content = shortInput + "……";
@@ -384,24 +400,3 @@ app.filter('onmouse', function() {
 	var content = $(this).text(); // 获取到内容
 	});
 	});
-
-//
-app.directive("ngFormat", function() {
-	return {
-		restrict : 'ECMA',
-		require : 'ngModel',
-		scope : true,
-		link : function(scope, elem, attrs, controller) {
-			var dateRegexp = /^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/;
-
-			// Model变化时执行
-			// 初始化指令时BU执行
-			scope.$watch(attrs.ngModel, function(val) {
-				if (val) {
-					return 22;
-				}
-				
-			});
-		}
-	}
-});

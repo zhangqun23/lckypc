@@ -14,21 +14,10 @@
 					href="${ctx}/role/toUserManagePage.do#/roleList">角色管理</a><i></i></li>
 				<li id="userList"><cite></cite> <a
 					href="${ctx}/role/toUserManagePage.do#/userList">用户管理</a><i></i></li>
-				<li id="workerInfoList"><cite></cite> <a
-					href="${ctx}/workerInfo/toWoinPage.do#/workerInfoList">工作人员管理</a><i></i></li>
+				
 			</ul>
 		</dd>
-	<%-- 	<!-- 工作人员信息管理 -->
-		<dd id="workerInfo" class="woinManager" >
-			<div class="title">
-				<span><img src="${ctx}/images/leftico02.png" /></span>工作人员管理
-			</div>
-			<ul id="workerInfo-ul" class="menuson">
-				<li id="workerInfoList"><cite></cite> 
-				<a href="${ctx}/workerInfo/toWoinPage.do#/workerInfoList">工作人员管理</a><i></i></li>
-			</ul>
-		</dd> --%>
-<!-- 		/workerInfo/toWoinPage.do#/workerInfoList -->
+		
 		<!-- 旅游信息管理 -->
 		<dd id="travel" class="travelManager" >
 			<div class="title ">
@@ -44,6 +33,28 @@
 			<%-- href="${ctx}/travelTrade/toTravelPage.do#/travelTradeList"> --%>
 			</ul>
 		</dd>
+		
+		<!-- 广告信息管理 -->
+		<dd id="ad" class="adManager" >
+			<div class="title ">
+				<span><img src="${ctx}/images/leftico01.png" /></span>广告管理
+			</div>
+			<ul id="ad-ul" class="menuson">
+				<li id="adList"><cite></cite> <a
+					href="${ctx}/ad/toAdPage.do#/adList">广告信息查询</a><i></i></li>
+			</ul>
+		</dd>
+		
+		<!-- smgo信息管理 -->
+		<dd id="smgo" class="smgoManager" >
+			<div class="title ">
+				<span><img src="${ctx}/images/leftico01.png" /></span>smgo管理
+			</div>
+			<ul id="smgo-ul" class="menuson">
+				<li id="smgoList"><cite></cite> <a
+					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a><i></i></li>
+			</ul>
+		</dd>
 	</dl>
 </section>
 <script>
@@ -53,7 +64,7 @@
 						//根据权限显示左侧栏相关条目
 						$
 								.get(
-										"/lckypc/login/getLeftbarPermission.do",
+										"/CIMS/login/getLeftbarPermission.do",
 										function(data) {
 											console.log("左侧栏权限：" + data);
 											var leftbarPermission = data
