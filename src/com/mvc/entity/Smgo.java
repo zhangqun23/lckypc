@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="small_goods")
-public class SmallGoods {
+public class Smgo {
 private Integer smgo_id;//主键
 private String  smgo_name;//货物名称
 private Float smgo_weight;//重量
@@ -26,6 +26,11 @@ private Date smgo_deal_time;//交易时间
 private Date smgo_send_time;//发件日期
 private String smgo_remark;//备注
 private Boolean is_delete;//是否删除
+private Date edit_time;//补录时间
+private Float edit_price;//补录金额
+private String smgo_add;//送货地址，默认为null
+private Boolean smgo_sego;//取货方式，默认为0自行取货
+
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getSmgo_id() {
@@ -121,6 +126,32 @@ public Boolean getIs_delete() {
 }
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
+}
+public Date getEdit_time() {
+	return edit_time;
+}
+public void setEdit_time(Date edit_time) {
+	this.edit_time = edit_time;
+}
+@Column(columnDefinition = "float(10,2) not null default '0.00'")
+public Float getEdit_price() {
+	return edit_price;
+}
+public void setEdit_price(Float edit_price) {
+	this.edit_price = edit_price;
+}
+public String getSmgo_add() {
+	return smgo_add;
+}
+public void setSmgo_add(String smgo_add) {
+	this.smgo_add = smgo_add;
+}
+@Column(length=256)
+public Boolean getSmgo_sego() {
+	return smgo_sego;
+}
+public void setSmgo_sego(Boolean smgo_sego) {
+	this.smgo_sego = smgo_sego;
 }
 
 
