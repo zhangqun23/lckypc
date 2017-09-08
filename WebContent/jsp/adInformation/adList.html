@@ -11,6 +11,7 @@
 <div class="rightinfo">
 
 	<div ng-app="" class="tools">
+<<<<<<< HEAD
 
 		<form class="toolbar">
 			<input name="" type="text" class="dfinput" id="aTitle"
@@ -22,6 +23,22 @@
 			   <option value="0">未审核</option>
 			   <option value="1">已审核</option>		
             </select>
+=======
+		<form class="toolbar" >
+		  <ul class="form-box">
+		    <li>
+		     <div>
+		      <select class="select-box" ng-model="ADSLimit.ad_state" id="ad_state" ng-click="selectAdByState()" required>
+		         <option>审核状态</option>
+		         <option value="0">未审核</option>
+		         <option value="1">已审核</option>
+		      </select>
+		     </div>
+		    </li>	      
+		   <!-- <input class="btn click"
+				type="submit" value="查询" ng-click="selectAdByState()"> -->      
+		  </ul>
+>>>>>>> 95c2cc36851a97c50c66e34ffdd019500e70fbd0
 		</form>
 	</div>
 

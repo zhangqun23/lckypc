@@ -23,8 +23,11 @@ private String ad_pic_path;//广告图片路径
 private String ad_remark;//广告备注
 private String ad_content;//广告内容
 private Boolean is_delete;//默认为0未删除
+<<<<<<< HEAD
 private Date adEditTime;//补录时间
 private Float adEditPrice;//补录金额
+=======
+>>>>>>> 95c2cc36851a97c50c66e34ffdd019500e70fbd0
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -113,6 +116,7 @@ public Boolean getIs_delete() {
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
 }
+<<<<<<< HEAD
 public Date getAdEditTime() {
 	return adEditTime;
 }
@@ -126,4 +130,6 @@ public Float getAdEditPrice() {
 public void setAdEditPrice(Float adEditPrice) {
 	this.adEditPrice = adEditPrice;
 }
+=======
+>>>>>>> 95c2cc36851a97c50c66e34ffdd019500e70fbd0
 }
