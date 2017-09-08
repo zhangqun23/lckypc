@@ -62,7 +62,7 @@
 				<td>{{travel.travel_total_num}}</td>
 				<td>{{travel.travel_left_num}}</td>
 				<td>{{travel.travel_firm}}</td>
-				<td><a href="#/travelUpdate" ng-click="getTravelId(travel.travel_id)"class="tablelink"	has-permission='tTravelEdit'> 修改</a>
+				<td><a href="#/travelUpdate" ng-click="getTravelId(con.cont_id)"class="tablelink"	has-permission='tTravelEdit'> 修改</a>
 					
 					<a href="#travelList" ng-click="deleteTravel(travel.travel_id)" class="tablelink"
 					has-permission='tTravelDel'> 删除</a></td>

@@ -1,0 +1,39 @@
+!Templates.html5.content!
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>smgo管理</li>
+		<li>smgo详情信息</li>
+	</ul>
+</div>
+<!-- 录入smgo信息 -->
+<div class="formbody">
+	
+	<form ng-submit="updateSmgo()">
+		<div class="formtitle">
+			<span>smgo信息</span>
+		</div>
+
+		<ul class="forminfo">
+			<li><label>货物名称:<b>*</b></label>{{smgoInfo.smgo_name}}</li>
+			<li><label>货物重量:</label>{{smgoInfo.smgo_weight}}</li>
+			<li><label>始发地:</label>{{smgoInfo.smgo_start|findtype}}</li>
+			<li><label>目的地:<b>*</b></label>{{smgoInfo.smgo_end|findstate}}</li>
+			<li><label>发件人:<b>*</b></label>{{smgoInfo.smgo_sender}}</li>
+			<li><label>发件人联系电话:<b>*</b></label>{{smgoInfo.smgo_sender_tel}}</li>
+			<li><label>收件人:<b>*</b></label>{{smgoInfo.smgo_receiver}}</li>
+			<li><label>收件人联系电话:<b>*</b></label>{{smgoInfo.smgo_receiver_tel}}</li>
+			<li><label>交易金额:<b>*</b></label>{{smgoInfo.amgo_money}}</li>
+			<li><label>交易时间:<b>*</b></label>{{smgoInfo.smgo_deal_time}}</li>
+			<li><label>发件日期:<b>*</b></label>{{smgoInfo.smgo_send_time}}</li>
+			<li><label>送货方式:<b>*</b></label>{{smgoInfo.smgo_sego}}</li>
+			<li><label>送货地址:<b>*</b></label>{{smgoInfo.smgo_add}}</li>
+			<li><label>备注:<b>*</b></label>{{smgoInfo.smgo_remark}}</li>
+			<li><label>补录日期:<b>*</b></label>{{smgoInfo.edit_time}}</li>
+			<li><label>补录金额:<b>*</b></label>{{smgoInfo.edit_price}}</li>
+			<li><label>&nbsp;</label>
+			<a href="#smgoList" class="tablelink" has-permission='tSmgoInfo'>确定提交</a></li>
+		</ul>
+	</form>
+</div>

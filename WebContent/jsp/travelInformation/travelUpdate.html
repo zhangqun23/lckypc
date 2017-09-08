@@ -29,7 +29,7 @@
 			<li><label>保险费<b>*</b></label><input type="text"
 				ng-model="travelInfo.travel_insurance" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
 			<li><label>折扣<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_discount" class="dfinput"  ng-format  onchange="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')"
+				ng-model="travelInfo.travel_discount" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')"
 				 required/></li>
 			
 			<li><label>出发日期</label><input type="text" name="travelstime" required
