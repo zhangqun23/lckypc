@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.dao.AdDao;
 import com.mvc.entity.Ad;
+import com.mvc.entity.User;
 import com.mvc.repository.AdRepository;
 import com.mvc.service.AdService;
 
@@ -21,9 +22,8 @@ import net.sf.json.JSONObject;
  * 
  *
  */
-
-@Service("adServiceImpl")
-public  class AdServiceImpl implements AdService {
+@Service("/adServiceImpl")
+public class AdServiceImpl implements AdService{
 	@Autowired
 	AdRepository adRepository;
 	@Autowired
@@ -35,12 +35,14 @@ public  class AdServiceImpl implements AdService {
 		// TODO 自动生成的方法存根
 		return adDao.countTotal(searchKey);
 	}
-	//根据页数筛选全部旅游信息列表
+
+	//根据页数筛选ad信息
 	@Override
 	public List<Ad> findAdByPage(String searchKey, int offset, int end) {
 		// TODO 自动生成的方法存根
 		return adDao.findAdByPage(searchKey, offset, end);
 	}
+	
 	//根据id删除ad信息
 	@Override
 	public boolean deleteIsdelete(Integer ad_id) {

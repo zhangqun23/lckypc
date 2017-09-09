@@ -5,7 +5,6 @@ import java.util.List;
 import com.mvc.entity.Ad;
 
 /**
-
  * 
  * @ClassName: AdDao
  * @Description: ad

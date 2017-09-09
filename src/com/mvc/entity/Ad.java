@@ -26,7 +26,6 @@ private Boolean is_delete;//默认为0未删除
 private Date adEditTime;//补录时间
 private Float adEditPrice;//补录金额
 
-
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 @Column(name = "ad_id",unique = true, nullable = false, length = 10)
@@ -127,5 +126,4 @@ public Float getAdEditPrice() {
 public void setAdEditPrice(Float adEditPrice) {
 	this.adEditPrice = adEditPrice;
 }
-
 }

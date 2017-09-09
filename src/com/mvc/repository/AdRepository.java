@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.mvc.entity.Ad;
 
-
 public interface AdRepository extends JpaRepository<Ad, Integer>{
 
 	/*//根据title查询ad信息是否存在，返回1存在
@@ -28,4 +27,3 @@ public interface AdRepository extends JpaRepository<Ad, Integer>{
 	List<Ad> findAlls();
 
 }
-
