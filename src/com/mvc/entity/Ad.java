@@ -1,5 +1,7 @@
 package com.mvc.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +22,10 @@ private String ad_title;//广告名称
 private String ad_pic_path;//广告图片路径
 private String ad_remark;//广告备注
 private String ad_content;//广告内容
+private Boolean is_delete;//默认为0未删除
+private Date adEditTime;//补录时间
+private Float adEditPrice;//补录金额
+
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -102,4 +108,24 @@ public String getAd_content() {
 public void setAd_content(String ad_content) {
 	this.ad_content = ad_content;
 }
+public Boolean getIs_delete() {
+	return is_delete;
+}
+public void setIs_delete(Boolean is_delete) {
+	this.is_delete = is_delete;
+}
+public Date getAdEditTime() {
+	return adEditTime;
+}
+public void setAdEditTime(Date adEditTime) {
+	this.adEditTime = adEditTime;
+}
+@Column(columnDefinition = "float(10,2) not null default '0.00'")
+public Float getAdEditPrice() {
+	return adEditPrice;
+}
+public void setAdEditPrice(Float adEditPrice) {
+	this.adEditPrice = adEditPrice;
+}
+
 }
