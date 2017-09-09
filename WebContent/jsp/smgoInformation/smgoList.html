@@ -1,0 +1,76 @@
+!Templates.html5.content!
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>smgo信息管理</li>
+		<li>smgo信息列表</li>
+	</ul>
+</div>
+
+<div class="rightinfo">
+
+	<div ng-app="" class="tools">
+
+		<form class="toolbar">
+			<input name="" type="text" class="dfinput" id="aName"
+				ng-model="aName" placeholder="名字关键字" /> <input class="btn click"
+				type="submit" value="查询" ng-click="selectSmgoByName()">
+				
+				<!-- 下拉框 选择 0自行取货、1送货上门 -->
+			 <select class="select-box" ng-model="SGSLimit.smgo_sego" ng-change="selectSmgoBySego()" id="smgo_sego" required>
+			   <option>送货方式</option>
+			   <option value="0">自行取货</option>
+			   <option value="1">送货上门</option>		
+            </select>
+		</form>
+	</div>
+
+	<table class="tablelist">
+		<thead>
+			<tr>
+			    <th>编号</th>
+				<th>货物名称</th>
+				<th>货物重量</th>
+				<th>始发地</th>
+				<th>目的地</th>
+				<th>发件人</th>
+				<th>发件人联系电话</th>
+				<th>收件人</th>
+				<th>收件人联系电话</th>
+				<th>交易金额</th>
+				<th>交易时间</th>
+				<th>发件日期</th>
+				<th>送货方式</th>
+				<th>送货地址</th>
+				<th>备注</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="smgo in smgos" id={{smgo.smgo_id}}>
+				<td>{{$index + 1 }}</td>
+				<td>{{smgo.smgo_name|cutString}}</td>
+				<td>{{smgo.smgo_weight}}</td>
+				<td>{{smgo.smgo_start|cutString}}</td>
+				<td>{{smgo.smgo_end|cutString}}</td>
+				<td>{{smgo.smgo_sender|cutString}}</td>
+				<td>{{smgo.smgo_sender_tel}}</td>
+				<td>{{smgo.smgo_receiver|cutString}}</td>
+				<td>{{smgo.smgo_receiver_tel}}</td>
+				<td>{{smgo.amgo_money}}</td>
+				<td>{{smgo.smgo_deal_time|dateType}}</td>
+				<td>{{smgo.smgo_send_time|dateType}}</td>  
+				<td>{{smgo.smgo_sego|findSego}}</td>        
+				<td>{{smgo.smgo_add|cutString}}</td>
+				<td>{{smgo.smgo_remark|cutString}}</td>
+				<td> <a href="#/smgoUpdate" ng-click="getSmgoId(smgo)"class="tablelink"
+				       has-permission='tSgEdit'>smgo补录</a>
+					<a href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)" class="tablelink"
+					   has-permission='tSmgoDel'>删除</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div  class="tcdPageCode">页码容器</div>
+
+</div>
