@@ -248,7 +248,7 @@ app.filter('cutString', function() {
 	return function(input) {
 		var content = "";
 		if (input != "") {
-			var shortInput = input.substr(0, 2);
+			var shortInput = input.substr(0, 4);
 			content = shortInput + "……";
 		}
 		return content;

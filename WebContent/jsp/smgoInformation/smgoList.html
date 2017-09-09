@@ -50,20 +50,20 @@
 		<tbody>
 			<tr ng-repeat="smgo in smgos" id={{smgo.smgo_id}}>
 				<td>{{$index + 1 }}</td>
-				<td>{{smgo.smgo_name|cutString}}</td>
+				<td>{{smgo.smgo_name}}</td>
 				<td>{{smgo.smgo_weight}}</td>
-				<td>{{smgo.smgo_start|cutString}}</td>
-				<td>{{smgo.smgo_end|cutString}}</td>
-				<td>{{smgo.smgo_sender|cutString}}</td>
+				<td>{{smgo.smgo_start}}</td>
+				<td>{{smgo.smgo_end}}</td>
+				<td>{{smgo.smgo_sender}}</td>
 				<td>{{smgo.smgo_sender_tel}}</td>
-				<td>{{smgo.smgo_receiver|cutString}}</td>
+				<td>{{smgo.smgo_receiver}}</td>
 				<td>{{smgo.smgo_receiver_tel}}</td>
 				<td>{{smgo.amgo_money}}</td>
 				<td>{{smgo.smgo_deal_time|dateType}}</td>
 				<td>{{smgo.smgo_send_time|dateType}}</td>  
-				<td>{{smgo.smgo_sego|findSego}}</td>        
-				<td>{{smgo.smgo_add|cutString}}</td>
-				<td>{{smgo.smgo_remark|cutString}}</td>
+				<td>{{smgo.smgo_sego}}</td>        
+				<td>{{smgo.smgo_add}}</td>
+				<td>{{smgo.smgo_remark}}</td>
 				<td> <a href="#/smgoUpdate" ng-click="getSmgoId(smgo)"class="tablelink"
 				       has-permission='tSgEdit'>smgo补录</a>
 					<a href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)" class="tablelink"
