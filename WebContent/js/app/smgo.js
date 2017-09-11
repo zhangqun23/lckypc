@@ -203,11 +203,18 @@ app
 									smgo : aFormData
 								}).success(function(data){
 									console.log("获取smgo信息");
+									smgo.smgo = data.smgo;
+									if(data.smgo.smgo_deal_time){
+										smgo.smgo.smgo_deal_time = changeDateType(data.smgo.smgo_deal_time)
+									}
 								})
 							}
 							
 	                        // 查看ID，并记入sessionStorage
 							smgo.getSmgoId = function(smgoid) {	
+								var smgoidd = JSON.stringify(smgoid);
+								sessionStorage.setItem('smgoid',smgoidd);	
+								console.log(smgoidd);
 								console.log(sessionStorage.getItem('smgoid'));	
 								$location.path("smgoUpdate/");
 							};
@@ -226,7 +233,8 @@ app
 										pageTurn(data.totalPage, 1, getSmgoListByPage)
 									});
 								}else if ($location.path().indexOf('/smgoUpdate') == 0) {
-									var smgoid=sessionStorage.getItem("smgoid");
+									//根据id获取smgo信息
+									var smgoid = sessionStorage.getItem("smgoid");
 									$scope.smgoInfo = JSON.parse(smgoid);
 							}}
 							initData();
