@@ -4,21 +4,25 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.base.constants.wxPayConstants;
+import com.mvc.service.WxPayService;
 import com.utils.WxPayUtil;
 
 public class WxPayController {
 	
+	@Autowired
+	WxPayService wxPayService;
+	
 	public String PaySult(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		 
 	       String resXml = "";
-	       Map<String, String> backxml = new HashMap<String, String>();
 
 	       InputStream inStream;
 	       try {
@@ -43,6 +47,7 @@ public class WxPayController {
 	                           + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
 	                    // 处理业务 -修改订单支付状态  
 	                    System.out.println("微信支付回调：修改的订单=" + map.get("out_trade_no"));
+	                    wxPayService.updateTradeState(map.get("out_trade_no"));
 	                    
 	                }
 	                // ------------------------------  
