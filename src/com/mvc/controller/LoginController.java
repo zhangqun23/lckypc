@@ -37,14 +37,6 @@ import net.sf.json.JSONObject;
 public class LoginController {
 	@Autowired
 	UserService userService;
-//	@Autowired
-//	InvoiceService invoiceService;
-//	@Autowired
-//	TaskService taskService;
-//	@Autowired
-//	AlarmService alarmService;
-//	@Autowired
-//	AlarmStatisticService alarmStatisticService;
 
 	/**
 	 * 加载默认起始页
@@ -80,7 +72,7 @@ public class LoginController {
 		Long result = userService.isExist(userNum);
 		return result;
 	}
-	
+
 	/**
 	 * 登录验证用户名和密码是否正确
 	 * 
@@ -109,6 +101,7 @@ public class LoginController {
 		}
 		return jsonObject;
 	}
+	
 
 	/**
 	 * 验证登陆之后写入Cookie和Session
