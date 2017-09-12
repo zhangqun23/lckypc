@@ -18,9 +18,7 @@ import com.base.constants.PermissionConstants;
 import com.base.constants.SessionKeyConstants;
 
 import com.mvc.entity.User;
-import com.mvc.entity.WorkerInfo;
 import com.mvc.service.UserService;
-import com.mvc.service.WorkerInfoService;
 import com.utils.CookieUtil;
 import com.utils.HttpRedirectUtil;
 import com.utils.MD5;
@@ -39,16 +37,6 @@ import net.sf.json.JSONObject;
 public class LoginController {
 	@Autowired
 	UserService userService;
-	@Autowired
-	WorkerInfoService workerInfoService;
-//	@Autowired
-//	InvoiceService invoiceService;
-//	@Autowired
-//	TaskService taskService;
-//	@Autowired
-//	AlarmService alarmService;
-//	@Autowired
-//	AlarmStatisticService alarmStatisticService;
 
 	/**
 	 * 加载默认起始页
@@ -84,13 +72,7 @@ public class LoginController {
 		Long result = userService.isExist(userNum);
 		return result;
 	}
-///////////////////////
-	@RequestMapping("/checkWoinName.do")
-	public @ResponseBody Long checkWoinName(HttpServletRequest request, HttpSession session, ModelMap map) {
-		String woinNum = request.getParameter("woinName");
-		Long result = workerInfoService.isExist(woinNum);
-		return result;
-	}
+
 	/**
 	 * 登录验证用户名和密码是否正确
 	 * 
@@ -119,7 +101,6 @@ public class LoginController {
 		}
 		return jsonObject;
 	}
-//	/////////////////
 	
 
 	/**

@@ -14,8 +14,7 @@
 					href="${ctx}/role/toUserManagePage.do#/roleList">角色管理</a><i></i></li>
 				<li id="userList"><cite></cite> <a
 					href="${ctx}/role/toUserManagePage.do#/userList">用户管理</a><i></i></li>
-				<li id="workerInfoList"><cite></cite> <a
-					href="${ctx}/workerInfo/toWoinPage.do#/workerInfoList">工作人员管理</a><i></i></li>
+			
 			</ul>
 		</dd>
 	<%-- 	<!-- 工作人员信息管理 -->
@@ -42,6 +41,21 @@
 				<li id="travelTradeList"><cite></cite> <a
 					href="${ctx}/travel/toTravelTradePage.do#/travelTradeList">旅游交易信息查询</a><i></i></li>
 			<%-- href="${ctx}/travelTrade/toTravelPage.do#/travelTradeList"> --%>
+			</ul>
+		</dd>
+		
+		<!-- 班车信息管理 -->
+		<dd id="busNeed" class="busNeedManager" >
+			<div class="title ">
+				<span><img src="${ctx}/images/leftico01.png" /></span>班车预定管理
+			</div>
+			<ul id="busNeed-ul" class="menuson">
+				<li id="busList"><cite></cite> <a
+					href="${ctx}/busNeed/toBusNeedPage.do#/busNeedList">班车预定信息查询</a><i></i></li>
+				<li id="busList"><cite></cite> <a
+					href="${ctx}/busNeed/toBusNeedPage.do#/busNeedAdd">班车信息添加</a><i></i></li>
+				<li id="busList"><cite></cite> <a
+					href="${ctx}/busNeed/toBusNeedPage.do#/busTradeAdd">班车补录信息添加</a><i></i></li>
 			</ul>
 		</dd>
 	</dl>
