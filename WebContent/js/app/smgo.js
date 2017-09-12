@@ -95,13 +95,6 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	
-	services.selectSmgoById = function(data){
-		return $http({
-			method : 'post',
-			url : baseUrl + 'smgo/selectSmgoById.do'
-		})
-	}
-	
 	services.deleteSmgo = function(data) {
 		return $http({
 			method : 'post',
@@ -109,6 +102,15 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	
+	//添加补录信息
+	services.addEdit = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'smgo/addEdit.do',
+			data : data
+		});
+	}
 
 	return services;
 
@@ -125,6 +127,7 @@ app
 
 							var smgo = $scope;
 							var searchKey = null;
+							
 							// 换页
 							function pageTurn(totalPage, page, Func) {
 								$(".tcdPageCode").empty();
@@ -147,8 +150,26 @@ app
 									searchKey : searchKey
 								}).success(function(data) {
 									smgo.smgos = data.list;
+									console.log(data.list)
 								});
 							}
+							smgo.smgoInfoss={
+									edit_price : "",
+									edit_time : ""
+							}
+							//添加edit补录信息    (有问题、好像没进来)
+							smgo.addEdit = function(){		
+								var smgoid = sessionStorage.getItem('smgoid');
+								console.log(smgo.smgoInfoss);
+								var smgoLimits = JSON.stringify(smgo.smgoInfoss);
+								services.addEdit({
+									smgoNeed : smgoLimits,
+									smgoid : smgoid
+								}).success(function(data) {
+									alert("补录成功");
+									console.log(data.list)
+								});
+							};
 							
 							//根据smgo_sego筛选smgo信息
 							smgo.SGSLimit={
@@ -196,18 +217,11 @@ app
 								}
 							}
 							
-							//查询smgo信息
-							smgo.smgoInfo = function(){
-								var aFormData = JSON.stringify(smgo.smgoInfo);
-								service.selectSmgoById({
-									smgo : aFormData
-								}).success(function(data){
-									console.log("获取smgo信息");
-								})
-							}
-							
 	                        // 查看ID，并记入sessionStorage
 							smgo.getSmgoId = function(smgoid) {	
+								var smgoidd = JSON.stringify(smgoid);
+								sessionStorage.setItem('smgoid',smgoidd);	
+								console.log(smgoidd);
 								console.log(sessionStorage.getItem('smgoid'));	
 								$location.path("smgoUpdate/");
 							};
@@ -226,7 +240,8 @@ app
 										pageTurn(data.totalPage, 1, getSmgoListByPage)
 									});
 								}else if ($location.path().indexOf('/smgoUpdate') == 0) {
-									var smgoid=sessionStorage.getItem("smgoid");
+									//根据id获取smgo信息
+									var smgoid = sessionStorage.getItem("smgoid");
 									$scope.smgoInfo = JSON.parse(smgoid);
 							}}
 							initData();

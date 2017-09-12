@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="small_goods")
+@Table(name="smgo")
 public class Smgo {
 private Integer smgo_id;//主键
 private String  smgo_name;//货物名称
