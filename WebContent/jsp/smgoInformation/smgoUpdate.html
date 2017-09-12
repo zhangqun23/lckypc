@@ -10,7 +10,7 @@
 <!-- 录入smgo信息 -->
 <div class="formbody">
 	
-	<form ng-submit="updateSmgo()">
+	<form ng-submit="addEdit()">
 		<div class="formtitle">
 			<span>smgo信息</span>
 		</div>
@@ -30,13 +30,14 @@
 			<li><label>送货方式:<b>*</b></label>{{smgoInfo.smgo_sego|findSego}}</li>
 			<li><label>送货地址:<b>*</b></label>{{smgoInfo.smgo_add}}</li>
 			<li><label>备注:<b>*</b></label>{{smgoInfo.smgo_remark}}</li>
-			<li><label>补录日期:<b>*</b></label><input type="text" name="travelstime" required
-					ng-model="smgoInfo.edit_time" class="dfselect dateLayoutStyle"
+			<li><label>补录日期:<b>*</b></label><input type="text" name="edittime" required
+					ng-model="smgoInfoss.edit_time" class="dfselect dateLayoutStyle"
 					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></li>
 			<li><label>补录金额:<b>*</b></label><input type="text"
-				ng-model="smgoInfo.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
-			<li><label>&nbsp;</label>
-			<a href="#smgoList" class="tablelink" has-permission='tSmgoInfo'>确定提交</a></li>
+				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
+			<!-- <a href="#smgoList" class="tablelink" has-permission='tsmgoInfo'>提交补录</a></li> -->
+			<li id="addEdit"><label>&nbsp;</label><input type="submit"
+				class="btn" value="提交补录" /></li>
 		</ul>
 	</form>
 </div>

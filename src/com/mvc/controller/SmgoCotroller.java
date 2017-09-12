@@ -1,6 +1,8 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.base.constants.SessionKeyConstants;
 import com.mvc.entity.Smgo;
-import com.mvc.entity.User;
 import com.mvc.service.SmgoService;
 import com.mvc.service.UserService;
 import com.utils.Pager;
@@ -93,7 +93,7 @@ public class SmgoCotroller {
 	@RequestMapping("/selectSmgoBySego.do")
 	public @ResponseBody String selectSmgoBySego(HttpServletRequest request, HttpSession session) {
 		String smgoSego;
-		List<Smgo> list;
+		List<Smgo> list = null;
 		JSONObject jsonObject = new JSONObject();
 		if(request.getParameter("smgoSego") != null){
 			smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
@@ -103,8 +103,6 @@ public class SmgoCotroller {
 			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
 			list = smgoService.findSmgoBySego(smgoSego,pager.getOffset(),pager.getLimit());
 			jsonObject.put("totalPage", pager.getTotalPage());
-		}else{
-			list = smgoService.findAlls();
 		}
 		jsonObject.put("list", list);
 		return jsonObject.toString();
@@ -131,48 +129,38 @@ public class SmgoCotroller {
 	/**
 	 * 
 	 * 
-	 *@Title: selectSmgoById 
-	 *@Description: 根据id获取smgo信息
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
-	 */
-	@RequestMapping("/selectSmgoById.do")
-	public @ResponseBody String selectSmgoById(HttpServletRequest request, HttpSession session) {
-		int smgo_id = Integer.parseInt(request.getParameter("smgo_id"));
-		session.setAttribute("smgo_id", smgo_id);
-		Smgo smgo = smgoService.selectSmgoById(smgo_id);
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("smgo", smgo);
-		return jsonObject.toString();
-	}
-	
-	/**
-	 * 
-	 * 
-	 *@Title: updateSmgoById 
-	 *@Description: 根据id修改smgo信息，成功返回1
+	 *@Title: addEdit 
+	 *@Description: 添加补录信息
 	 *@param @param request
 	 *@param @param session
 	 *@param @return
 	 *@param @throws ParseException
-	 *@return Integer
+	 *@return String
 	 *@throws
 	 */
-	@RequestMapping("/updateSmgoById.do")
-	public @ResponseBody Integer updateSmgoById(HttpServletRequest request, HttpSession session) throws ParseException {
-		User user = (User) session.getAttribute(SessionKeyConstants.LOGIN);
-		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("smgo"));
-		Integer smgo_id = null;
-		if (jsonObject.containsKey("smgo_id")) {
-			smgo_id = Integer.parseInt(jsonObject.getString("smgo_id"));
+	@RequestMapping("/addEdit.do")
+	public @ResponseBody String addEdit(HttpServletRequest request, HttpSession session) throws ParseException {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject = JSONObject.fromObject(request.getParameter("smgoNeed"));
+		Smgo smgo = new Smgo();
+		Date edittime = null;
+		float editprice = 0;
+		if(jsonObject.containsKey("edit_time")){
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = sdf.parse(jsonObject.getString("edit_time"));
+			smgo.setEdit_time(date);
+/*			edittime = sdf.parse(jsonObject.getString("edit_time"));	*/
 		}
-		Boolean flag = smgoService.updateSmgoBase(smgo_id, jsonObject, user);
-		if (flag == true)
-			return 1;
-		else
-			return 0;
+		if(jsonObject.containsKey("edit_price")){
+			smgo.setEdit_price(Float.parseFloat(jsonObject.getString("edit_price")));
+		/*	editprice = Float.parseFloat(jsonObject.getString("edit_price"));*/
+		}
+		smgo.setIs_delete(false);
+		boolean result = false;
+		if(request.getParameter("smgoid") !=null){
+			Integer smgoid = Integer.valueOf(request.getParameter("smgoid"));
+			result = smgoService.update(edittime, editprice, smgoid);
+		}
+		return JSON.toJSONString(result);
 	}
 }

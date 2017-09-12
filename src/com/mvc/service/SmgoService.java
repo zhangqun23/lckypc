@@ -1,6 +1,7 @@
 package com.mvc.service;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import com.mvc.entity.Smgo;
@@ -28,19 +29,13 @@ public interface SmgoService {
 	//根据id删除smgo信息
 	boolean deleteIsdelete(Integer smgoid);
 
-	//根据id查询smgo信息
-	Smgo selectSmgoById(int smgo_id);
-
-	//修改smgo信息
-	Boolean updateSmgoBase(Integer smgo_id, JSONObject jsonObject, User user) throws ParseException;
-
 	//根据sego筛选smgo信息   总页数
 	Integer countSegoTotal(String smgoSego);
 
 	//根据sego、page筛选smgo信息
 	List<Smgo> findSmgoBySego(String smgoSego, int offset, int limit);
 
-	//sego为null时返回全部smgo信息
-	List<Smgo> findAlls();
+	//更新数据库
+	boolean update(Date edittime, float editprice, Integer smgoid);
 
 }

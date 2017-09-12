@@ -1,5 +1,6 @@
 package com.mvc.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.mvc.entity.Smgo;
@@ -29,5 +30,8 @@ public interface SmgoDao {
 
 	//根据smgoSego、page筛选smgo信息
 	List<Smgo> findSmgoBySego(String smgoSego, int offset, int limit);
+
+	//添加补录信息
+	boolean updateEdit(Date edittime, float editprice, Integer smgoid);
 	
 }
