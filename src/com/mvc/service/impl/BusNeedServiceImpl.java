@@ -134,4 +134,9 @@ public  class BusNeedServiceImpl implements BusNeedService {
 				}
 			return busTrade;	
 			}
+		@Override
+		public BusTrade addBusTrade(JSONObject jsonObject) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }
