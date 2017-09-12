@@ -23,14 +23,6 @@ import com.mvc.service.TravelService;
 import com.mvc.service.UserService;
 import com.utils.Pager;
 
-
-
-
-
-
-
-
-
 import net.sf.json.JSONObject;
 
 /**
@@ -78,15 +70,6 @@ public class TravelController {
 		System.out.println("totalPage:" + pager.getTotalPage());
 		return jsonObject.toString();
 	}
-
-	/**
-	 * 获取指定页面的十条旅游信息，总页数
-	 * 
-	 * @param request
-	 * @return
-	 */
-
-	
 
 	/**
 	 * 删除旅游信息
@@ -237,7 +220,7 @@ public class TravelController {
 			return 0;
 	}
 	/**
-	 * 根据页数筛选旅游信息列表
+	 * 根据页数筛选旅游交易信息列表
 	 * 
 	 * @param request
 	 * @param session
