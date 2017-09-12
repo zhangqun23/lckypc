@@ -10,16 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.base.constants.wxPayConstants;
 import com.mvc.service.WxPayService;
 import com.utils.WxPayUtil;
 
+@Controller
+@RequestMapping("/returnPay")
 public class WxPayController {
 	
 	@Autowired
 	WxPayService wxPayService;
 	
+	@RequestMapping("/payReturn.do")
 	public String PaySult(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		 
 	       String resXml = "";
