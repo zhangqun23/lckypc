@@ -48,9 +48,12 @@
 		<!-- smgo信息管理 -->
 		<dd id="smgo" class="smgoManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span><a
-					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a>
+				<span><img src="${ctx}/images/leftico01.png" /></span>smgo管理
 			</div>
+			<ul id="smgo-ul" class="menuson">
+				<li id="smgoList"><cite></cite> <a
+					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a><i></i></li>
+			</ul>
 		</dd>
 	</dl>
 </section>

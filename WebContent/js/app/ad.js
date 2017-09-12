@@ -205,21 +205,26 @@ app
 							}
 							
 							//变更state状态
-							ad.editState = function(ad_id){
-								if(confirm("确定提交变更?") == true){
-									services.editState({
-										adId : ad_id
-									}).success(function(data){
-										if(data == "true"){
-											alert("变更state信息成功！");
-											getAdListByPage(1);
-										}else{
-											console.log("变更state信息失败！请刷新重试！");
-										}	
-										initData();
-									});
+							ad.editState = function(adState,ad_id){
+								if(adState == "1"){
+									return alert("该ad状态为已审核！不能变更！")
+									}else{
+										if(confirm("确定该ad已审核？") == true){
+										    services.editState({
+											adId : ad_id
+										}).success(function(data){
+											if(data == "true"){
+												alert("ad状态变更为已审核！");
+												getAdListByPage(1);
+											}else{
+												console.log("审核失败！请检查审核状态后重试！");
+											}	
+											initData();
+										});
+									}
 								}
 							}
+							
 							// 读取旅游信息
 							function selectAdById() {
 								var ad_id = sessionStorage.getItem('adId');

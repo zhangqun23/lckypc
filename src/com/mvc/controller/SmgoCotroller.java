@@ -149,16 +149,18 @@ public class SmgoCotroller {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = sdf.parse(jsonObject.getString("edit_time"));
 			smgo.setEdit_time(date);
-/*			edittime = sdf.parse(jsonObject.getString("edit_time"));	*/
+			edittime = sdf.parse(jsonObject.getString("edit_time"));	
 		}
 		if(jsonObject.containsKey("edit_price")){
 			smgo.setEdit_price(Float.parseFloat(jsonObject.getString("edit_price")));
-		/*	editprice = Float.parseFloat(jsonObject.getString("edit_price"));*/
+			editprice = Float.parseFloat(jsonObject.getString("edit_price"));
 		}
 		smgo.setIs_delete(false);
 		boolean result = false;
 		if(request.getParameter("smgoid") !=null){
-			Integer smgoid = Integer.valueOf(request.getParameter("smgoid"));
+			JSONObject jsonObject1 = new JSONObject();
+		    jsonObject1 = JSONObject.fromObject(request.getParameter("smgoid"));
+			int smgoid = Integer.parseInt(jsonObject1.getString("smgo_id"));
 			result = smgoService.update(edittime, editprice, smgoid);
 		}
 		return JSON.toJSONString(result);
