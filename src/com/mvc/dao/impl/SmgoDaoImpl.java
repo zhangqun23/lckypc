@@ -1,6 +1,7 @@
 package com.mvc.dao.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -106,5 +107,18 @@ public class SmgoDaoImpl implements SmgoDao{
 		return list;
 	}
 
-	
+	@Override
+	public boolean updateEdit(Date edittime, float editprice, Integer smgoid) {
+		// TODO 自动生成的方法存根
+		EntityManager em = emf.createEntityManager();
+		String sql = "updata smgo set edit_time =:edit_time,edit_price =:edit_price where smgo_id =:smgo_id";
+		Query query = em.createNativeQuery(sql.toString(),Smgo.class);
+		query.setParameter("smgo_id", smgoid);
+		query.setParameter("edit_price", editprice);
+		query.setParameter("edit_time", edittime);
+		
+		query.getResultList();
+		em.close();
+		return true;
+	}
 }

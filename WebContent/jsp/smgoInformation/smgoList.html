@@ -14,7 +14,7 @@
 
 		<form class="toolbar">
 			<input name="" type="text" class="dfinput" id="aName"
-				ng-model="aName" placeholder="名字关键字" /> <input class="btn click"
+				ng-model="aName" placeholder="小件名称关键字"/> <input class="btn click"
 				type="submit" value="查询" ng-click="selectSmgoByName()">
 				
 				<!-- 下拉框 选择 0自行取货、1送货上门 -->
@@ -59,8 +59,8 @@
 				<td>{{smgo.smgo_receiver|cutString}}</td>
 				<td>{{smgo.smgo_receiver_tel}}</td>
 				<td>{{smgo.amgo_money}}</td>
-				<td>{{smgoInfo.smgo_deal_time|dateType}}</td>
-				<td>{{smgoInfo.smgo_send_time|dateType}}</td>  
+				<td>{{smgo.smgo_deal_time.time|dateType}}</td>
+				<td>{{smgo.smgo_send_time.time|dateType}}</td>  
 				<td>{{smgo.smgo_sego|findSego}}</td>        
 				<td>{{smgo.smgo_add|cutString}}</td>
 				<td>{{smgo.smgo_remark|cutString}}</td>

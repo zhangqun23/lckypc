@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.base.constants.SessionKeyConstants;
 import com.mvc.entity.Ad;
-import com.mvc.entity.User;
 import com.mvc.service.AdService;
 import com.mvc.service.UserService;
 import com.utils.Pager;
