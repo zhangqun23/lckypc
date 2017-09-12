@@ -138,11 +138,19 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data,
 		});
 	};
-	services.selectTraveltById = function(data) {
+	services.selectTravelById = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'travel/selectTravelById.do',
 			data : data
+		});
+	};
+	// 查看
+	services.checkTravel = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'travel/selectTravelById.do',
+			data : data,
 		});
 	};
 	return services;
@@ -175,7 +183,6 @@ app
 									});
 								}
 							}
-
 							
 							// 根据页数获取用户列表
 							function getTravelListByPage(page) {
@@ -199,7 +206,7 @@ app
 								});
 							};
 							
-							// 根据输入筛选信息
+							// 根据标题筛选旅游信息
 							travel.selectTravelByTitle = function() {
 								searchKey = travel.traTitle;
 								services.getTravelListByPage({
@@ -210,29 +217,10 @@ app
 									pageTurn(data.totalPage, 1, getTravelListByPage)
 								});
 							};
-							
-							traveltrade.selectTravelTradeByTel = function() {
-								searchKey = traveltrade.trtrTel;
-								services.getTravelTradeListByPage({
-									page : 1,
-									searchKey : searchKey
-								}).success(function(data) {
-									traveltrade.traveltrades = data.list;
-									pageTurn(data.totalPage, 1, getTravelTradeListByPage)
-								});
-							};
-							// 根据页数获取列表
-							function getTravelTradeListByPage(page) {
-								services.getTravelTradeListByPage({
-									page : page,
-									searchKey : searchKey
-								}).success(function(data) {
-									traveltrade.traveltrades = data.list;
-									
-								});
-							}
+						
 							// 删除旅游信息
 							travel.deleteTravel = function(travel_id) {
+								console.log("成功！");
 								if (confirm("是否删除该旅游信息？") == true) {
 									services.deleteTravel({
 										travelId : travel_id
@@ -262,25 +250,115 @@ app
 													if (data.travel.travel_stime) {
 														travel.travel.travel_stime = changeDateType(data.travel.travel_stime);
 													}
-
+													if(data.travel.travel_discount){
+														travel.travelInfo.travel_discount = changeFloat(data.travel.travel_discount);
+													}
 												});
 							}
 							
-		// 修改旅游信息
+							// 修改旅游信息
 							travel.updateTravel = function() {
 								
 								var traFormData = JSON
-										.stringify(travel.travel);
+										.stringify(travel.travelInfo);
 								services.updateTravelById({
 									travel : traFormData
 								}).success(function(data) {
-									alert("修改合同成功！");
+									alert("修改成功！");
 								});
 							};
-	// 查看ID，并记入sessionStorage
+							// 查看ID，并记入sessionStorage
 							travel.getTravelId = function(travelId) {
+								
 								sessionStorage.setItem('travelId', travelId);
+								/*console.log(JSON.stringify(travelId));
+								travel.travelInfo=travelId;*/
 							};
+							
+							// 根据页数获取旅游交易列表
+							function getTravelTradeListByPage(page) {
+								services.getTravelTradeListByPage({
+									page : page,
+									searchKey : searchKey
+								}).success(function(data) {
+									traveltrade.traveltrades = data.list;
+									
+								});
+							}
+							//根据联系方式筛选旅游交易信息
+							traveltrade.selectTravelTradeByTel = function() {
+								searchKey = traveltrade.trtrTel;
+								services.getTravelTradeListByPage({
+									page : 1,
+									searchKey : searchKey
+								}).success(function(data) {
+									traveltrade.traveltrades = data.list;
+									pageTurn(data.totalPage, 1, getTravelTradeListByPage)
+								});
+							};
+							
+							// 查看信息
+							travel.checkTravel = function() {
+								var travelId = this.travel.travel_id;
+									services
+									.checkTravel({
+										travel_id : travelId
+									})
+											.success(
+													function(data) {
+														travel.travel = data.travel;
+//														if(data.travel.travel_discount){
+//															travel.travelInfo.travel_discount = changeFloat(data.travel.travel_discount);
+//														}
+//														if (data.travel.travel_stime) {
+//															travel.travelInfo.travel_stime = changeDateType(data.travel.travel_stime);
+//														}
+														
+														
+														$(".overlayer").fadeIn(
+																200);
+														$("#tipCheck").fadeIn(
+																200);
+
+													});
+									$(".cancel").click(function() {
+										$("#tipCheck").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										travel.travel = "";
+									});
+							};
+							
+							// 2017-8-30wdh更改时间的样式
+							function changeDateType(date) {
+								console.log("传进来的时间" + date);
+								if (date != "") {
+									var DateTime = new Date(date.time)
+											.toLocaleDateString().replace(
+													/\//g, '-');
+								} else {
+									var DateTime = "";
+								}
+								console.log("转化后的时间" + DateTime);
+								return DateTime;
+							}
+							
+							//2017-8-31wdh修正float-JSON显示误差
+							function changeFloat(f){
+								console.log("传进来的" + f);
+								if(!f){
+									var num = parseFloat('0').toFixed(2);
+								} else {
+									var num = parseFloat(f).toFixed(2);
+								}
+								console.log("转化后的" + num);
+								return num;
+							}
+								
+							//2017-09-06 wdh隐藏模态框
+							$(".tiptop a").click(function() {
+								$(".overlayer").fadeOut(200);
+								$(".tip").fadeOut(200);
+							});
 							
 							function initData() {
 								
@@ -307,67 +385,53 @@ app
 										pageTurn(data.totalPage, 1, getTravelTradeListByPage)
 									});
 								}
-//								if($location.path().indexOf('/travelList') == 0) {
-//										
-//										travel.flag = 1; // 标志位，用于控制按钮是否显示
-////										services.getTravelList({
-//											services.getTravelListByPage({
-//													page : 1
-//												})
-//												.success(
-//														function(data) {
-//															
-//															travel.travels = data.list;
-//															travel.totalPage = data.totalPage;
-//															var $pages = $(".tcdPageCode");
-//															if ($pages.length != 0) {
-//																$pages
-//																		.createPage({
-//																			pageCount : contract.totalPage,
-//																			current : 1,
-//																			backFn : function(
-//																					p) {
-////																				travel.getTravelList(p);
-//																				travel.getTravelListByPage(p);// 点击页码时获取第p页的数据
-//																			}
-//																		});
-//															}
-//														});
-
-									
 								 else if ($location.path().indexOf(
 										'/travelAdd') == 0) {
 									
 								}
-								 else if ($location.path().indexOf(
-									'/travelUpdate') == 0) {
+								 else if ($location.path().indexOf('/travelUpdate') == 0) {
+									
 								// 根据ID获取信息
 								var travel_id = sessionStorage
 										.getItem('travelId');
+							
 								services
 										.selectTravelById({
 											travel_id : travel_id
 										})
 										.success(
 												function(data) {
-													travel.tra = data.travel;
-													travel.travel = data.travel;
-													if (data.travel.travel_stime) {
-														travel.travel.travel_stime = changeDateType(data.travel.travel_stime);
-													}
+//													console.log("wdh"+JSON.stringify(data.travel));
+													travel.travelInfo = data.travel;
 													
+													if (data.travel.travel_stime) {
+														travel.travelInfo.travel_stime = changeDateType(data.travel.travel_stime);
+													}
+													if(data.travel.travel_discount){
+														travel.travelInfo.travel_discount = changeFloat(data.travel.travel_discount);
+													}
 												});
 								
+							}
 							}
 
 							initData();
 							
-							$scope.$on('reGetData', function() {
-								console.log("重新获取数据！");
-								initData();
-							});
-							}}]);
-
+							var $numberFormat = $(".numberFormat");
+							var numberRegexp = /^\d+(\.{0,1}\d+){0,1}$/;
+							$(".numberFormat").blur(
+									function() {
+										if (!numberRegexp.test(this.value)) {
+											$(this).parent().children("span")
+													.css('display', 'inline');
+										}
+									});
+							$(".numberFormat").click(
+									function() {
+										$(this).parent().children("span").css(
+												'display', 'none');
+									});	
+						} ]);
 //时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
@@ -384,9 +448,12 @@ app.filter('dateType', function() {
 app.filter('cutString', function() {
 	return function(input) {
 		var content = "";
+		
 		if (input != "") {
-			var shortInput = input.substr(0, 8);
+//			if(input.length()<8){
+				var shortInput = input.substr(0, 8);
 			content = shortInput + "……";
+//			}
 		}
 
 		return content;
@@ -400,3 +467,51 @@ app.filter('onmouse', function() {
 	var content = $(this).text(); // 获取到内容
 	});
 	});
+//
+//只允许输入两位小数的正则判断
+function changeTwoNum(value){
+	//清除"数字"和"."以外的字符
+	  value = value.replace(/[^\d.]/g,"");
+	  
+    //验证第一个字符是数字而不是
+	     value = value.replace(/^\./g,"");
+	 
+	//只保留第一个. 清除多余的
+	     value = value.replace(/\.{2,}/g,".");
+	     value = value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+	 
+	//只能输入两个小数 
+	     value = value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+}
+//小数过滤器
+app.filter('cutFloat', function() {
+	return function(input) {
+		if (!input) {
+			var money = parseFloat('0').toFixed(2);
+		} else {
+			var money = parseFloat(input).toFixed(2);
+		}
+
+		return money;
+	}
+});
+//
+app.directive("myFormat", function() {
+	return {
+		restrict : 'ECMA',
+		require : 'ngModel',
+		scope : true,
+		link : function(scope, elem, attrs, controller) {
+			var dateRegexp = /^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/;
+
+			// Model变化时执行
+			// 初始化指令时BU执行
+			scope.$watch(attrs.ngModel, function(val) {
+				if (val) {
+					return 22;
+				}
+				
+			});
+		}
+	}
+});

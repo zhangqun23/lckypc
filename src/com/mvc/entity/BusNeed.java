@@ -22,7 +22,7 @@ public class BusNeed implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer bune_id;// 主键
-	private String bune_tel;// 联系啊电话
+	private String bune_tel;// 联系电话
 	private Integer bune_num;// 乘车人数
 	private Float bune_time;// 用车时长
 	private Date bune_gath_time;// 集合时间

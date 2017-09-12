@@ -1,4 +1,4 @@
-﻿<script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 <script type="text/javascript"
 	src="${ctx}/js/lib/jquery.json-2.2.min.js"></script>
 <section class="leftbar">
@@ -7,21 +7,21 @@
 		<!-- 基础信息管理 -->
 		<dd id="userManagement" class="userManager" >
 			<div class="title">
-				<span><img src="${ctx}/images/leftico02.png" /></span>用户管理
+				<span><img src="${ctx}/images/leftico02.png" /></span>用户管理
 			</div>
 			<ul id="system-ul" class="menuson">
 				<li id="roleList"><cite></cite> <a
-					href="${ctx}/role/toUserManagePage.do#/roleList">角色管理</a><i></i></li>
+					href="${ctx}/role/toUserManagePage.do#/roleList">角色管理</a><i></i></li>
 				<li id="userList"><cite></cite> <a
 					href="${ctx}/role/toUserManagePage.do#/userList">用户管理</a><i></i></li>
 				
 			</ul>
 		</dd>
 		
-		<!-- 旅游信息管理 -->
+		<!--  旅游信息管理  -->
 		<dd id="travel" class="travelManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span>旅游管理
+				<span><img src="${ctx}/images/leftico01.png" /></span>旅游管理
 			</div>
 			<ul id="travel-ul" class="menuson">
 				<li id="travelAdd"><cite></cite> <a
@@ -34,10 +34,10 @@
 			</ul>
 		</dd>
 		
-		<!-- 广告信息管理 -->
+		<!-- å¹¿åä¿¡æ¯ç®¡ç -->
 		<dd id="ad" class="adManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span>广告管理
+				<span><img src="${ctx}/images/leftico01.png" /></span>广告管理
 			</div>
 			<ul id="ad-ul" class="menuson">
 				<li id="adList"><cite></cite> <a
@@ -45,10 +45,10 @@
 			</ul>
 		</dd>
 		
-		<!-- smgo信息管理 -->
+		<!-- smgoä¿¡æ¯ç®¡ç -->
 		<dd id="smgo" class="smgoManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span>smgo管理
+				<span><img src="${ctx}/images/leftico01.png" /></span>smgo管理
 			</div>
 			<ul id="smgo-ul" class="menuson">
 				<li id="smgoList"><cite></cite> <a
@@ -66,7 +66,7 @@
 								.get(
 										"/CIMS/login/getLeftbarPermission.do",
 										function(data) {
-											console.log("左侧栏权限：" + data);
+											console.log("å·¦ä¾§æ æéï¼" + data);
 											var leftbarPermission = data
 													.substring(1,
 															data.length - 2)
