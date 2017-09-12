@@ -1,0 +1,30 @@
+!Templates.html5.content!
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>ad管理</li>
+		<li>ad详情信息</li>
+	</ul>
+</div>
+<!-- 录入ad信息 -->
+<div class="formbody">
+	
+	<form ng-submit="updateAd()">
+		<div class="formtitle">
+			<span>ad信息</span>
+		</div>
+
+		<ul class="forminfo">
+			<li><label>标题<b>*</b></label>{{adInfo.ad_title}}</li>
+			<li><label>内容:</label>{{adInfo.ad_content}}</li>
+			<li><label>类型</label>{{adInfo.ad_type|findtype}}</li>
+			<li><label>审核状态<b>*</b></label>{{adInfo.ad_state|findstate}}</li>
+			<li><label>联系人<b>*</b></label>{{adInfo.ad_name}}</li>
+			<li><label>联系方式<b>*</b></label>{{adInfo.ad_tel}}</li>
+			<li><label>备注<b>*</b></label>{{adInfo.ad_remark}}</li>
+			<li><label>&nbsp;</label>
+			<a href="#adList" class="tablelink" has-permission='tAdInfo'>确定</a></li>
+		</ul>
+	</form>
+</div>
