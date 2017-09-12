@@ -37,23 +37,17 @@
 		<!-- 广告信息管理 -->
 		<dd id="ad" class="adManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span>广告管理
+				<span><img src="${ctx}/images/leftico01.png" /></span><a
+					href="${ctx}/ad/toAdPage.do#/adList">ad信息查询</a>
 			</div>
-			<ul id="ad-ul" class="menuson">
-				<li id="adList"><cite></cite> <a
-					href="${ctx}/ad/toAdPage.do#/adList">广告信息查询</a><i></i></li>
-			</ul>
 		</dd>
 		
 		<!-- smgo信息管理 -->
 		<dd id="smgo" class="smgoManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span>smgo管理
+				<span><img src="${ctx}/images/leftico01.png" /></span><a
+					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a>
 			</div>
-			<ul id="smgo-ul" class="menuson">
-				<li id="smgoList"><cite></cite> <a
-					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a><i></i></li>
-			</ul>
 		</dd>
 	</dl>
 </section>
