@@ -21,8 +21,8 @@ import com.utils.WxPayUtil;
 @RequestMapping("/returnPay")
 public class WxPayController {
 	
-	@Autowired
-	WxPayService wxPayService;
+//	@Autowired
+//	WxPayService wxPayService;
 	
 	@RequestMapping("/payReturn.do")
 	public String PaySult(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -52,7 +52,7 @@ public class WxPayController {
 	                           + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
 	                    // 处理业务 -修改订单支付状态  
 	                    System.out.println("微信支付回调：修改的订单=" + map.get("out_trade_no"));
-	                    wxPayService.updateTradeState(map.get("out_trade_no"));
+	                    //wxPayService.updateTradeState(map.get("out_trade_no"));
 	                    
 	                }
 	                // ------------------------------  
