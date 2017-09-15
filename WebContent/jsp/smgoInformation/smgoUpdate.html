@@ -29,6 +29,7 @@
 			<li><label>送货方式:<b>*</b></label>{{smgoInfo.smgo_sego|findSego}}</li>
 			<li><label>送货地址:<b>*</b></label>{{smgoInfo.smgo_add}}</li>
 			<li><label>备注:<b>*</b></label>{{smgoInfo.smgo_remark}}</li>
+			<!-- 如何获取当前时间 -->
 			<li><label>补录日期:<b>*</b></label><input type="text" name="edittime" required
 					ng-model="smgoInfoss.edit_time" class="dfselect dateLayoutStyle"
 					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></li>

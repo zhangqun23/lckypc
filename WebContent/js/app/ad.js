@@ -170,7 +170,26 @@ app
 									searchKey : searchKey
 								}).success(function(data){
 									ad.ads = data.list;
-									pageTurn(data.totalPage, 1, ad.selectAdByState)
+									
+									console.log(data.list);
+									console.log(data.totalPage);
+									1
+									
+									pageTurn(data.totalPage, 1, ad.selectAdByState1)
+									/*pageTurn(data.totalPage, 1, ad.selectAdByState)*/
+								});
+							}
+							
+							ad.selectAdByState1 = function(page){
+								var searchKey = null;
+								var adLimit = JSON.stringify(ad.ADSLimit);
+								services.selectAdByState({
+									page : page,
+									adState : adLimit,
+									searchKey : searchKey
+								}).success(function(data){
+									ad.ads = data.list;
+									/*pageTurn(data.totalPage, 1, ad.selectAdByState)*/
 								});
 							}
 
@@ -182,7 +201,7 @@ app
 									searchKey : searchKey
 								}).success(function(data) {
 									ad.ads = data.list;
-									pageTurn(data.totalPage, 1, getAdListByPage)
+									pageTurn(data.totalPage, page, getAdListByPage)
 								});
 							};
 							

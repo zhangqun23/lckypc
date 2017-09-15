@@ -30,7 +30,6 @@
 			<tr>
 			    <th>编号</th>
 				<th>货物名称</th>
-				<th>货物重量</th>
 				<th>始发地</th>
 				<th>目的地</th>
 				<th>发件人</th>
@@ -42,7 +41,6 @@
 				<th>发件日期</th>
 				<th>送货方式</th>
 				<th>送货地址</th>
-				<th>备注</th>
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -50,7 +48,6 @@
 			<tr ng-repeat="smgo in smgos" id={{smgo.smgo_id}}>
 				<td>{{$index + 1 }}</td>
 				<td>{{smgo.smgo_name|cutString}}</td>
-				<td>{{smgo.smgo_weight}}</td>
 				<td>{{smgo.smgo_start|cutString}}</td>
 				<td>{{smgo.smgo_end|cutString}}</td>
 				<td>{{smgo.smgo_sender|cutString}}</td>
@@ -62,8 +59,7 @@
 				<td>{{smgo.smgo_send_time.time|dateType}}</td>  
 				<td>{{smgo.smgo_sego|findSego}}</td>        
 				<td>{{smgo.smgo_add|cutString}}</td>
-				<td>{{smgo.smgo_remark|cutString}}</td>
-				<td> <a href="#/smgoUpdate" ng-click="getSmgoId(smgo)"class="tablelink"
+				<td><a href="#/smgoUpdate" ng-click="getSmgoId(smgo)"class="tablelink"
 				       has-permission='tSgEdit'>smgo补录</a>
 					<a href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)" class="tablelink"
 					   has-permission='tSmgoDel'>删除</a></td>
