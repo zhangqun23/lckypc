@@ -290,52 +290,48 @@ app
 								}).success(function(data) {
 //									sessionStorage.setItem("buneId", data);
 //									bune.busNeed.bune_id = data;
-
+									console.log(data.busNeed);
 									alert("创建成功！");
 								});
 							};
 							// 添加交易
 							bune.addBusTrade = function() {
-								console.log("succcess");
+								console.log("tra succcess");
 								var buneFormData = JSON.stringify(bune.busTrade);
 								services.addBusTrade({
 									busTrade : buneFormData
 								}).success(function(data) {
-
+									console.log(data.busTrade);
 									alert("创建成功！");
 								});
 							};
+							
 							// 测试补录信息
 							bune.repeatAddBusNeed = function() {
 								console.log("success!!");
-									var busFormData = JSON
-											.stringify(bune.busNeed);
+								
+									var busFormData = JSON.stringify(bune.busNeed);
 									services.repeatAddBusNeed(
 											{
 												busNeed : busFormData,
-												bune_id : sessionStorage
-														.getItem('busNeedId')
+												bune_id : sessionStorage.getItem('busNeedId')
 											}).success(function(data) {
 
 										alert("补录成功！");
-										
+										console.log(data.busNeed);
 									});
 							};
 							// 补录信息
 							bune.repeatAddBusTrade = function() {
-							
-									var busFormData = JSON
-											.stringify(bune.busTrade);
-									services.repeatAddBusTrade(
-											{
-												busTrade : busFormData,
-												bune_id : sessionStorage
-														.getItem('busNeedId')
-											}).success(function(data) {
-
+								console.log("TRa success!!");
+									var busFormData = JSON.stringify(bune.busTrade);
+									console.log(busFormData);
+									services.repeatAddBusTrade({
+											busTrade : busFormData,
+											bune_id : sessionStorage.getItem('busNeedId')
+									}).success(function(data) {
 										alert("补录成功！");
-										window.history.go(-1);
-										window.location.reload();
+										console.log(data);
 									});
 							};
 
@@ -391,6 +387,7 @@ app
 								} else if ($location.path().indexOf(
 										'/busNeedUpdate') == 0) {
 									var busNeed_id = sessionStorage.getItem('busNeedId');
+									$scope.bid=busNeed_id;
 									bune.getBuneId(busNeed_id);
 								}
 

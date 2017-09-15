@@ -9,7 +9,7 @@
 
 <div class="formbody">
 
-	<form ng-submit="repeatAddBusNeed()" >
+	<form ng-submit="repeatAddBusTrade()" >
 		<div class="formtitle">
 			<span>班车预订信息详情</span>
 		</div>
@@ -34,8 +34,9 @@
 			</tr>
 			<tr>
 			<td colspan='2' class="width15 text-center">包车用途</td>
-			<td colspan='2'><input type="text"
-					ng-model="bune.BusNeedPage.bune_purp" class="dfinput input_border" /></td>
+			<td colspan='1'>{{BusNeedPage.bune_purp}}<td>
+			<!-- <td colspan='2'><input type="text"
+					ng-model="busNeed.bune_purp" class="dfinput input_border" /></td> -->
 				
 			</tr>
 			<tr>
@@ -44,8 +45,7 @@
 			</tr>
 			<tr>
 			<td colspan='2' class="width15 text-center">交易创建时间</td>
-			<td colspan='2'><input type="text"
-					ng-model="busTrade.butr_time" class="dfinput input_border" /></td>			
+			<td colspan='1'><input type="text"	ng-model="busTrade.butr_time" class="dfinput input_border" /></td> 			
 			</tr>
 			<tr>
 				<td colspan='2' class="width15 text-center">押金</td>
@@ -61,35 +61,52 @@
 					ng-model="busTrade.butr_bus" class="dfinput input_border" /></td>			
 			</tr>
 			<tr>
-			<td colspan='2' class="width15 text-center">交易类型</td>
-			<td colspan='2'><select class="dfselect"
-				ng-model="busTrade.butr_type" >
-					<option value="0">线上</option>
-					<option value="1">线下</option>
-					</select></td>			
+				
+			<td colspan='2' class="width15 text-center">交易类型<label
+					class="left_length5 text_style">*</label></td>
+				<td colspan='2'><div class="div-checkbox">
+						<input name="butr_type" type="radio" 
+							ng-model="busTrade.butr_type" value="1" />线下
+					</div>
+					<div class="div-checkbox">
+						<input name="butr_type" type="radio" 
+							ng-model="busTrade.butr_type" value="0" />线上
+					</div></td>
 			</tr>
 			<tr>
-			<td colspan='2' class="width15 text-center">是否开发票</td>
-			<td colspan='2'><select class="dfselect"
-				ng-model="busTrade.invoice_if" >
-					<option value="0">未开</option>
-					<option value="1">已开</option>
-					</select></td>			
+			
+			<td colspan='2' class="width15 text-center">是否开发票<label
+					class="left_length5 text_style">*</label></td>
+				<td colspan='2'><div class="div-checkbox">
+						<input name="invoice_if" type="radio" 
+							ng-model="busTrade.invoice_if" value="1" />已开
+					</div>
+					<div class="div-checkbox">
+						<input name="invoice_if" type="radio" 
+							ng-model="busTrade.invoice_if" value="0" />未开
+					</div></td>			
 			<td colspan='2' class="width15 text-center">发票号</td>
 			<td colspan='2'><input type="text"
 					ng-model="busTrade.invoice_num" class="dfinput input_border" /></td>
 			</tr>
 			<tr>
-			<td colspan='2' class="width15 text-center">交易状态</td>
-			<td colspan='2'><select class="dfselect"
-				ng-model="busTrade.butr_type" >
-					<option value="0">交易中</option>
-					<option value="1">交易结束</option>
-					</select></td>			
+		
+			<td colspan='2' class="width15 text-center">交易状态<label
+					class="left_length5 text_style">*</label></td>
+				<td colspan='2'><div class="div-checkbox">
+						<input name="butr_state" type="radio" 
+							ng-model="busTrade.butr_state" value="1" />交易结束
+					</div>
+					<div class="div-checkbox">
+						<input name="butr_state" type="radio" 
+							ng-model="busTrade.butr_state" value="0" />交易中
+					</div></td>		
 			</tr>
 		</table>
-		<input type="submit" id="addBusNeed" class="btn" value="确认提交" />
-
+		<!-- <input type="submit" id="addBusNeed" class="btn" value="测试提交" /> -->
+		<input  type="text" name="state"
+							ng-model="bid" />
+			<input type="submit" id="addBusTrade" class="btn" value="确认提交"  />
 	</form>
 </div>
 

@@ -259,8 +259,7 @@ app
 							// 修改旅游信息
 							travel.updateTravel = function() {
 								
-								var traFormData = JSON
-										.stringify(travel.travelInfo);
+								var traFormData = JSON.stringify(travel.travelInfo);
 								services.updateTravelById({
 									travel : traFormData
 								}).success(function(data) {
