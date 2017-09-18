@@ -21,7 +21,9 @@ private Float trtr_price;//交易额
 private Integer trtr_mnum;//购买的成人票数
 private Integer trtr_cnum;//购买的儿童票数
 private Travel travel_id;//外键
-private User user_id;//外键
+private Integer is_state;//付款状态
+private String open_id;//外键
+private Float travel_discount;//折扣
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getTrtr_id() {
@@ -66,12 +68,23 @@ public Travel getTravel_id() {
 public void setTravel_id(Travel travel_id) {
 	this.travel_id = travel_id;
 }
-@ManyToOne
-@JoinColumn(name="user_id")
-public User getUser_id() {
-	return user_id;
+public Integer getIs_state() {
+	return is_state;
 }
-public void setUser_id(User user_id) {
-	this.user_id = user_id;
+public void setIs_state(Integer is_state) {
+	this.is_state = is_state;
+}
+public String getOpen_id() {
+	return open_id;
+}
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
+}
+@Column(columnDefinition = "float(10,2) not null default '0.00'")
+public Float getTravel_discount() {
+	return travel_discount;
+}
+public void setTravel_discount(Float travel_discount) {
+	this.travel_discount = travel_discount;
 }
 }

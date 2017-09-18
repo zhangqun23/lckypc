@@ -3,7 +3,7 @@ package com.mvc.dao;
 import java.util.Date;
 import java.util.List;
 
-import com.mvc.entity.Smgo;
+import com.mvc.entity.SmallGoods;
 
 /**
  * 
@@ -20,7 +20,7 @@ public interface SmgoDao {
 	Integer countTotal(String searchKey);
 
 	//根据页数筛选smgo信息
-	List<Smgo> findSmgoByPage(String searchKey, int offset, int end);
+	List<SmallGoods> findSmgoByPage(String searchKey, int offset, int end);
 
 	//根据id删除smgo信息
 	boolean updateState(Integer smgo_id);
@@ -29,7 +29,7 @@ public interface SmgoDao {
 	Integer countSegoTotal(String smgoSego);
 
 	//根据smgoSego、page筛选smgo信息
-	List<Smgo> findSmgoBySego(String smgoSego, int offset, int limit);
+	List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit);
 
 	//添加补录信息
 	boolean updateEdit(Date edittime, float editprice, Integer smgoid);

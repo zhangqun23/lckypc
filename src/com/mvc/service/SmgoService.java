@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import com.mvc.entity.Smgo;
+import com.mvc.entity.SmallGoods;
 import com.mvc.entity.User;
 
 import net.sf.json.JSONObject;
@@ -24,7 +24,7 @@ public interface SmgoService {
 	Integer countTotal(String searchKey);
 
 	//根据页数晒选smgo信息
-	List<Smgo> findSmgoByPage(String searchKey, int offset, int end);
+	List<SmallGoods> findSmgoByPage(String searchKey, int offset, int end);
 
 	//根据id删除smgo信息
 	boolean deleteIsdelete(Integer smgoid);
@@ -33,7 +33,7 @@ public interface SmgoService {
 	Integer countSegoTotal(String smgoSego);
 
 	//根据sego、page筛选smgo信息
-	List<Smgo> findSmgoBySego(String smgoSego, int offset, int limit);
+	List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit);
 
 	//更新数据库
 	boolean update(Date edittime, float editprice, Integer smgoid);

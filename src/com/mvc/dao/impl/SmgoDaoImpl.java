@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.base.enums.IsDelete;
 import com.mvc.dao.SmgoDao;
-import com.mvc.entity.Smgo;
+import com.mvc.entity.SmallGoods;
 import com.mvc.repository.SmgoRepository;
 
 @Repository("smgoDaoImpl")
@@ -43,7 +43,7 @@ public class SmgoDaoImpl implements SmgoDao{
 
 	//根据页数筛选smgo信息
 	@Override
-	public List<Smgo> findSmgoByPage(String searchKey, int offset, int end) {
+	public List<SmallGoods> findSmgoByPage(String searchKey, int offset, int end) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
 		String selectSql = "select * from Smgo where is_delete=0";
@@ -52,10 +52,10 @@ public class SmgoDaoImpl implements SmgoDao{
 			selectSql += " and ( smgo_name like '%" + searchKey + "%')";
 		}
 		selectSql += " order by smgo_id desc limit :offset, :end";
-		Query query = em.createNativeQuery(selectSql, Smgo.class);
+		Query query = em.createNativeQuery(selectSql, SmallGoods.class);
 		query.setParameter("offset", offset);
 		query.setParameter("end", end);
-		List<Smgo> list = query.getResultList();
+		List<SmallGoods> list = query.getResultList();
 		em.close();
 		return list;
 	}
@@ -94,15 +94,15 @@ public class SmgoDaoImpl implements SmgoDao{
 
 	//根据smgoSego、page筛选smgo信息
 	@Override
-	public List<Smgo> findSmgoBySego(String smgoSego, int offset, int limit) {
+	public List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
 		String selectSql = "select * from Smgo where is_delete=0 and smgo_sego = " + smgoSego;
 		selectSql += " order by smgo_id desc limit :offset, :end";
-		Query query = em.createNativeQuery(selectSql, Smgo.class);
+		Query query = em.createNativeQuery(selectSql, SmallGoods.class);
 		query.setParameter("offset", offset);
 		query.setParameter("end", limit);
-		List<Smgo> list = query.getResultList();
+		List<SmallGoods> list = query.getResultList();
 		em.close();
 		return list;
 	}
@@ -112,7 +112,7 @@ public class SmgoDaoImpl implements SmgoDao{
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
 		String sql = "updata smgo set edit_time =:edit_time,edit_price =:edit_price where smgo_id =:smgo_id";
-		Query query = em.createNativeQuery(sql.toString(),Smgo.class);
+		Query query = em.createNativeQuery(sql.toString(),SmallGoods.class);
 		query.setParameter("smgo_id", smgoid);
 		query.setParameter("edit_price", editprice);
 		query.setParameter("edit_time", edittime);

@@ -13,14 +13,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="truck_send")
-public class Truck_send {
+public class TruckSend {
 	private Integer trse_id;//主键
 	private Float trse_left_load;//剩余载重
 	private String trse_splace;//始发地（默认洛川）
 	private String trse_eplace;//目的地
 	private String trse_price;//价格
 	private Date trse_time;//出发时间
-	private Truck truck_id;//外键
+	private Truck truck;//外键
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -74,11 +74,11 @@ public class Truck_send {
 	
 	@ManyToOne
 	@JoinColumn(name="truck_id")
-	public Truck getTruck_id() {
-		return truck_id;
+	public Truck getTruck() {
+		return truck;
 	}
-	public void setTruck_id(Truck truck_id) {
-		this.truck_id = truck_id;
+	public void setTruck(Truck truck) {
+		this.truck = truck;
 	}
 	
 }
