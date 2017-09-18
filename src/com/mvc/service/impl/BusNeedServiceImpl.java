@@ -56,11 +56,16 @@ public  class BusNeedServiceImpl implements BusNeedService {
 		public boolean deleteBuneIsdelete(Integer bune_id) {
 			return busNeedDao.updateBuneState(bune_id);
 		}
-	// 根据ID获取
+	// 根据ID获取信息
 		@Override
 		public BusNeed selectBusNeedById(Integer bune_id) {
 				return busNeedRepository.selectBusNeedById(bune_id);
 					}
+	// 根据ID获取对应交易
+		@Override
+		public BusTrade selectBusTradeByBNId(Integer bune_id) {
+		return busTradeRepository.selectBusTradeByBNId(bune_id);
+							}
 	// 根据页数筛选全部信息
 		@Override
 		public List<BusNeed> findBusNeedByPage(String searchKey, Integer offset, Integer end) {
@@ -98,7 +103,7 @@ public  class BusNeedServiceImpl implements BusNeedService {
 	//交易信息补录	
 		@Override
 		public Boolean updateBusTrade(Integer bune_id, JSONObject jsonObject)throws ParseException{
-			BusTrade busTrade = busTradeRepository.selectBusTradeById(bune_id);
+			BusTrade busTrade = busTradeRepository.selectBusTradeByBNId(bune_id);
 //			BusTrade busTrade=new BusTrade();
 			BusNeed busNeed=new BusNeed();
 			busNeed.setBune_id(bune_id);

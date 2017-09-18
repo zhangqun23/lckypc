@@ -23,10 +23,10 @@ public interface BusTradeRepository extends JpaRepository<BusTrade, Integer> {
 //	public BusTrade findBusTradeById(@Param("butr_id") Integer butr_id);
 //	
 	
-	//根据ID获取信息
+	//根据ID获取对应交易信息
 //	@Query("select br from BusNeed LEFT JOIN BusTrade ON BusTrade.bune_id=BusNeed.bune_id")
 	
 	@Query("select br from BusTrade br where bune_id=:bune_id ")		
-	BusTrade selectBusTradeById(@Param("bune_id") Integer bune_id);
+	BusTrade selectBusTradeByBNId(@Param("bune_id") Integer bune_id);
 
 }

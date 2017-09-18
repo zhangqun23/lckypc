@@ -115,6 +115,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	services.selectBusTradeByBNId = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'busNeed/selectBusTradeByBNId.do',
+			data : data
+		});
+	};
 	services.addBusNeed = function(data) {
 		return $http({
 			method : 'post',
@@ -167,6 +174,7 @@ app
 						function($scope, services, $location) {
 
 							var bune = $scope;
+							var butr = $scope;
 							var searchKey = null;
 							// 换页
 							function pageTurn(totalPage, page, Func) {
@@ -228,6 +236,23 @@ app
 													if (data.bune.bune_time) {
 														data.bune.bune_time = changeDateType(data.bune.bune_time);
 													}
+
+												});
+							}
+							// 读取对应旅游交易信息
+							function selectBusBusTradeByBNId() {
+								var bune_id = sessionStorage
+										.getItem('busNeedId');
+								services.selectBusBusTradeByBNId({
+											bune_id : bune_id
+										})
+										.success(
+												function(data) {
+													
+													butr.busTrade = data.busTrade;
+//													if (data.bune.bune_time) {
+//														data.bune.bune_time = changeDateType(data.bune.bune_time);
+//													}
 
 												});
 							}
@@ -387,8 +412,30 @@ app
 								} else if ($location.path().indexOf(
 										'/busNeedUpdate') == 0) {
 									var busNeed_id = sessionStorage.getItem('busNeedId');
-									$scope.bid=busNeed_id;
+//									$scope.bid=busNeed_id;
 									bune.getBuneId(busNeed_id);
+									
+//									services.selectBusNeedById({
+//													bune_id : bune_id
+//												})
+//												.success(
+//														function(data) {
+//															// bune.bun = data.busNeed;
+//															bune.busNeed = data.busNeed;
+//															if (data.bune.bune_time) {
+//																data.bune.bune_time = changeDateType(data.bune.bune_time);
+//															}
+//
+//														});
+//									}
+//									services.selectBusBusTradeByBNId({
+//										bune_id : bune_id
+//									})
+//									.success(
+//											function(data) {
+//												
+//												butr.busTrade = data.busTrade;												
+//											});
 								}
 
 								 else if ($location.path().indexOf(

@@ -41,10 +41,10 @@
 			<ul id="busNeed-ul" class="menuson">
 				<li id="busList"><cite></cite> <a
 					href="${ctx}/busNeed/toBusNeedPage.do#/busNeedList">班车预定信息查询</a><i></i></li>
-				<li id="busList"><cite></cite> <a
+				<%-- <li id="busList"><cite></cite> <a
 					href="${ctx}/busNeed/toBusNeedPage.do#/busNeedAdd">班车信息添加</a><i></i></li>
 				<li id="busList"><cite></cite> <a
-					href="${ctx}/busNeed/toBusNeedPage.do#/busTradeAdd">班车补录信息添加</a><i></i></li>
+					href="${ctx}/busNeed/toBusNeedPage.do#/busTradeAdd">班车补录信息添加</a><i></i></li> --%>
 			</ul>
 		</dd>
 		<!-- 广告信息管理 -->
@@ -61,9 +61,12 @@
 		<!-- smgo信息管理 -->
 		<dd id="smgo" class="smgoManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span><a
-					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a>
+				<span><img src="${ctx}/images/leftico01.png" /></span>smgo管理
 			</div>
+			<ul id="smgo-ul" class="menuson">
+				<li id="smgoList"><cite></cite> <a
+					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a><i></i></li>
+			</ul>
 		</dd>
 	</dl>
 </section>

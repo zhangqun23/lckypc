@@ -96,7 +96,22 @@ public class BusNeedController {
 		jsonObject.put("busNeed", busNeed);
 		return jsonObject.toString();
 	}
-	
+	/**
+	 * 根据ID获得对应交易信息
+	 * 
+	 * @param request
+	 * @param session
+	 * @return BusTrade对象
+	 */
+	@RequestMapping("/selectBusTradeByBNId.do")
+	public @ResponseBody String selectBusTradeByBNId(HttpServletRequest request, HttpSession session) {
+		int bune_id = Integer.parseInt(request.getParameter("bune_id"));
+		session.setAttribute("bune_id", bune_id);
+		BusTrade busTrade = busNeedService.selectBusTradeByBNId(bune_id);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("busTrade", busTrade);
+		return jsonObject.toString();
+	}
 	/**
 	 * 添加班车信息
 	 * 

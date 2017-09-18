@@ -29,8 +29,10 @@ public interface BusNeedService {
 	// 根据页数筛选全部信息列表
 	List<BusNeed> findBusNeedByPage(String searchKey, Integer offset, Integer end);
 			
-	// 根据合同ID获取合同
+	// 根据合同ID获取信息
 	BusNeed selectBusNeedById(Integer bune_id);
+	// 根据合同ID获取对应交易信息
+	BusTrade selectBusTradeByBNId(Integer bune_id);
 	
 	// 添加合同
 		BusNeed addBusNeed(JSONObject jsonObject);

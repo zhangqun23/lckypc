@@ -394,8 +394,7 @@ app
 								var travel_id = sessionStorage
 										.getItem('travelId');
 							
-								services
-										.selectTravelById({
+								services.selectTravelById({
 											travel_id : travel_id
 										})
 										.success(
