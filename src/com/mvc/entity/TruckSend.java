@@ -20,7 +20,7 @@ public class TruckSend {
 	private String trse_eplace;//目的地
 	private String trse_price;//价格
 	private Date trse_time;//出发时间
-	private Truck truck_id;//外键
+	private Truck truck;//外键
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -71,14 +71,15 @@ public class TruckSend {
 	public void setTrse_time(Date trse_time) {
 		this.trse_time = trse_time;
 	}
-	
 	@ManyToOne
-	@JoinColumn(name="truck_id")
-	public Truck getTruck_id() {
-		return truck_id;
+	@JoinColumn(name ="trck_id")
+	public Truck getTruck() {
+		return truck;
 	}
-	public void setTruck_id(Truck truck_id) {
-		this.truck_id = truck_id;
+	public void setTruck(Truck truck) {
+		this.truck = truck;
 	}
+	
+
 	
 }

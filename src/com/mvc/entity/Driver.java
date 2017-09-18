@@ -47,6 +47,7 @@ public void setDriver_name(String driver_name) {
 public String getDriver_job() {
 	return driver_job;
 }
+
 public void setDriver_job(String driver_job) {
 	this.driver_job = driver_job;
 }

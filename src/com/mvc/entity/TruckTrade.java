@@ -92,3 +92,4 @@ public void setTrne(TruckNeed trne) {
 	this.trne = trne;
 }
 }
+

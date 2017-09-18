@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mvc.dao.SmgoDao;
-import com.mvc.entity.Smgo;
+import com.mvc.entity.SmallGoods;
 import com.mvc.service.SmgoService;
 
 @Service("/smgoServiceImpl")
@@ -25,7 +25,7 @@ public class SmgoServiceImpl implements SmgoService{
 	
 	//根据页数筛选smgo信息
 	@Override
-	public List<Smgo> findSmgoByPage(String searchKey, int offset, int end) {
+	public List<SmallGoods> findSmgoByPage(String searchKey, int offset, int end) {
 		// TODO 自动生成的方法存根
 		return smgoDao.findSmgoByPage(searchKey, offset, end);
 	}
@@ -46,7 +46,7 @@ public class SmgoServiceImpl implements SmgoService{
 
 	//根据sego筛选smgo信息
 	@Override
-	public List<Smgo> findSmgoBySego(String smgoSego, int offset, int limit) {
+	public List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit) {
 		// TODO 自动生成的方法存根
 		return smgoDao.findSmgoBySego(smgoSego,offset,limit);
 	}
