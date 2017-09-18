@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.base.enums.IsDelete;
 import com.mvc.dao.SmgoDao;
@@ -107,17 +108,18 @@ public class SmgoDaoImpl implements SmgoDao{
 		return list;
 	}
 
+	@Transactional
 	@Override
 	public boolean updateEdit(Date edittime, float editprice, Integer smgoid) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String sql = "updata smgo set edit_time =:edit_time,edit_price =:edit_price where smgo_id =:smgo_id";
-		Query query = em.createNativeQuery(sql.toString(),SmallGoods.class);
+		String sql = "update smgo set edit_time =:edit_time,edit_price =:edit_price where smgo_id =:smgo_id";
+		Query query = em.createNativeQuery(sql.toString());
 		query.setParameter("smgo_id", smgoid);
 		query.setParameter("edit_price", editprice);
-		query.setParameter("edit_time", edittime);
-		
-		query.getResultList();
+		query.setParameter("edit_time", edittime);//数据库更新多个字段;
+		em.joinTransaction();//update有关,不知道其具体用法;
+		query.executeUpdate();//sql语句使用Update更新数据时使用executeUpdate();
 		em.close();
 		return true;
 	}

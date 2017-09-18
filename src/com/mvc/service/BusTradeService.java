@@ -17,8 +17,6 @@ import com.mvc.entity.BusTrade;
 @Service
 public interface BusTradeService {
 
-	// 添加修改信息
-	boolean save(BusTrade busTrade);
 
 	// 查询信息总条数
 	Integer countTotal(String searchKey);

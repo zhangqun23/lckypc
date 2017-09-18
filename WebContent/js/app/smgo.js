@@ -157,7 +157,7 @@ app
 									edit_price : "",
 									edit_time : ""
 							}
-							//添加edit补录信息    (有问题、好像没进来)
+							//添加edit补录信息   
 							smgo.addEdit = function(){		
 								var smgoid = sessionStorage.getItem('smgoid');
 								console.log(smgo.smgoInfoss);
@@ -168,6 +168,7 @@ app
 								}).success(function(data) {
 									alert("补录成功");
 									console.log(data.list)
+									$location.path("smgoList/");
 								});
 							};
 							

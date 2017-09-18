@@ -1,4 +1,3 @@
-!Templates.html5.content!
 <div class="place">
 	<span>位置：</span>
 	<ul class="placeul">
@@ -16,7 +15,6 @@
 			<input name="" type="text" class="dfinput" id="aTitle"
 				ng-model="aTitle" placeholder="标题关键字" /> <input class="btn click"
 				type="submit" value="查询" ng-click="selectAdByTitle()">
-			
 			<select class="select-box" ng-model="ADSLimit.ad_state" ng-change="selectAdByState()" id="ad_state" required>
 			   <option>审核状态</option>
 			   <option value="0">未审核</option>
@@ -49,8 +47,8 @@
 				<td>{{ad.ad_name|cutString}}</td>
 				<td>{{ad.ad_tel}}</td>
 				<td>{{ad.ad_remark|cutString}}</td>
-				<td><a href="#adList" ng-click="editState(ad.ad_id)" class="tablelink" 
-				       has-permission='tAdInfo'>状态变更</a>
+				<td><a href="#adList" ng-click="editState(ad.ad_state,ad.ad_id)" class="tablelink" 
+				       has-permission='tAdInfo'>审核</a>
 				    <a href="#/adUpdate" ng-click="getAdId(ad)"class="tablelink"
 				       has-permission='tAdEdit'>详情</a>
 					<a href="#adList" ng-click="deleteAd(ad.ad_id)" class="tablelink"

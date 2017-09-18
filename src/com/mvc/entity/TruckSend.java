@@ -71,14 +71,15 @@ public class TruckSend {
 	public void setTrse_time(Date trse_time) {
 		this.trse_time = trse_time;
 	}
-	
 	@ManyToOne
-	@JoinColumn(name="truck_id")
+	@JoinColumn(name ="trck_id")
 	public Truck getTruck() {
 		return truck;
 	}
 	public void setTruck(Truck truck) {
 		this.truck = truck;
 	}
+	
+
 	
 }

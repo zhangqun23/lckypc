@@ -1,14 +1,12 @@
 package com.mvc.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import net.sf.json.JSONObject;
 
-import org.springframework.stereotype.Service;
-
 import com.mvc.entity.BusNeed;
 import com.mvc.entity.BusTrade;
-import com.mvc.entity.User;
 
 /**
  * BusNeed相关Service层接口
@@ -16,7 +14,7 @@ import com.mvc.entity.User;
  * @author wdh
  * @date 2017年9月4日
  */
-@Service
+
 public interface BusNeedService {
 
 	// 添加修改信息
@@ -31,16 +29,18 @@ public interface BusNeedService {
 	// 根据页数筛选全部信息列表
 	List<BusNeed> findBusNeedByPage(String searchKey, Integer offset, Integer end);
 			
-	// 根据合同ID获取合同
+	// 根据合同ID获取信息
 	BusNeed selectBusNeedById(Integer bune_id);
+	// 根据合同ID获取对应交易信息
+	BusTrade selectBusTradeByBNId(Integer bune_id);
 	
 	// 添加合同
 		BusNeed addBusNeed(JSONObject jsonObject);
 	// 添加合同
 		BusTrade addBusTrade(JSONObject jsonObject);
 	// 信息补录
-	BusNeed updateBusNeed(Integer bune_id, JSONObject jsonObject);
+	 Boolean updateBusNeed(Integer bune_id, JSONObject jsonObject)throws ParseException;
 	
 	// 交易信息补录
-	BusTrade updateBusTrade(Integer butr_id, JSONObject jsonObject);
+	 Boolean updateBusTrade(Integer bune_id, JSONObject jsonObject)throws ParseException;
 }
