@@ -115,6 +115,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	services.selectBusTradeByBNId = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'busNeed/selectBusTradeByBNId.do',
+			data : data
+		});
+	};
 	services.addBusNeed = function(data) {
 		return $http({
 			method : 'post',
@@ -167,6 +174,7 @@ app
 						function($scope, services, $location) {
 
 							var bune = $scope;
+							var butr = $scope;
 							var searchKey = null;
 							// 换页
 							function pageTurn(totalPage, page, Func) {
@@ -231,6 +239,23 @@ app
 
 												});
 							}
+							// 读取对应旅游交易信息
+							function selectBusBusTradeByBNId() {
+								var bune_id = sessionStorage
+										.getItem('busNeedId');
+								services.selectBusBusTradeByBNId({
+											bune_id : bune_id
+										})
+										.success(
+												function(data) {
+													
+													butr.busTrade = data.busTrade;
+//													if (data.bune.bune_time) {
+//														data.bune.bune_time = changeDateType(data.bune.bune_time);
+//													}
+
+												});
+							}
 							//查看ID，并记入sessionStorage,无操作
 							bune.saveBuneId = function(busNeedId) {
 								 sessionStorage.setItem('busNeedId',busNeedId);
@@ -290,52 +315,48 @@ app
 								}).success(function(data) {
 //									sessionStorage.setItem("buneId", data);
 //									bune.busNeed.bune_id = data;
-
+									console.log(data.busNeed);
 									alert("创建成功！");
 								});
 							};
 							// 添加交易
 							bune.addBusTrade = function() {
-								console.log("succcess");
+								console.log("tra succcess");
 								var buneFormData = JSON.stringify(bune.busTrade);
 								services.addBusTrade({
 									busTrade : buneFormData
 								}).success(function(data) {
-
+									console.log(data.busTrade);
 									alert("创建成功！");
 								});
 							};
+							
 							// 测试补录信息
 							bune.repeatAddBusNeed = function() {
 								console.log("success!!");
-									var busFormData = JSON
-											.stringify(bune.busNeed);
+								
+									var busFormData = JSON.stringify(bune.busNeed);
 									services.repeatAddBusNeed(
 											{
 												busNeed : busFormData,
-												bune_id : sessionStorage
-														.getItem('busNeedId')
+												bune_id : sessionStorage.getItem('busNeedId')
 											}).success(function(data) {
 
 										alert("补录成功！");
-										
+										console.log(data.busNeed);
 									});
 							};
 							// 补录信息
 							bune.repeatAddBusTrade = function() {
-							
-									var busFormData = JSON
-											.stringify(bune.busTrade);
-									services.repeatAddBusTrade(
-											{
-												busTrade : busFormData,
-												bune_id : sessionStorage
-														.getItem('busNeedId')
-											}).success(function(data) {
-
+								console.log("TRa success!!");
+									var busFormData = JSON.stringify(bune.busTrade);
+									console.log(busFormData);
+									services.repeatAddBusTrade({
+											busTrade : busFormData,
+											bune_id : sessionStorage.getItem('busNeedId')
+									}).success(function(data) {
 										alert("补录成功！");
-										window.history.go(-1);
-										window.location.reload();
+										console.log(data);
 									});
 							};
 
@@ -391,7 +412,30 @@ app
 								} else if ($location.path().indexOf(
 										'/busNeedUpdate') == 0) {
 									var busNeed_id = sessionStorage.getItem('busNeedId');
+//									$scope.bid=busNeed_id;
 									bune.getBuneId(busNeed_id);
+									
+//									services.selectBusNeedById({
+//													bune_id : bune_id
+//												})
+//												.success(
+//														function(data) {
+//															// bune.bun = data.busNeed;
+//															bune.busNeed = data.busNeed;
+//															if (data.bune.bune_time) {
+//																data.bune.bune_time = changeDateType(data.bune.bune_time);
+//															}
+//
+//														});
+//									}
+//									services.selectBusBusTradeByBNId({
+//										bune_id : bune_id
+//									})
+//									.success(
+//											function(data) {
+//												
+//												butr.busTrade = data.busTrade;												
+//											});
 								}
 
 								 else if ($location.path().indexOf(

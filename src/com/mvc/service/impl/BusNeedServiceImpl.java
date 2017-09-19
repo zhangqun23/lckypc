@@ -17,6 +17,7 @@ import com.mvc.repository.BusTradeRepository;
 import com.mvc.service.BusNeedService;
 
 import net.sf.json.JSONObject;
+
 import com.utils.JSONUtil;
 /**
  * BusNeed相关Service层接口实现
@@ -55,11 +56,16 @@ public  class BusNeedServiceImpl implements BusNeedService {
 		public boolean deleteBuneIsdelete(Integer bune_id) {
 			return busNeedDao.updateBuneState(bune_id);
 		}
-	// 根据ID获取
+	// 根据ID获取信息
 		@Override
 		public BusNeed selectBusNeedById(Integer bune_id) {
 				return busNeedRepository.selectBusNeedById(bune_id);
 					}
+	// 根据ID获取对应交易
+		@Override
+		public BusTrade selectBusTradeByBNId(Integer bune_id) {
+		return busTradeRepository.selectBusTradeByBNId(bune_id);
+							}
 	// 根据页数筛选全部信息
 		@Override
 		public List<BusNeed> findBusNeedByPage(String searchKey, Integer offset, Integer end) {
@@ -71,8 +77,8 @@ public  class BusNeedServiceImpl implements BusNeedService {
 		@Override
 		public BusNeed addBusNeed(JSONObject jsonObject) {
 			
-			long time = System.currentTimeMillis();
-			Date date = new Date(time);
+//			long time = System.currentTimeMillis();
+//			Date date = new Date(time);
 			BusNeed busNeed = new BusNeed();
 			busNeed = (BusNeed) JSONUtil.JSONToObj(jsonObject.toString(), BusNeed.class);
 			
@@ -81,26 +87,27 @@ public  class BusNeedServiceImpl implements BusNeedService {
 		
 	//信息补录
 		@Override
-		public BusNeed updateBusNeed(Integer bune_id, JSONObject jsonObject){
+		public Boolean updateBusNeed(Integer bune_id, JSONObject jsonObject) throws ParseException{
 			BusNeed busNeed = busNeedRepository.selectBusNeedById(bune_id);
-			if (jsonObject != null) {
-				
-					if (jsonObject.containsKey("bune_purp")) {
-						busNeed.setBune_purp(jsonObject.getString("bune_purp"));
-					}
-				
-				}
-						
-				
-			return busNeed;	
+			
+			if (busNeed != null) {
+				if (jsonObject.containsKey("bune_purp")) {
+					busNeed.setBune_purp(jsonObject.getString("bune_purp"));}
+				}	
+			if (busNeed.getBune_id() != null)
+				return true;
+			else
+				return false;
 			}
-				
+			
 	//交易信息补录	
 		@Override
-		public BusTrade updateBusTrade(Integer butr_id, JSONObject jsonObject){
-			BusTrade busTrade = busTradeRepository.selectBusTradeById(butr_id);
-			if (jsonObject != null) {
-				try{
+		public Boolean updateBusTrade(Integer bune_id, JSONObject jsonObject)throws ParseException{
+			BusTrade busTrade = busTradeRepository.selectBusTradeByBNId(bune_id);
+//			BusTrade busTrade=new BusTrade();
+			BusNeed busNeed=new BusNeed();
+			busNeed.setBune_id(bune_id);
+			
 					if (jsonObject.containsKey("butr_time")) {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 						Date date = sdf.parse(jsonObject.getString("butr_time"));
@@ -127,16 +134,17 @@ public  class BusNeedServiceImpl implements BusNeedService {
 							busTrade.setButr_state(Integer.parseInt(jsonObject.getString("butr_state")));
 						}					
 					
-				}catch (ParseException e) {
-					e.printStackTrace();
-				}
-						
-				}
-			return busTrade;	
+						busTrade.setBusNeed(busNeed);
+			busTrade = busTradeRepository.saveAndFlush(busTrade);
+			if (busTrade.getButr_id() != null)
+				return true;
+			else
+				return false;	
 			}
 		@Override
 		public BusTrade addBusTrade(JSONObject jsonObject) {
 			// TODO Auto-generated method stub
 			return null;
 		}
+	
 }
