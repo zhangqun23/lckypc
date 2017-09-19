@@ -15,22 +15,22 @@ import com.mvc.entity.Ad;
  */
 public interface AdDao {
 
-	//查询全部ad信息
-	Integer countTotal(String searchKey);
+	//初始化
+	Integer countTotal();
+	List<Ad> findAdByPage(int offset, int limit);
+	
+	//state限制
+	Integer countTotalS(String adState);
+	List<Ad> findAdByState(String adState, int offset, int limit);
 
-	//根据页数筛选ad信息
-	List<Ad> findAdByPage(String searchKey, int offset, int end);
-
+	//type限制
+	Integer countTotalT(String adType);
+	List<Ad> findAdByType(String adType, int offset, int limit);
+	
 	//根据id变更state
 	boolean editState(Integer ad_id);
 
-	//根据state获取页数
-	Integer countStateTotal(String adState);
-
-	//根据state、page筛选ad信息
-	List<Ad> findAdByStatePage(String adState, int offset, int limit);
-
 	//根据id删除ad信息
 	boolean updateState(Integer ad_id);
-
+	
 }
