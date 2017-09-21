@@ -15,6 +15,10 @@ import com.mvc.entity.Ad;
  */
 public interface AdService {
 
+	//state、type限制
+	Integer countTotalST(String adState, String adType);
+	List<Ad> findAdByST(String adState, String adType, int offset, int limit);
+	
 	//初始化
 	Integer countTotal();
 	List<Ad> findAdByPage(int offset, int limit);
@@ -32,5 +36,6 @@ public interface AdService {
 	
 	//根据id变更state
 	boolean editState(Integer adid);
+	Integer countTotal(String adState, String adType);
 	
 }

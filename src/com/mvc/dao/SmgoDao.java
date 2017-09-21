@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.mvc.entity.SmallGoods;
 
+import net.sf.json.JSONObject;
+
 /**
  * 
  * @ClassName: SmgoDao
@@ -16,20 +18,24 @@ import com.mvc.entity.SmallGoods;
  */
 public interface SmgoDao {
 
-	//查询全部smgo信息
-	Integer countTotal(String searchKey);
+	//初始化
+	Integer countTotal();
+	List<SmallGoods> findSmgoByPage(int offset, int limit);
+	
+	//sego限制
+	Integer countSegoTotal(String smgoSego);
+	List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit);
+	
+	//time限制
+	Integer countTimeTotal(Date date1, Date date2);
+	List<SmallGoods> findSmgoByTime(Date date1, Date date2, int offset, int limit);
 
-	//根据页数筛选smgo信息
-	List<SmallGoods> findSmgoByPage(String searchKey, int offset, int end);
-
+	//sego、time限制
+	Integer countTotalSG(String smgoSego, Date date1, Date date2);
+	List<SmallGoods> findSmgoBySG(String smgoSego, Date date1, Date date2, int offset, int limit);
+	
 	//根据id删除smgo信息
 	boolean updateState(Integer smgo_id);
-
-	//按照smgoSego获得总页数
-	Integer countSegoTotal(String smgoSego);
-
-	//根据smgoSego、page筛选smgo信息
-	List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit);
 
 	//添加补录信息
 	boolean updateEdit(Date edittime, float editprice, Integer smgoid);

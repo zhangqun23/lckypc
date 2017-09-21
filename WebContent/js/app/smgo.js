@@ -80,7 +80,7 @@ app.constant('baseUrl', '/lckypc/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
-	//根据page获取相应的信息
+	//sego、time限制
 	services.getSmgoListByPage = function(data) {
 		return $http({
 			method : 'post',
@@ -138,25 +138,36 @@ app
 							function getSmgoListByPage(page) {
 								services.getSmgoListByPage({
 									page : page,
-									smgoSego : localStorage.getItem("smgoLimit"),
 								}).success(function(data) {
 									smgo.smgos = data.list;
 								});
 							}
 							
 							//根据smgo_sego筛选smgo信息
-							smgo.selectSmgoBySego = function(){
-								var smgoLimit = null;
-								smgoLimit = JSON.stringify(smgo.SGSLimit);
-								localStorage.setItem("smgoLimit",smgoLimit);
+							smgo.getSmgoListBySego = function(){
+								alert("sego");
+								var smgoLimit = JSON.stringify(smgo.SGSLimit);
 								services.getSmgoListByPage({
 									page : 1,
 									smgoSego : smgoLimit
 								}).success(function(data){
-									smgo.smgos = data.list;
+									$scope.smgos = data.list;
 									pageTurn(data.totalPage, 1, getSmgoListByPage)
 								});
 							}
+							
+							//日期限制
+							smgo.getSmgoListByTime = function(){
+								alert("Time")
+								var gotLimit = JSON.stringify(smgo.GotLimit)
+								services.getSmgoListByPage({
+									page : 1,
+									gotNeed : gotLimit
+								}).success(function(data){
+									$scope.smgos = data.list;
+									pageTurn(data.totalPage, 1, getSmgoListByPage)
+								});
+							};
 							
 							//添加edit补录信息   
 							smgo.smgoInfoss={
@@ -175,18 +186,6 @@ app
 									$location.path("smgoList/");
 								});
 							};
-
-							/*// 根据输入Name筛选信息
-							smgo.selectSmgoByName = function() {
-								searchKey = smgo.aName;
-								services.getSmgoListByPage({
-									page : 1,
-									searchKey : searchKey
-								}).success(function(data) {
-									smgo.smgos = data.list;
-									pageTurn(data.totalPage, 1, getSmgoListByPage)
-								});
-							};*/
 							
 							// 删除smgo信息
 							smgo.deleteSmgo = function(smgo_id) {

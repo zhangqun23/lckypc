@@ -27,10 +27,15 @@ public interface AdDao {
 	Integer countTotalT(String adType);
 	List<Ad> findAdByType(String adType, int offset, int limit);
 	
+	//state、type限制
+	List<Ad> findAdByST(String adState, String adType, int offset, int limit);
+	Integer countTotalST(String adState, String adType);
+	
 	//根据id变更state
 	boolean editState(Integer ad_id);
 
 	//根据id删除ad信息
 	boolean updateState(Integer ad_id);
+	
 	
 }

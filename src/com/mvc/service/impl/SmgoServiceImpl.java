@@ -10,45 +10,65 @@ import com.mvc.dao.SmgoDao;
 import com.mvc.entity.SmallGoods;
 import com.mvc.service.SmgoService;
 
+import net.sf.json.JSONObject;
+
 @Service("/smgoServiceImpl")
 public class SmgoServiceImpl implements SmgoService{
 	
 	@Autowired
 	SmgoDao smgoDao;
 	
-	//查询全部smgo信息
+	//初始化
 	@Override
-	public Integer countTotal(String searchKey) {
+	public Integer countTotal() {
 		// TODO 自动生成的方法存根
-		return smgoDao.countTotal(searchKey);
+		return smgoDao.countTotal();
+	}
+	@Override
+	public List<SmallGoods> findSmgoByPage(int offset, int limit) {
+		// TODO 自动生成的方法存根
+		return smgoDao.findSmgoByPage(offset,limit);
 	}
 	
-	//根据页数筛选smgo信息
-	@Override
-	public List<SmallGoods> findSmgoByPage(String searchKey, int offset, int end) {
-		// TODO 自动生成的方法存根
-		return smgoDao.findSmgoByPage(searchKey, offset, end);
-	}
-	
-	//根据id删除smgo信息
-	@Override
-	public boolean deleteIsdelete(Integer smgo_id) {
-		// TODO 自动生成的方法存根
-		return smgoDao.updateState(smgo_id);
-	}
-
-	//根据sego获取smgo总信息
+	//sego限制
 	@Override
 	public Integer countSegoTotal(String smgoSego) {
 		// TODO 自动生成的方法存根
 		return smgoDao.countSegoTotal(smgoSego);
 	}
-
-	//根据sego筛选smgo信息
 	@Override
 	public List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit) {
 		// TODO 自动生成的方法存根
 		return smgoDao.findSmgoBySego(smgoSego,offset,limit);
+	}
+	
+	//time限制
+	@Override
+	public Integer countTimeTotal(Date date1, Date date2) {
+		// TODO 自动生成的方法存根
+		return smgoDao.countTimeTotal(date1,date2);
+	}
+	@Override
+	public List<SmallGoods> findSmgoByTime(Date date1, Date date2, int offset, int limit) {
+		// TODO 自动生成的方法存根
+		return smgoDao.findSmgoByTime( date1,  date2,  offset,  limit);
+	}
+	//sego、time限制
+	@Override
+	public Integer countTotalSG(String smgoSego, Date date1, Date date2) {
+		// TODO 自动生成的方法存根
+		return smgoDao.countTotalSG( smgoSego,  date1,  date2);
+	}
+	@Override
+	public List<SmallGoods> findSmgoBySG(String smgoSego, Date date1, Date date2, int offset, int limit) {
+		// TODO 自动生成的方法存根
+		return smgoDao.findSmgoBySG( smgoSego,  date1,  date2,  offset,  limit);
+	}
+	//根据id删除smgo信息
+	@Override
+	public boolean deleteIsdelete(Integer smgo_id) {
+		// TODO 自动生成的方法存根
+		return smgoDao.updateState(smgo_id);
 	}
 
 	//补录edit信息
@@ -57,4 +77,5 @@ public class SmgoServiceImpl implements SmgoService{
 		// TODO 自动生成的方法存根
 		return smgoDao.updateEdit(edittime, editprice,smgoid);
 	}
+	
 }

@@ -20,22 +20,26 @@ import net.sf.json.JSONObject;
  */
 public interface SmgoService {
 
-	//查询smgo全部信息
-	Integer countTotal(String searchKey);
-
-	//根据页数晒选smgo信息
-	List<SmallGoods> findSmgoByPage(String searchKey, int offset, int end);
-
-	//根据id删除smgo信息
-	boolean deleteIsdelete(Integer smgoid);
-
-	//根据sego筛选smgo信息   总页数
+	//初始化
+	Integer countTotal();
+	List<SmallGoods> findSmgoByPage(int offset, int limit);
+	
+	//sego限制
 	Integer countSegoTotal(String smgoSego);
-
-	//根据sego、page筛选smgo信息
 	List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit);
 
-	//更新数据库
-	boolean update(Date edittime, float editprice, Integer smgoid);
+	//time限制
+	Integer countTimeTotal(Date date1, Date date2);
+	List<SmallGoods> findSmgoByTime(Date date1, Date date2, int offset, int limit);
 
+	//sego、time限制
+	Integer countTotalSG(String smgoSego, Date date1, Date date2);
+	List<SmallGoods> findSmgoBySG(String smgoSego, Date date1, Date date2, int offset, int limit);
+	
+	//根据id删除smgo信息
+	boolean deleteIsdelete(Integer smgoid);
+	
+	//补录
+	boolean update(Date edittime, float editprice, Integer smgoid);
+	
 }

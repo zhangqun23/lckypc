@@ -18,6 +18,7 @@ import com.mvc.entity.SmallGoods;
 import com.mvc.service.SmgoService;
 import com.mvc.service.UserService;
 import com.utils.Pager;
+import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -54,10 +55,11 @@ public class SmgoCotroller {
 	}
 	
 	/**
+	 * @throws ParseException 
 	 * 
 	 * 
-	 *@Title: getSmgosByPrarm 
-	 *@Description: 页码
+	 *@Title: selectSmgoBySego 
+	 *@Description: sego、time限制
 	 *@param @param request
 	 *@param @param session
 	 *@param @return
@@ -65,45 +67,55 @@ public class SmgoCotroller {
 	 *@throws
 	 */
 	@RequestMapping("/getSmgoListByPage.do")
-	public @ResponseBody String getSmgosByPrarm(HttpServletRequest request, HttpSession session) {
+	public @ResponseBody String selectSmgoBySego(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = new JSONObject();
-		String searchKey = request.getParameter("searchKey");
-		Integer totalRow = smgoService.countTotal(searchKey);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		String smgoSego = null;
+		Integer totalRow = null;
+		String startDate = null;
+		String endDate = null;
+		Date date1 = null ;
+		Date date2 = null;
+		List<SmallGoods>list = null;
 		Pager pager = new Pager();
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
-		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-		List<SmallGoods> list = smgoService.findSmgoByPage(searchKey, pager.getOffset(), pager.getLimit());
-		jsonObject.put("list", list);
-		jsonObject.put("totalPage", pager.getTotalPage());
-		System.out.println("totalPage:" + pager.getTotalPage());
-		return jsonObject.toString();
-	}
-	
-	/**
-	 * 
-	 * 
-	 *@Title: selectSmgoBySego 
-	 *@Description: 根据sego筛选smgo信息
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
-	 */
-	@RequestMapping("/selectSmgoBySego.do")
-	public @ResponseBody String selectSmgoBySego(HttpServletRequest request, HttpSession session) {
-		String smgoSego;
-		List<SmallGoods> list = null;
-		JSONObject jsonObject = new JSONObject();
 		if(request.getParameter("smgoSego") != null){
-			smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
-			Integer totalRow = smgoService.countSegoTotal(smgoSego);
-			Pager pager = new Pager();
-			pager.setPage(Integer.valueOf(request.getParameter("page")));
-			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-			list = smgoService.findSmgoBySego(smgoSego,pager.getOffset(),pager.getLimit());
-			jsonObject.put("totalPage", pager.getTotalPage());
+			if(request.getParameter("gotNeed") != null){
+				smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
+				if (jsonObject.containsKey("startDate")) 
+				startDate = StringUtil.dayFirstTime(jsonObject.getString("startDate"));
+				if (jsonObject.containsKey("endDate"))
+				endDate = StringUtil.dayLastTime(jsonObject.getString("endDate"));
+				date1 = sdf.parse(startDate);
+				date2 = sdf.parse(endDate);
+				jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
+				totalRow = smgoService.countTotalSG(smgoSego,date1,date2);
+				list = smgoService.findSmgoBySG(smgoSego,date1,date2,pager.getOffset(),pager.getLimit());
+				
+			}else{
+				smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
+				totalRow = smgoService.countSegoTotal(smgoSego);
+				list = smgoService.findSmgoBySego(smgoSego,pager.getOffset(),pager.getLimit());
+			}
+		}else if(request.getParameter("gotNeed") != null){
+			if (jsonObject.containsKey("startDate")) 
+			startDate = StringUtil.dayFirstTime(jsonObject.getString("startDate"));
+			if (jsonObject.containsKey("endDate")) 
+			endDate = StringUtil.dayLastTime(jsonObject.getString("endDate"));
+			if(startDate != null )
+			date1 = sdf.parse(startDate);
+			if(endDate != null )
+			date2 = sdf.parse(endDate);
+			jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
+			totalRow = smgoService.countTimeTotal(date1, date2);
+			list = smgoService.findSmgoByTime(date1, date2, pager.getOffset(),pager.getLimit());
+		}else{
+			totalRow = smgoService.countTotal();
+			list = smgoService.findSmgoByPage(pager.getOffset(),pager.getLimit());
 		}
+		if(totalRow != null )
+		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
+		jsonObject.put("totalPage", pager.getTotalPage());
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}

@@ -59,6 +59,18 @@ public class AdServiceImpl implements AdService{
 		return adDao.findAdByType(adType,offset,limit);
 	}
 	
+	//state、type限制条件 
+		@Override
+		public List<Ad> findAdByST(String adState, String adType, int offset, int limit) {
+			// TODO 自动生成的方法存根
+			return adDao.findAdByST(adState,  adType,  offset,  limit);
+		}
+		@Override
+		public Integer countTotal(String adState, String adType) {
+			// TODO 自动生成的方法存根
+			return adDao.countTotalST( adState,  adType);
+		}	
+		
 	//根据id删除ad信息
 	@Override
 	public boolean deleteIsdelete(Integer ad_id) {
@@ -72,10 +84,10 @@ public class AdServiceImpl implements AdService{
 		// TODO 自动生成的方法存根
 		return adDao.editState(ad_id);
 	}
-
-
-	
-	
-
+	@Override
+	public Integer countTotalST(String adState, String adType) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
 	
 }
