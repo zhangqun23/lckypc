@@ -157,16 +157,16 @@ app
 							
 							//根据type筛选ad信息
 							ad.getAdListByType = function(){
-								alter("Type")
+								alert("Type");
 								var adTLimit = null;
 								if(JSON.stringify(ad.ADTLimit) != null){
 									adTLimit = JSON.stringify(ad.ADTLimit);
-									services.getAdListByType({
+									services.getAdListByPage({
 										page : 1,
 										adType : adTLimit
 									}).success(function(data){
 										$scope.ads = data.list;
-										pageTurn(data.totalPage, 1, ad.getAdListByPage)
+										pageTurn(data.totalPage, 1,getAdListByPage)
 									});
 								}
 								

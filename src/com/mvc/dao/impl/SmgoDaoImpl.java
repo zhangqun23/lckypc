@@ -16,7 +16,6 @@ import com.base.enums.IsDelete;
 import com.mvc.dao.SmgoDao;
 import com.mvc.entity.SmallGoods;
 
-import net.sf.json.JSONObject;
 /**
  * 
  * @ClassName: SmgoDaoImpl
@@ -28,76 +27,44 @@ import net.sf.json.JSONObject;
  */
 @Repository("smgoDaoImpl")
 public class SmgoDaoImpl implements SmgoDao{
-
 	@Autowired
 	@Qualifier("entityManagerFactory")
 	EntityManagerFactory emf;
 	
-	//初始化
+	//根据限制条件筛选信息
 	@Override
-	public Integer countTotal() {
+	public Integer countTotal(String smgoSego, Date startDate, Date endDate) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String countSql = " select count(smgo_id) from Small_goods tr where is_delete=0 ";
+		String countSql = " select count(smgo_id) from Small_goods where is_delete=0 ";
+		if(smgoSego != null ){
+			if(startDate != null && endDate != null){
+				countSql += " and smgo_sego = " + smgoSego + " and (smgo_deal_time between " + startDate + " and " + endDate + " ) ";
+			}else{
+				countSql += " and smgo_sego = " + smgoSego;
+			}
+		}else if(startDate != null && endDate != null){
+			countSql += " and (smgo_deal_time between " + startDate + " and " + endDate + " ) ";
+		}
 		Query query = em.createNativeQuery(countSql);
 		List<Object> totalRow = query.getResultList();
 		em.close();
 		return Integer.parseInt(totalRow.get(0).toString());
 	}
 	@Override
-	public List<SmallGoods> findSmgoByPage(int offset, int limit) {
+	public List<SmallGoods> findSmgoByPage(String smgoSego, Date startDate, Date endDate, int offset, int limit) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Small_goods where is_delete=0 limit :offset, :end ";
-		Query query = em.createNativeQuery(selectSql, SmallGoods.class);
-		query.setParameter("offset", offset);
-		query.setParameter("end", limit);
-		List<SmallGoods> list = query.getResultList();
-		em.close();
-		return list;
-	}
-
-	//sego限制
-	@Override
-	public Integer countSegoTotal(String smgoSego) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String countSql = "select count(smgo_id) from Small_goods where is_delete=0 and smgo_sego = " +smgoSego;
-		Query query = em.createNativeQuery(countSql);
-		List<Object> totalRow = query.getResultList();
-		em.close();
-		return Integer.parseInt(totalRow.get(0).toString());
-	}
-	@Override
-	public List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Small_goods where is_delete=0 and smgo_sego = " + smgoSego;
-		selectSql += " order by smgo_id desc limit :offset, :end";
-		Query query = em.createNativeQuery(selectSql, SmallGoods.class);
-		query.setParameter("offset", offset);
-		query.setParameter("end", limit);
-		List<SmallGoods> list = query.getResultList();
-		em.close();
-		return list;
-	}
-	
-	//time限制
-	@Override
-	public Integer countTimeTotal(Date date1, Date date2) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String countSql = "select count(smgo_id) from Small_goods where is_delete=0 and (smgo_deal_time between " + date1 + " and " + date2 + ")";
-		Query query = em.createNativeQuery(countSql);
-		List<Object> totalRow = query.getResultList();
-		em.close();
-		return Integer.parseInt(totalRow.get(0).toString());
-	}
-	@Override
-	public List<SmallGoods> findSmgoByTime(Date date1, Date date2, int offset, int limit) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Small_goods where is_delete=0 and (smgo_deal_time between " + date1 + " and " + date2 + ")";
+		String selectSql = " select * from Small_goods where is_delete=0 ";
+		if(smgoSego != null){
+			if(startDate != null && endDate != null){
+				selectSql += " and smgo_sego = " + smgoSego + " and (smgo_deal_time between " + startDate + " and " + endDate + ")";
+			}else{
+				selectSql += "and smgo_sego = " + smgoSego;
+			}
+		}else if(startDate != null && endDate != null){
+			selectSql += " and (smgo_deal_time between " + startDate + " and " + endDate + ")";
+		}
 		selectSql += " order by smgo_id desc limit :offset, :end ";
 		Query query = em.createNativeQuery(selectSql, SmallGoods.class);
 		query.setParameter("offset", offset);
@@ -107,30 +74,6 @@ public class SmgoDaoImpl implements SmgoDao{
 		return list;
 	}
 	
-	//sego、time限制
-	@Override
-	public Integer countTotalSG(String smgoSego, Date date1, Date date2) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String countSql = "select count(smgo_id) from Small_goods where is_delete=0 and smgo_sego = " + smgoSego + " and (smgo_deal_time between " + date1 + " and " + date2 + ")";
-		Query query = em.createNativeQuery(countSql);
-		List<Object> totalRow = query.getResultList();
-		em.close();
-		return Integer.parseInt(totalRow.get(0).toString());
-	}
-	@Override
-	public List<SmallGoods> findSmgoBySG(String smgoSego, Date date1, Date date2, int offset, int limit) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Small_goods where is_delete=0 and smgo_sego = " + smgoSego + " and (smgo_deal_time between " + date1 +  " and (smgo_deal_time between " + date1 + " and " + date2 + ")";
-		selectSql += " order by smgo_id desc limit :offset, :end ";
-		Query query = em.createNativeQuery(selectSql, SmallGoods.class);
-		query.setParameter("offset", offset);
-		query.setParameter("end", limit);
-		List<SmallGoods> list = query.getResultList();
-		em.close();
-		return list;
-	}
 	//根据id删除smgo信息
 	@Override
 	public boolean updateState(Integer smgo_id) {

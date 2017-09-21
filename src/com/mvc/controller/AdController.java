@@ -52,33 +52,20 @@ public class AdController {
 	public @ResponseBody String getAdsByPrarm(HttpServletRequest request, HttpSession session) {
 		String adState = null;
 		String adType = null;
-		List<Ad> list = null;
-		Integer totalRow = null;
 		JSONObject jsonObject = new JSONObject();
-		Pager pager = new Pager();
-		pager.setPage(Integer.valueOf(request.getParameter("page")));
 		if(request.getParameter("adState") != null){
-			if(request.getParameter("adType") != null){
-				adState = JSONObject.fromObject(request.getParameter("adState")).getString("ad_state");
-				adType = JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
-				totalRow = adService.countTotalST(adState,adType);
-				list = adService.findAdByST(adState,adType,pager.getOffset(), pager.getLimit());
-			}else {
-				adState = JSONObject.fromObject(request.getParameter("adState")).getString("ad_state");
-				totalRow = adService.countTotalS(adState);
-				list = adService.findAdByState(adState,pager.getOffset(), pager.getLimit());
-			}
-		}else {
-			if(request.getParameter("adType") != null){
-				adType = JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
-				totalRow = adService.countTotalT(adType);
-				list = adService.findAdByType(adType,pager.getOffset(), pager.getLimit());
-		    }else{
-		    	totalRow = adService.countTotal();
-		    	list = adService.findAdByPage(pager.getOffset(), pager.getLimit());
-		    }
+			adState = JSONObject.fromObject(request.getParameter("adState")).getString("ad_state");
 		}
-		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
+		if(request.getParameter("adType") != null){
+			adType = JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
+		}
+		Integer totalRow = adService.countTotal(adState,adType);
+	    Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		if(totalRow != null){
+			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
+		}
+		List<Ad> list = adService.findAdByPage(adState,adType,pager.getOffset(), pager.getLimit());
 		jsonObject.put("totalPage", pager.getTotalPage());
 		System.out.println("totalPage:" + pager.getTotalPage());
 		jsonObject.put("list", list);

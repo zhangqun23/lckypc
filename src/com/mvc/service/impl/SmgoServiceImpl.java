@@ -10,59 +10,21 @@ import com.mvc.dao.SmgoDao;
 import com.mvc.entity.SmallGoods;
 import com.mvc.service.SmgoService;
 
-import net.sf.json.JSONObject;
-
 @Service("/smgoServiceImpl")
 public class SmgoServiceImpl implements SmgoService{
-	
 	@Autowired
 	SmgoDao smgoDao;
 	
-	//初始化
+	//根据限制条件筛选信息
 	@Override
-	public Integer countTotal() {
+	public Integer countTotal(String smgoSego, Date startDate, Date endDate) {
 		// TODO 自动生成的方法存根
-		return smgoDao.countTotal();
+		return smgoDao.countTotal( smgoSego,  startDate,  endDate);
 	}
 	@Override
-	public List<SmallGoods> findSmgoByPage(int offset, int limit) {
+	public List<SmallGoods> findSmgoByPage(String smgoSego, Date startDate, Date endDate, int offset, int limit) {
 		// TODO 自动生成的方法存根
-		return smgoDao.findSmgoByPage(offset,limit);
-	}
-	
-	//sego限制
-	@Override
-	public Integer countSegoTotal(String smgoSego) {
-		// TODO 自动生成的方法存根
-		return smgoDao.countSegoTotal(smgoSego);
-	}
-	@Override
-	public List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit) {
-		// TODO 自动生成的方法存根
-		return smgoDao.findSmgoBySego(smgoSego,offset,limit);
-	}
-	
-	//time限制
-	@Override
-	public Integer countTimeTotal(Date date1, Date date2) {
-		// TODO 自动生成的方法存根
-		return smgoDao.countTimeTotal(date1,date2);
-	}
-	@Override
-	public List<SmallGoods> findSmgoByTime(Date date1, Date date2, int offset, int limit) {
-		// TODO 自动生成的方法存根
-		return smgoDao.findSmgoByTime( date1,  date2,  offset,  limit);
-	}
-	//sego、time限制
-	@Override
-	public Integer countTotalSG(String smgoSego, Date date1, Date date2) {
-		// TODO 自动生成的方法存根
-		return smgoDao.countTotalSG( smgoSego,  date1,  date2);
-	}
-	@Override
-	public List<SmallGoods> findSmgoBySG(String smgoSego, Date date1, Date date2, int offset, int limit) {
-		// TODO 自动生成的方法存根
-		return smgoDao.findSmgoBySG( smgoSego,  date1,  date2,  offset,  limit);
+		return smgoDao.findSmgoByPage( smgoSego,  startDate,  endDate,  offset,  limit);
 	}
 	//根据id删除smgo信息
 	@Override

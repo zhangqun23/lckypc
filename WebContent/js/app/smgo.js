@@ -80,7 +80,7 @@ app.constant('baseUrl', '/lckypc/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
-	//sego、time限制
+	//根据限制条件筛选信息
 	services.getSmgoListByPage = function(data) {
 		return $http({
 			method : 'post',
@@ -146,7 +146,10 @@ app
 							//根据smgo_sego筛选smgo信息
 							smgo.getSmgoListBySego = function(){
 								alert("sego");
-								var smgoLimit = JSON.stringify(smgo.SGSLimit);
+								var smgoLimit = null;
+								if(JSON.stringify(smgo.SGSLimit) != null){
+									smgoLimit = JSON.stringify(smgo.SGSLimit);
+								}
 								services.getSmgoListByPage({
 									page : 1,
 									smgoSego : smgoLimit
@@ -158,8 +161,11 @@ app
 							
 							//日期限制
 							smgo.getSmgoListByTime = function(){
-								alert("Time")
-								var gotLimit = JSON.stringify(smgo.GotLimit)
+								alert("Time");
+								var gotLimit = null;
+								if(JSON.stringify(smgo.GotLimit) != null){
+									gotLimit = JSON.stringify(smgo.GotLimit);
+								}
 								services.getSmgoListByPage({
 									page : 1,
 									gotNeed : gotLimit
