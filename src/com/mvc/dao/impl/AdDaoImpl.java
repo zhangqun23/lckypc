@@ -31,75 +31,20 @@ public class AdDaoImpl implements AdDao{
 	@Qualifier("entityManagerFactory")
 	EntityManagerFactory emf;
 	
-	//初始化
+	//根据限制条件筛选信息
 	@Override
-	public Integer countTotal() {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String countSql = "select count(ad_id) from Ad tr where is_delete=0" ;	
-		Query query = em.createNativeQuery(countSql);
-		List<Object> totalRow = query.getResultList();
-		em.close();
-		return Integer.parseInt(totalRow.get(0).toString());
-	}
-	@Override
-	public List<Ad> findAdByPage(int offset, int limit) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Ad where is_delete=0 limit :offset, :end";
-		Query query = em.createNativeQuery(selectSql, Ad.class);
-		query.setParameter("offset", offset);
-		query.setParameter("end", limit);
-		List<Ad> list = query.getResultList();
-		em.close();
-		return list;
-	}
-	
-	//state限制
-	@Override
-	public Integer countTotalS(String adState) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String countSql = "select count(ad_id) from Ad tr where is_delete=0 " ;	
-		if(adState != null){
-			countSql += "and ad_state = " + adState;
-		}else{
-			countSql += "";
-		}
-		Query query = em.createNativeQuery(countSql);
-		List<Object> totalRow = query.getResultList();
-		em.close();
-		return Integer.parseInt(totalRow.get(0).toString());
-	}
-	@Override
-	public List<Ad> findAdByState(String adState, int offset, int limit) {
-		// TODO 自动生成的方法存根
-		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Ad where is_delete=0 ";
-		if(adState != null){
-			selectSql += " and ad_state = " + adState;
-		}else{
-			selectSql += "";
-		}
-		selectSql += " limit :offset, :end ";
-		Query query = em.createNativeQuery(selectSql, Ad.class);
-		query.setParameter("offset", offset);
-		query.setParameter("end", limit);
-		List<Ad> list = query.getResultList();
-		em.close();
-		return list;
-	}
-	
-	//type限制
-	@Override
-	public Integer countTotalT(String adType) {
+	public Integer countTotal(String adState, String adType) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
 		String countSql = " select count(ad_id) from Ad tr where is_delete=0 " ;	
 		if(adType != null){
-			countSql += " and ad_type = " + adType;
-		}else{
-			countSql += "";
+			if(adState != null){
+				countSql += " and ad_type = " + adType + " and ad_state = " + adState;
+			}else{
+				countSql += " and ad_type = " + adType;
+			}
+		}else if(adState != null){
+			countSql += " and ad_state = " + adState;
 		}
 		Query query = em.createNativeQuery(countSql);
 		List<Object> totalRow = query.getResultList();
@@ -107,14 +52,18 @@ public class AdDaoImpl implements AdDao{
 		return Integer.parseInt(totalRow.get(0).toString());
 	}
 	@Override
-	public List<Ad> findAdByType(String adType, int offset, int limit) {
+	public List<Ad> findAdByPage(String adState, String adType, int offset, int limit) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Ad where is_delete=0 ";
+		String selectSql = " select * from Ad where is_delete=0 ";
 		if(adType != null){
-			selectSql += " and ad_type = " + adType;
-		}else{
-			selectSql += "";
+			if(adState != null){
+				selectSql += " and ad_type = " + adType + "and ad_state = " + adState;
+			}else{
+				selectSql += " and ad_type = " + adType;
+			}
+		}else if(adState != null){
+			selectSql += " and ad_state = " + adState;
 		}
 		selectSql += " limit :offset, :end ";
 		Query query = em.createNativeQuery(selectSql, Ad.class);
@@ -164,4 +113,5 @@ public class AdDaoImpl implements AdDao{
 		}
 		return true;
 	}
+	
 }

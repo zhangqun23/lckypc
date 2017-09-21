@@ -8,22 +8,31 @@
 </div>
 
 <div class="rightinfo">
-
-	<div ng-app="" class="tools">
-
 		<form class="toolbar">
-			<input name="" type="text" class="dfinput" id="aName"
-				ng-model="aName" placeholder="小件名称关键字"/> <input class="btn click"
-				type="submit" value="查询" ng-click="selectSmgoByName()">
-				
+		 <div class="inner">
+		    <input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
+				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required><div style="float: left;margin-right:10px">-</div>
+			<input type="text" name="GotLimit.endtTime" style="width:25%;float: left"
+				ng-model="GotLimit.endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required>
+		 </div>
+		 <div class="org">
+		   <input type="submit" class="weui_btn weui_btn_primary" ng-click="getSmgoListByTime()" value="查询">
+		 </div>
+		</form>		
 				<!-- 下拉框 选择 0自行取货、1送货上门 -->
-			 <select class="select-box" ng-model="SGSLimit.smgo_sego" ng-change="selectSmgoBySego()" id="smgo_sego" required>
-			   <option>送货方式</option>
+		 <form class="toolbar">
+		<div>
+		              请选择取货方式：
+			 <select class="dfselect" ng-model="SGSLimit.smgo_sego" ng-change="getSmgoListBySego()" id="smgo_sego" required>
 			   <option value="0">自行取货</option>
 			   <option value="1">送货上门</option>		
             </select>
-		</form>
-	</div>
+        </div>
+	  </form>
 
 	<table class="tablelist">
 		<thead>

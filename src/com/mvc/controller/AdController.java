@@ -47,65 +47,31 @@ public class AdController {
 		return "adInformation/index";
 	}
 	
-	//初始化
+	//根据限制条件state、type筛选ad信息
 	@RequestMapping("/getAdListByPage.do")
 	public @ResponseBody String getAdsByPrarm(HttpServletRequest request, HttpSession session) {
-		List<Ad> list;
+		String adState = null;
+		String adType = null;
 		JSONObject jsonObject = new JSONObject();
-		Integer totalRow = adService.countTotal();
-		Pager pager = new Pager();
-		pager.setPage(Integer.valueOf(request.getParameter("page")));
-		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-		list = adService.findAdByPage(pager.getOffset(), pager.getLimit());
-		jsonObject.put("totalPage", pager.getTotalPage());
-		System.out.println("totalPage:" + pager.getTotalPage());
-		jsonObject.put("list", list);
-		return jsonObject.toString();
-	}
-	
-	//根据state筛选ad信息
-	@RequestMapping("/getAdListByState.do")
-	public @ResponseBody String getAdsByState(HttpServletRequest request, HttpSession session) {
-		String adState;
-		List<Ad> list;
 		if(request.getParameter("adState") != null){
 			adState = JSONObject.fromObject(request.getParameter("adState")).getString("ad_state");
-		}else{
-			adState = null;
 		}
-		JSONObject jsonObject = new JSONObject();
-		Integer totalRow = adService.countTotalS(adState);
-		Pager pager = new Pager();
+		if(request.getParameter("adType") != null){
+			adType = JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
+		}
+		Integer totalRow = adService.countTotal(adState,adType);
+	    Pager pager = new Pager();
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
-		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-		list = adService.findAdByState(adState, pager.getOffset(), pager.getLimit());
+		if(totalRow != null){
+			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
+		}
+		List<Ad> list = adService.findAdByPage(adState,adType,pager.getOffset(), pager.getLimit());
 		jsonObject.put("totalPage", pager.getTotalPage());
 		System.out.println("totalPage:" + pager.getTotalPage());
 		jsonObject.put("list", list);
 		return jsonObject.toString();
 	}
 	
-	//根据type筛选ad信息
-	@RequestMapping("/getAdListByType.do")
-	public @ResponseBody String getAdsByType(HttpServletRequest request, HttpSession session) {
-		String adType;
-		List<Ad> list;
-		if(request.getParameter("adType") != null){
-			adType = JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
-		}else{
-			adType = null;
-		}
-		JSONObject jsonObject = new JSONObject();
-		Integer totalRow = adService.countTotalT(adType);
-		Pager pager = new Pager();
-		pager.setPage(Integer.valueOf(request.getParameter("page")));
-		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-		list = adService.findAdByType(adType, pager.getOffset(), pager.getLimit());
-		jsonObject.put("totalPage", pager.getTotalPage());
-		System.out.println("totalPage:" + pager.getTotalPage());
-		jsonObject.put("list", list);
-		return jsonObject.toString();
-	}
 	/**
 	 * 
 	 * 

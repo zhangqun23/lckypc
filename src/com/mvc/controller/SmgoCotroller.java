@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.mvc.entity.SmallGoods;
 import com.mvc.service.SmgoService;
-import com.mvc.service.UserService;
 import com.utils.Pager;
+import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -33,11 +33,8 @@ import net.sf.json.JSONObject;
 @Controller
 @RequestMapping("/smgo")
 public class SmgoCotroller {
-
 	@Autowired
 	SmgoService smgoService;
-	@Autowired
-	UserService userService;
 	
 	/**
 	 * 
@@ -54,10 +51,11 @@ public class SmgoCotroller {
 	}
 	
 	/**
+	 * @throws ParseException 
 	 * 
 	 * 
-	 *@Title: getSmgosByPrarm 
-	 *@Description: 页码
+	 *@Title: selectSmgoBySego 
+	 *@Description: sego、time限制
 	 *@param @param request
 	 *@param @param session
 	 *@param @return
@@ -65,47 +63,35 @@ public class SmgoCotroller {
 	 *@throws
 	 */
 	@RequestMapping("/getSmgoListByPage.do")
-	public @ResponseBody String getSmgosByPrarm(HttpServletRequest request, HttpSession session) {
-		JSONObject jsonObject = new JSONObject();
-		String searchKey = request.getParameter("searchKey");
-		Integer totalRow = smgoService.countTotal(searchKey);
-		Pager pager = new Pager();
-		pager.setPage(Integer.valueOf(request.getParameter("page")));
-		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-		List<SmallGoods> list = smgoService.findSmgoByPage(searchKey, pager.getOffset(), pager.getLimit());
-		jsonObject.put("list", list);
-		jsonObject.put("totalPage", pager.getTotalPage());
-		System.out.println("totalPage:" + pager.getTotalPage());
-		return jsonObject.toString();
-	}
-	
-	/**
-	 * 
-	 * 
-	 *@Title: selectSmgoBySego 
-	 *@Description: 根据sego筛选smgo信息
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
-	 */
-	@RequestMapping("/selectSmgoBySego.do")
-	public @ResponseBody String selectSmgoBySego(HttpServletRequest request, HttpSession session) {
-		String smgoSego;
-		List<SmallGoods> list = null;
+	public @ResponseBody String selectSmgoByPrarm(HttpServletRequest request, HttpSession session) throws ParseException {
+		String smgoSego = null;
+		Date startDate = null;
+		Date endDate = null;
 		JSONObject jsonObject = new JSONObject();
 		if(request.getParameter("smgoSego") != null){
 			smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
-			Integer totalRow = smgoService.countSegoTotal(smgoSego);
-			Pager pager = new Pager();
-			pager.setPage(Integer.valueOf(request.getParameter("page")));
-			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-			list = smgoService.findSmgoBySego(smgoSego,pager.getOffset(),pager.getLimit());
-			jsonObject.put("totalPage", pager.getTotalPage());
 		}
+		if(request.getParameter("gotNeed") != null){
+			jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				if (jsonObject.containsKey("startDate")){ 
+				    startDate = sdf.parse(StringUtil.dayFirstTime(jsonObject.getString("startDate")));
+				}
+				if (jsonObject.containsKey("endDate")){
+				    endDate = sdf.parse(StringUtil.dayLastTime(jsonObject.getString("endDate")));
+				}
+		}
+		Integer totalRow = smgoService.countTotal(smgoSego,startDate,endDate);//有问题
+		Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
+        if(totalRow != null ){
+        	pager.setTotalRow(Integer.parseInt(totalRow.toString()));
+		}
+		List<SmallGoods> list = smgoService.findSmgoByPage(smgoSego,startDate,endDate,pager.getOffset(),pager.getLimit());
+		jsonObject.put("totalPage", pager.getTotalPage());
+		System.out.println("totalPage:" + pager.getTotalPage());
 		jsonObject.put("list", list);
-		return jsonObject.toString();
+	    return jsonObject.toString();
 	}
 	
 	/**

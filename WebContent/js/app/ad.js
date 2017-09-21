@@ -84,24 +84,6 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	
-	//state限制
-	services.getAdListByState = function(data) {
-		return $http({
-			method : 'post',
-			url : baseUrl + 'ad/getAdListByState.do',
-			data : data
-		});
-	};
-	
-	//type限制
-	services.getAdListByType = function(data) {
-		return $http({
-			method : 'post',
-			url : baseUrl + 'ad/getAdListByType.do',
-			data : data
-		});
-	};
-	
 	//审核
 	services.editState = function(data){
 		return $http({
@@ -134,7 +116,7 @@ app
 							
 							// 换页
 							function pageTurn(totalPage, page, Func) {
-								$(".tcdPageCode").empty();
+								/*$(".tcdPageCode").empty();*/
 								var $pages = $(".tcdPageCode");
 								if ($pages.length != 0) {
 									$(".tcdPageCode").createPage({
@@ -149,8 +131,9 @@ app
 							
 							// 根据页数获取ad信息
 							function getAdListByPage(page) {
+								alert("page");
 								services.getAdListByPage({
-									page : page,
+									page : page
 									}).success(function(data) {
 										ad.ads = data.list;
 										});
@@ -158,50 +141,37 @@ app
 							
 							//根据state筛选ad信息
 							ad.getAdListByState = function(){
-								alert("shishi")
+								alert("state");
 								var adLimit = null;
-								adLimit = JSON.stringify(ad.ADSLimit);
-								localStorage.setItem("adLimit", adLimit);
-								services.getAdListByState({
-									page : 1,
-									adState : adLimit 
-								}).success(function(data){
-									ad.ads = data.list;
-									pageTurn(data.totalPage, 1, getAdListByStatePage)
-								})
-							}
-							function getAdListByStatePage(page){
-								alert("换页");
-								services.getAdListByState({
-									page : page,
-									adState : localStorageStorage.getItem("adLimit")
-									}).success(function(data) {
-										ad.ads = data.list;
-										});
+								if(JSON.stringify(ad.ADSLimit) != null){
+									adLimit = JSON.stringify(ad.ADSLimit);
+									services.getAdListByPage({
+										page : 1,
+										adState : adLimit
+										}).success(function(data) {
+											$scope.ads = data.list;
+											pageTurn(data.totalPage, 1, getAdListByPage)
+											});
+								}
 							}
 							
 							//根据type筛选ad信息
 							ad.getAdListByType = function(){
+								alert("Type");
 								var adTLimit = null;
-								adTLimit = JSON.stringify(ad.ADTLimit);
-								localStorage.setItem("adTLimit", adTLimit)
-								services.getAdListByType({
-									page : 1,
-									adType : adTLimit
-								}).success(function(data){
-									ad.ads = data.list;
-									pageTurn(data.totalPage, 1, ad.getAdListByTypePage)
-								});
+								if(JSON.stringify(ad.ADTLimit) != null){
+									adTLimit = JSON.stringify(ad.ADTLimit);
+									services.getAdListByPage({
+										page : 1,
+										adType : adTLimit
+									}).success(function(data){
+										$scope.ads = data.list;
+										pageTurn(data.totalPage, 1,getAdListByPage)
+									});
+								}
+								
 							}
-							function getAdListByTypePage(page){
-								alert("换页");
-								services.getAdListByState({
-									page : page,
-									adType : localStorageStorage.getItem("adTLimit")
-									}).success(function(data) {
-										ad.ads = data.list;
-										});
-							}
+							
 							
 							// 删除ad信息
 							ad.deleteAd = function(ad_id) {
@@ -327,4 +297,16 @@ app.filter('findtype', function() {
 			return output;
 			}
 		}	
+});
+//null的判定
+app.filter('sgFilter',function() { 
+	return function(input){ 
+		if(input == "" || input == null){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
 });

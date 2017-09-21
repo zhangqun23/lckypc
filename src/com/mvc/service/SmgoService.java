@@ -1,13 +1,9 @@
 package com.mvc.service;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
 import com.mvc.entity.SmallGoods;
-import com.mvc.entity.User;
-
-import net.sf.json.JSONObject;
 
 /**
  * 
@@ -20,22 +16,14 @@ import net.sf.json.JSONObject;
  */
 public interface SmgoService {
 
-	//查询smgo全部信息
-	Integer countTotal(String searchKey);
-
-	//根据页数晒选smgo信息
-	List<SmallGoods> findSmgoByPage(String searchKey, int offset, int end);
-
+	//根据限制条件筛选信息
+	Integer countTotal(String smgoSego, Date startDate, Date endDate);
+	List<SmallGoods> findSmgoByPage(String smgoSego, Date startDate, Date endDate, int offset, int limit);
+	
 	//根据id删除smgo信息
 	boolean deleteIsdelete(Integer smgoid);
-
-	//根据sego筛选smgo信息   总页数
-	Integer countSegoTotal(String smgoSego);
-
-	//根据sego、page筛选smgo信息
-	List<SmallGoods> findSmgoBySego(String smgoSego, int offset, int limit);
-
-	//更新数据库
+	
+	//补录
 	boolean update(Date edittime, float editprice, Integer smgoid);
-
+	
 }
