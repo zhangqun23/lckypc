@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="truck_send")
-public class Truck_send {
+public class TruckSend {
 	private Integer trse_id;//主键
 	private Float trse_left_load;//剩余载重
 	private String trse_splace;//始发地（默认洛川）

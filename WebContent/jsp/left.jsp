@@ -1,8 +1,8 @@
 ﻿<script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 <script type="text/javascript"
 	src="${ctx}/js/lib/jquery.json-2.2.min.js"></script>
-<section class="leftbar">
-	<dl class="leftmenu">
+<section class="leftbar"  style="display:block;background-color:red;">
+	<dl class="leftmenu"  style="display:block">
 				
 		<!-- 基础信息管理 -->
 		<dd id="userManagement" class="userManager" >

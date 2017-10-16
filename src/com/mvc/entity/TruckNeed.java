@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="truck_need")
-public class Truck_need {
+public class TruckNeed {
 private Integer trne_id;//货车需求id，主键
 private String trne_name;//联系人
 private String trne_tel;//联系电话
