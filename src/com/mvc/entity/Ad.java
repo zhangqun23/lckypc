@@ -15,16 +15,16 @@ public class Ad {
 private Integer ad_id;//广告id，主键
 private Integer ad_type;//0招工，1旅游、2其他
 private Integer ad_state;//0代表未审核，1代表已审核
-private Integer user_id;//外键
+private String open_id;//openid
 private String ad_name;//联系人
 private String ad_tel;//联系方式
 private String ad_title;//广告名称
 private String ad_pic_path;//广告图片路径
 private String ad_remark;//广告备注
 private String ad_content;//广告内容
-private Boolean is_delete;//默认为0未删除
-private Date adEditTime;//补录时间
-private Float adEditPrice;//补录金额
+private Boolean is_delete;// 是否删除0表示未删除，1表示删除
+private Date   ad_stime;//获取发布时的时间
+private Date   ad_etime;//广告截止时间
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -50,14 +50,6 @@ public Integer getAd_state() {
 }
 public void setAd_state(Integer ad_state) {
 	this.ad_state = ad_state;
-}
-
-@Column(name = "user_id")
-public Integer getUser_id() {
-	return user_id;
-}
-public void setUser_id(Integer user_id) {
-	this.user_id = user_id;
 }
 
 @Column(name = "ad_name", length = 32)
@@ -113,17 +105,24 @@ public Boolean getIs_delete() {
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
 }
-public Date getAdEditTime() {
-	return adEditTime;
+@Column(name="open_id",length = 128)
+public String getOpen_id() {
+	return open_id;
 }
-public void setAdEditTime(Date adEditTime) {
-	this.adEditTime = adEditTime;
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
 }
-@Column(columnDefinition = "float(10,2) not null default '0.00'")
-public Float getAdEditPrice() {
-	return adEditPrice;
+public Date getAd_stime() {
+	return ad_stime;
 }
-public void setAdEditPrice(Float adEditPrice) {
-	this.adEditPrice = adEditPrice;
+public void setAd_stime(Date ad_stime) {
+	this.ad_stime = ad_stime;
+}
+
+public Date getAd_etime() {
+	return ad_etime;
+}
+public void setAd_etime(Date ad_etime) {
+	this.ad_etime = ad_etime;
 }
 }

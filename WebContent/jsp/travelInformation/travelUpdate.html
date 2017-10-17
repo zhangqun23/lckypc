@@ -16,21 +16,20 @@
 
 		<ul class="forminfo">
 			<li><label>标题<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_title" class="dfinput" required /></li>
+				ng-model="travelInfo.travel_title" class="dfinput"  required /></li>
 			<li><label>活动描述</label>
 			<textarea ng-model="travelInfo.travel_content"  maxlength="130"
 					class="textarea" required /></textarea></li>
 			<li><label>路线</label><input type="text"
 				ng-model="travelInfo.travel_route" class="dfinput" required /></li>
 			<li><label>成人票价格<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_mprice" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
+				ng-model="travelInfo.travel_mprice" class="dfinput"  onkeyup="changeTwoNum(this.value)" required/></li>
 			<li><label>儿童票价格<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_cprice" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
+				ng-model="travelInfo.travel_cprice" class="dfinput"  onkeyup="changeTwoNum(this.value)" required/></li>
 			<li><label>保险费<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_insurance" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></li>
+				ng-model="travelInfo.travel_insurance" class="dfinput"  onchange="changeTwoNum(this.value)" required/></li>
 			<li><label>折扣<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_discount" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')"
-				 required/></li>
+				ng-model="travelInfo.travel_discount"  class="dfinput"   onchange="changeTwoNum(this.value)" required/></li>
 			
 			<li><label>出发日期</label><input type="text" name="travelstime" required
 					ng-model="travelInfo.travel_stime" class="dfselect dateLayoutStyle"
@@ -54,7 +53,4 @@
 		</ul>
 	</form>
 </div>
-
-
-
 
