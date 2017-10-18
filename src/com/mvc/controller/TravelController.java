@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -238,6 +239,38 @@ public class TravelController {
 		jsonObject.put("list", list);
 		jsonObject.put("totalPage", pager.getTotalPage());
 		System.out.println("totalPage:" + pager.getTotalPage());
+		System.out.println("totalRow");
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据travel_id筛选对应旅游交易信息列表
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/getTravelTradeListByID.do")
+	public @ResponseBody String getTravelTradeByID(HttpServletRequest request, HttpSession session) {
+		int travel_id = Integer.parseInt(request.getParameter("travel_id"));
+		session.setAttribute("travel_id", travel_id);
+		JSONObject jsonObject = new JSONObject();
+		String searchKey = request.getParameter("searchKey");
+//		Integer totalRow = travelService.countTrTotalByID(travel_id,searchKey);
+		Map<String, Object> sumlist = travelService.countTrTotalByID(travel_id,searchKey);
+		if(sumlist.size() != 0){
+			jsonObject.put("sumlist", sumlist);
+		}else{
+			jsonObject.put("sumlist", null);
+		};
+		Integer totalRow = Integer.parseInt(String.valueOf(sumlist.get("countNum"))); ;
+		Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		pager.setTotalRow(totalRow);
+		List<TravelTrade> list = travelService.findTravelTradeByID(travel_id,searchKey, pager.getOffset(), pager.getLimit());
+		jsonObject.put("list", list);
+		jsonObject.put("totalPage", pager.getTotalPage());
+		System.out.println("totalPage:" + pager.getTotalPage());
+		System.out.println("totalRow");
 		return jsonObject.toString();
 	}
 }

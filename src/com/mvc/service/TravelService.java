@@ -5,6 +5,10 @@ import java.util.List;
 
 
 
+
+
+import java.util.Map;
+
 import net.sf.json.JSONObject;
 
 import com.mvc.entity.Travel;
@@ -51,7 +55,11 @@ public interface TravelService {
 		List<TravelTrade> findTravelTradeByPage(String searchKey, Integer offset, Integer end);
 	// 查询总条数
 		Integer countTrTotal(String searchKey);	
+	// 查询对应交易总条数
+		Map<String,Object> countTrTotalByID(Integer travel_id,String searchKey);
 		
+	// 根据travel_id筛选对应旅游交易信息列表
+		List<TravelTrade> findTravelTradeByID(Integer travel_id, String searchKey,Integer offset, Integer end);
 	// 根据合同ID获取合同
 		Travel selectTravelById(Integer travel_id);
 	

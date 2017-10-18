@@ -19,25 +19,26 @@
 				ng-model="travelInfo.travel_title" class="dfinput"  required /></li>
 			<li><label>活动描述</label>
 			<textarea ng-model="travelInfo.travel_content"  maxlength="130"
-					class="textarea" required /></textarea></li>
+					class="textarea" /></textarea>  最多可输入130个汉字字符</li>
 			<li><label>路线</label><input type="text"
 				ng-model="travelInfo.travel_route" class="dfinput" required /></li>
 			<li><label>成人票价格<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_mprice" class="dfinput"  onkeyup="changeTwoNum(this.value)" required/></li>
+				ng-model="travelInfo.travel_mprice" class="dfinput" onkeyup="changeTwoNum(this)"  required/>(元)</li>
 			<li><label>儿童票价格<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_cprice" class="dfinput"  onkeyup="changeTwoNum(this.value)" required/></li>
+				ng-model="travelInfo.travel_cprice" class="dfinput"  onkeyup="changeTwoNum(this)" required/>(元)</li>
 			<li><label>保险费<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_insurance" class="dfinput"  onchange="changeTwoNum(this.value)" required/></li>
+				ng-model="travelInfo.travel_insurance" class="dfinput"  onkeyup="changeTwoNum(this)" required/>(元)</li>
 			<li><label>折扣<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_discount"  class="dfinput"   onchange="changeTwoNum(this.value)" required/></li>
+				ng-model="travelInfo.travel_discount"  class="dfinput"   onkeyup="changeTwoNum(this)" required/>若无折扣则输入1；若打88折可输入0.88</li>
 			
 			<li><label>出发日期</label><input type="text" name="travelstime" required
 					ng-model="travelInfo.travel_stime" class="dfselect dateLayoutStyle"
-					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></li>
+					onFocus="WdatePicker(WdatePicker({minDate:'%y-%M-#{%d}',lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></li>
 			<li><label>出发地点</label><input type="text"
 				ng-model="travelInfo.travel_location" class="dfinput" required/></li>
 			<li><label>游玩天数<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_days" class="dfinput" required/></li>
+				ng-model="travelInfo.travel_days" class="dfinput" 
+				onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" required/></li>
 			<li><label>联系电话</label><input type="text"
 				ng-model="travelInfo.tel" class="dfinput" required/></li>
 			<li><label>总人数<b>*</b></label><input type="text"
@@ -48,7 +49,7 @@
 				ng-model="travelInfo.travel_firm" class="dfinput" required/></li>
 			
 		
-			<li><label>&nbsp;</label><input type="submit" id="addTravel"
+			<li><label>&nbsp;</label><input href="#travelList" type="submit" id="addTravel"
 				class="btn" value="提交修改" /></li>
 		</ul>
 	</form>

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.mvc.entity.BusNeed;
-import com.mvc.entity.BusTrade;
+
 
 	/**
 	 * BusNeed相关Dao层接口
@@ -31,10 +31,10 @@ import com.mvc.entity.BusTrade;
 		/////////////////////
 		
 		// 根据id修改信息
-			Boolean updateBusTradeById(Integer butr_id, BusTrade busTrade );
+			Boolean updateBusTradeById(Integer butr_id, BusNeed busNeed );
 
 		// 根据页数筛选全部信息
-			List<BusTrade> findBusTradeByPage(String searchKey, Integer offset, Integer end);
+			List<BusNeed> findBusTradeByPage(String searchKey, Integer offset, Integer end);
 				
 		// 查询信息总条数
 			Integer countTotal(String searchKey);

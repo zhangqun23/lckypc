@@ -6,7 +6,7 @@ import java.util.List;
 import net.sf.json.JSONObject;
 
 import com.mvc.entity.BusNeed;
-import com.mvc.entity.BusTrade;
+
 
 /**
  * BusNeed相关Service层接口
@@ -31,16 +31,8 @@ public interface BusNeedService {
 			
 	// 根据合同ID获取信息
 	BusNeed selectBusNeedById(Integer bune_id);
-	// 根据合同ID获取对应交易信息
-	BusTrade selectBusTradeByBNId(Integer bune_id);
 	
-	// 添加合同
-		BusNeed addBusNeed(JSONObject jsonObject);
-	// 添加合同
-		BusTrade addBusTrade(JSONObject jsonObject);
 	// 信息补录
 	 Boolean updateBusNeed(Integer bune_id, JSONObject jsonObject)throws ParseException;
-	
-	// 交易信息补录
-	 Boolean updateBusTrade(Integer bune_id, JSONObject jsonObject)throws ParseException;
+
 }
