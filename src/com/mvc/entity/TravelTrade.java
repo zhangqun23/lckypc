@@ -22,7 +22,7 @@ private Integer trtr_price;//交易额
 private Integer trtr_mnum;//购买的成人票数
 private Integer trtr_cnum;//购买的儿童票数
 private Travel travel;//外键
-private Integer is_state;//付款状态(0未付，1已付，2已退款)
+private Integer is_state;//付款状态
 private String open_id;//外键
 private Float trade_discount;//折扣
 private String trade_time;//交易时间

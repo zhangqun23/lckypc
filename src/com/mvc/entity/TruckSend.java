@@ -79,4 +79,7 @@ public class TruckSend {
 	public void setTruck(Truck truck) {
 		this.truck = truck;
 	}
+	
+
+	
 }
