@@ -1,4 +1,4 @@
-package com.mvc.entity;
+package com.mvc.entiy;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -27,9 +27,9 @@ public class BusNeed implements Serializable {
 	private String bune_gath_pla;// 集合地点
 	private String bune_goal_pla;// 目的地点
 	private String bune_purp;// 包车用途
+	private Date bune_insert_time;// 需求添加时间
 	private String bune_remark;// 备注
 	private Boolean is_delete;// 是否删除:0表示未删除，1表示删除
-	private String open_id;// 微信用户
 	private Date butr_time;// 交易创建时间
 	private Float butr_depo;// 押金
 	private Float butr_money;// 交易金额
@@ -38,6 +38,7 @@ public class BusNeed implements Serializable {
 	private Integer invoice_if;// 是否开发票，0:未开1:已开
 	private String invoice_num;// 发票号
 	private Integer butr_state;// 交易状态，0表示交易中，1表示交易结束
+  private String open_id;// 微信用户
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Integer getBune_id() {
@@ -171,7 +172,8 @@ public class BusNeed implements Serializable {
 		this.bune_bus = bune_bus;
 	}
 
-	@Column(columnDefinition = "INT not null default 0")
+
+	@Column(columnDefinition = "INT not null default 1")
 	public Integer getBune_type() {
 		return bune_type;
 	}
@@ -205,5 +207,12 @@ public class BusNeed implements Serializable {
 
 	public void setButr_state(Integer butr_state) {
 		this.butr_state = butr_state;
+	}
+	public Date getBune_insert_time() {
+		return bune_insert_time;
+	}
+
+	public void setBune_insert_time(Date bune_insert_time) {
+		this.bune_insert_time = bune_insert_time;
 	}
 }
