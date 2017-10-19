@@ -14,12 +14,13 @@
 <jsp:include page="/jsp/footer.jsp" />
 
 <script src="${ctx}/js/app/busNeed.js"></script>
-
+<script src="${ctx}/js/lib/My97DatePicker/WdatePicker.js"></script>
+<script src="${ctx}/js/lib/angular-file-upload.min.js"></script>
 
 <script>
 	$(function(){
 		$('dd').find('ul').css("display","none");
-		$('#travel-ul').css("display","block");
+		$('#busNeed-ul').css("display","block");
 		var currentPage = sessionStorage.getItem("currentPage");
 		if(currentPage){
 			$("#"+currentPage).addClass("active");

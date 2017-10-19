@@ -73,8 +73,12 @@
 				<li><label>集合时间：</label>{{busNeed.bune_gath_time.time| dateType}}</li>
 				<li><label>集合地点：</label>{{busNeed.bune_gath_pla}}</li>
 				<li><label>目的地：</label>{{busNeed.bune_goal_pla}}</li>
-				<li><label>包车用途：</label>{{busNeed.bune_purp}}</li>
+				<li><label>包车用途：</label>{{busNeed.bune_purp}}</li>			
 				<li><div class="remark-div">备注：{{busNeed.bune_remark}}</div></li>
+				<!-- <li><label>交易信息：</label></li> -->
+				<li><label>交易创建时间：</label>{{busNeed.butr_time.time| dateType}}</li>
+				<li><label>交易金额：</label>{{busNeed.butr_money}}</li>
+				<li><label>车牌号：</label>{{busNeed.butr_bus}}</li>
 			</ul>
 		</fieldset>
 	</div>

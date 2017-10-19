@@ -1,6 +1,8 @@
 package com.mvc.entity;
 
-import java.util.Date;
+
+
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name="truck")
-public class Truck {
+public class Truck implements Serializable {
+private static final long serialVersionUID = 1L;
 private Integer trck_id;//货车id，主键
 private Float trck_load;//货车载重，以吨为单位
 private Integer is_freeze;//0代表未冷冻，1代表冷冻
@@ -24,7 +26,7 @@ private String trck_score;//评分
 private Integer trck_check;//0代表未通过审核，1代表已通过审核
 private Driver driver;//外键
 private String open_id; //openid
-
+private String trck_number;//车牌号
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 @Column(name = "trck_id",unique = true, nullable = false, length = 11)
@@ -80,6 +82,7 @@ public void setTrck_check(Integer trck_check) {
 public Driver getDriver() {
 	return driver;
 }
+
 public void setDriver(Driver driver) {
 	this.driver = driver;
 }
@@ -90,4 +93,12 @@ public String getOpen_id() {
 public void setOpen_id(String open_id) {
 	this.open_id = open_id;
 }
+public String getTrck_number() {
+	return trck_number;
+}
+public void setTrck_number(String trck_number) {
+	this.trck_number = trck_number;
+}
+
+
 }
