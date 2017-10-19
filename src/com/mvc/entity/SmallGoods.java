@@ -1,5 +1,6 @@
 package com.mvc.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +12,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="small_goods")
-public class SmallGoods {
+public class SmallGoods implements Serializable {
+
+private static final long serialVersionUID = 1L;
 private Integer smgo_id;//主键
 private String  smgo_name;//货物名称
 private Float smgo_weight;//重量
@@ -31,6 +34,7 @@ private Boolean is_delete;//是否删除
 private String openid;//微信用户唯一标示
 private Date edit_time;//补录时间
 private Float edit_price;//补录金额
+
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getSmgo_id() {
@@ -127,6 +131,25 @@ public Boolean getIs_delete() {
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
 }
+public Boolean getSmgo_sego() {
+	return smgo_sego;
+}
+public void setSmgo_sego(Boolean smgo_sego) {
+	this.smgo_sego = smgo_sego;
+}
+public String getSmgo_add() {
+	return smgo_add;
+}
+public void setSmgo_add(String smgo_add) {
+	this.smgo_add = smgo_add;
+}
+@Column(name="open_id",length = 128)
+public String getOpenid() {
+	return openid;
+}
+public void setOpenid(String openid) {
+	this.openid = openid;
+}
 public Date getEdit_time() {
 	return edit_time;
 }
@@ -138,25 +161,6 @@ public Float getEdit_price() {
 }
 public void setEdit_price(Float edit_price) {
 	this.edit_price = edit_price;
-}
-public String getSmgo_add() {
-	return smgo_add;
-}
-public void setSmgo_add(String smgo_add) {
-	this.smgo_add = smgo_add;
-}
-public Boolean getSmgo_sego() {
-	return smgo_sego;
-}
-public void setSmgo_sego(Boolean smgo_sego) {
-	this.smgo_sego = smgo_sego;
-}
-@Column(name="open_id",length = 128)
-public String getOpenid() {
-	return openid;
-}
-public void setOpenid(String openid) {
-	this.openid = openid;
 }
 
 

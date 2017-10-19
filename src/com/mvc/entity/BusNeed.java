@@ -1,4 +1,4 @@
-package com.mvc.entiy;
+package com.mvc.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -29,7 +29,7 @@ public class BusNeed implements Serializable {
 	private String bune_purp;// 包车用途
 	private Date bune_insert_time;// 需求添加时间
 	private String bune_remark;// 备注
-	private Boolean is_delete;// 是否删除1表示未删除，0表示删除
+	private Boolean is_delete;// 是否删除0表示未删除，1表示删除
 	private Date butr_time;// 交易创建时间
 	private Float butr_depo;// 押金
 	private Float butr_money;// 交易金额
@@ -120,7 +120,7 @@ public class BusNeed implements Serializable {
 	public void setBune_remark(String bune_remark) {
 		this.bune_remark = bune_remark;
 	}
-
+	@Column(columnDefinition = "INT not null default 0")
 	public Boolean getIs_delete() {
 		return is_delete;
 	}
