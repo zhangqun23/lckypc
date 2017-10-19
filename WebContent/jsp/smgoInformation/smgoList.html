@@ -8,62 +8,57 @@
 </div>
 
 <div class="rightinfo">
-
-	<div ng-app="" class="tools">
-
 		<form class="toolbar">
-			<input name="" type="text" class="dfinput" id="aName"
-				ng-model="aName" placeholder="小件名称关键字"/> <input class="btn click"
-				type="submit" value="查询" ng-click="selectSmgoByName()">
-				
+		 <div class="inner">
+		    <input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
+				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required><div style="float: left;margin-right:10px">-</div>
+			<input type="text" name="GotLimit.endtTime" style="width:25%;float: left"
+				ng-model="GotLimit.endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required>
+		 </div>
+		 <div class="org">
+		   <input type="submit" class="weui_btn weui_btn_primary" ng-click="getSmgoListByTime()" value="查询">
+		 </div>
+		</form>		
 				<!-- 下拉框 选择 0自行取货、1送货上门 -->
-			 <select class="select-box" ng-model="SGSLimit.smgo_sego" ng-change="selectSmgoBySego()" id="smgo_sego" required>
-			   <option>送货方式</option>
+		 <form class="toolbar">
+		<div>
+		              请选择取货方式：
+			 <select class="dfselect" ng-model="SGSLimit.smgo_sego" ng-change="getSmgoListBySego()" id="smgo_sego" required>
 			   <option value="0">自行取货</option>
 			   <option value="1">送货上门</option>		
             </select>
-		</form>
-	</div>
+        </div>
+	  </form>
 
 	<table class="tablelist">
 		<thead>
 			<tr>
 			    <th>编号</th>
-				<th>货物名称</th>
-				<th>货物重量</th>
-				<th>始发地</th>
-				<th>目的地</th>
 				<th>发件人</th>
 				<th>发件人联系电话</th>
 				<th>收件人</th>
 				<th>收件人联系电话</th>
 				<th>交易金额</th>
 				<th>交易时间</th>
-				<th>发件日期</th>
 				<th>送货方式</th>
-				<th>送货地址</th>
-				<th>备注</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="smgo in smgos" id={{smgo.smgo_id}}>
 				<td>{{$index + 1 }}</td>
-				<td>{{smgo.smgo_name|cutString}}</td>
-				<td>{{smgo.smgo_weight}}</td>
-				<td>{{smgo.smgo_start|cutString}}</td>
-				<td>{{smgo.smgo_end|cutString}}</td>
 				<td>{{smgo.smgo_sender|cutString}}</td>
 				<td>{{smgo.smgo_sender_tel}}</td>
 				<td>{{smgo.smgo_receiver|cutString}}</td>
 				<td>{{smgo.smgo_receiver_tel}}</td>
 				<td>{{smgo.amgo_money}}</td>
-				<td>{{smgo.smgo_deal_time.time|dateType}}</td>
-				<td>{{smgo.smgo_send_time.time|dateType}}</td>  
-				<td>{{smgo.smgo_sego|findSego}}</td>        
-				<td>{{smgo.smgo_add|cutString}}</td>
-				<td>{{smgo.smgo_remark|cutString}}</td>
-				<td> <a href="#/smgoUpdate" ng-click="getSmgoId(smgo)"class="tablelink"
+				<td>{{smgo.smgo_deal_time.time|dateType}}</td> 
+				<td>{{smgo.smgo_sego|findSego}}</td> 
+				<td><a href="#/smgoUpdate" ng-click="getSmgoId(smgo)"class="tablelink"
 				       has-permission='tSgEdit'>smgo补录</a>
 					<a href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)" class="tablelink"
 					   has-permission='tSmgoDel'>删除</a></td>

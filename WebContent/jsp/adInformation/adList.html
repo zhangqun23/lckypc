@@ -6,23 +6,25 @@
 		<li>ad信息列表</li>
 	</ul>
 </div>
-
 <div class="rightinfo">
-
 	<div ng-app="" class="tools">
-
 		<form class="toolbar">
-			<input name="" type="text" class="dfinput" id="aTitle"
-				ng-model="aTitle" placeholder="标题关键字" /> <input class="btn click"
-				type="submit" value="查询" ng-click="selectAdByTitle()">
-			<select class="select-box" ng-model="ADSLimit.ad_state" ng-change="selectAdByState()" id="ad_state" required>
-			   <option>审核状态</option>
+		    <!-- 根据审核状态筛选ad信息 -->
+		           请选择审核状态：
+			<select class="dfselect" ng-model="ADSLimit.ad_state" ng-change="getAdListByState()" id="ad_state" style="width: 167px">
 			   <option value="0">未审核</option>
-			   <option value="1">已审核</option>		
+			   <option value="1">已审核</option>	
+			   <option value="2">已驳回</option>	
+            </select>
+            <!-- 根据ad类型筛选ad信息 0招工，1旅游、2其他 -->
+                               请选择ad类型：
+            <select class="dfselect" ng-model="ADTLimit.ad_type" ng-change="getAdListByType()" id="ad_type" style="width: 167px">
+			   <option value="0">招工</option>
+			   <option value="1">旅游</option>	
+			   <option value="2">其他</option>	
             </select>
 		</form>
 	</div>
-
 	<table class="tablelist">
 		<thead>
 			<tr>

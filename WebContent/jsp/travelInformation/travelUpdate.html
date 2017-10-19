@@ -21,7 +21,7 @@
 			<textarea ng-model="travelInfo.travel_content"  maxlength="130"
 					class="textarea" /></textarea>  最多可输入130个汉字字符</li>
 			<li><label>路线</label><input type="text"
-				ng-model="travelInfo.travel_route" class="dfinput" required /></li>
+				ng-model="travelInfo.travel_route" class="dfinput" /></li>
 			<li><label>成人票价格<b>*</b></label><input type="text"
 				ng-model="travelInfo.travel_mprice" class="dfinput" onkeyup="changeTwoNum(this)"  required/>(元)</li>
 			<li><label>儿童票价格<b>*</b></label><input type="text"
@@ -38,13 +38,14 @@
 				ng-model="travelInfo.travel_location" class="dfinput" required/></li>
 			<li><label>游玩天数<b>*</b></label><input type="text"
 				ng-model="travelInfo.travel_days" class="dfinput" 
-				onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" required/></li>
+				onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" 
+				required/></li>
 			<li><label>联系电话</label><input type="text"
-				ng-model="travelInfo.tel" class="dfinput" required/></li>
+				ng-model="travelInfo.travel_tel" class="dfinput" required/></li>
 			<li><label>总人数<b>*</b></label><input type="text"
 				ng-model="travelInfo.travel_total_num" class="dfinput" required/></li>
 			<li><label>剩余人数<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_left_num" class="dfinput" /></li>
+				ng-model="travelInfo.travel_left_num" class="dfinput" required/></li>
 			<li><label>旅游承办公司</label><input type="text"
 				ng-model="travelInfo.travel_firm" class="dfinput" required/></li>
 			

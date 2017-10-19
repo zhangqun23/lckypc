@@ -70,6 +70,7 @@ public  class TravelDaoImpl implements TravelDao {
 		query.setParameter("end", end);
 		List<Travel> list = query.getResultList();
 		em.close();
+		System.out.println(list);
 		return list;
 	}
 
@@ -79,7 +80,7 @@ public  class TravelDaoImpl implements TravelDao {
 		public List<Travel> findTravelByTitle(String traTitle, Integer offset, Integer end) {
 			EntityManager em = emf.createEntityManager();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select * from travel tr where tr.is_delete=0");// 在建
+			sql.append("select * from travel tr where tr.is_delete=0");
 			if (null != traTitle) {
 				sql.append(" and tr.travel_title like '%" + traTitle + "%'");
 			}

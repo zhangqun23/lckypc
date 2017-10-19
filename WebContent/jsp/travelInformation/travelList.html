@@ -34,10 +34,11 @@
 				<th>儿童票价格</th>
 				
 				<th>出发时间</th>
-				
+				<th>联系方式</th>
 				<th>总人数</th>
 				<th>剩余人数</th>
 				<th>旅游承办公司</th>
+				
 				<th>操作</th>
 			</tr>
 		</thead>
@@ -54,8 +55,8 @@
 				<td>{{travel.travel_discount |cutFloat}}</td> -->
 				<td>{{travel.travel_stime.time | dateType}}</td>
 				<!-- <td>{{travel.travel_location}}</td>
-				<td>{{travel.travel_days}}</td>
-				<td>{{travel.tel}}</td> -->
+				<td>{{travel.travel_days}}</td> -->
+				<td>{{travel.travel_tel}}</td>
 				<td>{{travel.travel_total_num}}</td>
 				<td>{{travel.travel_left_num}}</td>
 				<td>{{travel.travel_firm}}</td>
@@ -91,7 +92,7 @@
 				<li><label>出发时间：</label>{{travel.travel_stime.time| dateType}}</li>
 				<li><label>出发地点：</label>{{travel.travel_location}}</li>
 				<li><label>游玩天数：</label>{{travel.travel_days}}</li>
-				<li><label>联系电话：</label>{{travel.tel}}</li>
+				<li><label>联系电话：</label>{{travel.travel_tel}}</li>
 				<li><label>总人数：</label>{{travel.travel_total_num}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label>剩余人数：</label>{{travel.travel_left_num}}</li>
 				<li><label>旅游承办公司：</label>{{travel.travel_firm}}</li>

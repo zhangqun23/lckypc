@@ -207,11 +207,12 @@ app
 							// 添加旅游信息
 							travel.addTravel = function() {
 								
-								var travelFormData = JSON
-										.stringify(travel.travelInfo);
+								var travelFormData = JSON.stringify(travel.travelInfo);
+								console.log(travelFormData);
 								services.addTravel({
 									travel : travelFormData
 								}).success(function(data) {
+									
 									alert("新建成功！");
 									$location.path('travelList/');
 							});
@@ -551,6 +552,22 @@ function changeTwoNum(obj){
 	 
 	//只能输入两个小数 
 	  obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+}
+//固定电话
+function checkTel(){
+	 var tel = document.getElementById('tel').value;
+	if(!/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(tel)){
+	alert('固定电话有误，请重填');
+	return false;
+	}
+	}
+//手机号
+function checkPhone(){ 
+    var phone = document.getElementById('phone').value;
+    if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+        alert("手机号码有误，请重填");  
+        return false; 
+    } 
 }
 //小数过滤器
 app.filter('cutFloat', function() {

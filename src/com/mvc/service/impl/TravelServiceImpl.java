@@ -166,8 +166,8 @@ public  class TravelServiceImpl implements TravelService {
 						if (jsonObject.containsKey("travel_days")) {
 							travel.setTravel_days(Float.parseFloat(jsonObject.getString("travel_days")));
 						}
-						if (jsonObject.containsKey("tel")) {
-							travel.setTel(jsonObject.getString("tel"));}
+						if (jsonObject.containsKey("travel_tel")) {
+							travel.setTravel_tel(jsonObject.getString("travel_tel"));}
 						if (jsonObject.containsKey("travel_total_num")) {
 							travel.setTravel_total_num(Integer.parseInt(jsonObject.getString("travel_total_num")));
 						}

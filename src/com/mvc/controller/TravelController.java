@@ -87,7 +87,7 @@ public class TravelController {
 	}
 
 	/**
-	 * 添加,修改旅游信息
+	 * 添加旅游信息
 	 * 
 	 * @param request
 	 * @param session
@@ -133,8 +133,8 @@ public class TravelController {
 		if (jsonObject.containsKey("travel_days")) {
 			travel.setTravel_days(Float.parseFloat(jsonObject.getString("travel_days")));
 		}
-		if (jsonObject.containsKey("tel")) {
-			travel.setTel(jsonObject.getString("tel"));}
+		if (jsonObject.containsKey("travel_tel")) {
+			travel.setTravel_tel(jsonObject.getString("travel_tel"));}
 		if (jsonObject.containsKey("travel_total_num")) {
 			travel.setTravel_total_num(Integer.parseInt(jsonObject.getString("travel_total_num")));
 		}
@@ -143,7 +143,7 @@ public class TravelController {
 		}
 		if (jsonObject.containsKey("travel_firm")) {
 			travel.setTravel_firm(jsonObject.getString("travel_firm"));}
-		travel.setIs_delete(0);
+		travel.setIs_delete(false);
 		
 		boolean result;
 		if (jsonObject.containsKey("travel_id")) {

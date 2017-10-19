@@ -28,7 +28,7 @@ public class BusNeed implements Serializable {
 	private String bune_goal_pla;// 目的地点
 	private String bune_purp;// 包车用途
 	private String bune_remark;// 备注
-	private Boolean is_delete;// 是否删除1表示未删除，0表示删除
+	private Boolean is_delete;// 是否删除:0表示未删除，1表示删除
 	private String open_id;// 微信用户
 	private Date butr_time;// 交易创建时间
 	private Float butr_depo;// 押金
@@ -38,7 +38,6 @@ public class BusNeed implements Serializable {
 	private Integer invoice_if;// 是否开发票，0:未开1:已开
 	private String invoice_num;// 发票号
 	private Integer butr_state;// 交易状态，0表示交易中，1表示交易结束
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Integer getBune_id() {
