@@ -79,6 +79,8 @@ app.config([ '$routeProvider', function($routeProvider) {
 app.constant('baseUrl', '/lckypc/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
+	
+	//根据限制条件筛选信息
 	services.getSmgoListByPage = function(data) {
 		return $http({
 			method : 'post',
@@ -87,21 +89,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	
-	services.selectSmgoBySego = function(data){
-		return $http({
-			method : 'post',
-			url : baseUrl + 'smgo/selectSmgoBySego.do',
-			data : data
-		});
-	};
-	
-	services.selectSmgoById = function(data){
-		return $http({
-			method : 'post',
-			url : baseUrl + 'smgo/selectSmgoById.do'
-		})
-	}
-	
+	//删除smgo信息
 	services.deleteSmgo = function(data) {
 		return $http({
 			method : 'post',
@@ -109,9 +97,16 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-
+	
+	//添加补录信息
+	services.addEdit = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'smgo/addEdit.do',
+			data : data
+		});
+	}
 	return services;
-
 } ]);
 
 app
@@ -122,9 +117,8 @@ app
 						'services',
 						'$location',
 						function($scope, services, $location) {
-
 							var smgo = $scope;
-							var searchKey = null;
+							
 							// 换页
 							function pageTurn(totalPage, page, Func) {
 								$(".tcdPageCode").empty();
@@ -144,38 +138,58 @@ app
 							function getSmgoListByPage(page) {
 								services.getSmgoListByPage({
 									page : page,
-									searchKey : searchKey
 								}).success(function(data) {
 									smgo.smgos = data.list;
 								});
 							}
 							
 							//根据smgo_sego筛选smgo信息
-							smgo.SGSLimit={
-									smgo_sego:"送货方式"
-							}
-							smgo.selectSmgoBySego = function(){
-								var searchKey = null;
-								var smgoLimit = JSON.stringify(smgo.SGSLimit);
-								services.selectSmgoBySego({
-									page : 1,
-									smgoSego : smgoLimit,
-									searchKey : searchKey
-								}).success(function(data){
-									smgo.smgos = data.list;
-									pageTurn(data.totalPage, 1, smgo.selectSmgoBySego)
-								});
-							}
-
-							// 根据输入Name筛选信息
-							smgo.selectSmgoByName = function() {
-								searchKey = smgo.aName;
+							smgo.getSmgoListBySego = function(){
+								alert("sego");
+								var smgoLimit = null;
+								if(JSON.stringify(smgo.SGSLimit) != null){
+									smgoLimit = JSON.stringify(smgo.SGSLimit);
+								}
 								services.getSmgoListByPage({
 									page : 1,
-									searchKey : searchKey
-								}).success(function(data) {
-									smgo.smgos = data.list;
+									smgoSego : smgoLimit
+								}).success(function(data){
+									$scope.smgos = data.list;
 									pageTurn(data.totalPage, 1, getSmgoListByPage)
+								});
+							}
+							
+							//日期限制
+							smgo.getSmgoListByTime = function(){
+								alert("Time");
+								var gotLimit = null;
+								if(JSON.stringify(smgo.GotLimit) != null){
+									gotLimit = JSON.stringify(smgo.GotLimit);
+								}
+								services.getSmgoListByPage({
+									page : 1,
+									gotNeed : gotLimit
+								}).success(function(data){
+									$scope.smgos = data.list;
+									pageTurn(data.totalPage, 1, getSmgoListByPage)
+								});
+							};
+							
+							//添加edit补录信息   
+							smgo.smgoInfoss={
+									edit_price : "",
+									edit_time : ""
+							}
+							smgo.addEdit = function(){		
+								var smgoid = sessionStorage.getItem('smgoid');
+								var smgoLimits = JSON.stringify(smgo.smgoInfoss);
+								services.addEdit({
+									smgoNeed : smgoLimits,
+									smgoid : smgoid
+								}).success(function(data) {
+									alert("补录成功");
+									console.log(data.list)
+									$location.path("smgoList/");
 								});
 							};
 							
@@ -196,18 +210,11 @@ app
 								}
 							}
 							
-							//查询smgo信息
-							smgo.smgoInfo = function(){
-								var aFormData = JSON.stringify(smgo.smgoInfo);
-								service.selectSmgoById({
-									smgo : aFormData
-								}).success(function(data){
-									console.log("获取smgo信息");
-								})
-							}
-							
 	                        // 查看ID，并记入sessionStorage
 							smgo.getSmgoId = function(smgoid) {	
+								var smgoidd = JSON.stringify(smgoid);
+								sessionStorage.setItem('smgoid',smgoidd);	
+								console.log(smgoidd);
 								console.log(sessionStorage.getItem('smgoid'));	
 								$location.path("smgoUpdate/");
 							};
@@ -226,7 +233,8 @@ app
 										pageTurn(data.totalPage, 1, getSmgoListByPage)
 									});
 								}else if ($location.path().indexOf('/smgoUpdate') == 0) {
-									var smgoid=sessionStorage.getItem("smgoid");
+									//根据id获取smgo信息
+									var smgoid = sessionStorage.getItem("smgoid");
 									$scope.smgoInfo = JSON.parse(smgoid);
 							}}
 							initData();

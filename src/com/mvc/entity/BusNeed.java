@@ -22,7 +22,7 @@ public class BusNeed implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer bune_id;// 主键
-	private String bune_tel;// 联系啊电话
+	private String bune_tel;// 联系电话
 	private Integer bune_num;// 乘车人数
 	private Float bune_time;// 用车时长
 	private Date bune_gath_time;// 集合时间
@@ -31,7 +31,7 @@ public class BusNeed implements Serializable {
 	private String bune_purp;// 包车用途
 	private String bune_remark;// 备注
 	private Boolean is_delete;// 是否删除1表示未删除，0表示删除
-	private User user;// 微信用户
+	private String open_id;// 微信用户
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -122,14 +122,13 @@ public class BusNeed implements Serializable {
 		this.is_delete = is_delete;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	public User getUser() {
-		return user;
+	@Column(length = 128)
+	public String getOpen_id() {
+		return open_id;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setOpen_id(String open_id) {
+		this.open_id = open_id;
 	}
 
 }

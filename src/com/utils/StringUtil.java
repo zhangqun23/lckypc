@@ -50,4 +50,26 @@ public class StringUtil {
 		}
 		return flag;
 	}
+
+	/**
+	 * 当天0时刻
+	 * 
+	 * @param str
+	 * @return yyyy-MM-dd 00:00:00
+	 */
+	public static String dayFirstTime(String str) {
+		// TODO 自动生成的方法存根
+		return str + " 00:00:00";
+	}
+	
+	/**
+	 * 当天最后时间
+	 * 
+	 * @param str
+	 * @return yyyy-MM-dd 23:59:59
+	 */
+	public static String dayLastTime(String str) {
+		// TODO 自动生成的方法存根
+		return str + " 23:59:59";
+	}
 }

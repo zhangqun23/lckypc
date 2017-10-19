@@ -1,6 +1,5 @@
 package com.mvc.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,8 +17,7 @@ import javax.persistence.Table;
  * */
 @Entity
 @Table(name="travel")
-public class Travel implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Travel{
 private Integer travel_id;//旅游信息Id
 private String travel_title;//标题
 private String travel_content;//活动描述
@@ -31,11 +29,11 @@ private Float travel_discount;//折扣
 private Date travel_stime;//出发时间
 private String travel_location;//出发地点
 private Float travel_days;//游玩天数
-private String tel;//联系电话
+private String travel_tel;//联系电话
 private Integer travel_total_num;//总人数
 private Integer travel_left_num;//剩余人数
 private String travel_firm;//旅游承办公司
-private Integer is_delete;//信息是否删除
+private boolean is_delete;//信息是否删除
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getTravel_id() {
@@ -115,11 +113,11 @@ public void setTravel_days(Float travel_days) {
 	this.travel_days = travel_days;
 }
 @Column(length=32)
-public String getTel() {
-	return tel;
+public String getTravel_tel() {
+	return travel_tel;
 }
-public void setTel(String tel) {
-	this.tel = tel;
+public void setTravel_tel(String travel_tel) {
+	this.travel_tel = travel_tel;
 }
 @Column(columnDefinition = "INT not null default 0")
 public Integer getTravel_total_num() {
@@ -143,12 +141,10 @@ public void setTravel_firm(String travel_firm) {
 	this.travel_firm = travel_firm;
 }
 
-@Column(columnDefinition = "INT default 0")
-public Integer getIs_delete() {
+public Boolean getIs_delete() {
 	return is_delete;
 }
-public void setIs_delete(Integer is_delete) {
+public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
 }
-
 }
