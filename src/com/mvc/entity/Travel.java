@@ -33,7 +33,7 @@ private String travel_tel;//联系电话
 private Integer travel_total_num;//总人数
 private Integer travel_left_num;//剩余人数
 private String travel_firm;//旅游承办公司
-private boolean is_delete;//信息是否删除
+private boolean is_delete;//信息是否删除:0表示未删除，1表示删除
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getTravel_id() {
