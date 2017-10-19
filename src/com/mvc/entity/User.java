@@ -32,7 +32,7 @@ public class User implements Serializable {
 	private Role role;// 职位
 	private Integer user_isdelete;// 员工状态，1：已删除，0：未删除
 	private Integer user_dept;// 用户所在部门
-	private String travel_title;
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -98,15 +98,7 @@ public class User implements Serializable {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
-	@Column(length = 32)
-	public String getTravel_title() {
-		return travel_title;
-	}
-
-	public void setTravel_title(String travel_title) {
-		this.travel_title = travel_title;
-	}
-
+	
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	public Role getRole() {

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="small_goods")
-public class Smgo {
+public class SmallGoods {
 private Integer smgo_id;//主键
 private String  smgo_name;//货物名称
 private Float smgo_weight;//重量
@@ -25,12 +25,12 @@ private Float amgo_money;//交易金额
 private Date smgo_deal_time;//交易时间
 private Date smgo_send_time;//发件日期
 private String smgo_remark;//备注
+private Boolean smgo_sego;//是否取货
+private String smgo_add;//取货地址
 private Boolean is_delete;//是否删除
+private String openid;//微信用户唯一标示
 private Date edit_time;//补录时间
 private Float edit_price;//补录金额
-private String smgo_add;//送货地址，默认为null
-private Boolean smgo_sego;//取货方式，默认为0自行取货
-
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getSmgo_id() {
@@ -133,7 +133,6 @@ public Date getEdit_time() {
 public void setEdit_time(Date edit_time) {
 	this.edit_time = edit_time;
 }
-@Column(columnDefinition = "float(10,2) not null default '0.00'")
 public Float getEdit_price() {
 	return edit_price;
 }
@@ -146,12 +145,18 @@ public String getSmgo_add() {
 public void setSmgo_add(String smgo_add) {
 	this.smgo_add = smgo_add;
 }
-@Column(length=256)
 public Boolean getSmgo_sego() {
 	return smgo_sego;
 }
 public void setSmgo_sego(Boolean smgo_sego) {
 	this.smgo_sego = smgo_sego;
+}
+@Column(name="open_id",length = 128)
+public String getOpenid() {
+	return openid;
+}
+public void setOpenid(String openid) {
+	this.openid = openid;
 }
 
 

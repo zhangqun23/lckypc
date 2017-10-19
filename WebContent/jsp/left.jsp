@@ -1,8 +1,8 @@
 ﻿<script type="text/javascript" src="${ctx}/js/lib/jquery-1.9.1.min.js"></script>
 <script type="text/javascript"
 	src="${ctx}/js/lib/jquery.json-2.2.min.js"></script>
-<section class="leftbar"  style="display:block;background-color:red;">
-	<dl class="leftmenu"  style="display:block">
+<section class="leftbar">
+	<dl class="leftmenu">
 				
 		<!-- 基础信息管理 -->
 		<dd id="userManagement" class="userManager" >
@@ -33,7 +33,20 @@
 			<%-- href="${ctx}/travelTrade/toTravelPage.do#/travelTradeList"> --%>
 			</ul>
 		</dd>
-		
+		<!-- 班车信息管理 -->
+		<dd id="busNeed" class="busNeedManager" >
+			<div class="title ">
+				<span><img src="${ctx}/images/leftico01.png" /></span>班车预定管理
+			</div>
+			<ul id="busNeed-ul" class="menuson">
+				<li id="busList"><cite></cite> <a
+					href="${ctx}/busNeed/toBusNeedPage.do#/busNeedList">班车预定信息查询</a><i></i></li>
+				<%-- <li id="busList"><cite></cite> <a
+					href="${ctx}/busNeed/toBusNeedPage.do#/busNeedAdd">班车信息添加</a><i></i></li>
+				<li id="busList"><cite></cite> <a
+					href="${ctx}/busNeed/toBusNeedPage.do#/busTradeAdd">班车补录信息添加</a><i></i></li> --%>
+			</ul>
+		</dd>
 		<!-- 广告信息管理 -->
 		<dd id="ad" class="adManager" >
 			<div class="title ">
@@ -41,18 +54,18 @@
 			</div>
 			<ul id="ad-ul" class="menuson">
 				<li id="adList"><cite></cite> <a
-					href="${ctx}/ad/toAdPage.do#/adList">广告信息查询</a><i></i></li>
+					href="${ctx}/ad/toAdPage.do#/adList">广告查询</a><i></i></li>
 			</ul>
 		</dd>
 		
 		<!-- smgo信息管理 -->
 		<dd id="smgo" class="smgoManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span>smgo管理
+				<span><img src="${ctx}/images/leftico01.png" /></span>小件管理
 			</div>
 			<ul id="smgo-ul" class="menuson">
 				<li id="smgoList"><cite></cite> <a
-					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a><i></i></li>
+					href="${ctx}/smgo/toSmgoPage.do#/smgoList">小件查询</a><i></i></li>
 			</ul>
 		</dd>
 	</dl>

@@ -1,0 +1,112 @@
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>班车预定信息管理</li>
+		<li>补录班车预订信息</li>
+	</ul>
+</div>
+
+<div class="formbody">
+
+	<form ng-submit="repeatAddBusTrade()" >
+		<div class="formtitle">
+			<span>班车预订信息详情</span>
+		</div>
+		<table class="tbl tablelist" id="buneInformation">
+			<tr>
+				<td colspan='2' class="width15 text-center">预定人联系电话</td>
+				<td colspan='1'>{{BusNeedPage.bune_tel}}</td>
+				<td colspan='2' class="text-center">目的地</td>
+				<td colspan='1'>{{BusNeedPage.bune_goal_pla}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">乘车人数</td>
+				<td colspan='1'>{{BusNeedPage.bune_num}}</td>
+				<td colspan='2' class=" text-center">用车时长（/天）</td>
+				<td colspan='1'>{{BusNeedPage.bune_time}}<td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">集合时间</td>
+				<td colspan='1'>{{BusNeedPage.bune_gath_time.time | dateType}}</td>
+				<td colspan='2' class=" text-center">集合地点</td>
+				<td colspan='1'>{{BusNeedPage.bune_gath_pla}}<td>
+			</tr>
+			<tr>
+			<td colspan='2' class="width15 text-center">包车用途</td>
+			<td colspan='1'>{{BusNeedPage.bune_purp}}<td>
+			<!-- <td colspan='2'><input type="text"
+					ng-model="busNeed.bune_purp" class="dfinput input_border" /></td> -->
+				
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">备注</td>
+				<td colspan='6'>{{BusNeedPage.bune_remark}}</td>
+			</tr>
+			<tr>
+			<td colspan='2' class="width15 text-center">交易创建时间</td>
+			<td colspan='1'><input type="text"	ng-model="busTrade.butr_time" class="dfinput input_border" /></td> 			
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">押金</td>
+				<td colspan='1'><input type="text"
+					ng-model="busTrade.butr_depo" class="dfinput input_border" /></td>
+				<td colspan='2' class="text-center">交易金额</td>
+				<td colspan='1'><input type="text"
+					ng-model="busTrade.butr_money" class="dfinput input_border" /></td>
+			</tr>
+			<tr>
+			<td colspan='2' class="width15 text-center">车牌号</td>
+			<td colspan='2'><input type="text"
+					ng-model="busTrade.butr_bus" class="dfinput input_border" /></td>			
+			</tr>
+			<tr>
+				
+			<td colspan='2' class="width15 text-center">交易类型<label
+					class="left_length5 text_style">*</label></td>
+				<td colspan='2'><div class="div-checkbox">
+						<input name="butr_type" type="radio" 
+							ng-model="busTrade.butr_type" value="1" />线下
+					</div>
+					<div class="div-checkbox">
+						<input name="butr_type" type="radio" 
+							ng-model="busTrade.butr_type" value="0" />线上
+					</div></td>
+			</tr>
+			<tr>
+			
+			<td colspan='2' class="width15 text-center">是否开发票<label
+					class="left_length5 text_style">*</label></td>
+				<td colspan='2'><div class="div-checkbox">
+						<input name="invoice_if" type="radio" 
+							ng-model="busTrade.invoice_if" value="1" />已开
+					</div>
+					<div class="div-checkbox">
+						<input name="invoice_if" type="radio" 
+							ng-model="busTrade.invoice_if" value="0" />未开
+					</div></td>			
+			<td colspan='2' class="width15 text-center">发票号</td>
+			<td colspan='2'><input type="text"
+					ng-model="busTrade.invoice_num" class="dfinput input_border" /></td>
+			</tr>
+			<tr>
+		
+			<td colspan='2' class="width15 text-center">交易状态<label
+					class="left_length5 text_style">*</label></td>
+				<td colspan='2'><div class="div-checkbox">
+						<input name="butr_state" type="radio" 
+							ng-model="busTrade.butr_state" value="1" />交易结束
+					</div>
+					<div class="div-checkbox">
+						<input name="butr_state" type="radio" 
+							ng-model="busTrade.butr_state" value="0" />交易中
+					</div></td>		
+			</tr>
+		</table>
+		<!-- <input type="submit" id="addBusNeed" class="btn" value="测试提交" /> -->
+		<input  type="text" name="state"
+							ng-model="bid" />
+			<input type="submit" id="addBusTrade" class="btn" value="确认提交"  />
+	</form>
+</div>
+

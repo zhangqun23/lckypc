@@ -35,7 +35,7 @@ public  class TravelServiceImpl implements TravelService {
 	TravelDao travelDao;
 
 	/**
-	 * 添加、修改旅游信息
+	 * 添加旅游信息
 	 */
 	public boolean save(Travel travel) {
 		Travel result = travelRepository.saveAndFlush(travel);
@@ -44,22 +44,12 @@ public  class TravelServiceImpl implements TravelService {
 		else
 			return false;
 	}
-	// 添加旅游信息
-//		@Override
-//		public Travel addTravel(User user, JSONObject jsonObject) {
-//			
-//			Travel travel = new Travel();
-//			travel = (Travel) JSONUtil.JSONToObj(jsonObject.toString(), Travel.class);// 将json对象转换成实体对象，注意必须和实体类型一致
-//			travel = travelRepository.saveAndFlush(travel);
-//			return travel;
-//		}
+	
 	// 根据标题查询旅游信息是否存在,返回1存在，返回0不存在
 		public Long isExist(String travelTitle) {
 			Long result = travelRepository.countByTravelTitle(travelTitle);
 			return result;
 		}
-
-	
 
 	// 查询所有旅游信息列表
 	public List<Travel> findTravelAlls() {
@@ -109,7 +99,7 @@ public  class TravelServiceImpl implements TravelService {
 				return travelDao.countTrTotal(searchKey);
 			}
 
-	// 根据合同ID获取合同
+	// 根据ID获取
 			@Override
 			public Travel selectTravelById(Integer travel_id) {
 				return travelRepository.selectTravelById(travel_id);
@@ -151,7 +141,7 @@ public  class TravelServiceImpl implements TravelService {
 							travel.setTravel_days(Float.parseFloat(jsonObject.getString("travel_days")));
 						}
 						if (jsonObject.containsKey("tel")) {
-							travel.setTel(jsonObject.getString("tel"));}
+							travel.setTravel_tel(jsonObject.getString("tel"));}
 						if (jsonObject.containsKey("travel_total_num")) {
 							travel.setTravel_total_num(Integer.parseInt(jsonObject.getString("travel_total_num")));
 						}

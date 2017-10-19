@@ -23,14 +23,6 @@ import com.mvc.service.TravelService;
 import com.mvc.service.UserService;
 import com.utils.Pager;
 
-
-
-
-
-
-
-
-
 import net.sf.json.JSONObject;
 
 /**
@@ -78,15 +70,6 @@ public class TravelController {
 		System.out.println("totalPage:" + pager.getTotalPage());
 		return jsonObject.toString();
 	}
-
-	/**
-	 * 获取指定页面的十条旅游信息，总页数
-	 * 
-	 * @param request
-	 * @return
-	 */
-
-	
 
 	/**
 	 * 删除旅游信息
@@ -150,7 +133,7 @@ public class TravelController {
 			travel.setTravel_days(Float.parseFloat(jsonObject.getString("travel_days")));
 		}
 		if (jsonObject.containsKey("tel")) {
-			travel.setTel(jsonObject.getString("tel"));}
+			travel.setTravel_tel(jsonObject.getString("tel"));}
 		if (jsonObject.containsKey("travel_total_num")) {
 			travel.setTravel_total_num(Integer.parseInt(jsonObject.getString("travel_total_num")));
 		}
@@ -159,7 +142,7 @@ public class TravelController {
 		}
 		if (jsonObject.containsKey("travel_firm")) {
 			travel.setTravel_firm(jsonObject.getString("travel_firm"));}
-		travel.setIs_delete(0);
+		travel.setIs_delete(true);
 		
 		boolean result;
 		if (jsonObject.containsKey("travel_id")) {
@@ -237,7 +220,7 @@ public class TravelController {
 			return 0;
 	}
 	/**
-	 * 根据页数筛选旅游信息列表
+	 * 根据页数筛选旅游交易信息列表
 	 * 
 	 * @param request
 	 * @param session
