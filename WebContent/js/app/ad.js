@@ -75,7 +75,7 @@ app.constant('baseUrl', '/lckypc/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
-	//初始化
+	//限制条件
 	services.getAdListByPage = function(data) {
 		return $http({
 			method : 'post',
@@ -131,7 +131,6 @@ app
 							
 							// 根据页数获取ad信息
 							function getAdListByPage(page) {
-								alert("page");
 								services.getAdListByPage({
 									page : page
 									}).success(function(data) {
@@ -139,39 +138,25 @@ app
 										});
 								}
 							
-							//根据state筛选ad信息
-							ad.getAdListByState = function(){
-								alert("state");
+							//state、Type限制
+							ad.getAdListByST = function(){
 								var adLimit = null;
+								var adTLimit = null;
 								if(JSON.stringify(ad.ADSLimit) != null){
 									adLimit = JSON.stringify(ad.ADSLimit);
+								}
+								if(JSON.stringify(ad.ADTLimit) != null){
+									adTLimit = JSON.stringify(ad.ADTLimit);
+								}
 									services.getAdListByPage({
 										page : 1,
-										adState : adLimit
+										adState : adLimit,
+										adType : adTLimit
 										}).success(function(data) {
 											$scope.ads = data.list;
 											pageTurn(data.totalPage, 1, getAdListByPage)
 											});
 								}
-							}
-							
-							//根据type筛选ad信息
-							ad.getAdListByType = function(){
-								alert("Type");
-								var adTLimit = null;
-								if(JSON.stringify(ad.ADTLimit) != null){
-									adTLimit = JSON.stringify(ad.ADTLimit);
-									services.getAdListByPage({
-										page : 1,
-										adType : adTLimit
-									}).success(function(data){
-										$scope.ads = data.list;
-										pageTurn(data.totalPage, 1,getAdListByPage)
-									});
-								}
-								
-							}
-							
 							
 							// 删除ad信息
 							ad.deleteAd = function(ad_id) {
@@ -281,6 +266,7 @@ app.filter('findstate',function(){
 		}
 	}
 })
+
 //type 0、1、2转换
 app.filter('findtype', function() {
 	return function(input) {
