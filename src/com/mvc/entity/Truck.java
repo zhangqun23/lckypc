@@ -23,6 +23,7 @@ private Integer trck_num;//交易次数
 private String trck_score;//评分
 private Integer trck_check;//0代表未通过审核，1代表已通过审核
 private Driver driver;//外键
+private String open_id; //openid
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -81,5 +82,12 @@ public Driver getDriver() {
 }
 public void setDriver(Driver driver) {
 	this.driver = driver;
+}
+@Column(name = "open_id",length = 128)
+public String getOpen_id() {
+	return open_id;
+}
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
 }
 }

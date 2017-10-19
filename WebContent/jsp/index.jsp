@@ -4,6 +4,7 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<meta charset="utf-8" />
 <jsp:include page="/jsp/top.jsp" />
 <section id="ng-section" class="main">
 	<div class="place">

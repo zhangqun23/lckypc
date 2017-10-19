@@ -11,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.base.constants.SessionKeyConstants;
 import com.mvc.entity.Ad;
-import com.mvc.entity.User;
 import com.mvc.service.AdService;
-import com.mvc.service.UserService;
 import com.utils.Pager;
 
 import net.sf.json.JSONObject;
+
 /**
  * 
  * @ClassName: AdController
@@ -34,8 +32,6 @@ public class AdController {
 
 	@Autowired
 	AdService adService;
-	@Autowired
-	UserService uservice;
 	
 	/**
 	 * 
@@ -51,29 +47,29 @@ public class AdController {
 		return "adInformation/index";
 	}
 	
-	/**
-	 * 
-	 * 
-	 *@Title: getAdsByPrarm 
-	 *@Description: 页码
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
-	 */
+	//根据限制条件state、type筛选ad信息
 	@RequestMapping("/getAdListByPage.do")
 	public @ResponseBody String getAdsByPrarm(HttpServletRequest request, HttpSession session) {
+		String adState = null;
+		String adType = null;
 		JSONObject jsonObject = new JSONObject();
-		String searchKey = request.getParameter("searchKey");
-		Integer totalRow = adService.countTotal(searchKey);
+		if(request.getParameter("adState") != null){
+			adState = JSONObject.fromObject(request.getParameter("adState")).getString("ad_state");
+		}
+		if(request.getParameter("adType") != null){
+			adType = JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
+		}
+		Integer totalRow = adService.countTotal(adState,adType);
 		Pager pager = new Pager();
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
-		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-		List<Ad> list = adService.findAdByPage(searchKey, pager.getOffset(), pager.getLimit());
-		jsonObject.put("list", list);
+		if(totalRow != 0){
+			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
+		}
+		List<Ad> list = adService.findAdByPage(adState,adType,pager.getOffset(), pager.getLimit());
 		jsonObject.put("totalPage", pager.getTotalPage());
-		System.out.println("totalPage:" + pager.getTotalPage());
+		jsonObject.put("list", list);
+		System.out.println("总行数"+totalRow);
+		System.out.println("当前页码"+pager);
 		return jsonObject.toString();
 	}
 	
@@ -111,46 +107,5 @@ public class AdController {
 		Integer adid = Integer.valueOf(request.getParameter("adId"));
 		boolean result = adService.editState(adid);
 		return result;
-	}
-	/**
-	 * 
-	 * 
-	 *@Title: selectAdById 
-	 *@Description: 根据id获取ad信息
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
-	 */
-	@RequestMapping("/selectAdById.do")
-	public @ResponseBody String selectAdById(HttpServletRequest request, HttpSession session) {
-		int ad_id = Integer.parseInt(request.getParameter("ad_id"));
-		session.setAttribute("ad_id", ad_id);
-		Ad ad = adService.selectAdById(ad_id);
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("ad", ad);
-		return jsonObject.toString();
-	}
-	
-	//根据state筛选ad信息
-	@RequestMapping("/selectAdByState.do")	
-	public @ResponseBody String selectAdByState(HttpServletRequest request, HttpSession session) {
-		String adState;
-		List<Ad> list;
-		JSONObject jsonObject = new JSONObject();
-		if(request.getParameter("adState") != null){
-			adState = JSONObject.fromObject(request.getParameter("adState")).getString("ad_state");
-			Integer totalRow = adService.countStateTotal(adState);
-			Pager pager = new Pager();
-			pager.setPage(Integer.valueOf(request.getParameter("page")));
-			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-			list = adService.findAdByStatePage(adState, pager.getOffset(), pager.getLimit());
-			jsonObject.put("totalPage", pager.getTotalPage());
-		}else{
-			list = adService.findAlls();
-		}
-		jsonObject.put("list", list);
-		return jsonObject.toString();
 	}
 }

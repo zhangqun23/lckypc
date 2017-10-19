@@ -1,8 +1,9 @@
 package com.mvc.dao;
 
+import java.util.Date;
 import java.util.List;
 
-import com.mvc.entity.Smgo;
+import com.mvc.entity.SmallGoods;
 
 /**
  * 
@@ -15,19 +16,14 @@ import com.mvc.entity.Smgo;
  */
 public interface SmgoDao {
 
-	//查询全部smgo信息
-	Integer countTotal(String searchKey);
-
-	//根据页数筛选smgo信息
-	List<Smgo> findSmgoByPage(String searchKey, int offset, int end);
-
+	//根据限制条件筛选信息
+	Integer countTotal(String smgoSego, String startDate, String endDate);
+	List<SmallGoods> findSmgoByPage(String smgoSego, String startDate, String endDate, int offset, int limit);
+	
 	//根据id删除smgo信息
 	boolean updateState(Integer smgo_id);
 
-	//按照smgoSego获得总页数
-	Integer countSegoTotal(String smgoSego);
-
-	//根据smgoSego、page筛选smgo信息
-	List<Smgo> findSmgoBySego(String smgoSego, int offset, int limit);
+	//添加补录信息
+	boolean updateEdit(String edittime, float editprice, Integer smgo_id);
 	
 }
