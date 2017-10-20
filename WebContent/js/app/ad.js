@@ -75,7 +75,7 @@ app.constant('baseUrl', '/lckypc/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
 	
-	//初始化
+	//限制条件
 	services.getAdListByPage = function(data) {
 		return $http({
 			method : 'post',
@@ -138,7 +138,7 @@ app
 										});
 								}
 							
-							//state限制
+							//state、Type限制
 							ad.getAdListByST = function(){
 								var adLimit = null;
 								var adTLimit = null;

@@ -17,12 +17,12 @@ public class SmgoServiceImpl implements SmgoService{
 	
 	//根据限制条件筛选信息
 	@Override
-	public Integer countTotal(String smgoSego, Date startDate, Date endDate) {
+	public Integer countTotal(String smgoSego, String startDate, String endDate) {
 		// TODO 自动生成的方法存根
 		return smgoDao.countTotal( smgoSego,  startDate,  endDate);
 	}
 	@Override
-	public List<SmallGoods> findSmgoByPage(String smgoSego, Date startDate, Date endDate, int offset, int limit) {
+	public List<SmallGoods> findSmgoByPage(String smgoSego, String startDate, String endDate, int offset, int limit) {
 		// TODO 自动生成的方法存根
 		return smgoDao.findSmgoByPage( smgoSego,  startDate,  endDate,  offset,  limit);
 	}

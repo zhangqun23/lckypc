@@ -141,42 +141,37 @@ app.controller(
 							}
 							
 							//smgo_sego限制 
-							smgo.getSmgoListBySego = function(){
-								var smgoLimit = JSON.stringify(smgo.SGSLimit);
+							smgo.getSmgoListBySD = function(){
+								var smgoLimit = null;
+								var gotLimit = null;
+								if(JSON.stringify(smgo.SGSLimit) != null){
+									smgoLimit = JSON.stringify(smgo.SGSLimit);
+								}
+								if(JSON.stringify(smgo.GotLimit) != null){
+									gotLimit = JSON.stringify(smgo.GotLimit);
+								}
 								services.getSmgoListByPage({
 									page : 1,
-									smgoSego : smgoLimit
-								}).success(function(data){
-									$scope.smgos = data.list;
-									pageTurn(data.totalPage, 1, getSmgoListByPage)
-								});
-							}
-							
-							//Date限制
-							smgo.getSmgoListByTime = function(){
-								var gotLimit = JSON.stringify(smgo.GotLimit);
-								services.getSmgoListByPage({
-									page : 1,
+									smgoSego : smgoLimit,
 									gotNeed : gotLimit
 								}).success(function(data){
 									$scope.smgos = data.list;
 									pageTurn(data.totalPage, 1, getSmgoListByPage)
 								});
-							};
+							}
 							
 							//添加smgo补录信息   
 							smgo.smgoInfoss={
 									edit_price : "",
 									edit_time : ""
 							}
-							smgo.addEdit = function(smgo_id){
+							smgo.addEdit = function(){
 								var smgoLimits = JSON.stringify(smgo.smgoInfoss);
 								services.addEdit({
-									smgoNeed : smgoLimits,
-									smgoId : smgo_id
+									smgoId : sessionStorage.getItem('smgoid'),
+									smgoNeed : smgoLimits
 								}).success(function(data) {
 									alert("补录成功");
-									console.log(data.list)
 									$location.path("smgoList/");
 								});
 							};

@@ -53,10 +53,6 @@ public class AdController {
 		String adState = null;
 		String adType = null;
 		JSONObject jsonObject = new JSONObject();
-		Pager pager = new Pager();
-		pager.setPage(Integer.valueOf(request.getParameter("page")));
-		    
-		System.out.println("当前页码"+request.getParameter("page"));
 		if(request.getParameter("adState") != null){
 			adState = JSONObject.fromObject(request.getParameter("adState")).getString("ad_state");
 		}
@@ -64,13 +60,16 @@ public class AdController {
 			adType = JSONObject.fromObject(request.getParameter("adType")).getString("ad_type");
 		}
 		Integer totalRow = adService.countTotal(adState,adType);
-		if(totalRow != null){
+		Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		if(totalRow != 0){
 			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
 		}
 		List<Ad> list = adService.findAdByPage(adState,adType,pager.getOffset(), pager.getLimit());
 		jsonObject.put("totalPage", pager.getTotalPage());
-		System.out.println("totalPage:" + pager.getTotalPage());
 		jsonObject.put("list", list);
+		System.out.println("总行数"+totalRow);
+		System.out.println("当前页码"+pager);
 		return jsonObject.toString();
 	}
 	

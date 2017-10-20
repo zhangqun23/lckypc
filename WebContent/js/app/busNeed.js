@@ -74,14 +74,6 @@ app.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : '/lckypc/jsp/busInformation/busNeedDetail.html',
 		controller : 'busNeedController'
 
-	}).when('/busNeedAdd', {
-		templateUrl : '/lckypc/jsp/busInformation/busNeedAdd.html',
-		controller : 'busNeedController'
-
-	}).when('/busTradeAdd', {
-		templateUrl : '/lckypc/jsp/busInformation/busTradeAdd.html',
-		controller : 'busNeedController'
-
 	});
 } ]);
 app.constant('baseUrl', '/lckypc/');
@@ -122,20 +114,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	services.addBusNeed = function(data) {
-		return $http({
-			method : 'post',
-			url : baseUrl + 'busNeed/addBusNeed.do',
-			data : data,
-		});
-	};
-	services.addBusTrade = function(data) {
-		return $http({
-			method : 'post',
-			url : baseUrl + 'busNeed/addBusTrade.do',
-			data : data,
-		});
-	};
+	
 	// 补录信息
 	services.repeatAddBusNeed = function(data) {
 		return $http({
@@ -306,44 +285,19 @@ app
 								});
 							};
 
-							// 添加
-							bune.addBusNeed = function() {
-								console.log("succcess");
-								var buneFormData = JSON.stringify(bune.busNeed);
-								services.addBusNeed({
-									busNeed : buneFormData
-								}).success(function(data) {
-//									sessionStorage.setItem("buneId", data);
-//									bune.busNeed.bune_id = data;
-									console.log(data.busNeed);
-									alert("创建成功！");
-								});
-							};
-							// 添加交易
-							bune.addBusTrade = function() {
-								console.log("tra succcess");
-								var buneFormData = JSON.stringify(bune.busTrade);
-								services.addBusTrade({
-									busTrade : buneFormData
-								}).success(function(data) {
-									console.log(data.busTrade);
-									alert("创建成功！");
-								});
-							};
 							
 							// 测试补录信息
 							bune.repeatAddBusNeed = function() {
-								console.log("success!!");
-								
+								console.log("success!!");				
 									var busFormData = JSON.stringify(bune.busNeed);
+									console.log(busFormData);
 									services.repeatAddBusNeed(
 											{
 												busNeed : busFormData,
 												bune_id : sessionStorage.getItem('busNeedId')
 											}).success(function(data) {
-
 										alert("补录成功！");
-										console.log(data.busNeed);
+										console.log(data);
 									});
 							};
 							// 补录信息
@@ -415,27 +369,7 @@ app
 //									$scope.bid=busNeed_id;
 									bune.getBuneId(busNeed_id);
 									
-//									services.selectBusNeedById({
-//													bune_id : bune_id
-//												})
-//												.success(
-//														function(data) {
-//															// bune.bun = data.busNeed;
-//															bune.busNeed = data.busNeed;
-//															if (data.bune.bune_time) {
-//																data.bune.bune_time = changeDateType(data.bune.bune_time);
-//															}
-//
-//														});
-//									}
-//									services.selectBusBusTradeByBNId({
-//										bune_id : bune_id
-//									})
-//									.success(
-//											function(data) {
-//												
-//												butr.busTrade = data.busTrade;												
-//											});
+
 								}
 
 								 else if ($location.path().indexOf(

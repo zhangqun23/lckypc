@@ -16,7 +16,7 @@ import com.mvc.entity.Ad;
 public interface AdDao {
 
 	//根据限制条件筛选信息
-	List<Ad> findAdByPage(String adState, String adType, int offset, int limit);
+	List<Ad> findAdByPage(String adState, String adType, Integer offset, Integer limit);
 	Integer countTotal(String adState, String adType);
 	
 	//根据id变更state

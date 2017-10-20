@@ -32,5 +32,6 @@ public interface BusNeedRepository extends JpaRepository<BusNeed, Integer> {
 	//根据ID获取信息
 	@Query("select bn from BusNeed bn where bune_id=:bune_id and is_delete=0")
 	BusNeed selectBusNeedById(@Param("bune_id") Integer bune_id);
+	
 
 }

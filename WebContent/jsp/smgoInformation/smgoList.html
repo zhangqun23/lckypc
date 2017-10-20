@@ -20,16 +20,14 @@
 				ng-model="GotLimit.endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
-		 </div>
-		 <div class="org">
-		   <input type="submit" class="btn click" ng-click="getSmgoListByTime()" value="查询">
+			<input type="submit" class="btn click" ng-click="getSmgoListBySD()" value="查询">	
 		 </div>
 		</form>		
 				<!-- 下拉框 选择 0自行取货、1送货上门 -->
 		 <form class="toolbar">
 		<div>
 		              请选择取货方式：
-			 <select class="dfselect" ng-model="SGSLimit.smgo_sego" ng-change="getSmgoListBySego()" id="smgo_sego" required>
+			 <select class="dfselect" ng-model="SGSLimit.smgo_sego" ng-change="getSmgoListBySD()" id="smgo_sego" required>
 			   <option value="0">自行取货</option>
 			   <option value="1">送货上门</option>		
             </select>
@@ -60,8 +58,8 @@
 				<td>{{smgo.amgo_money | number:1}}</td>
 				<td>{{smgo.smgo_deal_time.time|dateType}}</td> 
 				<td>{{smgo.smgo_sego|findSego}}</td> 
-				<td><a href="#/smgoUpdate" class="tablelink"
-				       has-permission='tSgEdit'>smgo补录</a>
+				<td><a href="#/smgoUpdate" ng-click="getSmgoId(smgo,smgo.smgo_id)" class="tablelink" 
+				       has-permission='tSgEdit'>小件补录</a>
 					<a href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)" class="tablelink"
 					   has-permission='tSmgoDel'>删除</a></td>
 			</tr>

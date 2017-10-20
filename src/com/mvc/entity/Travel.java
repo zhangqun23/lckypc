@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * */
 @Entity
 @Table(name="travel")
-public class Travel{
+public class Travel {
 private Integer travel_id;//旅游信息Id
 private String travel_title;//标题
 private String travel_content;//活动描述
@@ -147,4 +147,5 @@ public Boolean getIs_delete() {
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
 }
+
 }

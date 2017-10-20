@@ -51,8 +51,9 @@ public class AdDaoImpl implements AdDao{
 		em.close();
 		return Integer.parseInt(totalRow.get(0).toString());
 	}
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Ad> findAdByPage(String adState, String adType, int offset, int limit) {
+	public List<Ad> findAdByPage(String adState, String adType, Integer offset, Integer limit) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
 		String selectSql = " select * from Ad where is_delete=0 ";
@@ -65,7 +66,7 @@ public class AdDaoImpl implements AdDao{
 		}else if(adState != null){
 			selectSql += " and ad_state = " + adState;
 		}
-		selectSql += " limit :offset, :end ";
+		selectSql += " limit :offset , :end ";
 		Query query = em.createNativeQuery(selectSql, Ad.class);
 		query.setParameter("offset", offset);
 		query.setParameter("end", limit);
