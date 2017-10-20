@@ -3,8 +3,10 @@ package com.mvc.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mvc.entity.Travel;
 
@@ -47,5 +49,10 @@ public interface TravelRepository extends JpaRepository<Travel, Integer> {
 	//根据ID获取旅游信息
 		@Query("select tr from Travel tr where travel_id=:travel_id ")
 		Travel selectTravelById(@Param("travel_id") Integer travel_id);
+		
+		@Modifying
+		@Transactional
+		@Query("update Travel set travel_left_num=:left_num where travel_id = :travel_id")
+		public void updateLeftNum(@Param("left_num") int left_num, @Param("travel_id") Integer travel_id);
 
 }
