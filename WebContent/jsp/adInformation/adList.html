@@ -51,7 +51,7 @@
 				<td>{{ad.ad_name|cutString}}</td>
 				<td>{{ad.ad_tel}}</td>
 				<td>{{ad.ad_remark|cutString}}</td>
-				<td><a ng-click="editState(ad.ad_id)" 
+				<td><a ng-click="editState(ad.ad_state,ad.ad_id)" 
 				       class="tablelink" >审核</a>
 				    <a ng-click="getAdId(ad)"
 				       class="tablelink">详情</a>
@@ -63,24 +63,51 @@
 	<div  class="tcdPageCode">页码容器</div>
 </div>
 
-<!-- 审核模态框 -->
+<!-- 审核模态框 1 -->
 <div class="overlayer"></div>
 <div class="tip" id="tipDel" style="height: 220px">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
 	</div>
-
 	<div class="tipinfo">
 		<div class="tipright">
-			<p>是否确认对信息的删除 ？</p>
-			<cite>如果是请点击确定按钮 ，否则请点取消。</cite>
+		<br>
+		<p>请注意：信息审核或驳回后无法再次变更！</p>
 		</div>
 	</div>
-
 	<div class="tipbtn">
 		<input name="" type="button" class="sureSend" id="sureDel1" value="审核通过" />&nbsp;
 		<input name="" type="button" class="sureSend" id="sureDel2" value="驳回" />&nbsp;
-		<!-- <input name="" type="button" class="cancelSend" id="cancelDel"
-			value="取消" /> -->
+	</div>
+</div>
+<!-- 审核模态框 2 -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel2" style="height: 220px">
+	<div class="tiptop">
+		<span>提示信息</span><a></a>
+	</div>
+	<div class="tipinfo">
+		<div class="tipright">
+		<p>该信息已审核！无法再次变更！</p>
+		</div>
+	</div>
+	<div class="tipbtn">
+		<input name="" type="button" class="sureSend" id="sureDel" value="确定" />&nbsp;
+	</div>
+</div>
+<!-- 删除模态框  -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel3" style="height: 220px">
+	<div class="tiptop">
+		<span>提示信息</span><a></a>
+	</div>
+	<div class="tipinfo">
+		<div class="tipright">
+		<p>是否确认对信息的删除 ？</p><br/>
+		</div>
+	</div>
+	<div class="tipbtn">
+		<input name="" type="button" class="sureSend" id="sureDel" value="确定" />&nbsp;
+		<input name="" type="button" class="cancelSend" id="cancelDel" value="取消" />&nbsp;
 	</div>
 </div>

@@ -176,22 +176,56 @@ app.controller(
 								});
 							};
 							
+//							ad.deleteAd = function(ad_id) {
+//								$(".overlayer").fadeIn(200);
+//								$("#tipDel3").fadeIn(200);
+//								//左上角的X
+//								$(".tiptop a").click(function() {
+//									$("#tipDel3").fadeOut(100);
+//									$(".overlayer").fadeOut(200);
+//									});
+//								//点击按钮,模态框隐藏
+//								$("#sureDel").click(function(){
+//									$("#tipDel3").fadeOut(100);
+//									$(".overlayer").fadeOut(200);
+//									//进入后台
+//									services.deleteAd({
+//										adId : ad_id
+//										}).success(function(data) {
+//											initData();
+//											});
+//									});
+//								$("#cancelDel").click(function(){
+//									$("#tipDel3").fadeOut(100);
+//									$(".overlayer").fadeOut(200);
+//									});
+//							}
 							// 删除smgo信息
 							smgo.deleteSmgo = function(smgo_id) {
-								if (confirm("是否删除该smgo信息？") == true) {
+								//显示模态框
+								$(".overlayer").fadeIn(200);
+								$("#tipDel").fadeIn(200);
+								//左上角的X
+								$(".tiptop a").click(function() {
+									$("#tipDel").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								//点击按钮,模态框隐藏
+								$("#sureDel").click(function(){
+									$("#tipDel").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									//进入后台
 									services.deleteSmgo({
 										smgoId : smgo_id
-									}).success(function(data) {
-										smgo.result = data;
-										if (data == "true") {
-											console.log("删除smgo信息成功！");
-										} else {
-											console.log("删除smgo信息失败！");
-										}
-										initData();
+										}).success(function(data) {
+											initData();
+											});
 									});
-								}
-							}
+								$("#cancelDel").click(function(){
+									$("#tipDel").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+							};
 							
 	                        // 查看ID，并记入sessionStorage
 							smgo.getSmgoId = function(smgoid) {	
