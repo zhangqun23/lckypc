@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * */
 @Entity
 @Table(name="travel")
-public class Travel{
+public class Travel {
 private Integer travel_id;//旅游信息Id
 private String travel_title;//标题
 private String travel_content;//活动描述
@@ -33,7 +33,7 @@ private String travel_tel;//联系电话
 private Integer travel_total_num;//总人数
 private Integer travel_left_num;//剩余人数
 private String travel_firm;//旅游承办公司
-private boolean is_delete;//信息是否删除:0表示未删除，1表示删除
+private boolean is_delete;//信息是否删除
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 public Integer getTravel_id() {
@@ -147,4 +147,5 @@ public Boolean getIs_delete() {
 public void setIs_delete(Boolean is_delete) {
 	this.is_delete = is_delete;
 }
+
 }

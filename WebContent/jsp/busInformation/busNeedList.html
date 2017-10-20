@@ -38,8 +38,7 @@
 		<tbody>
 			<tr ng-repeat="bune in busNeeds" id={{bune.bune_id}}>
 				<td>{{$index + 1 }}</td>
-				<td><a class="underline" href="#busNeedUpdate" 
-				ng-click="getBuneId(bune.bune_id)">{{bune.bune_tel}}</a></td>
+				<td>{{bune.bune_tel}}</td>
 				<td>{{bune.bune_num}}</td>
 				<td>{{bune.bune_time}}</td>
 				<td>{{bune.bune_gath_time.time | dateType}}</td>

@@ -1,7 +1,8 @@
 package com.mvc.entity;
-
-import java.io.Serializable;
-
+/*
+ * 用户表
+ * zq
+ * */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,15 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/**
- * 用户表
- * 
- * @author wanghuimin
- * @date 2016年9月8日
- */
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name="user")
+public class User {
 
 	private static final long serialVersionUID = 1L;
 	private Integer user_id; // id
@@ -32,7 +27,7 @@ public class User implements Serializable {
 	private Role role;// 职位
 	private Integer user_isdelete;// 员工状态，1：已删除，0：未删除
 	private Integer user_dept;// 用户所在部门
-	
+	private String travel_title;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -98,7 +93,15 @@ public class User implements Serializable {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
-	
+	@Column(length = 32)
+	public String getTravel_title() {
+		return travel_title;
+	}
+
+	public void setTravel_title(String travel_title) {
+		this.travel_title = travel_title;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	public Role getRole() {

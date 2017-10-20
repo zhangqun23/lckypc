@@ -155,11 +155,19 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	// 查看
+	// 查看旅游信息
 	services.checkTravel = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'travel/selectTravelById.do',
+			data : data,
+		});
+	};
+	// 查看旅游交易信息
+	services.checkTravelTrade = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'travel/selectTravelTradeById.do',
 			data : data,
 		});
 	};
@@ -282,11 +290,14 @@ app
 							};
 							// 查看ID，并记入sessionStorage
 							travel.getTravelId = function(travelId) {
-								
 								sessionStorage.setItem('travelId', travelId);
 							
 							};
+							// 查看ID，并记入sessionStorage
+							travel.getTravelTradeId = function(trtrId) {
+								sessionStorage.setItem('trtrId', trtrId);
 							
+							};
 							// 根据页数获取旅游交易列表
 							function getTravelTradeListByPage(page) {
 								services.getTravelTradeListByPage({
@@ -321,22 +332,16 @@ app
 								});
 							};
 							
-							// 查看信息
+							// 查看旅游信息
 							travel.checkTravel = function() {
 								var travelId = this.travel.travel_id;
-									services
-									.checkTravel({
+									services.checkTravel({
 										travel_id : travelId
-									})
-											.success(
+									}).success(
 													function(data) {
 														travel.travel = data.travel;
-//														
-														
-														$(".overlayer").fadeIn(
-																200);
-														$("#tipCheck").fadeIn(
-																200);
+														$(".overlayer").fadeIn(200);
+														$("#tipCheck").fadeIn(200);
 
 													});
 									$(".cancel").click(function() {
@@ -345,7 +350,23 @@ app
 										travel.travel = "";
 									});
 							};
-							
+							// 查看旅游交易信息
+							traveltrade.checkTravelTrade = function() {
+								var trtrId = this.trtr.trtr_id;
+									services.checkTravelTrade({
+										trtr_id : trtrId
+									}).success(function(data) {
+													traveltrade.trtr = data.traveltrade;
+													$(".overlayer").fadeIn(200);
+													$("#tipCheck").fadeIn(200);
+
+													});
+									$(".cancel").click(function() {
+										$("#tipCheck").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										traveltrade.trtr = "";
+									});
+							};
 							// 2017-8-30wdh更改时间的样式
 							function changeDateType(date) {
 								console.log("传进来的时间" + date);
@@ -554,21 +575,47 @@ function changeTwoNum(obj){
 	  obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
 }
 //固定电话
-function checkTel(){
-	 var tel = document.getElementById('tel').value;
-	if(!/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(tel)){
-	alert('固定电话有误，请重填');
-	return false;
+function checkTel(obj){
+	 var tel=document.getElementById("travelInfo.travel_tel").value;
+	if((!(/^0\d{2,3}-?\d{7,8}$/.test(tel)))||(!(/^1(3|4|5|7|8)\d{9}$/.test(tel)))){
+	alert("电话格式有误，请重填!");
+	obj.value='';
 	}
 	}
 //手机号
-function checkPhone(){ 
-    var phone = document.getElementById('phone').value;
+function checkPhone(obj){ 
+    var phone = document.getElementById('travelInfo.travel_tel').value;
     if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
         alert("手机号码有误，请重填");  
-        return false; 
+        obj.value='';
     } 
+} 
+
+//比较剩余票数和总票数
+function compare(obj){
+	  var tnum=document.getElementById("travelInfo.travel_total_num").value;
+	  var lnum=document.getElementById("travelInfo.travel_left_num").value;
+	  if(parseInt(tnum)<parseInt(lnum)){
+	
+		alert('剩余票数应小于等于总票数');
+		obj.value='';}
+	
 }
+//交易状态过滤器
+app.filter('trState', function() {
+	return function(input) {
+		var state = "";
+		if (input == "0")
+			state = "未付";
+		else if (input == "1")
+			state = "已付";
+		else if (input == "2")
+			state = "已退款";
+		else if (!input)
+			state = "";
+		return state;
+	}
+});
 //小数过滤器
 app.filter('cutFloat', function() {
 	return function(input) {

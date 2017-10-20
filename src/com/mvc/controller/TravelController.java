@@ -199,7 +199,7 @@ public class TravelController {
 		return jsonObject.toString();
 	}
 	/**
-	 * 根据合同ID修改旅游信息
+	 * 根据ID修改旅游信息
 	 * 
 	 * @param request
 	 * @param session
@@ -219,6 +219,22 @@ public class TravelController {
 			return 1;
 		else
 			return 0;
+	}
+	/**
+	 * 根据ID获取旅游交易信息
+	 * 
+	 * @param request
+	 * @param session
+	 * @return Travel对象
+	 */
+	@RequestMapping("/selectTravelTradeById.do")
+	public @ResponseBody String selectTravelTradeById(HttpServletRequest request, HttpSession session) {
+		int trtr_id = Integer.parseInt(request.getParameter("trtr_id"));
+		session.setAttribute("trtr_id", trtr_id);
+		TravelTrade traveltrade = travelService.selectTravelTradeById(trtr_id);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("traveltrade", traveltrade);
+		return jsonObject.toString();
 	}
 	/**
 	 * 根据页数筛选旅游交易信息列表

@@ -42,12 +42,12 @@
 				ng-model="travelInfo.travel_days" class="dfinput" 
 				onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
 				required/></li>
-			<li><label>联系电话</label><input type="text"
+			<li><label>联系电话</label><input type="text" id="travelInfo.travel_tel"
 				ng-model="travelInfo.travel_tel" class="dfinput" onchange="checkPhone(this)" required/></li>
-			<li><label>总人数<b>*</b></label><input type="text"
+			<li><label>总票数<b>*</b></label><input type="text" id="travelInfo.travel_total_num"
 				ng-model="travelInfo.travel_total_num" class="dfinput" required/></li>
-			<li><label>剩余人数<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_left_num" class="dfinput" required/></li>
+			<li><label>剩余票数<b>*</b></label><input type="text" id="travelInfo.travel_left_num"
+				ng-model="travelInfo.travel_left_num" class="dfinput" onchange="compare(this)" required/></li>
 			<li><label>旅游承办公司</label><input type="text"
 				ng-model="travelInfo.travel_firm" class="dfinput" required/></li>
 			
