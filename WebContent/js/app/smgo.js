@@ -165,14 +165,14 @@ app.controller(
 									edit_price : "",
 									edit_time : ""
 							}
-							smgo.addEdit = function(){
+							smgo.addEdit = function(smgo_id){
 								var smgoLimits = JSON.stringify(smgo.smgoInfoss);
+								alert(smgo_id)
 								services.addEdit({
-									smgoId : sessionStorage.getItem('smgoid'),
+									smgoId : smgo_id,
 									smgoNeed : smgoLimits
 								}).success(function(data) {
 									alert("补录成功");
-									$location.path("smgoList/");
 								});
 							};
 							
@@ -197,7 +197,7 @@ app.controller(
 							smgo.getSmgoId = function(smgoid) {	
 								var smgoidd = JSON.stringify(smgoid);
 								sessionStorage.setItem('smgoid',smgoidd);	
-								$location.path("smgoUpdate/");
+								/*$location.path("smgoUpdate/");*/
 							};
 							
 							//初始化
@@ -247,9 +247,22 @@ app.filter('findSego',function(){
 		if(input == "0"){
 			var output = "自行取货";
 			return output;
-		}else{
+		}
+		if(input == "1"){
 			var output = "送货上门";
 			return output;
+		}
+	}
+});
+//null的判定
+app.filter('sgFilter',function() { 
+	return function(input){ 
+		if(input == "" || input == null){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
 		}
 	}
 });

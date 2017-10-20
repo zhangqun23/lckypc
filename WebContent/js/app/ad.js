@@ -116,7 +116,7 @@ app
 							
 							// 换页
 							function pageTurn(totalPage, page, Func) {
-								/*$(".tcdPageCode").empty();*/
+								$(".tcdPageCode").empty();
 								var $pages = $(".tcdPageCode");
 								if ($pages.length != 0) {
 									$(".tcdPageCode").createPage({
@@ -142,10 +142,10 @@ app
 							ad.getAdListByST = function(){
 								var adLimit = null;
 								var adTLimit = null;
-								if(JSON.stringify(ad.ADSLimit) != null){
+								if(JSON.stringify(ad.ADSLimit) != null && JSON.stringify(ad.ADSLimit) != ""){
 									adLimit = JSON.stringify(ad.ADSLimit);
 								}
-								if(JSON.stringify(ad.ADTLimit) != null){
+								if(JSON.stringify(ad.ADTLimit) != null && JSON.stringify(ad.ADTLimit) != ""){
 									adTLimit = JSON.stringify(ad.ADTLimit);
 								}
 									services.getAdListByPage({
@@ -175,26 +175,69 @@ app
 								}
 							}
 							
-							//变更state状态
-							ad.editState = function(adState,ad_id){
-								if(adState == "1"){
-									return alert("该ad状态为已审核！不能变更！")
-									}else{
-										if(confirm("确定该ad已审核？") == true){
-										    services.editState({
-											adId : ad_id
-										}).success(function(data){
-											if(data == "true"){
-												alert("ad状态变更为已审核！");
-												getAdListByPage(1);
-											}else{
-												console.log("审核失败！请检查审核状态后重试！");
-											}	
-											initData();
-										});
-									}
-								}
-							}
+							//审核（模态框）
+							ad.editState = function(ad_id) {
+								sessionStorage.setItem('ad_id',ad_id);
+								//显示模态框
+								$(".overlayer").fadeIn(200);
+								$("#tipDel").fadeIn(200);
+								//点击按钮,模态框隐藏
+								
+								//左上角的X
+							  $(".tiptop a").click(function() {
+									$("#tipDel").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+								});
+								initData();
+							};
+							
+							$("#sureDel1").click(function(){
+								var ad_id = sessionStorage.getItem('ad_id');
+								$("#tipDel").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								var adState = 1;
+								//进入后台
+								services.editState({
+										adId : ad_id,
+										adState : adState
+									}).success(function(data) {
+									});
+							})
+							$("#sureDel2").click(function(){
+								var ad_id = sessionStorage.getItem('ad_id');
+								$("#tipDel").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								var adState = 2;
+								//进入后台
+								services.editState({
+										adId : ad_id,
+										adState : adState
+									}).success(function(data) {
+									});
+							})
+							
+							
+//							//审核
+//							ad.editState = function(adState,ad_id){
+//								if(adState != "0"){
+//									return alert("该ad状态为已审核！不能变更！")
+//									}else{
+//										if(confirm("确定该ad已审核？") == true){
+//										    services.editState({
+//											adId : ad_id
+//										}).success(function(data){
+//											if(data == "true"){
+//												alert("ad状态变更为已审核！");
+//												/*getAdListByPage(1);*/
+//											}else{
+//												console.log("审核失败！请检查审核状态后重试！");
+//											}	
+//											initData();
+//										});
+//									}
+//								}
+//							}
+							
 	                        // 查看ID，并记入sessionStorage
 							ad.getAdId = function(adid) {
 								var adidd = JSON.stringify(adid);
@@ -257,11 +300,11 @@ app.filter('findstate',function(){
 			return output;
 		}
 		if(input == "1"){
-			var output = "已审核";
+			var output = "审核通过";
 			return output;
 		}
 		if(input == "2"){
-			var output = "已驳回";
+			var output = "驳回";
 			return output;
 		}
 	}

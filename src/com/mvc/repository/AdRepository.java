@@ -10,10 +10,9 @@ import com.mvc.entity.Ad;
 
 public interface AdRepository extends JpaRepository<Ad, Integer>{
 
-	/*//根据title查询ad信息是否存在，返回1存在
-	@Query("select count(ad_id) from Ad tr where ad_title = :ad_title and is_delete=0")
-	Long countByAdTitle(String adTitle);
-*/
+	//详情
+	@Query("select bn from Ad bn where ad_id=:ad_id and is_delete=0")
+	Ad getAdInfo(Integer ad_id);
 	//根据id获取ad信息
 	@Query("select tr from Ad tr where ad_id=:ad_id ")
 	Ad selectAdById(int ad_id);
@@ -25,5 +24,7 @@ public interface AdRepository extends JpaRepository<Ad, Integer>{
 	//state为null时返回全部ad信息
 	@Query("select a from Ad a where is_delete=0")
 	List<Ad> findAlls();
+
+	
 
 }

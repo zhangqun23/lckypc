@@ -12,13 +12,15 @@
 		    <!-- 根据审核状态筛选ad信息 -->
 		           请选择审核状态：
 			<select class="dfselect" ng-model="ADSLimit.ad_state" ng-change="getAdListByST()" id="ad_state" style="width: 167px">
+			   <option value="">全部</option>
 			   <option value="0">未审核</option>
-			   <option value="1">已审核</option>	
-			   <option value="2">已驳回</option>	
+			   <option value="1">审核通过</option>	
+			   <option value="2">驳回</option>	
             </select>
             <!-- 根据ad类型筛选ad信息 0招工，1旅游、2其他 -->
                                请选择ad类型：
             <select class="dfselect" ng-model="ADTLimit.ad_type" ng-change="getAdListByST()" id="ad_type" style="width: 167px">
+			   <option value="">全部</option>
 			   <option value="0">招工</option>
 			   <option value="1">旅游</option>	
 			   <option value="2">其他</option>	
@@ -49,14 +51,36 @@
 				<td>{{ad.ad_name|cutString}}</td>
 				<td>{{ad.ad_tel}}</td>
 				<td>{{ad.ad_remark|cutString}}</td>
-				<td><a ng-click="editState(ad.ad_state,ad.ad_id)" class="tablelink" >审核</a>
-				    <a href="#/adUpdate" ng-click="getAdId(ad)"class="tablelink"
-				       has-permission='tAdEdit'>详情</a>
-					<a href="#adList" ng-click="deleteAd(ad.ad_id)" class="tablelink"
-					   has-permission='tAdDel'>删除</a></td>
+				<td><a ng-click="editState(ad.ad_id)" 
+				       class="tablelink" >审核</a>
+				    <a ng-click="getAdId(ad)"
+				       class="tablelink">详情</a>
+					<a ng-click="deleteAd(ad.ad_id)" 
+					   class="tablelink">删除</a></td>
 			</tr>
 		</tbody>
 	</table>
 	<div  class="tcdPageCode">页码容器</div>
+</div>
 
+<!-- 审核模态框 -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel" style="height: 220px">
+	<div class="tiptop">
+		<span>提示信息</span><a></a>
+	</div>
+
+	<div class="tipinfo">
+		<div class="tipright">
+			<p>是否确认对信息的删除 ？</p>
+			<cite>如果是请点击确定按钮 ，否则请点取消。</cite>
+		</div>
+	</div>
+
+	<div class="tipbtn">
+		<input name="" type="button" class="sureSend" id="sureDel1" value="审核通过" />&nbsp;
+		<input name="" type="button" class="sureSend" id="sureDel2" value="驳回" />&nbsp;
+		<!-- <input name="" type="button" class="cancelSend" id="cancelDel"
+			value="取消" /> -->
+	</div>
 </div>

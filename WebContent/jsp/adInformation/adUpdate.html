@@ -9,23 +9,39 @@
 <!-- 录入ad信息 -->
 <div class="formbody">
 	
-	<form ng-submit="updateAd()">
+	<form>
 		<div class="formtitle">
 			<span>广告信息</span>
 		</div>
-
-		<ul class="forminfo">
-			<li><h4>标题:&nbsp;&nbsp;&nbsp;&nbsp;{{adInfo.ad_title}}</h4></li>
-			<li><h4>内容:&nbsp;&nbsp;&nbsp;&nbsp;{{adInfo.ad_content}}</h4></li>
-			<li><h4>类型:&nbsp;&nbsp;&nbsp;&nbsp;{{adInfo.ad_type|findtype}}</h4></li>
-			<li><h4>审核状态:&nbsp;&nbsp;{{adInfo.ad_state|findstate}}</h4></li>
-			<li><h4>联系人:&nbsp;&nbsp;&nbsp;{{adInfo.ad_name}}</h4></li>
-			<li><h4>联系方式:&nbsp;&nbsp;{{adInfo.ad_tel}}</h4></li>
-			<li><h4>备注:&nbsp;&nbsp;&nbsp;&nbsp;{{adInfo.ad_remark}}</h4></li>
-			<label>&nbsp;</label>
-			<li>
-			<input type="submit" class="btn click" ng-click="updateAd()" value="确定"/>
-			<!-- <a href="#adList" class="dfinput">确定</a> -->
-		</ul>
+		<table class="tbl tablelist">
+		<tr>
+				<td colspan='2' class="width15 text-center">标题</td>
+				<td colspan='1'>{{adInfo.ad_title}}</td>
+		</tr>
+		<tr>
+				<td colspan='2' class="width15 text-center">内容</td>
+				<td colspan='6'>{{adInfo.ad_title}}</td>
+		</tr>
+		<tr>
+				<td colspan='2' class="width15 text-center">类型</td>
+				<td colspan='1'>{{adInfo.ad_type|findtype}}</td>
+		</tr>
+		<tr>
+				<td colspan='2' class="width15 text-center">审核状态</td>
+				<td colspan='1'>{{adInfo.ad_state|findstate}}</td>
+		</tr>
+		<tr>
+				<td colspan='2' class="width15 text-center">联系人</td>
+				<td colspan='1'>{{adInfo.ad_name}}</td>
+		</tr>
+		<tr>
+				<td colspan='2' class="width15 text-center">联系方式</td>
+				<td colspan='1'>{{adInfo.ad_name}}</td>
+		</tr>
+		<tr>
+				<td colspan='2' class="width15 text-center">备注</td>
+				<td colspan='1'>{{adInfo.ad_remark}}</td>
+		</tr>
+		</table>
 	</form>
 </div>

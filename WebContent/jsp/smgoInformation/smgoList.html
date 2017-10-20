@@ -10,6 +10,19 @@
 </div>
 
 <div class="rightinfo">
+
+<!-- 下拉框 选择 0自行取货、1送货上门 -->
+		 <form class="toolbar">
+		<div>
+		              请选择取货方式：
+			 <select class="dfselect" ng-model="SGSLimit.smgo_sego" ng-change="getSmgoListBySD()" id="smgo_sego" required>
+			   <option value="">全部</option>
+			   <option value="0">自行取货</option>
+			   <option value="1">送货上门</option>		
+            </select>
+        </div>
+        
+	  </form>
 		<form class="toolbar">
 		 <div class="inner">
 		    <input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
@@ -23,17 +36,6 @@
 			<input type="submit" class="btn click" ng-click="getSmgoListBySD()" value="查询">	
 		 </div>
 		</form>		
-				<!-- 下拉框 选择 0自行取货、1送货上门 -->
-		 <form class="toolbar">
-		<div>
-		              请选择取货方式：
-			 <select class="dfselect" ng-model="SGSLimit.smgo_sego" ng-change="getSmgoListBySD()" id="smgo_sego" required>
-			   <option value="0">自行取货</option>
-			   <option value="1">送货上门</option>		
-            </select>
-        </div>
-	  </form>
-
 	<table class="tablelist">
 		<thead>
 			<tr>
@@ -58,7 +60,7 @@
 				<td>{{smgo.amgo_money | number:1}}</td>
 				<td>{{smgo.smgo_deal_time.time|dateType}}</td> 
 				<td>{{smgo.smgo_sego|findSego}}</td> 
-				<td><a href="#/smgoUpdate" ng-click="getSmgoId(smgo,smgo.smgo_id)" class="tablelink" 
+				<td><a href="#/smgoUpdate" ng-click="getSmgoId(smgo)" class="tablelink" 
 				       has-permission='tSgEdit'>小件补录</a>
 					<a href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)" class="tablelink"
 					   has-permission='tSmgoDel'>删除</a></td>
