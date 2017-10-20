@@ -1,21 +1,15 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=1d9b269c8e1e774fc8bd99560361d9755d5a08d1
+>>>>>>>=34198b2632306c4afe4b2f802aca8e90304edb50
 eclipse.preferences.version=1
-<<<<<<< HEAD
 encoding//WebContent/jsp/adInformation/adList.html=UTF-8
 encoding//WebContent/jsp/adInformation/adUpdate.html=UTF-8
-=======
 encoding//WebContent/jsp/busInformation/busNeedDetail.html=UTF-8
->>>>>>> d0f0466a5f2cdfbd0fa2d0a565f584235a34b80b
 encoding//WebContent/jsp/busInformation/busNeedList.html=UTF-8
 encoding//WebContent/jsp/footer.jsp=UTF-8
 encoding//WebContent/jsp/left.jsp=UTF-8
 encoding//WebContent/jsp/smgoInformation/smgoList.html=UTF-8
-<<<<<<< HEAD
 encoding//WebContent/jsp/smgoInformation/smgoUpdate.html=UTF-8
-=======
->>>>>>> d0f0466a5f2cdfbd0fa2d0a565f584235a34b80b
 encoding//WebContent/jsp/systemManagement/alarmSet.html=UTF-8
 encoding//WebContent/jsp/systemManagement/roleAdd.html=UTF-8
 encoding//WebContent/jsp/systemManagement/roleList.html=UTF-8
