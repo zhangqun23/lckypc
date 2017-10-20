@@ -57,8 +57,6 @@ var app = angular
 					} ];
 				});
 // 获取权限列表
-
-
 app.run([ '$rootScope', '$location', function($rootScope, $location) {
 	$rootScope.$on('$routeChangeSuccess', function(evt, next, previous) {
 		console.log('路由跳转成功');
@@ -98,7 +96,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		});
 	};
 	
-	//添加补录信息
+	//添加smgo补录信息
 	services.addEdit = function(data) {
 		return $http({
 			method : 'post',
@@ -109,14 +107,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	return services;
 } ]);
 
-app
-		.controller(
-				'smgoController',
-				[
-						'$scope',
-						'services',
-						'$location',
-						function($scope, services, $location) {
+app.controller(
+		'smgoController',
+		[
+		 '$scope',
+		 'services',
+		 '$location',
+		 function($scope, services, $location) {
 							var smgo = $scope;
 							
 							// 换页
@@ -143,52 +140,38 @@ app
 								});
 							}
 							
-							//根据smgo_sego筛选smgo信息
-							smgo.getSmgoListBySego = function(){
-								alert("sego");
+							//smgo_sego限制 
+							smgo.getSmgoListBySD = function(){
 								var smgoLimit = null;
+								var gotLimit = null;
 								if(JSON.stringify(smgo.SGSLimit) != null){
 									smgoLimit = JSON.stringify(smgo.SGSLimit);
 								}
-								services.getSmgoListByPage({
-									page : 1,
-									smgoSego : smgoLimit
-								}).success(function(data){
-									$scope.smgos = data.list;
-									pageTurn(data.totalPage, 1, getSmgoListByPage)
-								});
-							}
-							
-							//日期限制
-							smgo.getSmgoListByTime = function(){
-								alert("Time");
-								var gotLimit = null;
 								if(JSON.stringify(smgo.GotLimit) != null){
 									gotLimit = JSON.stringify(smgo.GotLimit);
 								}
 								services.getSmgoListByPage({
 									page : 1,
+									smgoSego : smgoLimit,
 									gotNeed : gotLimit
 								}).success(function(data){
 									$scope.smgos = data.list;
 									pageTurn(data.totalPage, 1, getSmgoListByPage)
 								});
-							};
+							}
 							
-							//添加edit补录信息   
+							//添加smgo补录信息   
 							smgo.smgoInfoss={
 									edit_price : "",
 									edit_time : ""
 							}
-							smgo.addEdit = function(){		
-								var smgoid = sessionStorage.getItem('smgoid');
+							smgo.addEdit = function(){
 								var smgoLimits = JSON.stringify(smgo.smgoInfoss);
 								services.addEdit({
-									smgoNeed : smgoLimits,
-									smgoid : smgoid
+									smgoId : sessionStorage.getItem('smgoid'),
+									smgoNeed : smgoLimits
 								}).success(function(data) {
 									alert("补录成功");
-									console.log(data.list)
 									$location.path("smgoList/");
 								});
 							};
@@ -214,20 +197,15 @@ app
 							smgo.getSmgoId = function(smgoid) {	
 								var smgoidd = JSON.stringify(smgoid);
 								sessionStorage.setItem('smgoid',smgoidd);	
-								console.log(smgoidd);
-								console.log(sessionStorage.getItem('smgoid'));	
 								$location.path("smgoUpdate/");
 							};
 							
 							//初始化
 							function initData() {
-								console.log("初始化页面信息");
 								$("#smgo").show();
 								if ($location.path().indexOf('/smgoList') == 0) {
-									searchKey = null;
 									services.getSmgoListByPage({
 										page : 1,
-										searchKey : searchKey
 									}).success(function(data) {
 										$scope.smgos = data.list;
 										pageTurn(data.totalPage, 1, getSmgoListByPage)

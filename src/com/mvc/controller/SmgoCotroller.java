@@ -65,8 +65,8 @@ public class SmgoCotroller {
 	@RequestMapping("/getSmgoListByPage.do")
 	public @ResponseBody String selectSmgoByPrarm(HttpServletRequest request, HttpSession session) throws ParseException {
 		String smgoSego = null;
-		Date startDate = null;
-		Date endDate = null;
+		String startDate = null;
+		String endDate = null;
 		JSONObject jsonObject = new JSONObject();
 		if(request.getParameter("smgoSego") != null){
 			smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
@@ -75,10 +75,12 @@ public class SmgoCotroller {
 			jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				if (jsonObject.containsKey("startDate")){ 
-				    startDate = sdf.parse(StringUtil.dayFirstTime(jsonObject.getString("startDate")));
+				    startDate = StringUtil.dayFirstTime(jsonObject.getString("startDate"));
+				    System.out.println("起始时间"+startDate);
 				}
 				if (jsonObject.containsKey("endDate")){
-				    endDate = sdf.parse(StringUtil.dayLastTime(jsonObject.getString("endDate")));
+				    endDate = StringUtil.dayLastTime(jsonObject.getString("endDate"));
+				    System.out.println("截止时间"+endDate);
 				}
 		}
 		Integer totalRow = smgoService.countTotal(smgoSego,startDate,endDate);//有问题
@@ -108,6 +110,7 @@ public class SmgoCotroller {
 	@RequestMapping("/deleteSmgo.do")
 	public @ResponseBody String deleteSmgo(HttpServletRequest request, HttpSession session) {
 		Integer smgoid = Integer.valueOf(request.getParameter("smgoId"));
+		System.out.println("id"+smgoid);
 		boolean result = smgoService.deleteIsdelete(smgoid);
 		return JSON.toJSONString(result);
 	}
@@ -127,27 +130,26 @@ public class SmgoCotroller {
 	@RequestMapping("/addEdit.do")
 	public @ResponseBody String addEdit(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = new JSONObject();
+		Integer smgoid = null;
+		if(request.getParameter("smgoId") != null){
+			smgoid = Integer.getInteger(request.getParameter("smgoId"));
+			//无法获取id
+		}
 		jsonObject = JSONObject.fromObject(request.getParameter("smgoNeed"));
 		SmallGoods smgo = new SmallGoods();
-		Date edittime = null;
+		String edittime = null;
 		float editprice = 0;
 		if(jsonObject.containsKey("edit_time")){
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = sdf.parse(jsonObject.getString("edit_time"));
-			smgo.setEdit_time(date);
-			edittime = sdf.parse(jsonObject.getString("edit_time"));	
+			edittime = jsonObject.getString("edit_time");
 		}
 		if(jsonObject.containsKey("edit_price")){
-			smgo.setEdit_price(Float.parseFloat(jsonObject.getString("edit_price")));
 			editprice = Float.parseFloat(jsonObject.getString("edit_price"));
 		}
 		smgo.setIs_delete(false);
-		boolean result = false;
-		if(request.getParameter("smgoid") !=null){
-			String temp = request.getParameter("smgoid");
-			Integer smgoid = Integer.parseInt(temp);
-			result = smgoService.update(edittime, editprice, smgoid);
-		}
+		System.out.println("补录时间"+edittime);
+		System.out.println("补录金额"+editprice);
+		System.out.println("id"+smgoid);
+		boolean result = smgoService.update(edittime, editprice, smgoid);
 		return JSON.toJSONString(result);
 	}
 }

@@ -17,7 +17,7 @@ public interface AdService {
 
 	//根据限制条件筛选信息
 	Integer countTotal(String adState, String adType);
-	List<Ad> findAdByPage(String adState, String adType, int offset, int limit);
+	List<Ad> findAdByPage(String adState, String adType, Integer offset, Integer limit);
 	
 	//根据id删除ad信息
 	boolean deleteIsdelete(Integer adid);
