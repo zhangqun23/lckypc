@@ -272,8 +272,7 @@ app
 									bune_id : busNeedId
 								}).success(function(data) {
 									bune.busNeed = data.busNeed;
-									//														
-
+								
 									$(".overlayer").fadeIn(200);
 									$("#tipCheck").fadeIn(200);
 
