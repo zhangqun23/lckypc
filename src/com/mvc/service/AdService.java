@@ -22,6 +22,7 @@ public interface AdService {
 	//根据id删除ad信息
 	boolean deleteIsdelete(Integer adid);
 	
-	//根据id变更state
-	boolean editState(Integer adid);
+	//审核
+	boolean editState(Integer adid , String adState);
+	
 }

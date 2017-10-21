@@ -68,8 +68,6 @@ public class AdController {
 		List<Ad> list = adService.findAdByPage(adState,adType,pager.getOffset(), pager.getLimit());
 		jsonObject.put("totalPage", pager.getTotalPage());
 		jsonObject.put("list", list);
-		System.out.println("总行数"+totalRow);
-		System.out.println("当前页码"+pager);
 		return jsonObject.toString();
 	}
 	
@@ -91,21 +89,20 @@ public class AdController {
 		return JSON.toJSONString(result);
 	}
 	
-	/**
-	 * 
-	 * 
-	 *@Title: editState 
-	 *@Description: 变更state,弹窗
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
-	 */
+	//审核
 	@RequestMapping("/editState.do")	
 	public @ResponseBody boolean editState(HttpServletRequest request, HttpSession session) {
-		Integer adid = Integer.valueOf(request.getParameter("adId"));
-		boolean result = adService.editState(adid);
+		Integer adid = null;
+		if(request.getParameter("adId") != null){
+			adid = Integer.valueOf(request.getParameter("adId"));
+		}
+		String adState = null;
+		if(request.getParameter("adState") != null){
+			adState = request.getParameter("adState");
+		}
+		System.out.println("id"+adid);
+		System.out.println("状态"+adState);
+		boolean result = adService.editState(adid,adState);
 		return result;
 	}
 }

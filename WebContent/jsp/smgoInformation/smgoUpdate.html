@@ -14,45 +14,68 @@
 			<span>小件信息</span>
 		</div>
 
-        <table>
+        <table class="tbl tablelist">
           <tr>
-            <td><h4>货物名称&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_name}}</h4></td>
-            <td><h4>货物重量&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_weight}}</h4></td>
+            <td colspan='2' class="width15 text-center">货物名称</td>
+			<td colspan='2'>{{smgoInfo.smgo_name}}</td>
+			<td colspan='2' class="width15 text-center">货物重量</td>
+			<td colspan='2'>{{smgoInfo.smgo_weight}}</td>
           </tr>
           <tr>
-             <td><h4>始发地&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_start}}</h4></td>
-             <td><h4>目的地&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_end}}</h4></td>
+            <td colspan='2' class="width15 text-center">始发地</td>
+			<td colspan='2'>{{smgoInfo.smgo_start}}</td>
+			<td colspan='2' class="width15 text-center">目的地</td>
+			<td colspan='2'>{{smgoInfo.smgo_end}}</td>
           </tr>
           <tr>
-             <td><h4>发件人&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_sender}}</h4></td>
-             <td><h4>发件人联系电话&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_sender_tel}}</h4></td>
+            <td colspan='2' class="width15 text-center">发件人</td>
+			<td colspan='2'>{{smgoInfo.smgo_sender}}</td>
+			<td colspan='2' class="width15 text-center">发件人联系电话</td>
+			<td colspan='2'>{{smgoInfo.smgo_sender_tel}}</td>
           </tr>
           <tr>
-              <td><h4>收件人&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_receiver}}</h4></td>
-              <td><h4>收件人联系电话&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_receiver_tel}}</h4></td>
+            <td colspan='2' class="width15 text-center">收件人</td>
+			<td colspan='2'>{{smgoInfo.smgo_receiver}}</td>
+			<td colspan='2' class="width15 text-center">收件人联系电话</td>
+			<td colspan='2'>{{smgoInfo.smgo_receiver_tel}}</td>
           </tr>
           <tr>
-              <td><h4>交易金额&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.amgo_money | number:1}}</h4></td>
-              <td><h4>交易时间&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_deal_time.time|dateType}}</h4></td>
+            <td colspan='2' class="width15 text-center">交易金额</td>
+			<td colspan='2'>{{smgoInfo.amgo_money | number:1}}</td>
+			<td colspan='2' class="width15 text-center">交易时间</td>
+			<td colspan='2'>{{smgoInfo.smgo_deal_time.time|dateType}}</td>
           </tr>
-          <tr>    
-              <td><h4>发件日期&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_send_time.time|dateType}}</h4></td>
-              <td><h4>送货方式&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_sego|findSego}}</h4></td>
-          </tr> </n>
-          <tr>   
-              <td><h4>送货地址&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_add}}</h4></td>
-              <td><h4>备注&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_remark}}</h4></td>
+          <tr> 
+            <td colspan='2' class="width15 text-center">发件日期</td>
+			<td colspan='2'>{{smgoInfo.smgo_send_time.time|dateType}}</td>
+			<td colspan='2' class="width15 text-center">送货方式</td>
+			<td colspan='2'>{{smgoInfo.smgo_sego|findSego}}</td> 
+          </tr>
+          <tr>  
+            <td colspan='1' class="width15 text-center">送货地址</td>
+			<td colspan='6'>{{smgoInfo.smgo_add}}</td>
+		 </tr>
+		 <tr>
+			<td colspan='1' class="width15 text-center">备注</td>
+			<td colspan='6'>{{smgoInfo.smgo_remark}}</td>  
           </tr>  
           <tr>
-               <td><font color="red"><h4>发货日期&nbsp;:</font>&nbsp;&nbsp;&nbsp;<input type="text" name="edittime" required
+            <td colspan='2' class="width15 text-center">发货日期</td>
+			<td colspan='2'><input type="text" name="edittime" required
+					ng-model="smgoInfoss.edit_time" class="dfselect dateLayoutStyle"
+					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></td>
+			<td colspan='2' class="width15 text-center">金额</td>
+			<td colspan='2'><input type="text"
+				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></td> 
+          </tr>  
+        </table>
+        {{smgoInfo.smgo_id}}
+			<input ng-click="addEdit(smgoInfo.smgo_id)" type="submit" class="btn" value="提交" /></li>
+	</form>
+</div>
+
+<!-- <td><font color="red"><h4>发货日期&nbsp;:</font>&nbsp;&nbsp;&nbsp;<input type="text" name="edittime" required
 					ng-model="smgoInfoss.edit_time" class="dfselect dateLayoutStyle"
 					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></h4></td>
 			   <td><font color="red"><h4>金额&nbsp;:</font>&nbsp;&nbsp;&nbsp;<input type="text"
-				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></h4></td>	
-          </tr>  
-        </table>
-			<li id="addEdit()"><label>&nbsp;</label>
-			<input type="submit" class="btn" value="提交" /></li>
-		</ul>
-	</form>
-</div>
+				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></h4></td>	 -->
