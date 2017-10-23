@@ -54,18 +54,33 @@
 			</div>
 			<ul id="ad-ul" class="menuson">
 				<li id="adList"><cite></cite> <a
-					href="${ctx}/ad/toAdPage.do#/adList">广告信息查询</a><i></i></li>
+					href="${ctx}/ad/toAdPage.do#/adList">广告查询</a><i></i></li>
 			</ul>
 		</dd>
 		
 		<!-- smgo信息管理 -->
 		<dd id="smgo" class="smgoManager" >
 			<div class="title ">
-				<span><img src="${ctx}/images/leftico01.png" /></span>smgo管理
+				<span><img src="${ctx}/images/leftico01.png" /></span>小件管理
 			</div>
 			<ul id="smgo-ul" class="menuson">
 				<li id="smgoList"><cite></cite> <a
-					href="${ctx}/smgo/toSmgoPage.do#/smgoList">smgo信息查询</a><i></i></li>
+					href="${ctx}/smgo/toSmgoPage.do#/smgoList">小件查询</a><i></i></li>
+			</ul>
+		</dd>
+		
+		<!-- 零担货运 -->
+		<dd id="truckLoad" class="truckLoadManager" >
+			<div class="title ">
+				<span><img src="${ctx}/images/leftico01.png" /></span>零担货运
+			</div>
+			<ul id="truckLoad-ul" class="menuson">
+				<li id="truckList"><cite></cite> <a
+					href="${ctx}/truckLoad/toTruckLoadPage.do#/truckList">车辆信息</a><i></i></li>
+				<li id="truckSendList"><cite></cite> <a
+					href="${ctx}/truckLoad/toTruckLoadPage.do#/truckSend">车主信息</a><i></i></li>
+				<li id="truckNeedList"><cite></cite> <a
+					href="${ctx}/truckLoad/toTruckLoadPage.do#/truckNeedList">货主信息</a><i></i></li>
 			</ul>
 		</dd>
 	</dl>

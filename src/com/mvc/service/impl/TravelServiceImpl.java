@@ -4,12 +4,18 @@ package com.mvc.service.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.sf.json.JSONObject;
+
 import com.mvc.dao.TravelDao;
 import com.mvc.entity.Travel;
 import com.mvc.entity.TravelTrade;
@@ -66,7 +72,11 @@ public  class TravelServiceImpl implements TravelService {
 		public List<TravelTrade> findTravelTradeByPage(String searchKey, Integer offset, Integer end) {
 			return travelDao.findTravelTradeByPage(searchKey, offset, end);
 		}
-	
+	// 根据页数筛选全部旅游信息列表
+		@Override
+		public List<TravelTrade> findTravelTradeByID(Integer travel_id, String searchKey,Integer offset, Integer end) {
+			return travelDao.findTravelTradeByID(travel_id, searchKey,offset, end);
+		}
 	// 查询同公司总条数
 		@Override
 		public Integer countTotal(String searchKey) {
@@ -98,13 +108,29 @@ public  class TravelServiceImpl implements TravelService {
 			public Integer countTrTotal(String searchKey) {
 				return travelDao.countTrTotal(searchKey);
 			}
-
+	// 查询对应旅游交易总条数
+				@Override
+				public Map<String,Object> countTrTotalByID(Integer travel_id,String searchKey) {
+					
+				List<Object> list=travelDao.countTrTotalByID(travel_id,searchKey);
+				Iterator<Object> it=list.iterator();
+				Map<String,Object> listMap = new HashMap<String,Object>(); 
+				Object[] obj = null;
+				if(list.size()!=0){
+					obj=(Object[]) it.next();
+					listMap.put("countNum", obj[0]);
+					listMap.put("sumMNum", obj[1]);
+					listMap.put("sumCNum", obj[2]);
+					listMap.put("sumPrice", obj[3]);
+				}
+				return listMap;
+				}
 	// 根据ID获取
 			@Override
 			public Travel selectTravelById(Integer travel_id) {
 				return travelRepository.selectTravelById(travel_id);
 			}
-		
+	
 	
 	// 修改旅游基本信息
 			@Override
@@ -140,8 +166,8 @@ public  class TravelServiceImpl implements TravelService {
 						if (jsonObject.containsKey("travel_days")) {
 							travel.setTravel_days(Float.parseFloat(jsonObject.getString("travel_days")));
 						}
-						if (jsonObject.containsKey("tel")) {
-							travel.setTravel_tel(jsonObject.getString("tel"));}
+						if (jsonObject.containsKey("travel_tel")) {
+							travel.setTravel_tel(jsonObject.getString("travel_tel"));}
 						if (jsonObject.containsKey("travel_total_num")) {
 							travel.setTravel_total_num(Integer.parseInt(jsonObject.getString("travel_total_num")));
 						}

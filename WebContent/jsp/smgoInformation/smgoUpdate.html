@@ -2,57 +2,57 @@
 	<span>位置：</span>
 	<ul class="placeul">
 		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
-		<li>smgo管理</li>
-		<li>smgo详情信息</li>
+		<li>小件管理</li>
+		<li>小件详情信息</li>
 	</ul>
 </div>
 <!-- 录入smgo信息 -->
 <div class="formbody">
 	
-	<form ng-submit="addEdit()">
+	<form>
 		<div class="formtitle">
-			<span>smgo信息</span>
+			<span>小件信息</span>
 		</div>
 
         <table>
           <tr>
-            <td>货物名称:<b>*</b>{{smgoInfo.smgo_name}}</td>
-            <td>货物重量:<b>*</b>{{smgoInfo.smgo_weight}}</td>
+            <td><h4>货物名称&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_name}}</h4></td>
+            <td><h4>货物重量&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_weight}}</h4></td>
           </tr>
           <tr>
-             <td>始发地:{{smgoInfo.smgo_start}}</td>
-             <td>目的地:<b>*</b>{{smgoInfo.smgo_end}}</td>
+             <td><h4>始发地&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_start}}</h4></td>
+             <td><h4>目的地&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_end}}</h4></td>
           </tr>
           <tr>
-             <td>发件人:<b>*</b>{{smgoInfo.smgo_sender}}</td>
-             <td>发件人联系电话:<b>*</b>{{smgoInfo.smgo_sender_tel}}</td>
+             <td><h4>发件人&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_sender}}</h4></td>
+             <td><h4>发件人联系电话&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_sender_tel}}</h4></td>
           </tr>
           <tr>
-              <td>收件人:<b>*</b>{{smgoInfo.smgo_receiver}}</td>
-              <td>收件人联系电话:<b>*</b>{{smgoInfo.smgo_receiver_tel}}</td>
+              <td><h4>收件人&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_receiver}}</h4></td>
+              <td><h4>收件人联系电话&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_receiver_tel}}</h4></td>
           </tr>
           <tr>
-              <td>交易金额:<b>*</b>{{smgoInfo.amgo_money}}</td>
-              <td>交易时间:<b>*</b>{{smgoInfo.smgo_deal_time.time|dateType}}</td>
+              <td><h4>交易金额&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.amgo_money | number:1}}</h4></td>
+              <td><h4>交易时间&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_deal_time.time|dateType}}</h4></td>
           </tr>
           <tr>    
-              <td>发件日期:<b>*</b>{{smgoInfo.smgo_send_time.time|dateType}}</td>
-              <td>送货方式:<b>*</b>{{smgoInfo.smgo_sego|findSego}}</td>
-          </tr> 
+              <td><h4>发件日期&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_send_time.time|dateType}}</h4></td>
+              <td><h4>送货方式&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_sego|findSego}}</h4></td>
+          </tr> </n>
           <tr>   
-              <td>送货地址:<b>*</b>{{smgoInfo.smgo_add}}</td>
-              <td>备注:<b>*</b>{{smgoInfo.smgo_remark}}</td>
+              <td><h4>送货地址&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_add}}</h4></td>
+              <td><h4>备注&nbsp;:&nbsp;&nbsp;&nbsp;{{smgoInfo.smgo_remark}}</h4></td>
           </tr>  
           <tr>
-               <td>补录日期:<b>*</b><input type="text" name="edittime" required
+               <td><font color="red"><h4>发货日期&nbsp;:</font>&nbsp;&nbsp;&nbsp;<input type="text" name="edittime" required
 					ng-model="smgoInfoss.edit_time" class="dfselect dateLayoutStyle"
-					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></td>
-			   <td>补录金额:<b>*</b><input type="text"
-				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></td>	
+					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></h4></td>
+			   <td><font color="red"><h4>金额&nbsp;:</font>&nbsp;&nbsp;&nbsp;<input type="text"
+				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></h4></td>	
           </tr>  
         </table>
-			<li id="addEdit"><label>&nbsp;</label>
-			<input type="submit" class="btn" value="提交补录" /></li>
+			<li id="addEdit()"><label>&nbsp;</label>
+			<input type="submit" class="btn" value="提交" /></li>
 		</ul>
 	</form>
 </div>

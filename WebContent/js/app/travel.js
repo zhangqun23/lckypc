@@ -77,6 +77,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/travelTradeList', {
 				templateUrl : '/lckypc/jsp/travelInformation/travelTradeList.html',
 				controller : 'travelController'
+	}).when('/checktravelTrade', {
+		templateUrl : '/lckypc/jsp/travelInformation/travelDetail.html',
+		controller : 'travelController'
 	}).when('/travelUpdate',	{
 				templateUrl : '/lckypc/jsp/travelInformation/travelUpdate.html',
 				controller : 'travelController'
@@ -128,6 +131,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'travel/getTravelTradeListByPage.do',
+			data : data
+		});
+	};
+	services.getTravelTradeListByID = function(data) {
+		return $http({
+			method : 'post',
+			url : baseUrl + 'travel/getTravelTradeListByID.do',
 			data : data
 		});
 	};
@@ -197,14 +207,16 @@ app
 							// 添加旅游信息
 							travel.addTravel = function() {
 								
-								var travelFormData = JSON
-										.stringify(travel.travelInfo);
+								var travelFormData = JSON.stringify(travel.travelInfo);
+								console.log(travelFormData);
 								services.addTravel({
 									travel : travelFormData
 								}).success(function(data) {
+									
 									alert("新建成功！");
-								});
-							};
+									$location.path('travelList/');
+							});
+							}
 							
 							// 根据标题筛选旅游信息
 							travel.selectTravelByTitle = function() {
@@ -237,11 +249,12 @@ app
 								}
 							}
 							// 读取旅游信息
-							function selectTravelById() {
+							travel.selectTravelById=function(travelId) {
+								console.log(travelId);
 								var travel_id = sessionStorage.getItem('travelId');
-								services
-										.selectTravelById({
-											travel_id : travel_id
+								alert(travelId);
+								services.selectTravelById({
+											travel_id : travelId
 										})
 										.success(
 												function(data) {
@@ -254,7 +267,7 @@ app
 														travel.travelInfo.travel_discount = changeFloat(data.travel.travel_discount);
 													}
 												});
-							}
+							};
 							
 							// 修改旅游信息
 							travel.updateTravel = function() {
@@ -264,14 +277,14 @@ app
 									travel : traFormData
 								}).success(function(data) {
 									alert("修改成功！");
+									$location.path('travelList/');
 								});
 							};
 							// 查看ID，并记入sessionStorage
 							travel.getTravelId = function(travelId) {
 								
 								sessionStorage.setItem('travelId', travelId);
-								/*console.log(JSON.stringify(travelId));
-								travel.travelInfo=travelId;*/
+							
 							};
 							
 							// 根据页数获取旅游交易列表
@@ -279,6 +292,18 @@ app
 								services.getTravelTradeListByPage({
 									page : page,
 									searchKey : searchKey
+								}).success(function(data) {
+									traveltrade.traveltrades = data.list;
+									
+								});
+							}
+							// 根据页数获取旅游交易列表
+							function getTravelTradeListByID(page) {
+								var travel_id = sessionStorage.getItem('travelId');						
+								services.getTravelTradeListByID({
+									page : page,
+									searchKey : searchKey,
+									travel_id : travel_id
 								}).success(function(data) {
 									traveltrade.traveltrades = data.list;
 									
@@ -306,13 +331,7 @@ app
 											.success(
 													function(data) {
 														travel.travel = data.travel;
-//														if(data.travel.travel_discount){
-//															travel.travelInfo.travel_discount = changeFloat(data.travel.travel_discount);
-//														}
-//														if (data.travel.travel_stime) {
-//															travel.travelInfo.travel_stime = changeDateType(data.travel.travel_stime);
-//														}
-														
+//														
 														
 														$(".overlayer").fadeIn(
 																200);
@@ -359,6 +378,7 @@ app
 								$(".tip").fadeOut(200);
 							});
 							
+				//初始化
 							function initData() {
 								
 								console.log("初始化页面信息");
@@ -371,7 +391,8 @@ app
 										searchKey : searchKey
 									}).success(function(data) {
 										travel.travels = data.list;
-										pageTurn(data.totalPage, 1, getTravelListByPage)
+										pageTurn(data.totalPage, 1, getTravelListByPage);
+										
 									});
 								}
 								else if ($location.path().indexOf('/travelTradeList') == 0) {
@@ -381,25 +402,26 @@ app
 										searchKey : searchKey
 									}).success(function(data) {
 										traveltrade.traveltrades = data.list;
-										pageTurn(data.totalPage, 1, getTravelTradeListByPage)
+										traveltrade.totalRow="打印："+data.totalRow;
+										traveltrade.totalP="打印："+data.totalPage;
+										pageTurn(data.totalPage, 1, getTravelTradeListByPage);
+										
 									});
 								}
-								 else if ($location.path().indexOf(
-										'/travelAdd') == 0) {
+								 else if ($location.path().indexOf('/travelAdd') == 0) {
 									
 								}
 								 else if ($location.path().indexOf('/travelUpdate') == 0) {
 									
 								// 根据ID获取信息
-								var travel_id = sessionStorage
-										.getItem('travelId');
+								var travel_id = sessionStorage.getItem('travelId');
 							
 								services.selectTravelById({
 											travel_id : travel_id
 										})
 										.success(
 												function(data) {
-//													console.log("wdh"+JSON.stringify(data.travel));
+//													
 													travel.travelInfo = data.travel;
 													
 													if (data.travel.travel_stime) {
@@ -408,9 +430,55 @@ app
 													if(data.travel.travel_discount){
 														travel.travelInfo.travel_discount = changeFloat(data.travel.travel_discount);
 													}
+													if(data.travel.travel_discount){
+														travel.travelInfo.travel_mprice = changeFloat(data.travel.travel_mprice);
+													}
+													if(data.travel.travel_discount){
+														travel.travelInfo.travel_cprice = changeFloat(data.travel.travel_cprice);
+													}
 												});
 								
 							}
+								//获取信息完
+								 else if ($location.path().indexOf('/checktravelTrade') == 0) {
+										// 根据ID获取信息
+									 	searchKey = null;
+										var travel_id = sessionStorage.getItem('travelId');
+										services.selectTravelById({
+													travel_id : travel_id
+												})
+												.success(
+														function(data) {
+															travel.travelInfo = data.travel;
+															
+															if (data.travel.travel_stime) {
+																travel.travelInfo.travel_stime = changeDateType(data.travel.travel_stime);
+															}
+															if(data.travel.travel_discount){
+																travel.travelInfo.travel_discount = changeFloat(data.travel.travel_discount);
+															}
+															if(data.travel.travel_discount){
+																travel.travelInfo.travel_mprice = changeFloat(data.travel.travel_mprice);
+															}
+															if(data.travel.travel_discount){
+																travel.travelInfo.travel_cprice = changeFloat(data.travel.travel_cprice);
+															}
+														});
+										//获取对应交易信息
+										services.getTravelTradeListByID({
+											page : 1,
+											searchKey : searchKey,
+											travel_id : travel_id
+										}).success(function(data) {
+											traveltrade.traveltrades = data.list;
+											traveltrade.totalPa=""+data.totalPage;
+											traveltrade.sum1=data.sumlist;
+											pageTurn(data.totalPage, 1, getTravelTradeListByID);
+										});
+									}
+									
+										//获取信息完
+
 							}
 
 							initData();
@@ -457,29 +525,49 @@ app.filter('cutString', function() {
 		return content;
 	}
 });
+//没有输入详情显示为空 
+app.filter('sgFilter',function() { 
+	return function(input){ 
+		if(input == "" || input == null){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
+});
 
-//鼠标放置显示详情
-app.filter('onmouse', function() {
-	
-	$('table').find('td').mouseover(function() {
-	var content = $(this).text(); // 获取到内容
-	});
-	});
-//
 //只允许输入两位小数的正则判断
-function changeTwoNum(value){
+function changeTwoNum(obj){
 	//清除"数字"和"."以外的字符
-	  value = value.replace(/[^\d.]/g,"");
+	  obj.value = obj.value.replace(/[^\d.]/g,"");
 	  
-    //验证第一个字符是数字而不是
-	     value = value.replace(/^\./g,"");
+    //验证第一个字符是数字而不是.
+	  obj.value = obj.value.replace(/^\./g,"");
 	 
 	//只保留第一个. 清除多余的
-	     value = value.replace(/\.{2,}/g,".");
-	     value = value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+	  obj.value = obj.value.replace(/\.{2,}/g,".");
+	  obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
 	 
 	//只能输入两个小数 
-	     value = value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+	  obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+}
+//固定电话
+function checkTel(){
+	 var tel = document.getElementById('tel').value;
+	if(!/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/.test(tel)){
+	alert('固定电话有误，请重填');
+	return false;
+	}
+	}
+//手机号
+function checkPhone(){ 
+    var phone = document.getElementById('phone').value;
+    if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+        alert("手机号码有误，请重填");  
+        return false; 
+    } 
 }
 //小数过滤器
 app.filter('cutFloat', function() {

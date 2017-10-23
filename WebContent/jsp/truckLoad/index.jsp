@@ -6,21 +6,21 @@
 %>
 <jsp:include page="/jsp/top.jsp" />
 
-<section id="busNeed" class="main" ng-app="busNeed" style="min-height: 40px;">
+<section id="truckLoad" class="main"  ng-app="truckLoad" style="min-height: 40px;">
 	<div ng-view></div>
-</section>
+	</section> 
 
 <jsp:include page="/jsp/left.jsp" />
 <jsp:include page="/jsp/footer.jsp" />
 
-<script src="${ctx}/js/app/busNeed.js"></script>
+<script src="${ctx}/js/app/truckLoad.js"></script>
 <script src="${ctx}/js/lib/My97DatePicker/WdatePicker.js"></script>
 <script src="${ctx}/js/lib/angular-file-upload.min.js"></script>
 
 <script>
 	$(function(){
 		$('dd').find('ul').css("display","none");
-		$('#busNeed-ul').css("display","block");
+		$('#truckLoad-ul').css("display","block");
 		var currentPage = sessionStorage.getItem("currentPage");
 		if(currentPage){
 			$("#"+currentPage).addClass("active");
@@ -29,4 +29,3 @@
 </script>
 </body>
 </html>
-

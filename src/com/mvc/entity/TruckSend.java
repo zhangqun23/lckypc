@@ -20,6 +20,7 @@ public class TruckSend {
 	private String trse_eplace;//目的地
 	private String trse_price;//价格
 	private Date trse_time;//出发时间
+	private Date trse_insert_time; //录入时间
 	private Truck truck;//外键
 	
 	@Id
@@ -79,4 +80,12 @@ public class TruckSend {
 	public void setTruck(Truck truck) {
 		this.truck = truck;
 	}
+	
+	public Date getTrse_insert_time() {
+		return trse_insert_time;
+	}
+	public void setTrse_insert_time(Date trse_insert_time) {
+		this.trse_insert_time = trse_insert_time;
+	}
+	
 }

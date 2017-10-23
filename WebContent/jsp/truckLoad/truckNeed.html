@@ -1,0 +1,79 @@
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>零担货运</li>
+		<li>货主信息列表</li>
+	</ul>
+</div>
+
+<div class="rightinfo">
+
+<!-- 	<div ng-app="" class="tools">
+
+		<form class="toolbar">
+            根据truckDriver状态筛选truckDriver信息 0未审核，1已审核
+                               请选择truckDriver类型：
+            <select class="dfselect" ng-model="trDLimit.trck_check" ng-change="getTruckDriverListByCheck()" id="trck_check" style="width: 167px">
+			   <option value="0">未审核</option>
+			   <option value="1">已审核</option>				 
+            </select>
+		</form>
+	</div> -->
+
+	<table class="tablelist">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>目的地</th>
+				<th>货物类型</th>
+				<th>货物重量</th>
+				<th>需求时间</th>	
+				<th>联系人</th>
+				<th>联系电话</th>
+				<th>是否冷冻</th>			
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="truckDrSdNd in truckNeedList" id={{truckDrSdNd.trne_id>
+				<td>{{$index + 1 }}</td>
+				<td>{{truckDrSdNd.trne_eplace}}</td>
+				<td>{{truckDrSdNd.trne_type}}</td>
+				<td>{{truckDrSdNd.trne_weight }}</td>
+				<td>{{truckDrSdNd.trne_time.time | dateType}}</td>
+				<td>{{truckDrSdNd.trne_name}}</td>
+				<td>{{truckDrSdNd.trne_tel}}</td>
+				<td>{{truckDrSdNd.is_freeze | freeze }}</td>
+			<!-- 	<td><a ng-click="checkTruck()" class="tablelink">查看</a>				
+				<a href="#truckList" ng-click="deleteTruck(truckDrSdNd.trck_id)" class="tablelink"
+					> 删除</a></td>  -->
+			</tr>
+		</tbody>
+	</table>
+	 <div  class="tcdPageCode">页码容器</div> 
+
+<!-- </div>
+ 查看详情模态框
+<div class="overlayer"></div>
+<div class="tip" id="tipCheck" style="height: 600px">
+	<div class="tiptop text_right">
+	<span>车辆信息详情</span><a></a>
+		这个a标签是模态框上的叉叉
+	</div>
+	<div class="invorkInfo-div">
+		<fieldset>
+			
+			<ul class="forminfo">
+				<li><label>车牌号：</label>{{tr.trck_number}}</li>
+				<li><label>货车载重：</label>{{tr.trck_load}}</li>
+				<li><label>是否冷冻：</label>{{tr.is_freeze}}</li>
+				<li><label>审核状态：</label>{{tr.trck_check}}</li>
+
+			</ul>
+		</fieldset>
+	</div>
+</div>  -->
+<!-- 查看任务模态框完  -->
+
+
