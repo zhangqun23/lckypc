@@ -32,39 +32,40 @@ public class SmgoDaoImpl implements SmgoDao{
 	EntityManagerFactory emf;
 	
 	//根据限制条件筛选信息
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	public Integer countTotal(String smgoSego, String startDate, String endDate) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
 		String countSql = " select count(smgo_id) from Small_goods where is_delete=0 ";
-		if(smgoSego != null ){
-			if(startDate != null && endDate != null){
-				countSql += " and smgo_sego = " + smgoSego + " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "' ) ";
-			}else{
-				countSql += " and smgo_sego = " + smgoSego;
-			}
-		}else if(startDate != null && endDate != null){
+		if((startDate != null && endDate != null) && (smgoSego != null && !smgoSego.equals(""))){
+			countSql += " and smgo_sego = " + smgoSego + " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "' ) ";
+		}
+		if((startDate != null && endDate != null) && (smgoSego == null || smgoSego.equals(""))){
 			countSql += " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "' ) ";
+		}
+		if((smgoSego != null && !smgoSego.equals("")) && (startDate == null || endDate == null)){
+			countSql += " and smgo_sego = " + smgoSego;
 		}
 		Query query = em.createNativeQuery(countSql);
 		List<Object> totalRow = query.getResultList();
 		em.close();
 		return Integer.parseInt(totalRow.get(0).toString());
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<SmallGoods> findSmgoByPage(String smgoSego, String startDate, String endDate, int offset, int limit) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
 		String selectSql = " select * from Small_goods where is_delete=0 ";
-		if(startDate != null && endDate != null){
-			if(smgoSego != null){
-				selectSql += " and smgo_sego = " + smgoSego + " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "')";
-			}else{
-				selectSql += " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "')";
-			}
-		}else if(smgoSego != null){
-			selectSql += "and smgo_sego = " + smgoSego;
+		if((startDate != null && endDate != null) && (smgoSego != null && !smgoSego.equals(""))){
+			selectSql += " and smgo_sego = " + smgoSego + " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "')";
+		}
+		if((startDate != null && endDate != null) && (smgoSego == null || smgoSego.equals(""))){
+			selectSql += " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "')";
+		}
+		if((smgoSego != null && !smgoSego.equals("")) && (startDate == null || endDate == null)){
+			selectSql += " and smgo_sego = " + smgoSego;
 		}
 		selectSql += " order by smgo_id desc limit :offset, :end ";
 		Query query = em.createNativeQuery(selectSql, SmallGoods.class);
@@ -95,14 +96,15 @@ public class SmgoDaoImpl implements SmgoDao{
 		return true;
 	}
 
+	//审核
 	@Transactional
 	@Override
-	public boolean updateEdit(String edittime, float editprice, Integer smgo_id) {
+	public boolean updateEdit(String edittime, float editprice, Integer smgoid) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String sql = "update Small_goods set edit_time =:edit_time,edit_price =:edit_price where smgo_id =:smgo_id";
+		String sql = "update Small_goods set edit_time =:edit_time,edit_price =:edit_price,is_delete =1 where smgo_id =:smgo_id";
 		Query query = em.createNativeQuery(sql.toString());
-		query.setParameter("smgo_id", smgo_id);
+		query.setParameter("smgo_id", smgoid);
 		query.setParameter("edit_price", editprice);
 		query.setParameter("edit_time", edittime);//数据库更新多个字段;
 		em.joinTransaction();//update有关,不知道其具体用法;

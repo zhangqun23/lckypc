@@ -35,9 +35,9 @@ public class SmgoServiceImpl implements SmgoService{
 
 	//补录edit信息
 	@Override
-	public boolean update(String edittime, float editprice, Integer smgo_id) {
+	public boolean update(String edittime, float editprice, Integer smgoid) {
 		// TODO 自动生成的方法存根
-		return smgoDao.updateEdit(edittime, editprice,smgo_id);
+		return smgoDao.updateEdit(edittime, editprice,smgoid);
 	}
 	
 }

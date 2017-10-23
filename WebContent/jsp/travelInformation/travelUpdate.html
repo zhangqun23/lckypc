@@ -42,10 +42,10 @@
 				required/></li>
 			<li><label>联系电话</label><input type="text"
 				ng-model="travelInfo.travel_tel" class="dfinput" required/></li>
-			<li><label>总人数<b>*</b></label><input type="text"
+			<li><label>总票数<b>*</b></label><input type="text" id="travelInfo.travel_total_num"
 				ng-model="travelInfo.travel_total_num" class="dfinput" required/></li>
-			<li><label>剩余人数<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_left_num" class="dfinput" required/></li>
+			<li><label>剩余票数<b>*</b></label><input type="text" id="travelInfo.travel_left_num"
+				ng-model="travelInfo.travel_left_num" class="dfinput" onchange="compare(this)" required/></li>
 			<li><label>旅游承办公司</label><input type="text"
 				ng-model="travelInfo.travel_firm" class="dfinput" required/></li>
 			
