@@ -56,7 +56,6 @@ var app = angular
 // 获取权限列表
 app.run([ '$rootScope', '$location', function($rootScope, $location) {
 	$rootScope.$on('$routeChangeSuccess', function(evt, next, previous) {
-		console.log('路由跳转成功');
 		$rootScope.$broadcast('reGetData');
 	});
 } ]);
@@ -93,7 +92,7 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 		})
 	}
 	
-	//删除ad信息
+	//删除
 	services.deleteAd = function(data) {
 		return $http({
 			method : 'post',
@@ -116,7 +115,7 @@ app
 							
 							// 换页
 							function pageTurn(totalPage, page, Func) {
-								/*$(".tcdPageCode").empty();*/
+								$(".tcdPageCode").empty();
 								var $pages = $(".tcdPageCode");
 								if ($pages.length != 0) {
 									$(".tcdPageCode").createPage({
@@ -142,10 +141,10 @@ app
 							ad.getAdListByST = function(){
 								var adLimit = null;
 								var adTLimit = null;
-								if(JSON.stringify(ad.ADSLimit) != null){
+								if(JSON.stringify(ad.ADSLimit) != null && JSON.stringify(ad.ADSLimit) != ""){
 									adLimit = JSON.stringify(ad.ADSLimit);
 								}
-								if(JSON.stringify(ad.ADTLimit) != null){
+								if(JSON.stringify(ad.ADTLimit) != null && JSON.stringify(ad.ADTLimit) != ""){
 									adTLimit = JSON.stringify(ad.ADTLimit);
 								}
 									services.getAdListByPage({
@@ -160,41 +159,87 @@ app
 							
 							// 删除ad信息
 							ad.deleteAd = function(ad_id) {
-								if (confirm("是否删除该ad信息？") == true) {
+								//显示模态框
+								$(".overlayer").fadeIn(200);
+								$("#tipDel3").fadeIn(200);
+								//左上角的X
+								$(".tiptop a").click(function() {
+									$("#tipDel3").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								//点击按钮,模态框隐藏
+								$("#sureDel").click(function(){
+									$("#tipDel3").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									//进入后台
 									services.deleteAd({
 										adId : ad_id
-									}).success(function(data) {
-										ad.result = data;
-										if (data == "true") {
-											console.log("删除ad信息成功！");
-										} else {
-											console.log("删除失败！");
-										}
-										initData();
+										}).success(function(data) {
+											initData();
+											});
 									});
-								}
+								$("#cancelDel").click(function(){
+									$("#tipDel3").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
 							}
 							
-							//变更state状态
-							ad.editState = function(adState,ad_id){
-								if(adState == "1"){
-									return alert("该ad状态为已审核！不能变更！")
-									}else{
-										if(confirm("确定该ad已审核？") == true){
-										    services.editState({
-											adId : ad_id
-										}).success(function(data){
-											if(data == "true"){
-												alert("ad状态变更为已审核！");
-												getAdListByPage(1);
-											}else{
-												console.log("审核失败！请检查审核状态后重试！");
-											}	
+							//审核（模态框）
+							ad.editState = function(ad_state,ad_id) {
+								sessionStorage.setItem('ad_id',ad_id);
+								if(ad_state == 0){
+								//显示模态框
+								$(".overlayer").fadeIn(200);
+								$("#tipDel").fadeIn(200);
+								//左上角的X
+								$(".tiptop a").click(function() {
+									$("#tipDel").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								//点击按钮,模态框隐藏
+								$("#sureDel1").click(function(){
+									var ad_id = sessionStorage.getItem('ad_id');
+									$("#tipDel").fadeOut(100);
+									$(".overlayer1").fadeOut(200);
+									var adState = 1;
+									//进入后台
+									services.editState({
+										adId : ad_id,
+										adState : adState
+										}).success(function(data) {
 											initData();
+											});
+									});
+								$("#sureDel2").click(function(){
+									var ad_id = sessionStorage.getItem('ad_id');
+									$("#tipDel").fadeOut(100);
+									$(".overlayer1").fadeOut(200);
+									var adState = 2;
+									//进入后台
+									services.editState({
+										adId : ad_id,
+										adState : adState
+										}).success(function(data) {
+											initData();
+											});
+									});
+								}else{
+									//显示模态框
+									$(".overlayer").fadeIn(200);
+									$("#tipDel2").fadeIn(200);
+									//左上角的X
+									$(".tiptop a").click(function() {
+										$("#tipDel2").fadeOut(100);
+										$(".overlayer").fadeOut(200);
 										});
-									}
-								}
-							}
+									//点击按钮,模态框隐藏
+									$("#sureDel").click(function(){
+										$("#tipDel2").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
+								};
+						};
+							
 	                        // 查看ID，并记入sessionStorage
 							ad.getAdId = function(adid) {
 								var adidd = JSON.stringify(adid);
@@ -204,7 +249,6 @@ app
 							
 							//初始化
 							function initData() {
-								console.log("初始化页面信息");
 								$("#ad").show();
 								if ($location.path().indexOf('/adList') == 0) {
 									services.getAdListByPage({
@@ -257,11 +301,11 @@ app.filter('findstate',function(){
 			return output;
 		}
 		if(input == "1"){
-			var output = "已审核";
+			var output = "审核通过";
 			return output;
 		}
 		if(input == "2"){
-			var output = "已驳回";
+			var output = "驳回";
 			return output;
 		}
 	}

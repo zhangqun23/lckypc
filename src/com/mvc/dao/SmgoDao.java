@@ -24,6 +24,6 @@ public interface SmgoDao {
 	boolean updateState(Integer smgo_id);
 
 	//添加补录信息
-	boolean updateEdit(String edittime, float editprice, Integer smgo_id);
+	boolean updateEdit(String edittime, float editprice, Integer smgoid);
 	
 }
