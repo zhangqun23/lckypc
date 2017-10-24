@@ -20,7 +20,8 @@ public interface TruckDriverService {
 	//查询Truck信息
 	List<Truck> findTruck(String trState, Integer offset, Integer limit);
 	//Truck信息模态框显示
-	Truck findTruckInfo(Integer trck_id);
+	Boolean findTruckInfo(Integer trckId, Integer trState);
+	Truck findTruckList(Integer trckId);
 	//删除Truck
 	Boolean deleteTruck(Integer trckId);
 	//根据条件获取总页数
@@ -42,6 +43,7 @@ public interface TruckDriverService {
 	Integer TotalPage();
 	//查询TruckNeed
 	List<TruckNeed> getTruckNeed(Integer offset, Integer limit);
+
 
 
 }

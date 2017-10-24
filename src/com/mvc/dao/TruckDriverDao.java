@@ -19,6 +19,8 @@ public interface TruckDriverDao {
 	Boolean deleteTruck(Integer trckId);
 	//根据条件获取总页数
 	Integer countTotal(String trState);
+	//模态框1
+	Boolean findTruck(Integer trckId, Integer trState);
 	/**
 	 *TruckSend
 	 * @param limit 
@@ -36,5 +38,6 @@ public interface TruckDriverDao {
 	Integer TotalPage();
 	//查询TruckNeed
 	List<TruckNeed> getTruckNeed(Integer offset, Integer limit);
+	
 
 }

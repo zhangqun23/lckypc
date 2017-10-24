@@ -62,11 +62,28 @@ public class TruckDriverController {
 		return jsonObject.toString();
 	}
 	//Truck信息模态框显示
+	@RequestMapping("/checkTruckList.do")
+	public @ResponseBody String checkTruckList(HttpServletRequest request , HttpSession session){
+		Integer trckId = null;
+		if(request.getParameter("trckId") != null){
+			trckId = Integer.valueOf(request.getParameter("trckId"));
+		}
+		Truck truck = truckDriverService.findTruckList(trckId);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("truck", truck);
+		return jsonObject.toString();
+	}
 	@RequestMapping("/checkTruck.do")
 	public @ResponseBody String checkTruck(HttpServletRequest request , HttpSession session){
-		Integer trck_id = Integer.parseInt(request.getParameter("trck_id"));
-		session.setAttribute("trck_id", trck_id);
-		Truck truck = truckDriverService.findTruckInfo(trck_id);
+		Integer trckId = null;
+		if(request.getParameter("trckId") != null){
+			trckId = Integer.valueOf(request.getParameter("trckId"));
+		}
+		Integer trState = null;
+		if(request.getParameter("trState") != null){
+			trState = Integer.valueOf(request.getParameter("trState"));
+		}
+		Boolean truck = truckDriverService.findTruckInfo(trckId,trState);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("truck", truck);
 		return jsonObject.toString();

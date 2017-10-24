@@ -33,9 +33,15 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 	}
 	//Truck信息模态框显示
 	@Override
-	public Truck findTruckInfo(Integer trck_id) {
-		return truckRepository.findTruck(trck_id);
+	public Boolean findTruckInfo(Integer trckId, Integer trState) {
+		return truckDriverDao.findTruck(trckId,trState);
 	}
+	@Override
+	public Truck findTruckList(Integer trckId) {
+		// TODO Auto-generated method stub
+		return truckRepository.findTruckList(trckId);
+	}
+	
 	//删除Truck
 	@Override
 	public Boolean deleteTruck(Integer trckId) {
@@ -76,7 +82,7 @@ public class TruckDriverServiceImpl implements TruckDriverService {
 		// TODO Auto-generated method stub
 		return truckDriverDao.getTruckNeed(offset, limit);
 	}
-	
+
 
 
 

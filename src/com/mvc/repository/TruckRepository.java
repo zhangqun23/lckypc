@@ -7,6 +7,6 @@ import com.mvc.entity.Truck;
 
 public interface TruckRepository extends JpaRepository<Truck, Integer> {
 	//Truck信息模态框显示
-	@Query("select t from Truck t where trck_id = :trck_id ")
-	Truck findTruck(@Param("trck_id") Integer trck_id);
+	@Query("select t from Truck t where is_delete=0 and trck_id =:trckId")
+	Truck findTruckList(@Param("trckId") Integer trckId);
 }

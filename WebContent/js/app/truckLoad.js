@@ -99,6 +99,13 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
+	services.checkTruckList = function(data){
+		return $http({
+			method : 'post',
+			url : baseUrl + 'truckLoad/checkTruckList.do',
+			data : data
+		});
+	};
 	//删除Truck信息
 	services.deleteTruck = function(data){
 		return $http({
@@ -176,22 +183,66 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 				})
          };
          // Truck信息模态框显示
-         truckDrSdNd.checkTruck = function() {        
-				var TruckId = this.truckDrSdNd.trck_id;
-				console.log(truckDrSdNd.trck_id);
-				services.checkTruck({
-					trck_id : TruckId
-				}).success(function(data) {
-					truckDrSdNd.tr = data.truck;													
+			truckDrSdNd.checkTruck = function(trck_check,trck_id) {
+				//进入后台
+				services.checkTruckList({
+					trckId : trck_id,					
+					}).success(function(data) {
+						truckDrSdNd.tr = data.truck;
+						});
+				sessionStorage.setItem("trck_id",trck_id);				
+				if(trck_check == 0){
+					//显示模态框
 					$(".overlayer").fadeIn(200);
-					$("#tipCheck").fadeIn(200);
-				});
-				$(".cancel").click(function() {
-					$("#tipCheck").fadeOut(100);
-					$(".overlayer").fadeOut(200);
-					
-				});
-			};
+					$("#tipDel").fadeIn(200);
+					//右上角的X
+					$(".tiptop a").click(function() {
+						$("#tipDel").fadeOut(100);
+						$(".overlayer").fadeOut(200);
+						});
+					//点击按钮,模态框隐藏
+					$("#sureDel1").click(function(){
+						var trck_id = sessionStorage.getItem('trck_id');
+						$("#tipDel").fadeOut(100);
+						$(".overlayer").fadeOut(200);
+						var trState = 1;
+						//进入后台
+						services.checkTruck({
+							trckId : trck_id,
+							trState : trState
+							}).success(function(data) {
+								$location.path('truckList/');
+								});
+						});
+					$("#sureDel2").click(function(){
+						var trck_id = sessionStorage.getItem('trck_id');
+						$("#tipDel").fadeOut(100);
+						$(".overlayer").fadeOut(200);
+						var trState = 2;
+						//进入后台
+						services.checkTruck({
+							trckId : trck_id,
+							trState : trState
+							}).success(function(data) {
+								$location.path('truckList/');
+								});
+						});
+				}else{
+					//显示模态框
+					$(".overlayer").fadeIn(200);
+					$("#tipDel2").fadeIn(200);
+					//左上角的X
+					$(".tiptop a").click(function() {
+						$("#tipDel2").fadeOut(100);
+						$(".overlayer").fadeOut(200);
+						});
+					//点击按钮,模态框隐藏
+					$("#sureDel").click(function(){
+						$("#tipDel2").fadeOut(100);
+						$(".overlayer").fadeOut(200);
+						});
+				}
+			}
 			// 删除Truck信息
 			truckDrSdNd.deleteTruck = function (trck_id) {
 				console.log(trck_id);
@@ -310,8 +361,22 @@ app.filter('state',function(){
 		if(input == 0){
 			type = "未审核";
 		}else if(input == 1){
-			type = "已审核";
+			type = "审核通过";
 		}
+		else type = "审核未通过"
+		
 		return type;
+	}
+});
+//小数过滤器
+app.filter('cutFloat', function() {
+	return function(input) {
+		if (!input) {
+			var money = parseFloat('0').toFixed(2);
+		} else {
+			var money = parseFloat(input).toFixed(2);
+		}
+
+		return money;
 	}
 });

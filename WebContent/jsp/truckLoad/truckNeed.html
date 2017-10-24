@@ -40,7 +40,7 @@
 				<td>{{$index + 1 }}</td>
 				<td>{{truckDrSdNd.trne_eplace}}</td>
 				<td>{{truckDrSdNd.trne_type}}</td>
-				<td>{{truckDrSdNd.trne_weight }}</td>
+				<td>{{truckDrSdNd.trne_weight | cutFloat }}</td>
 				<td>{{truckDrSdNd.trne_time.time | dateType}}</td>
 				<td>{{truckDrSdNd.trne_name}}</td>
 				<td>{{truckDrSdNd.trne_tel}}</td>

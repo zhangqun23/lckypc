@@ -16,7 +16,8 @@
                                请选择truckDriver类型：
             <select class="dfselect" ng-model="trDLimit.trck_check" ng-change="getTruckDriverListByCheck()" id="trck_check" style="width: 167px">
 			   <option value="0">未审核</option>
-			   <option value="1">已审核</option>				 
+			   <option value="1">审核通过</option>	
+			   <option value="2">审核未通过</option>				 
             </select>
 		</form>
 	</div>
@@ -39,7 +40,7 @@
 				<td>{{truckDrSdNd.trck_load}}</td>
 				<td>{{truckDrSdNd.is_freeze | freeze}}</td>
 				<td>{{truckDrSdNd.trck_check | state}}</td>
-				<td><a ng-click="checkTruck()" class="tablelink">查看</a>				
+				<td><a ng-click="checkTruck(truckDrSdNd.trck_check,truckDrSdNd.trck_id)" class="tablelink">详情审核</a>				
 				<a href="#truckList" ng-click="deleteTruck(truckDrSdNd.trck_id)" class="tablelink"
 					> 删除</a></td> 
 			</tr>
@@ -48,10 +49,10 @@
 	 <div  class="tcdPageCode">页码容器</div> 
 
 </div>
- <!-- 查看详情模态框 -->
+ <!-- 审核模态框1 -->
 <div class="overlayer"></div>
-<div class="tip" id="tipCheck" style="height: 600px">
-	<div class="tiptop text_right">
+<div class="tip" id="tipDel" style="height: 300px">
+	<div class="tiptop ">
 	<span>车辆信息详情</span><a></a>
 		<!-- 这个a标签是模态框上的叉叉 -->
 	</div>
@@ -61,13 +62,38 @@
 			<ul class="forminfo">
 				<li><label>车牌号：</label>{{tr.trck_number}}</li>
 				<li><label>货车载重：</label>{{tr.trck_load}}</li>
-				<li><label>是否冷冻：</label>{{tr.is_freeze}}</li>
-				<li><label>审核状态：</label>{{tr.trck_check}}</li>
-
+				<li><label>是否冷冻：</label>{{tr.is_freeze | freeze}}</li>
+				<li><label>审核状态：</label>{{tr.trck_check | state}}</li>
 			</ul>
 		</fieldset>
 	</div>
+	<div class="tipbtn">
+		<input name="" type="button" class="sureSend" id="sureDel1" value="审核通过" />&nbsp;
+		<input name="" type="button" class="sureSend" id="sureDel2" value="驳回" />&nbsp;
+	</div>
 </div> 
+<!-- 审核模态框 2 -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel2" style="height: 400px">
+	<div class="tiptop">
+		<span>车辆信息详情</span><a></a>
+	</div>
+		<div class="invorkInfo-div">
+		<fieldset>
+			
+			<ul class="forminfo">
+				<li><label>车牌号：</label>{{tr.trck_number}}</li>
+				<li><label>货车载重：</label>{{tr.trck_load}}</li>
+				<li><label>是否冷冻：</label>{{tr.is_freeze | freeze}}</li>
+				<li><label>审核状态：</label>{{tr.trck_check | state}}</li>
+			</ul>
+		</fieldset>
+	</div>
+	                 <span>该信息已审核，无法更改</span>
+	<div class="tipbtn">
+		<input name="" type="button" class="sureSend" id="sureDel" value="确定" />&nbsp;
+	</div>
+</div>
 <!-- 查看任务模态框完  -->
 
 

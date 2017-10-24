@@ -37,7 +37,7 @@
 				<td>{{$index + 1 }}</td>
 				<td>{{truckDrSdNd.trse_eplace}}</td>
 				<td>{{truckDrSdNd.trse_price}}</td>
-				<td>{{truckDrSdNd.trse_left_load }}</td>
+				<td>{{truckDrSdNd.trse_left_load | cutFloat }}</td>
 				<td>{{truckDrSdNd.trse_time.time | dateType}}</td>
 			<!-- 	<td><a ng-click="checkTruck()" class="tablelink">查看</a>				
 				<a href="#truckList" ng-click="deleteTruck(truckDrSdNd.trck_id)" class="tablelink"

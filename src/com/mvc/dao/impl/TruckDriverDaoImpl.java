@@ -68,11 +68,30 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 	public Integer countTotal(String trState) {
 		// TODO Auto-generated method stub
 		EntityManager em = emf.createEntityManager();
-		String countSql = " select count(trck_id) from Truck  where is_delete=0 and trck_check = " + trState + "";
+		String countSql = " select count(trck_id) from truck  where is_delete=0 and trck_check = " + trState + "";
 		Query query = em.createNativeQuery(countSql);
 		List<Object> totalRow = query.getResultList();
 		em.close();
 		return Integer.parseInt(totalRow.get(0).toString());
+	}
+	//模态框1
+	@SuppressWarnings("unchecked")
+	@Override
+	public Boolean findTruck(Integer trckId, Integer trState) {
+		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			String sql = "update truck set truck.trck_check="+ trState +" where truck.trck_id ="+ trckId;
+			Query query = em.createNativeQuery(sql);
+			query.executeUpdate();
+			em.flush();
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			em.close();
+		}
+		return true;
 	}
 	/**
 	 * TruckSend
@@ -126,4 +145,6 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 		em.close();
 		return list;
 	}
+
+
 }
