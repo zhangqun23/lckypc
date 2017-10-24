@@ -96,7 +96,8 @@ public  class BusNeedServiceImpl implements BusNeedService {
 						busNeed.setButr_state(Integer.parseInt(jsonObject.getString("butr_state")));
 					}
 			}
-			if (busNeed.getBune_id() != null)
+			BusNeed result = busNeedRepository.saveAndFlush(busNeed);
+			if (result.getBune_id() != null)
 				return true;
 			else
 				return false;
