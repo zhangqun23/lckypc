@@ -24,10 +24,10 @@ public interface BusNeedService {
 	boolean deleteBuneIsdelete(Integer bune_id);
 
 	// 查询信息总条数
-	Integer countBuneTotal(String searchKey);
+	Integer countBuneTotal(String butrState,String searchKey);
 	
 	// 根据页数筛选全部信息列表
-	List<BusNeed> findBusNeedByPage(String searchKey, Integer offset, Integer end);
+	List<BusNeed> findBusNeedByPage(String butrState,String searchKey, Integer offset, Integer end);
 			
 	// 根据合同ID获取信息
 	BusNeed selectBusNeedById(Integer bune_id);

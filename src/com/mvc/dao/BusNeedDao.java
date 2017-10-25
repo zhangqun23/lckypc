@@ -23,10 +23,10 @@ import com.mvc.entity.BusNeed;
 			Boolean updateBusNeedById(Integer bune_id, BusNeed busNeed);
 
 		// 根据页数筛选全部信息
-		 List<BusNeed> findBusNeedByPage(String searchKey, Integer offset, Integer end);
+		 List<BusNeed> findBusNeedByPage(String butrState,String searchKey, Integer offset, Integer end);
 		
 		// 查询信息总条数
-		Integer countBuneTotal(String searchKey);
+		Integer countBuneTotal(String butrState,String searchKey);
 		
 		/////////////////////
 		
