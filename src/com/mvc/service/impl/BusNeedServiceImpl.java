@@ -15,6 +15,7 @@ import com.mvc.repository.BusNeedRepository;
 import com.mvc.service.BusNeedService;
 
 import net.sf.json.JSONObject;
+
 import com.utils.JSONUtil;
 /**
  * BusNeed相关Service层接口实现
@@ -43,8 +44,8 @@ public  class BusNeedServiceImpl implements BusNeedService {
 	}
 	// 查询总条数
 		@Override
-		public Integer countBuneTotal(String searchKey) {
-				return busNeedDao.countBuneTotal(searchKey);
+		public Integer countBuneTotal(String butrState,String searchKey) {
+				return busNeedDao.countBuneTotal(butrState,searchKey);
 			}
 
 	// 根据id删除
@@ -60,8 +61,8 @@ public  class BusNeedServiceImpl implements BusNeedService {
 
 	// 根据页数筛选全部信息
 		@Override
-		public List<BusNeed> findBusNeedByPage(String searchKey, Integer offset, Integer end) {
-			return busNeedDao.findBusNeedByPage(searchKey, offset, end);
+		public List<BusNeed> findBusNeedByPage(String butrState,String searchKey, Integer offset, Integer end) {
+			return busNeedDao.findBusNeedByPage(butrState,searchKey, offset, end);
 		}
 
 	//信息补录
@@ -92,11 +93,10 @@ public  class BusNeedServiceImpl implements BusNeedService {
 					if (jsonObject.containsKey("invoice_num")) {
 						busNeed.setInvoice_num(jsonObject.getString("invoice_num"));}
 			
-					if (jsonObject.containsKey("butr_state")) {
-						busNeed.setButr_state(Integer.parseInt(jsonObject.getString("butr_state")));
-					}
+					busNeed.setButr_state(1);
 			}
-			if (busNeed.getBune_id() != null)
+			BusNeed result = busNeedRepository.saveAndFlush(busNeed);
+			if (result.getBune_id() != null)
 				return true;
 			else
 				return false;

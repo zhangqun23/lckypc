@@ -442,7 +442,7 @@ app
 										})
 										.success(
 												function(data) {
-//													
+													
 													travel.travelInfo = data.travel;
 													
 													if (data.travel.travel_stime) {
