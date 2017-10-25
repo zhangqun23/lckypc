@@ -200,7 +200,7 @@ app
 								$("#sureDel1").click(function(){
 									var ad_id = sessionStorage.getItem('ad_id');
 									$("#tipDel").fadeOut(100);
-									$(".overlayer1").fadeOut(200);
+									$(".overlayer").fadeOut(200);
 									var adState = 1;
 									//进入后台
 									services.editState({
@@ -213,7 +213,7 @@ app
 								$("#sureDel2").click(function(){
 									var ad_id = sessionStorage.getItem('ad_id');
 									$("#tipDel").fadeOut(100);
-									$(".overlayer1").fadeOut(200);
+									$(".overlayer").fadeOut(200);
 									var adState = 2;
 									//进入后台
 									services.editState({
@@ -238,8 +238,7 @@ app
 										$(".overlayer").fadeOut(200);
 										});
 								};
-						};
-							
+						};							
 	                        // 查看ID，并记入sessionStorage
 							ad.getAdId = function(adid) {
 								var adidd = JSON.stringify(adid);
