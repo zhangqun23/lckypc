@@ -244,10 +244,18 @@ app
 
 							// 根据联系方式筛选旅游交易信息
 							bune.selectBusNeedByTel = function() {
+								alert("a");
+								var ButrState = bune.butrState;
 								searchKey = bune.buneTel;
+								console.log(ButrState);
+								
+								if(JSON.stringify(bune.butrState) != null && JSON.stringify(bune.butrState) != ""){
+									ButrState = JSON.stringify(bune.butrState);
+								}
 								services.getBusNeedListByPage({
 									page : 1,
-									searchKey : searchKey
+									searchKey : searchKey,
+									butrState : ButrState
 								}).success(
 										function(data) {
 											bune.busNeeds = data.list;
@@ -288,6 +296,7 @@ app
 										}).success(function(data) {
 									alert("补录成功！");
 									console.log(busFormData);
+									$location.path('busNeedList/');
 								});
 							};
 
