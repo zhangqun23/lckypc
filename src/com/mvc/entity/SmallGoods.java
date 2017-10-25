@@ -30,7 +30,7 @@ private Date smgo_send_time;//发件日期
 private String smgo_remark;//备注
 private Boolean smgo_sego;//是否取货
 private String smgo_add;//取货地址
-private Boolean is_delete;//是否删除
+private Boolean is_delete;//是否删除0未删除，1删除
 private String openid;//微信用户唯一标示
 private Date edit_time;//补录时间
 private Float edit_price;//补录金额
