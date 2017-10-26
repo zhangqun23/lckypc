@@ -167,7 +167,7 @@ app
 								console.log("列表成功！");
 								services.getBusNeedListByPage({
 									page : page,
-									searchKey : searchKey
+									searchKey : searchKey,
 								}).success(function(data) {
 									bune.busNeeds = data.list;
 

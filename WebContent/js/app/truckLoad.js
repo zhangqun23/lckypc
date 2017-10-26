@@ -162,7 +162,12 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 	  */
 		// 根据页数获取Truck信息
 		function getTruckDriverList(page) {
+       	 var trLimit = null;
+			if(JSON.stringify(truckDrSdNd.trDLimit) != null){
+				trLimit = JSON.stringify(truckDrSdNd.trDLimit);
+			}
 			services.getTruckDriverList({
+				trState : trLimit,
 				page : page
 				}).success(function(data) {
 					truckDrSdNd.truckList = data.list;
