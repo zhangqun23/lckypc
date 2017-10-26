@@ -67,7 +67,7 @@ public class AdDaoImpl implements AdDao{
 		if((adState != null && !adState.equals("")) && (adType == null || adType.equals(""))){
 			selectSql += " and ad_state = " + adState;
 		}
-		selectSql += " limit :offset , :end ";
+		selectSql += " order by ad_state limit :offset , :end ";
 		Query query = em.createNativeQuery(selectSql, Ad.class);
 		query.setParameter("offset", offset);
 		query.setParameter("end", limit);
@@ -102,7 +102,7 @@ public class AdDaoImpl implements AdDao{
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		try {
-			String selectSql = "update ad set is_delete =:is_delete where ad_id =:ad_id ";
+			String selectSql = " update ad set is_delete =:is_delete where ad_id =:ad_id ";
 			Query query = em.createNativeQuery(selectSql);
 			query.setParameter("ad_id", ad_id);
 			query.setParameter("is_delete", IsDelete.YES.value);

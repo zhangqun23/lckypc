@@ -47,23 +47,26 @@
 				<th>交易金额</th>
 				<th>交易时间</th>
 				<th>送货方式</th>
+				<th>交易状态</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="smgo in smgos" id={{smgo.smgo_id}}>
 				<td>{{$index + 1 }}</td>
-				<td>{{smgo.smgo_sender|cutString}}</td>
+				<td>{{smgo.smgo_sender | cutString}}</td>
 				<td>{{smgo.smgo_sender_tel}}</td>
-				<td>{{smgo.smgo_receiver|cutString}}</td>
+				<td>{{smgo.smgo_receiver | cutString}}</td>
 				<td>{{smgo.smgo_receiver_tel}}</td>
 				<td>{{smgo.amgo_money | number:1}}</td>
-				<td>{{smgo.smgo_deal_time.time|dateType}}</td> 
-				<td>{{smgo.smgo_sego|findSego}}</td> 
-				<td><a href="#/smgoUpdate" ng-click="getSmgoId(smgo)" class="tablelink" 
+				<td>{{smgo.smgo_deal_time.time | dateType}}</td> 
+				<td>{{smgo.smgo_sego | findSego}}</td> 
+				<td>{{smgo.is_finish | IsFinish}}</td>
+				<td><a ng-click="getSmgoId(smgo,smgo.is_finish)" class="tablelink" 
 				       has-permission='tSgEdit'>小件补录</a>
 					<a href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)" class="tablelink"
 					   has-permission='tSmgoDel'>删除</a></td>
+			<!-- #smgoUpdate -->
 			</tr>
 		</tbody>
 	</table>
@@ -72,17 +75,33 @@
 
 <!-- 删除模态框  -->
 <div class="overlayer"></div>
-<div class="tip" id="tipDel" style="height: 220px">
+<div class="tip" id="tipDel" style="height: 200px;width:300px;margin-top:230px;">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
 	</div>
-	<div class="tipinfo">
+	<div class="tipinfo" style="padding-top:0px;margin-left:15px;">
 		<div class="tipright">
 		<p>是否确认对信息的删除 ？</p><br/>
 		</div>
 	</div>
-	<div class="tipbtn">
-		<input name="" type="button" class="sureSend" id="sureDel" value="确定" />&nbsp;
-		<input name="" type="button" class="cancelSend" id="cancelDel" value="取消" />&nbsp;
+	<div class="tipbtn" style="margin-left:80px;margin-top:60px;width:200px;">
+		<input name="" type="button" class="sureSend" id="sureDel" value="确定" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;"/>&nbsp;
+		<input name="" type="button" class="cancelSend" id="cancelDel" value="取消" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;" />&nbsp;
+	</div>
+</div>
+
+<!-- 补录模态框  -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel2" style="height: 200px;width:300px;margin-top:230px;">
+	<div class="tiptop">
+		<span>提示信息</span><a></a>
+	</div>
+	<div class="tipinfo" style="padding-top:0px;margin-left:15px;">
+		<div class="tipright">
+		<p>该信息已补录！交易已完成！</p>
+		</div>
+	</div>
+	<div class="tipbtn" style="margin-left:80px;margin-top:60px;width:200px;">
+		<input name="" type="button" class="sureSend" id="sureDel2" value="确定" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;"/>&nbsp;
 	</div>
 </div>
