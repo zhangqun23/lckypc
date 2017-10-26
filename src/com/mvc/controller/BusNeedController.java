@@ -56,7 +56,7 @@ public class BusNeedController {
 		JSONObject jsonObject = new JSONObject();
 		String searchKey = request.getParameter("searchKey");
 		if(request.getParameter("butrState") != null){
-			butrState = JSONObject.fromObject(request.getParameter("butrState")).getString("butr_state");
+			butrState = request.getParameter("butrState");
 		}
 		Integer totalRow = busNeedService.countBuneTotal(butrState,searchKey);
 		Pager pager = new Pager();
