@@ -237,8 +237,7 @@ app
 										$(".overlayer").fadeOut(200);
 										});
 								};
-						};
-							
+						};							
 	                        // 查看ID，并记入sessionStorage
 							ad.getAdId = function(ad) {
 								var add = JSON.stringify(ad);//ad是object，然后转换成数据流

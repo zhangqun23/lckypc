@@ -68,6 +68,21 @@
 					href="${ctx}/smgo/toSmgoPage.do#/smgoList">小件查询</a><i></i></li>
 			</ul>
 		</dd>
+		
+		<!-- 零担货运 -->
+		<dd id="truckLoad" class="truckLoadManager" >
+			<div class="title ">
+				<span><img src="${ctx}/images/leftico01.png" /></span>零担货运
+			</div>
+			<ul id="truckLoad-ul" class="menuson">
+				<li id="truckList"><cite></cite> <a
+					href="${ctx}/truckLoad/toTruckLoadPage.do#/truckList">车辆信息</a><i></i></li>
+				<li id="truckSendList"><cite></cite> <a
+					href="${ctx}/truckLoad/toTruckLoadPage.do#/truckSend">车主信息</a><i></i></li>
+				<li id="truckNeedList"><cite></cite> <a
+					href="${ctx}/truckLoad/toTruckLoadPage.do#/truckNeedList">货主信息</a><i></i></li>
+			</ul>
+		</dd>
 	</dl>
 </section>
 <script>

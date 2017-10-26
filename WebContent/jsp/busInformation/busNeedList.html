@@ -12,7 +12,18 @@
 	<div ng-app="" class="tools">
 
 		<form class="toolbar">
-			<input name="" type="text" class="dfinput" id="buneTel"
+			
+		<!-- 根据补录状态筛选BusNeed信息 -->
+		      	请选择审核状态：
+			<select class="dfselect" ng-model="butrState"  
+			id="butrState" style="width: 167px">
+			   <option value="">全部</option>
+			   <option value="0">未补录</option>
+			   <option value="1">已补录</option>	
+			  
+            </select>
+            	检索：
+            <input name="" type="text" class="dfinput" id="buneTel"
 				ng-model="buneTel" placeholder="目的地或联系方式关键字" /> <input class="btn click"
 				type="submit" value="查询" ng-click="selectBusNeedByTel()">
 		</form>
@@ -77,7 +88,7 @@
 				<!-- <li><label>交易信息：</label></li> -->
 				<li><label>交易创建时间：</label>{{busNeed.butr_time.time| dateType}}</li>
 				<li><label>交易金额：</label>{{busNeed.butr_money}}</li>
-				<li><label>车牌号：</label>{{busNeed.butr_bus}}</li>
+				<li><label>车牌号：</label>{{busNeed.bune_bus}}</li>
 			</ul>
 		</fieldset>
 	</div>
