@@ -168,21 +168,20 @@ app
 									$(".overlayer").fadeOut(200);
 									});
 								//点击按钮,模态框隐藏
-								$("#sureDel").click(function(){
+								$("#sureDel3").click(function(){
 									$("#tipDel3").fadeOut(100);
 									$(".overlayer").fadeOut(200);
-									//进入后台
 									services.deleteAd({
-										adId : ad_id
-										}).success(function(data) {
-											initData();
-											});
+									adId :ad_id
+									}).success(function(data) {
+										initData();
 									});
-								$("#cancelDel").click(function(){
+								});
+								$("#cancelDel3").click(function(){
 									$("#tipDel3").fadeOut(100);
 									$(".overlayer").fadeOut(200);
 									});
-							}
+							};
 							
 							//审核（模态框）
 							ad.editState = function(ad_state,ad_id) {
@@ -190,16 +189,16 @@ app
 								if(ad_state == 0){
 								//显示模态框
 								$(".overlayer").fadeIn(200);
-								$("#tipDel").fadeIn(200);
+								$("#tipDel1").fadeIn(200);
 								//左上角的X
 								$(".tiptop a").click(function() {
-									$("#tipDel").fadeOut(100);
+									$("#tipDel1").fadeOut(100);
 									$(".overlayer").fadeOut(200);
 									});
 								//点击按钮,模态框隐藏
-								$("#sureDel1").click(function(){
+								$("#sureDel11").click(function(){
 									var ad_id = sessionStorage.getItem('ad_id');
-									$("#tipDel").fadeOut(100);
+									$("#tipDel1").fadeOut(100);
 									$(".overlayer").fadeOut(200);
 									var adState = 1;
 									//进入后台
@@ -210,9 +209,9 @@ app
 											initData();
 											});
 									});
-								$("#sureDel2").click(function(){
+								$("#sureDel12").click(function(){
 									var ad_id = sessionStorage.getItem('ad_id');
-									$("#tipDel").fadeOut(100);
+									$("#tipDel1").fadeOut(100);
 									$(".overlayer").fadeOut(200);
 									var adState = 2;
 									//进入后台
@@ -220,8 +219,8 @@ app
 										adId : ad_id,
 										adState : adState
 										}).success(function(data) {
-											initData();
 											});
+									initData();
 									});
 								}else{
 									//显示模态框
@@ -233,33 +232,44 @@ app
 										$(".overlayer").fadeOut(200);
 										});
 									//点击按钮,模态框隐藏
-									$("#sureDel").click(function(){
+									$("#sureDel2").click(function(){
 										$("#tipDel2").fadeOut(100);
 										$(".overlayer").fadeOut(200);
 										});
 								};
 						};							
 	                        // 查看ID，并记入sessionStorage
-							ad.getAdId = function(adid) {
-								var adidd = JSON.stringify(adid);
-								sessionStorage.setItem('adid',adidd);
-								$location.path("adUpdate/");
+							ad.getAdId = function(ad) {
+								var add = JSON.stringify(ad);//ad是object，然后转换成数据流
+								$scope.adInfo = JSON.parse(add);//全局变量
+								//显示模态框
+								$(".overlayer").fadeIn(200);
+								$("#tipDel4").fadeIn(200);
+								//左上角的X
+								$(".tiptop a").click(function() {
+									$("#tipDel4").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								//点击按钮,模态框隐藏
+								$("#sureDel4").click(function(){
+									$("#tipDel4").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
 							};
 							
 							//初始化
 							function initData() {
 								$("#ad").show();
 								if ($location.path().indexOf('/adList') == 0) {
+									var adid = sessionStorage.getItem("adid");
 									services.getAdListByPage({
 										page : 1,
 									}).success(function(data) {
 										$scope.ads = data.list;
 										pageTurn(data.totalPage, 1, getAdListByPage)
 									});
-								}else if ($location.path().indexOf('/adUpdate') == 0) {
-									var adid=sessionStorage.getItem("adid");
-									$scope.adInfo = JSON.parse(adid);
-							}}
+								}
+							}
 							initData();
 							}]);
 

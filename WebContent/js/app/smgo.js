@@ -167,39 +167,26 @@ app.controller(
 							}
 							smgo.addEdit = function(smgo_id){
 								var smgoLimits = JSON.stringify(smgo.smgoInfoss);
-								alert(smgo_id)
 								services.addEdit({
 									smgoId : smgo_id,
 									smgoNeed : smgoLimits
 								}).success(function(data) {
-									alert("补录成功");
+									//显示模态框
+									$(".overlayer").fadeIn(200);
+									$("#tipDel").fadeIn(200);
+									//左上角的X
+									$(".tiptop a").click(function() {
+										$("#tipDel").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
+									//点击按钮,模态框隐藏
+									$("#sureDel").click(function(){
+										$("#tipDel").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
 								});
 							};
 							
-//							ad.deleteAd = function(ad_id) {
-//								$(".overlayer").fadeIn(200);
-//								$("#tipDel3").fadeIn(200);
-//								//左上角的X
-//								$(".tiptop a").click(function() {
-//									$("#tipDel3").fadeOut(100);
-//									$(".overlayer").fadeOut(200);
-//									});
-//								//点击按钮,模态框隐藏
-//								$("#sureDel").click(function(){
-//									$("#tipDel3").fadeOut(100);
-//									$(".overlayer").fadeOut(200);
-//									//进入后台
-//									services.deleteAd({
-//										adId : ad_id
-//										}).success(function(data) {
-//											initData();
-//											});
-//									});
-//								$("#cancelDel").click(function(){
-//									$("#tipDel3").fadeOut(100);
-//									$(".overlayer").fadeOut(200);
-//									});
-//							}
 							// 删除smgo信息
 							smgo.deleteSmgo = function(smgo_id) {
 								//显示模态框
@@ -228,10 +215,29 @@ app.controller(
 							};
 							
 	                        // 查看ID，并记入sessionStorage
-							smgo.getSmgoId = function(smgoid) {	
+							smgo.getSmgoId = function(smgoid,is_finish) {
 								var smgoidd = JSON.stringify(smgoid);
-								sessionStorage.setItem('smgoid',smgoidd);	
-								/*$location.path("smgoUpdate/");*/
+								sessionStorage.setItem('smgoid',smgoidd);
+								//is_finish的返回值为false/true 所以直接判断
+								if(is_finish){//is_finish = 1 为 true
+
+									//显示模态框
+									$(".overlayer").fadeIn(200);
+									$("#tipDel2").fadeIn(200);
+									//左上角的X
+									$(".tiptop a").click(function() {
+										$("#tipDel2").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
+									//点击按钮,模态框隐藏
+									$("#sureDel2").click(function(){
+										$("#tipDel2").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
+									$location.path("/smgoList");
+								}else{//is_finish = 0 为 false
+									$location.path("/smgoUpdate");
+								}
 							};
 							
 							//初始化
@@ -244,7 +250,7 @@ app.controller(
 										$scope.smgos = data.list;
 										pageTurn(data.totalPage, 1, getSmgoListByPage)
 									});
-								}else if ($location.path().indexOf('/smgoUpdate') == 0) {
+								}else/* if ($location.path().indexOf('/smgoUpdate') == 0)*/ {
 									//根据id获取smgo信息
 									var smgoid = sessionStorage.getItem("smgoid");
 									$scope.smgoInfo = JSON.parse(smgoid);
@@ -297,6 +303,18 @@ app.filter('sgFilter',function() {
 		}
 		else{
 			return input;
+		}
+	}
+});
+//交易状态isFinish
+app.filter('IsFinish',function() { 
+	return function(input){ 
+		if(input == "0"){
+			var input = "未完成";
+			return input; 		
+		}else{
+			var input = "已完成";
+			return input; 		
 		}
 	}
 });

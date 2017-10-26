@@ -34,6 +34,7 @@ private Boolean is_delete;//是否删除0未删除，1删除
 private String openid;//微信用户唯一标示
 private Date edit_time;//补录时间
 private Float edit_price;//补录金额
+private Boolean is_finish; //交易状态,0代表交易未完成，1交易已完成
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -162,6 +163,10 @@ public Float getEdit_price() {
 public void setEdit_price(Float edit_price) {
 	this.edit_price = edit_price;
 }
-
-
+public Boolean getIs_finish() {
+	return is_finish;
+}
+public void setIs_finish(Boolean is_finish) {
+	this.is_finish = is_finish;
+}
 }
