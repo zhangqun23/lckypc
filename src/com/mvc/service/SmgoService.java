@@ -17,13 +17,13 @@ import com.mvc.entity.SmallGoods;
 public interface SmgoService {
 
 	//根据限制条件筛选信息
-	Integer countTotal(String smgoSego, Date startDate, Date endDate);
-	List<SmallGoods> findSmgoByPage(String smgoSego, Date startDate, Date endDate, int offset, int limit);
+	Integer countTotal(String smgoSego, String startDate, String endDate);
+	List<SmallGoods> findSmgoByPage(String smgoSego, String startDate, String endDate, int offset, int limit);
 	
 	//根据id删除smgo信息
 	boolean deleteIsdelete(Integer smgoid);
 	
 	//补录
-	boolean update(Date edittime, float editprice, Integer smgoid);
+	boolean update(String edittime, float editprice, Integer smgoid);
 	
 }

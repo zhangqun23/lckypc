@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.base.enums.IsDelete;
 import com.mvc.dao.BusNeedDao;
 import com.mvc.entity.BusNeed;
-import com.mvc.entity.BusTrade;
+
 import com.mvc.repository.BusNeedRepository;
 
 /**
@@ -103,18 +103,18 @@ public  class BusNeedDaoImpl implements BusNeedDao {
 		// 根据页数筛选全部信息
 		@SuppressWarnings("unchecked")
 		@Override
-		public List<BusTrade> findBusTradeByPage(String searchKey, Integer offset, Integer end) {
+		public List<BusNeed> findBusTradeByPage(String searchKey, Integer offset, Integer end) {
 			EntityManager em = emf.createEntityManager();
-			String selectSql = "select * from bus_Trade";
+			String selectSql = "select * from bus_Need";
 		// 判断查找关键字是否为空
 			if (null != searchKey) {
 				selectSql += " and ( bune_bus like '%" + searchKey + "%' or invoice_num like '%" + searchKey + "%')";
 			}
 			selectSql += " order by butr_id desc limit :offset, :end";
-			Query query = em.createNativeQuery(selectSql, BusTrade.class);
+			Query query = em.createNativeQuery(selectSql, BusNeed.class);
 			query.setParameter("offset", offset);
 			query.setParameter("end", end);
-			List<BusTrade> list = query.getResultList();
+			List<BusNeed> list = query.getResultList();
 			em.close();
 			return list;
 		}
@@ -124,7 +124,7 @@ public  class BusNeedDaoImpl implements BusNeedDao {
 		@SuppressWarnings("unchecked")
 		public Integer countTotal(String searchKey) {
 			EntityManager em = emf.createEntityManager();
-			String countSql = " select count(butr_id) from bus_Trade bt ";
+			String countSql = " select count(bune_id) from bus_need bt ";
 			if (null != searchKey) {
 				countSql += "   and (bune_bus like '%" + searchKey + "%' or invoice_num like '%" + searchKey + "%')";
 			}
@@ -136,11 +136,11 @@ public  class BusNeedDaoImpl implements BusNeedDao {
 		
 			// 修改信息
 			@Override
-			public Boolean updateBusTradeById(Integer butr_id, BusTrade busTrade) {
+			public Boolean updateBusTradeById(Integer bune_id, BusNeed busNeed) {
 				EntityManager em = emf.createEntityManager();
 				try {
 					em.getTransaction().begin();
-					em.merge(busTrade);
+					em.merge(busNeed);
 					em.getTransaction().commit();
 				} finally {
 					em.close();

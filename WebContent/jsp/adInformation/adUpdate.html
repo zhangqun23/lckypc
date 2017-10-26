@@ -2,8 +2,8 @@
 	<span>位置：</span>
 	<ul class="placeul">
 		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
-		<li>ad管理</li>
-		<li>ad详情信息</li>
+		<li>广告管理</li>
+		<li>广告详情信息</li>
 	</ul>
 </div>
 <!-- 录入ad信息 -->
@@ -11,19 +11,21 @@
 	
 	<form ng-submit="updateAd()">
 		<div class="formtitle">
-			<span>ad信息</span>
+			<span>广告信息</span>
 		</div>
 
 		<ul class="forminfo">
-			<li><label>标题<b>*</b></label>{{adInfo.ad_title}}</li>
-			<li><label>内容:</label>{{adInfo.ad_content}}</li>
-			<li><label>类型</label>{{adInfo.ad_type|findtype}}</li>
-			<li><label>审核状态<b>*</b></label>{{adInfo.ad_state|findstate}}</li>
-			<li><label>联系人<b>*</b></label>{{adInfo.ad_name}}</li>
-			<li><label>联系方式<b>*</b></label>{{adInfo.ad_tel}}</li>
-			<li><label>备注<b>*</b></label>{{adInfo.ad_remark}}</li>
-			<li><label>&nbsp;</label>
-			<a href="#adList" class="dfinput" has-permission='tAdInfo'>确定</a></li>
+			<li><h4>标题:&nbsp;&nbsp;&nbsp;&nbsp;{{adInfo.ad_title}}</h4></li>
+			<li><h4>内容:&nbsp;&nbsp;&nbsp;&nbsp;{{adInfo.ad_content}}</h4></li>
+			<li><h4>类型:&nbsp;&nbsp;&nbsp;&nbsp;{{adInfo.ad_type|findtype}}</h4></li>
+			<li><h4>审核状态:&nbsp;&nbsp;{{adInfo.ad_state|findstate}}</h4></li>
+			<li><h4>联系人:&nbsp;&nbsp;&nbsp;{{adInfo.ad_name}}</h4></li>
+			<li><h4>联系方式:&nbsp;&nbsp;{{adInfo.ad_tel}}</h4></li>
+			<li><h4>备注:&nbsp;&nbsp;&nbsp;&nbsp;{{adInfo.ad_remark}}</h4></li>
+			<label>&nbsp;</label>
+			<li>
+			<input type="submit" class="btn click" ng-click="updateAd()" value="确定"/>
+			<!-- <a href="#adList" class="dfinput">确定</a> -->
 		</ul>
 	</form>
 </div>
