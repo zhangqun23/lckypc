@@ -2,8 +2,8 @@
 	<span>位置：</span>
 	<ul class="placeul">
 		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
-		<li>ad信息管理</li>
-		<li>ad信息列表</li>
+		<li>广告信息管理</li>
+		<li>广告信息列表</li>
 	</ul>
 </div>
 <div class="rightinfo">
@@ -18,7 +18,7 @@
 			   <option value="2">驳回</option>	
             </select>
             <!-- 根据ad类型筛选ad信息 0招工，1旅游、2其他 -->
-                               请选择ad类型：
+                               请选择广告类型：
             <select class="dfselect" ng-model="ADTLimit.ad_type" ng-change="getAdListByST()" id="ad_type" style="width: 167px">
 			   <option value="">全部</option>
 			   <option value="0">招工</option>
@@ -44,19 +44,19 @@
 		<tbody>
 			<tr ng-repeat="ad in ads" id={{ad.ad_id}}>
 				<td>{{$index + 1 }}</td>
-				<td>{{ad.ad_title|cutString}}</td>
-				<td>{{ad.ad_content|cutString}}</td>
-				<td>{{ad.ad_type|findtype}}</td>
-				<td>{{ad.ad_state|findstate}}</td>
-				<td>{{ad.ad_name|cutString}}</td>
+				<td>{{ad.ad_title | cutString}}</td>
+				<td>{{ad.ad_content | cutString}}</td>
+				<td>{{ad.ad_type | findtype}}</td>
+				<td>{{ad.ad_state | findstate}}</td>
+				<td>{{ad.ad_name | cutString}}</td>
 				<td>{{ad.ad_tel}}</td>
-				<td>{{ad.ad_remark|cutString}}</td>
-				<td><a ng-click="editState(ad.ad_state,ad.ad_id)" 
-				       class="tablelink" >审核</a>
-				    <a ng-click="getAdId(ad)"
-				       class="tablelink">详情</a>
-					<a ng-click="deleteAd(ad.ad_id)" 
-					   class="tablelink">删除</a></td>
+				<td>{{ad.ad_remark | cutString}}</td>
+				<td><a ng-click="editState(ad.ad_state,ad.ad_id)" class="tablelink"
+				      >审核</a>
+				    <a ng-click="getAdId(ad)" class="tablelink"
+				      >详情</a>
+					<a ng-click="deleteAd(ad.ad_id)" class="tablelink"
+					   has-permission='tAdDel'>删除</a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -65,49 +65,72 @@
 
 <!-- 审核模态框 1 -->
 <div class="overlayer"></div>
-<div class="tip" id="tipDel" style="height: 220px">
+<div class="tip" id="tipDel1" style="height: 200px;width:300px;margin-top:230px;">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
 	</div>
-	<div class="tipinfo">
+	<div class="tipinfo" style="padding-top:0px;margin-left:15px;">
 		<div class="tipright">
 		<br>
 		<p>请注意：信息审核或驳回后无法再次变更！</p>
 		</div>
 	</div>
-	<div class="tipbtn">
-		<input name="" type="button" class="sureSend" id="sureDel1" value="审核通过" />&nbsp;
-		<input name="" type="button" class="sureSend" id="sureDel2" value="驳回" />&nbsp;
+	<div class="tipbtn"style="margin-left:80px;margin-top:60px;width:200px;">
+		<input name="" type="button" class="sureSend" id="sureDel11" value="审核通过" style="height: 25px; width: 70px;font-size: 10px; line-height: 20px;"/>&nbsp;
+		<input name="" type="button" class="sureSend" id="sureDel12" value="驳回" style="height: 25px; width: 70px;font-size: 10px; line-height: 20px;" />&nbsp;
 	</div>
 </div>
 <!-- 审核模态框 2 -->
 <div class="overlayer"></div>
-<div class="tip" id="tipDel2" style="height: 220px">
+<div class="tip" id="tipDel2" style="height: 200px;width:300px;margin-top:230px;">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
 	</div>
-	<div class="tipinfo">
+	<div class="tipinfo" style="padding-top:0px;margin-left:15px";>
 		<div class="tipright">
 		<p>该信息已审核！无法再次变更！</p>
 		</div>
 	</div>
-	<div class="tipbtn">
-		<input name="" type="button" class="sureSend" id="sureDel" value="确定" />&nbsp;
+	<div class="tipbtn" style="margin-top:60px;width:200px;">
+		<input name="" type="button" class="sureSend" id="sureDel2" value="确定" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;" />&nbsp;
 	</div>
 </div>
-<!-- 删除模态框  -->
-<div class="overlayer"></div>
-<div class="tip" id="tipDel3" style="height: 220px">
+<!-- 删除模态框 3 -->
+<div class="overlayer3"></div>
+<div class="tip" id="tipDel3" style="height: 200px;width:300px;margin-top:230px;">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
 	</div>
-	<div class="tipinfo">
+	<div class="tipinfo" style="padding-top:0px;margin-left:15px;">
 		<div class="tipright">
-		<p>是否确认对信息的删除 ？</p><br/>
+		<p>是否确认对信息的删除 ？</p>
 		</div>
 	</div>
-	<div class="tipbtn">
-		<input name="" type="button" class="sureSend" id="sureDel" value="确定" />&nbsp;
-		<input name="" type="button" class="cancelSend" id="cancelDel" value="取消" />&nbsp;
+	<div class="tipbtn" style="margin-left:80px;margin-top:60px;width:200px;">
+		<input name="" type="button" class="sureSend" id="sureDel3" value="确定" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;"/>&nbsp;
+		<input name="" type="button" class="cancelSend" id="cancelDel3" value="取消" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;" />&nbsp;
 	</div>
 </div>
+<!-- 详情模态框4 -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel4" style="height: 600px">
+	<div class="tiptop text_right">
+	<span>广告信息</span><a></a>
+	</div>
+	<div class="invorkInfo-div">
+		<fieldset>
+			<ul class="forminfo">
+				<li><label>标题&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;</label>{{adInfo.ad_title}}</li>
+				<li><label>内容&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;</label>{{adInfo.ad_title}}</li>
+				<li><label>类型&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;</label>{{adInfo.ad_type | findtype}}</li>
+				<li><label>审核状态&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;</label>{{adInfo.ad_state | findstate}}</li>
+				<li><label>联系人&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;</label>{{adInfo.ad_name}}</li>
+				<li><label>联系方式&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;</label>{{adInfo.ad_name}}</li>
+				<li><label>备注&nbsp;&nbsp;&nbsp;&nbsp;：&nbsp;&nbsp;&nbsp;&nbsp;</label>{{adInfo.ad_remark}}</li>			
+			</ul>
+		</fieldset>
+	</div>
+	<div class="tipbtn" style="margin-left:80px;margin-top:60px;width:200px;">
+		<input name="" type="button" class="sureSend" id="sureDel4" value="确定" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;"/>&nbsp;
+	</div>
+</div> 

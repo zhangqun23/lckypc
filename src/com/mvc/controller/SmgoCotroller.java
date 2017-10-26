@@ -65,10 +65,13 @@ public class SmgoCotroller {
 		String smgoSego = null;
 		String startDate = null;
 		String endDate = null;
-		JSONObject jsonObject = new JSONObject();
 		if(request.getParameter("smgoSego") != null){
-			smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
+			if(JSONObject.fromObject(request.getParameter("smgoSego")).containsKey("smgo_sego")){
+				//解决JSONObject “smgoSego” not found 问题
+				smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
+			}
 		}
+		JSONObject jsonObject = new JSONObject();
 		if(request.getParameter("gotNeed") != null){
 			jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
 				if (jsonObject.containsKey("startDate")){ 
@@ -81,7 +84,7 @@ public class SmgoCotroller {
 		Integer totalRow = smgoService.countTotal(smgoSego,startDate,endDate);//有问题
 		Pager pager = new Pager();
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
-        if(totalRow != null ){
+        if(totalRow != 0 ){
         	pager.setTotalRow(Integer.parseInt(totalRow.toString()));
 		}
 		List<SmallGoods> list = smgoService.findSmgoByPage(smgoSego,startDate,endDate,pager.getOffset(),pager.getLimit());
