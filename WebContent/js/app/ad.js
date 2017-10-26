@@ -130,8 +130,18 @@ app
 							
 							// 根据页数获取ad信息
 							function getAdListByPage(page) {
+								var adLimit = null;
+								var adTLimit = null;
+								if(JSON.stringify(ad.ADSLimit) != null && JSON.stringify(ad.ADSLimit) != ""){
+									adLimit = JSON.stringify(ad.ADSLimit);
+								}
+								if(JSON.stringify(ad.ADTLimit) != null && JSON.stringify(ad.ADTLimit) != ""){
+									adTLimit = JSON.stringify(ad.ADTLimit);
+								}
 								services.getAdListByPage({
-									page : page
+									page : page,
+									adState : adLimit,
+									adType : adTLimit
 									}).success(function(data) {
 										ad.ads = data.list;
 										});

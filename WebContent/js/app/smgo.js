@@ -133,8 +133,18 @@ app.controller(
 							
 							// 根据页数获取smgo信息
 							function getSmgoListByPage(page) {
+								var smgoLimit = null;
+								var gotLimit = null;
+								if(JSON.stringify(smgo.SGSLimit) != null){
+									smgoLimit = JSON.stringify(smgo.SGSLimit);
+								}
+								if(JSON.stringify(smgo.GotLimit) != null){
+									gotLimit = JSON.stringify(smgo.GotLimit);
+								}
 								services.getSmgoListByPage({
 									page : page,
+									smgoSego : smgoLimit,
+									gotNeed : gotLimit
 								}).success(function(data) {
 									smgo.smgos = data.list;
 								});

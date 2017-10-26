@@ -37,7 +37,7 @@ public class TruckDriverDaoImpl implements TruckDriverDao {
 	@Override
 	public List<Truck> findTruck(String trState, Integer offset, Integer limit) {
 		EntityManager em = emf.createEntityManager();
-		String sql = "select * from Truck where is_delete=0 and trck_check = " + trState + " limit " + offset + " , " + limit;
+		String sql = "select * from truck where is_delete=0 and trck_check = " + trState + " limit " + offset + " , " + limit;
 		Query query = em.createNativeQuery(sql, Truck.class);
 		List<Truck> list = query.getResultList();
 		em.close();
