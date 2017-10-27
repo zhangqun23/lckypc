@@ -69,13 +69,24 @@
 				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></td> 
           </tr>  
         </table>
-        {{smgoInfo.smgo_id}}
 			<input ng-click="addEdit(smgoInfo.smgo_id)" type="submit" class="btn" value="提交" /></li>
 	</form>
 </div>
 
-<!-- <td><font color="red"><h4>发货日期&nbsp;:</font>&nbsp;&nbsp;&nbsp;<input type="text" name="edittime" required
-					ng-model="smgoInfoss.edit_time" class="dfselect dateLayoutStyle"
-					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></h4></td>
-			   <td><font color="red"><h4>金额&nbsp;:</font>&nbsp;&nbsp;&nbsp;<input type="text"
-				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></h4></td>	 -->
+<!-- 模态框  -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel" style="height: 200px;width:300px;margin-top:230px;">
+	<div class="tiptop">
+		<span>提示信息</span><a></a>
+	</div>
+	<div class="tipinfo" style="padding-top:0px;margin-left:15px";>
+		<div class="tipright">
+		<p>补录成功！！</p>
+		</div>
+	</div>
+	<div class="tipbtn" style="margin-top:60px;width:200px;">
+		<a href="#smgoList" type="button" class="sureSend" id="sureDel"
+		   style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;" >确定</a>&nbsp;
+		<!-- <input name="" type="button" class="sureSend" id="sureDel" value="确定" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;" />&nbsp; -->
+	</div>
+</div>

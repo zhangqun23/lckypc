@@ -1,6 +1,5 @@
 package com.mvc.dao.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -67,7 +66,7 @@ public class SmgoDaoImpl implements SmgoDao{
 		if((smgoSego != null && !smgoSego.equals("")) && (startDate == null || endDate == null)){
 			selectSql += " and smgo_sego = " + smgoSego;
 		}
-		selectSql += " order by smgo_id desc limit :offset, :end ";
+		selectSql += " order by is_finish limit :offset, :end ";
 		Query query = em.createNativeQuery(selectSql, SmallGoods.class);
 		query.setParameter("offset", offset);
 		query.setParameter("end", limit);
@@ -96,13 +95,13 @@ public class SmgoDaoImpl implements SmgoDao{
 		return true;
 	}
 
-	//审核
+	//补录
 	@Transactional
 	@Override
 	public boolean updateEdit(String edittime, float editprice, Integer smgoid) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String sql = "update Small_goods set edit_time =:edit_time,edit_price =:edit_price,is_delete =1 where smgo_id =:smgo_id";
+		String sql = "update Small_goods set edit_time =:edit_time,edit_price =:edit_price,is_finish =1  where smgo_id =:smgo_id";
 		Query query = em.createNativeQuery(sql.toString());
 		query.setParameter("smgo_id", smgoid);
 		query.setParameter("edit_price", editprice);
