@@ -56,8 +56,8 @@
 				<td>{{bune.bune_goal_pla}}</td>
 				<td>{{bune.bune_purp}}</td>
 				<td><a ng-click="checkBusNeed()" class="tablelink">查看</a>
-				<a href="#/busNeedUpdate" ng-click="saveBuneId(bune.bune_id)"class="tablelink"> 补录信息</a>
-				<a href="#busNeedList" ng-click="deleteBusNeed(bune.bune_id)" class="tablelink"
+				<a href="#/busNeedUpdate" ng-click="saveBuneId(bune.bune_id)"class="tablelink" has-permission='bnEdit'> 补录信息</a>
+				<a href="#busNeedList" ng-click="deleteBusNeed(bune.bune_id)" has-permission='bnDel' class="tablelink"
 					> 删除</a></td>
 			</tr>
 		</tbody>

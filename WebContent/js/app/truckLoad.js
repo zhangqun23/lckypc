@@ -162,7 +162,12 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 	  */
 		// 根据页数获取Truck信息
 		function getTruckDriverList(page) {
+       	 var trLimit = null;
+			if(JSON.stringify(truckDrSdNd.trDLimit) != null){
+				trLimit = JSON.stringify(truckDrSdNd.trDLimit);
+			}
 			services.getTruckDriverList({
+				trState : trLimit,
 				page : page
 				}).success(function(data) {
 					truckDrSdNd.truckList = data.list;
@@ -244,7 +249,34 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 				}
 			}
 			// 删除Truck信息
-			truckDrSdNd.deleteTruck = function (trck_id) {
+			// 删除ad信息
+			truckDrSdNd.deleteTruck = function(trck_id) {
+				//显示模态框
+				$(".overlayer").fadeIn(200);
+				$("#tipDel3").fadeIn(200);
+				//左上角的X
+				$(".tiptop a").click(function() {
+					$("#tipDel3").fadeOut(100);
+					$(".overlayer").fadeOut(200);
+					});
+				//点击按钮,模态框隐藏
+				$("#sureDel3").click(function(){
+					$("#tipDel3").fadeOut(100);
+					$(".overlayer").fadeOut(200);
+					//进入后台
+					services.deleteTruck({
+						trckId : trck_id
+					}).success(function(data) {
+						$location.path('truckList/');
+					});
+					});
+				$("#cancelDel").click(function(){
+					$("#tipDel3").fadeOut(100);
+					$(".overlayer").fadeOut(200);
+					});
+				
+			}
+/*			truckDrSdNd.deleteTruck = function (trck_id) {
 				console.log(trck_id);
 				if (confirm("确定删除此信息?")) {
 					services.deleteTruck({
@@ -255,7 +287,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 				} else {
 					return null;
 				}
-			}
+			}*/
 			// 2017-09-06 ghl隐藏模态框
 			$(".tiptop a").click(function() {
 				$(".overlayer").fadeOut(200);

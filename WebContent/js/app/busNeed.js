@@ -170,6 +170,7 @@ app
 									page : page,
 									searchKey : searchKey,
 									butrState : ButrState
+
 								}).success(function(data) {
 									bune.busNeeds = data.list;
 
@@ -246,7 +247,6 @@ app
 
 							// 根据联系方式筛选旅游交易信息
 							bune.selectBusNeedByTel = function() {
-								
 								var ButrState = bune.butrState;
 								searchKey = bune.buneTel;
 								console.log(ButrState);

@@ -577,9 +577,9 @@ function changeTwoNum(obj){
 //固定电话
 function checkTel(obj){
 	 var tel=document.getElementById("travelInfo.travel_tel").value;
-	if(!((/^0\d{2,3}-?\d{7,8}$/.test(tel))||(/^1(3|4|5|7|8)\d{9}$/.test(tel)))){
-	alert("电话格式有误，请重填!");
-	obj.value='';
+	 if(!((/^0\d{2,3}-?\d{7,8}$/.test(tel))||(/^1(3|4|5|7|8)\d{9}$/.test(tel)))){
+		 alert("电话格式有误，请重填!");
+		 obj.value='';
 	}
 	}
 //手机号

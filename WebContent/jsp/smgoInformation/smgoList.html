@@ -1,8 +1,8 @@
 <div class="place">
 	<span>位置：</span>
 	<ul class="placeul">
-	
-	<!-- 缺少链接 点击后直接跳到“首页”或“小件管理” -->
+
+		<!-- 缺少链接 点击后直接跳到“首页”或“小件管理” -->
 		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
 		<li>小件管理</li>
 		<li>小件信息列表</li>
@@ -11,35 +11,39 @@
 
 <div class="rightinfo">
 
-<!-- 下拉框 选择 0自行取货、1送货上门 -->
-		 <form class="toolbar">
+	<!-- 下拉框 选择 0自行取货、1送货上门 -->
+	<form class="toolbar">
 		<div>
-		              请选择取货方式：
-			 <select class="dfselect" ng-model="SGSLimit.smgo_sego" ng-change="getSmgoListBySD()" id="smgo_sego" required>
-			   <option value="">全部</option>
-			   <option value="0">自行取货</option>
-			   <option value="1">送货上门</option>		
-            </select>
-        </div>
-        
-	  </form>
-		<form class="toolbar">
-		 <div class="inner">
-		    <input type="text" name="GotLimit.startTime" style="width:25%;margin-left:10px;float: left"
-				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle" placeHolder="起始时间"
-				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
-				required><div style="float: left;margin-right:10px">-</div>
-			<input type="text" name="GotLimit.endtTime" style="width:25%;float: left"
-				ng-model="GotLimit.endDate" class="dfselect dateLayoutStyle" placeHolder="截止时间"
+			请选择取货方式： <select class="dfselect" ng-model="SGSLimit.smgo_sego"
+				ng-change="getSmgoListBySD()" id="smgo_sego" required>
+				<option value="">全部</option>
+				<option value="0">自行取货</option>
+				<option value="1">送货上门</option>
+			</select>
+		</div>
+
+	</form>
+	<form class="toolbar">
+		<div class="inner">
+			<input type="text" name="GotLimit.startTime"
+				style="width: 25%; margin-left: 10px; float: left"
+				ng-model="GotLimit.startDate" class="dfselect dateLayoutStyle"
+				placeHolder="起始时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required>
-			<input type="submit" class="btn click" ng-click="getSmgoListBySD()" value="查询">	
-		 </div>
-		</form>		
+			<div style="float: left; margin-right: 10px">-</div>
+			<input type="text" name="GotLimit.endtTime"
+				style="width: 25%; float: left" ng-model="GotLimit.endDate"
+				class="dfselect dateLayoutStyle" placeHolder="截止时间"
+				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
+				required> <input type="submit" class="btn click"
+				ng-click="getSmgoListBySD()" value="查询">
+		</div>
+	</form>
 	<table class="tablelist">
 		<thead>
 			<tr>
-			    <th>编号</th>
+				<th>编号</th>
 				<th>发件人</th>
 				<th>发件人联系电话</th>
 				<th>收件人</th>
@@ -47,42 +51,69 @@
 				<th>交易金额</th>
 				<th>交易时间</th>
 				<th>送货方式</th>
+				<th>交易状态</th>
 				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="smgo in smgos" id={{smgo.smgo_id}}>
 				<td>{{$index + 1 }}</td>
-				<td>{{smgo.smgo_sender|cutString}}</td>
+				<td>{{smgo.smgo_sender | cutString}}</td>
 				<td>{{smgo.smgo_sender_tel}}</td>
-				<td>{{smgo.smgo_receiver|cutString}}</td>
+				<td>{{smgo.smgo_receiver | cutString}}</td>
 				<td>{{smgo.smgo_receiver_tel}}</td>
 				<td>{{smgo.amgo_money | number:1}}</td>
-				<td>{{smgo.smgo_deal_time.time|dateType}}</td> 
-				<td>{{smgo.smgo_sego|findSego}}</td> 
-				<td><a href="#/smgoUpdate" ng-click="getSmgoId(smgo)" class="tablelink" 
-				       has-permission='tSgEdit'>小件补录</a>
-					<a href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)" class="tablelink"
-					   has-permission='tSmgoDel'>删除</a></td>
+				<td>{{smgo.smgo_deal_time.time|dateType}}</td>
+				<td>{{smgo.smgo_sego|findSego}}</td>
+				<td>{{smgo.is_finish | IsFinish}}</td>
+				<td><a href="#/smgoUpdate" ng-click="getSmgoId(smgo)"
+					class="tablelink" has-permission='sgEdit'>小件补录</a> <a
+					href="#smgoList" ng-click="deleteSmgo(smgo.smgo_id)"
+					class="tablelink" has-permission='sgDel'>删除</a></td>
 			</tr>
 		</tbody>
 	</table>
-	<div  class="tcdPageCode">页码容器</div>
+	<div class="tcdPageCode">页码容器</div>
 </div>
 
 <!-- 删除模态框  -->
 <div class="overlayer"></div>
-<div class="tip" id="tipDel" style="height: 220px">
+<div class="tip" id="tipDel"
+	style="height: 200px; width: 300px; margin-top: 230px;">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
 	</div>
-	<div class="tipinfo">
+	<div class="tipinfo" style="padding-top: 0px; margin-left: 15px;">
 		<div class="tipright">
-		<p>是否确认对信息的删除 ？</p><br/>
+			<p>是否确认对信息的删除 ？</p>
+			<br />
 		</div>
 	</div>
-	<div class="tipbtn">
-		<input name="" type="button" class="sureSend" id="sureDel" value="确定" />&nbsp;
-		<input name="" type="button" class="cancelSend" id="cancelDel" value="取消" />&nbsp;
+	<div class="tipbtn"
+		style="margin-left: 80px; margin-top: 60px; width: 200px;">
+		<input name="" type="button" class="sureSend" id="sureDel" value="确定"
+			style="height: 25px; width: 50px; font-size: 10px; line-height: 20px;" />&nbsp;
+		<input name="" type="button" class="cancelSend" id="cancelDel"
+			value="取消"
+			style="height: 25px; width: 50px; font-size: 10px; line-height: 20px;" />&nbsp;
+	</div>
+</div>
+
+<!-- 补录模态框  -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel2"
+	style="height: 200px; width: 300px; margin-top: 230px;">
+	<div class="tiptop">
+		<span>提示信息</span><a></a>
+	</div>
+	<div class="tipinfo" style="padding-top: 0px; margin-left: 15px;">
+		<div class="tipright">
+			<p>该信息已补录！交易已完成！</p>
+		</div>
+	</div>
+	<div class="tipbtn"
+		style="margin-left: 80px; margin-top: 60px; width: 200px;">
+		<input name="" type="button" class="sureSend" id="sureDel2" value="确定"
+			style="height: 25px; width: 50px; font-size: 10px; line-height: 20px;" />&nbsp;
 	</div>
 </div>
