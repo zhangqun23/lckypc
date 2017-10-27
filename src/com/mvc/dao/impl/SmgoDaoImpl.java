@@ -36,7 +36,7 @@ public class SmgoDaoImpl implements SmgoDao{
 	public Integer countTotal(String smgoSego, String startDate, String endDate) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String countSql = " select count(smgo_id) from Small_goods where is_delete=0 ";
+		String countSql = " select count(smgo_id) from small_goods where is_delete=0 ";
 		if((startDate != null && endDate != null) && (smgoSego != null && !smgoSego.equals(""))){
 			countSql += " and smgo_sego = " + smgoSego + " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "' ) ";
 		}
@@ -56,7 +56,7 @@ public class SmgoDaoImpl implements SmgoDao{
 	public List<SmallGoods> findSmgoByPage(String smgoSego, String startDate, String endDate, int offset, int limit) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String selectSql = " select * from Small_goods where is_delete=0 ";
+		String selectSql = " select * from small_goods where is_delete=0 ";
 		if((startDate != null && endDate != null) && (smgoSego != null && !smgoSego.equals(""))){
 			selectSql += " and smgo_sego = " + smgoSego + " and (smgo_deal_time between '" + startDate + "' and '" + endDate + "')";
 		}
@@ -82,7 +82,7 @@ public class SmgoDaoImpl implements SmgoDao{
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		try {
-			String selectSql = "update Small_goods set is_delete =:is_delete where smgo_id =:smgo_id ";
+			String selectSql = "update small_goods set is_delete =:is_delete where smgo_id =:smgo_id ";
 			Query query = em.createNativeQuery(selectSql);
 			query.setParameter("smgo_id", smgo_id);
 			query.setParameter("is_delete", IsDelete.YES.value);
@@ -101,7 +101,7 @@ public class SmgoDaoImpl implements SmgoDao{
 	public boolean updateEdit(String edittime, float editprice, Integer smgoid) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String sql = "update Small_goods set edit_time =:edit_time,edit_price =:edit_price,is_finish =1  where smgo_id =:smgo_id";
+		String sql = "update small_goods set edit_time =:edit_time,edit_price =:edit_price,is_finish =1  where smgo_id =:smgo_id";
 		Query query = em.createNativeQuery(sql.toString());
 		query.setParameter("smgo_id", smgoid);
 		query.setParameter("edit_price", editprice);

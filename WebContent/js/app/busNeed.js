@@ -164,10 +164,15 @@ app
 
 							// 根据页数获取信息列表
 							function getBusNeedListByPage(page) {
+								var ButrState = bune.butrState;
+								if(JSON.stringify(bune.butrState) != null && JSON.stringify(bune.butrState) != ""){
+									ButrState = JSON.stringify(bune.butrState);
+								}
 								console.log("列表成功！");
 								services.getBusNeedListByPage({
 									page : page,
 									searchKey : searchKey,
+									butrState : ButrState
 								}).success(function(data) {
 									bune.busNeeds = data.list;
 
@@ -338,9 +343,11 @@ app
 								$("#busNeed").show();
 								if ($location.path().indexOf('/busNeedList') == 0) {
 									searchKey = null;
+									ButrState = null;
 									services.getBusNeedListByPage({
 										page : 1,
-										searchKey : searchKey
+										searchKey : searchKey,
+										butrState : ButrState
 									}).success(
 											function(data) {
 												bune.busNeeds = data.list;

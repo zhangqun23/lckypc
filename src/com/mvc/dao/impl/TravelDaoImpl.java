@@ -59,7 +59,7 @@ public  class TravelDaoImpl implements TravelDao {
 	@Override
 	public List<Travel> findTravelByPage(String searchKey, Integer offset, Integer end) {
 		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Travel where is_delete=0";
+		String selectSql = "select * from travel where is_delete=0";
 	// 判断查找关键字是否为空
 		if (null != searchKey) {
 			selectSql += " and ( travel_title like '%" + searchKey + "%' or travel_firm like '%" + searchKey + "%')";
@@ -96,7 +96,7 @@ public  class TravelDaoImpl implements TravelDao {
 	@SuppressWarnings("unchecked")
 	public Integer countTotal(String searchKey) {
 		EntityManager em = emf.createEntityManager();
-		String countSql = " select count(travel_id) from Travel tr where is_delete=0 ";
+		String countSql = " select count(travel_id) from travel tr where is_delete=0 ";
 		if (null != searchKey) {
 			countSql += "   and (travel_title like '%" + searchKey + "%' or travel_firm like '%" + searchKey + "%')";
 		}
