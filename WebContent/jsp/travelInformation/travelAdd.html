@@ -46,7 +46,7 @@
 				<!--  onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" --> 
 				
 			<li><label>联系电话</label><input type="text" id="travelInfo.travel_tel"
-				ng-model="travelInfo.travel_tel" class="dfinput" onchange="checkPhone(this)" required/></li>
+				ng-model="travelInfo.travel_tel" class="dfinput" onchange="checkTel(this)" required/></li>
 			<li><label>总票数<b>*</b></label><input type="text" id="travelInfo.travel_total_num"
 				ng-model="travelInfo.travel_total_num" class="dfinput" 
 				 onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" required/></li>
