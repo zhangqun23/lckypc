@@ -70,6 +70,7 @@ public  class TravelDaoImpl implements TravelDao {
 		query.setParameter("end", end);
 		List<Travel> list = query.getResultList();
 		em.close();
+		System.out.println(list);
 		return list;
 	}
 
@@ -79,7 +80,7 @@ public  class TravelDaoImpl implements TravelDao {
 		public List<Travel> findTravelByTitle(String traTitle, Integer offset, Integer end) {
 			EntityManager em = emf.createEntityManager();
 			StringBuilder sql = new StringBuilder();
-			sql.append("select * from travel tr where tr.is_delete=0");// 在建
+			sql.append("select * from travel tr where tr.is_delete=0");
 			if (null != traTitle) {
 				sql.append(" and tr.travel_title like '%" + traTitle + "%'");
 			}
@@ -112,7 +113,7 @@ public  class TravelDaoImpl implements TravelDao {
 			String selectSql = "select * from travel_trade";
 		// 判断查找关键字是否为空
 			if (null != searchKey) {
-				selectSql += " where ( trtr_tel like '%" + searchKey + "%' or travel_id like '%" + searchKey + "%')";
+				selectSql += " where ( trtr_tel like '%" + searchKey + "%' or trtr_num like '%" + searchKey + "%')";
 			}
 			selectSql += " order by trtr_id desc limit :offset, :end";
 			Query query = em.createNativeQuery(selectSql, TravelTrade.class);
@@ -122,6 +123,25 @@ public  class TravelDaoImpl implements TravelDao {
 			em.close();
 			return list;
 		}
+		// 根据travel_id筛选对应旅游交易信息列表
+				@SuppressWarnings("unchecked")
+				@Override
+				public List<TravelTrade> findTravelTradeByID(Integer travel_id, String searchKey,Integer offset, Integer end) {
+						EntityManager em = emf.createEntityManager();
+						String sql = "select * from travel_trade trtr where trtr.travel=:travel_id";
+						// 判断查找关键字是否为空
+						if (null != searchKey) {
+							sql += " where ( trtr_tel like '%" + searchKey + "%' or travel like '%" + searchKey + "%')";
+						}
+						sql += " order by trtr_id desc limit :offset, :end";
+						Query query = em.createNativeQuery(sql, TravelTrade.class);
+						query.setParameter("travel_id", travel_id);
+						query.setParameter("offset", offset);
+						query.setParameter("end", end);
+						List<TravelTrade> list = query.getResultList();
+						em.close();
+						return list;
+					}
 		// 修改旅游信息
 		@Override
 		public Boolean updateTravelById(Integer travel_id, Travel travel) {
@@ -141,12 +161,29 @@ public  class TravelDaoImpl implements TravelDao {
 			EntityManager em = emf.createEntityManager();
 			String countSql = " select count(trtr_id) from travel_trade";
 			if (null != searchKey) {
-				countSql += "   where (trtr_tel like '%" + searchKey + "%' or travel_id like '%" + searchKey + "%')";
+				countSql += "   where (trtr_tel like '%" + searchKey + "%' or travel like '%" + searchKey + "%')";
 			}
 			Query query = em.createNativeQuery(countSql);
 			List<Object> totalRow = query.getResultList();
 			em.close();
-			return Integer.parseInt(totalRow.get(0).toString());
+			int sum= Integer.parseInt(totalRow.get(0).toString());
+			return sum;
 		}
+	
+	//  查询对应旅游交易信息总条数
+			@SuppressWarnings("unchecked")
+			public List<Object> countTrTotalByID(Integer travel_id,String searchKey) {
+				EntityManager em = emf.createEntityManager();
+				String countSql = " select count(trtr_id),sum(trtr_mnum),sum(trtr_cnum),sum(trtr_price) from travel_trade trtr where travel =:travel_id";
+				if (null != searchKey) {
+					countSql += "   where (trtr_tel like '%" + searchKey + "%' )";
+				}
+				Query query = em.createNativeQuery(countSql);
+				query.setParameter("travel_id", travel_id);
+				
+				List<Object> list = query.getResultList();
+				em.close();
+				return list;
+			}
 	
 }

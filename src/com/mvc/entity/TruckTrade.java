@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="truck_trade")
-public class Truck_trade {
+public class TruckTrade {
 private Integer trtr_id;//货车交易id，主键
 private Float trtr_money;//交易金额
 private Date trtr_date;//交易时间
@@ -23,7 +23,7 @@ private String trtr_evaluate;//评价
 private Integer is_over;//0代表交易中，1代表交易结束
 private Integer is_evaluate;//0代表未评价，1代表已评价
 private Truck truck;//外键
-private Truck_need trne;//外键
+private TruckNeed trne;//外键
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -85,10 +85,10 @@ public void setTruck(Truck truck) {
 }
 @ManyToOne
 @JoinColumn(name="trne_id")
-public Truck_need getTrne() {
+public TruckNeed getTrne() {
 	return trne;
 }
-public void setTrne(Truck_need trne) {
+public void setTrne(TruckNeed trne) {
 	this.trne = trne;
 }
 }

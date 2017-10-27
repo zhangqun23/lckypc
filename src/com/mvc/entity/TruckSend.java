@@ -13,18 +13,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="truck_send")
-public class Truck_send {
+public class TruckSend {
 	private Integer trse_id;//主键
 	private Float trse_left_load;//剩余载重
 	private String trse_splace;//始发地（默认洛川）
 	private String trse_eplace;//目的地
 	private String trse_price;//价格
 	private Date trse_time;//出发时间
-	private Truck truck_id;//外键
+	private Date trse_insert_time; //录入时间
+	private Truck truck;//外键
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "trtr_id",unique = true, nullable = false, length = 11)
+	@Column(name = "trse_id",unique = true, nullable = false, length = 11)
 	public Integer getTrse_id() {
 		return trse_id;
 	}
@@ -71,14 +72,20 @@ public class Truck_send {
 	public void setTrse_time(Date trse_time) {
 		this.trse_time = trse_time;
 	}
-	
 	@ManyToOne
-	@JoinColumn(name="truck_id")
-	public Truck getTruck_id() {
-		return truck_id;
+	@JoinColumn(name ="trck_id")
+	public Truck getTruck() {
+		return truck;
 	}
-	public void setTruck_id(Truck truck_id) {
-		this.truck_id = truck_id;
+	public void setTruck(Truck truck) {
+		this.truck = truck;
+	}
+	
+	public Date getTrse_insert_time() {
+		return trse_insert_time;
+	}
+	public void setTrse_insert_time(Date trse_insert_time) {
+		this.trse_insert_time = trse_insert_time;
 	}
 	
 }

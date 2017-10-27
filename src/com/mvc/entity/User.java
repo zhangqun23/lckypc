@@ -1,7 +1,8 @@
 package com.mvc.entity;
-
-import java.io.Serializable;
-
+/*
+ * 用户表
+ * zq
+ * */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,15 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-/**
- * 用户表
- * 
- * @author wanghuimin
- * @date 2016年9月8日
- */
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name="user")
+public class User {
 
 	private static final long serialVersionUID = 1L;
 	private Integer user_id; // id

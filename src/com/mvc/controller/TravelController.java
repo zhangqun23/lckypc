@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,14 +23,6 @@ import com.mvc.entity.User;
 import com.mvc.service.TravelService;
 import com.mvc.service.UserService;
 import com.utils.Pager;
-
-
-
-
-
-
-
-
 
 import net.sf.json.JSONObject;
 
@@ -80,26 +73,6 @@ public class TravelController {
 	}
 
 	/**
-	 * 获取指定页面的十条旅游信息，总页数
-	 * 
-	 * @param request
-	 * @return
-	 */
-
-	/**
-	 * 获取旅游信息列表，无翻页功能
-	 * 
-	 * @param request
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping(value = "/getAllTravelList.do")
-	public @ResponseBody String getAllTravels(HttpServletRequest request, HttpSession session) {
-		List<Travel> result = travelService.findTravelAlls();
-		return JSON.toJSONString(result);
-	}
-
-	/**
 	 * 删除旅游信息
 	 * 
 	 * @param request
@@ -114,7 +87,7 @@ public class TravelController {
 	}
 
 	/**
-	 * 添加,修改旅游信息
+	 * 添加旅游信息
 	 * 
 	 * @param request
 	 * @param session
@@ -143,9 +116,11 @@ public class TravelController {
 			travel.setTravel_insurance(Float.parseFloat(jsonObject.getString("travel_insurance")));
 		}
 		if (jsonObject.containsKey("travel_discount")) {
+			
 //			DecimalFormat df = new DecimalFormat("#.00");
 //			String str = df.format(Float.parseFloat(jsonObject.getString("travel_discount")));
 //			travel.setTravel_discount(Float.parseFloat(str));
+			
 			travel.setTravel_discount(Float.parseFloat(jsonObject.getString("travel_discount")));
 		}
 		
@@ -158,8 +133,8 @@ public class TravelController {
 		if (jsonObject.containsKey("travel_days")) {
 			travel.setTravel_days(Float.parseFloat(jsonObject.getString("travel_days")));
 		}
-		if (jsonObject.containsKey("tel")) {
-			travel.setTel(jsonObject.getString("tel"));}
+		if (jsonObject.containsKey("travel_tel")) {
+			travel.setTravel_tel(jsonObject.getString("travel_tel"));}
 		if (jsonObject.containsKey("travel_total_num")) {
 			travel.setTravel_total_num(Integer.parseInt(jsonObject.getString("travel_total_num")));
 		}
@@ -168,7 +143,8 @@ public class TravelController {
 		}
 		if (jsonObject.containsKey("travel_firm")) {
 			travel.setTravel_firm(jsonObject.getString("travel_firm"));}
-		travel.setIs_delete(0);
+		travel.setIs_delete(false);
+		
 		boolean result;
 		if (jsonObject.containsKey("travel_id")) {
 			travel.setTravel_id(Integer.valueOf(jsonObject.getString("travel_id")));
@@ -223,7 +199,7 @@ public class TravelController {
 		return jsonObject.toString();
 	}
 	/**
-	 * 根据合同ID修改旅游信息
+	 * 根据ID修改旅游信息
 	 * 
 	 * @param request
 	 * @param session
@@ -231,7 +207,7 @@ public class TravelController {
 	 * @throws ParseException 
 	 */
 	@RequestMapping("/updateTravelById.do")
-	public @ResponseBody Integer updateConById(HttpServletRequest request, HttpSession session) throws ParseException {
+	public @ResponseBody Integer updateTravelById(HttpServletRequest request, HttpSession session) throws ParseException {
 		User user = (User) session.getAttribute(SessionKeyConstants.LOGIN);
 		JSONObject jsonObject = JSONObject.fromObject(request.getParameter("travel"));
 		Integer travel_id = null;
@@ -245,7 +221,23 @@ public class TravelController {
 			return 0;
 	}
 	/**
-	 * 根据页数筛选旅游信息列表
+	 * 根据ID获取旅游交易信息
+	 * 
+	 * @param request
+	 * @param session
+	 * @return Travel对象
+	 */
+	@RequestMapping("/selectTravelTradeById.do")
+	public @ResponseBody String selectTravelTradeById(HttpServletRequest request, HttpSession session) {
+		int trtr_id = Integer.parseInt(request.getParameter("trtr_id"));
+		session.setAttribute("trtr_id", trtr_id);
+		TravelTrade traveltrade = travelService.selectTravelTradeById(trtr_id);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("traveltrade", traveltrade);
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据页数筛选旅游交易信息列表
 	 * 
 	 * @param request
 	 * @param session
@@ -263,6 +255,38 @@ public class TravelController {
 		jsonObject.put("list", list);
 		jsonObject.put("totalPage", pager.getTotalPage());
 		System.out.println("totalPage:" + pager.getTotalPage());
+		System.out.println("totalRow");
+		return jsonObject.toString();
+	}
+	/**
+	 * 根据travel_id筛选对应旅游交易信息列表
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/getTravelTradeListByID.do")
+	public @ResponseBody String getTravelTradeByID(HttpServletRequest request, HttpSession session) {
+		int travel_id = Integer.parseInt(request.getParameter("travel_id"));
+		session.setAttribute("travel_id", travel_id);
+		JSONObject jsonObject = new JSONObject();
+		String searchKey = request.getParameter("searchKey");
+//		Integer totalRow = travelService.countTrTotalByID(travel_id,searchKey);
+		Map<String, Object> sumlist = travelService.countTrTotalByID(travel_id,searchKey);
+		if(sumlist.size() != 0){
+			jsonObject.put("sumlist", sumlist);
+		}else{
+			jsonObject.put("sumlist", null);
+		};
+		Integer totalRow = Integer.parseInt(String.valueOf(sumlist.get("countNum"))); ;
+		Pager pager = new Pager();
+		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		pager.setTotalRow(totalRow);
+		List<TravelTrade> list = travelService.findTravelTradeByID(travel_id,searchKey, pager.getOffset(), pager.getLimit());
+		jsonObject.put("list", list);
+		jsonObject.put("totalPage", pager.getTotalPage());
+		System.out.println("totalPage:" + pager.getTotalPage());
+		System.out.println("totalRow");
 		return jsonObject.toString();
 	}
 }

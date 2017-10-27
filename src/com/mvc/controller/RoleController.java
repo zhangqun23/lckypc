@@ -37,6 +37,7 @@ public class RoleController {
 	 */
 	@RequestMapping("/toUserManagePage.do")
 	public String userManagePage() {
+		
 		return "systemManagement/index";
 	}
 

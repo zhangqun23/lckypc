@@ -1,0 +1,128 @@
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>旅游管理</li>
+		<li>修改旅游信息</li>
+	</ul>
+</div>
+<!-- 旅游信息详情 -->
+<div class="formbody">
+	
+	<form>
+		<div class="formtitle">
+			<span>旅游信息详情</span>
+		</div>
+		<table class="tbl tablelist" id="travelInformation">
+			<tr>
+				<td colspan='2' class="width15 text-center">标题</td>
+				<td colspan='1'>{{travelInfo.travel_title}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">活动描述</td>
+				<td colspan='6'>{{travelInfo.travel_content |sgFilter}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">路线</td>
+				<td colspan='1'>{{travelInfo.travel_route}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">成人票价格(元)</td>
+				<td colspan='1'>{{travelInfo.travel_mprice}}</td>
+				<td colspan='2' class="width15 text-center">儿童票价格(元)</td>
+				<td colspan='1'>{{travelInfo.travel_cprice}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">保险费(元)</td>
+				<td colspan='1'>{{travelInfo.travel_insurance}}</td>
+				<td colspan='2' class="width15 text-center">折扣</td>
+				<td colspan='1'>{{travelInfo.travel_discount}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">出发日期</td>
+				<td colspan='1'>{{travelInfo.travel_stime}}</td>
+				<td colspan='2' class="width15 text-center">游玩天数</td>
+				<td colspan='1'>{{travelInfo.travel_days}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">出发地点</td>
+				<td colspan='1'>{{travelInfo.travel_location}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">总人数</td>
+				<td colspan='1'>{{travelInfo.travel_total_num}}</td>
+				<td colspan='2' class="width15 text-center">剩余人数</td>
+				<td colspan='1'>{{travelInfo.travel_left_num}}</td>
+			</tr>
+			<tr>
+				<td colspan='2' class="width15 text-center">旅游承办公司</td>
+				<td colspan='1'>{{travelInfo.travel_firm}}</td>
+				<td colspan='2' class="width15 text-center">联系方式</td>
+				<td colspan='1'>{{travelInfo.travel_tel}}</td>
+			</tr>
+		</table>
+		
+	</form>
+</div>
+<!-- 对应交易信息 -->
+<div class="formbody">
+	
+	<form>
+		<div class="formtitle">
+			<span>交易信息统计</span>
+		</div>
+		<table class="tbl tablelist" id="travelInformation">
+			<tr>
+				<td colspan='2' class="width15 text-center">订单总数</td>
+				<td colspan='1'>{{sum1.countNum}}</td>
+				<td colspan='2' class="width15 text-center">成人票总数</td>
+				<td colspan='1'>{{sum1.sumMNum}}</td>
+				<td colspan='2' class="width15 text-center">儿童票总数</td>
+				<td colspan='1'>{{sum1.sumCNum}}</td>
+				<td colspan='2' class="width15 text-center">交易总额</td>
+				<td colspan='1'>{{sum1.sumPrice/100}}</td>
+			</tr>
+			<tr>
+			</table>
+		
+	</form>
+</div>
+<div class="rightinfo">
+   
+	<div ng-app="" class="formtitle">
+
+			<span>交易信息</span>
+	</div>
+	
+	<table class="tablelist">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>交易时间</th>
+				<th>客户联系方式</th>
+				<th>购买的成人票数</th>
+				<th>购买的儿童票数</th>
+				<th>交易额(元)</th>
+				<th>付款状态</th>
+				<th>退款时间</th>
+				<th>退款金额</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="trtr in traveltrades" id={{trtr.trtr_id}}>
+				<td>{{$index + 1 }}</td>
+				<td>{{trtr.trade_time}}</td>
+				<td>{{trtr.trtr_tel}}</td>
+				<td>{{trtr.trtr_mnum}}</td>
+				<td>{{trtr.trtr_cnum}}</td>
+				<td>{{trtr.trtr_price/100}}</td>
+				<td>{{trtr.is_state |trState}}</td>
+				<td>{{trtr.refund_time}}</td>
+				<td>{{trtr.refund_fee/100}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div  class="tcdPageCode">页码容器</div>
+
+</div>
+

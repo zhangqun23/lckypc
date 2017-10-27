@@ -1,21 +1,16 @@
 package com.mvc.entity;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 @Entity
 @Table(name="truck_need")
-public class Truck_need {
+public class TruckNeed{
+
 private Integer trne_id;//货车需求id，主键
 private String trne_name;//联系人
 private String trne_tel;//联系电话
@@ -27,7 +22,8 @@ private Date trne_time;//需求时间
 private Integer trne_check;//0代表未审核，1代表已审核
 private String trne_remark;//备注
 private Integer is_freeze;//0代表未冰冻，1代表冰冻
-private User user;//外键
+private Date trne_insert_time;//录入时间
+private String open_id; //openid
 
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
@@ -87,14 +83,6 @@ public void setTrne_eplace(String trne_eplace) {
 	this.trne_eplace = trne_eplace;
 }
 
-@Temporal(TemporalType.TIMESTAMP)
-@Column(name = "trck_time")
-public Date trne_time() {
-	return trne_time;
-}
-public void setTrne_time(Date trne_time) {
-	this.trne_time = trne_time;
-}
 
 @Column(columnDefinition = "INT not null default 0")
 public Integer getTrne_check() {
@@ -119,13 +107,25 @@ public Integer getIs_freeze() {
 public void setIs_freeze(Integer is_freeze) {
 	this.is_freeze = is_freeze;
 }
+@Column(name = "open_id",length = 128)
+public String getOpen_id() {
+	return open_id;
+}
+public void setOpen_id(String open_id) {
+	this.open_id = open_id;
+}
+public Date getTrne_time() {
+	return trne_time;
+}
+public void setTrne_time(Date trne_time) {
+	this.trne_time = trne_time;
+}
+public Date getTrne_insert_time() {
+	return trne_insert_time;
+}
+public void setTrne_insert_time(Date trne_insert_time) {
+	this.trne_insert_time = trne_insert_time;
+}
 
-@ManyToOne
-@JoinColumn(name="user_id")
-public User getUser() {
-	return user;
-}
-public void setUser(User user) {
-	this.user = user;
-}
+
 }

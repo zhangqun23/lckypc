@@ -1,0 +1,98 @@
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>班车预定信息管理</li>
+		<li>班车预定信息列表</li>
+	</ul>
+</div>
+
+<div class="rightinfo">
+
+	<div ng-app="" class="tools">
+
+		<form class="toolbar">
+			
+		<!-- 根据补录状态筛选BusNeed信息 -->
+		      	请选择审核状态：
+			<select class="dfselect" ng-model="butrState"  
+			id="butrState" style="width: 167px">
+			   <option value="">全部</option>
+			   <option value="0">未补录</option>
+			   <option value="1">已补录</option>	
+			  
+            </select>
+            	检索：
+            <input name="" type="text" class="dfinput" id="buneTel"
+				ng-model="buneTel" placeholder="目的地或联系方式关键字" /> <input class="btn click"
+				type="submit" value="查询" ng-click="selectBusNeedByTel()">
+		</form>
+
+
+	</div>
+
+	<table class="tablelist">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>联系电话</th>
+				<th>乘车人数</th>
+				<th>用车时长（/天）</th>
+				<th>集合时间</th>
+				<th>集合地点</th>
+				<th>目的地</th>
+				<th>包车用途</th>
+				
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="bune in busNeeds" id={{bune.bune_id}}>
+				<td>{{$index + 1 }}</td>
+				<td>{{bune.bune_tel}}</td>
+				<td>{{bune.bune_num}}</td>
+				<td>{{bune.bune_time}}</td>
+				<td>{{bune.bune_gath_time.time | dateType}}</td>
+				<td>{{bune.bune_gath_pla}}</td>
+				<td>{{bune.bune_goal_pla}}</td>
+				<td>{{bune.bune_purp}}</td>
+				<td><a ng-click="checkBusNeed()" class="tablelink">查看</a>
+				<a href="#/busNeedUpdate" ng-click="saveBuneId(bune.bune_id)"class="tablelink" has-permission='bnEdit'> 补录信息</a>
+				<a href="#busNeedList" ng-click="deleteBusNeed(bune.bune_id)" has-permission='bnDel' class="tablelink"
+					> 删除</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div  class="tcdPageCode">页码容器</div>
+
+</div>
+<!-- 查看详情模态框 -->
+<div class="overlayer"></div>
+<div class="tip" id="tipCheck" style="height: 600px">
+	<div class="tiptop text_right">
+	<span>班车预订信息详情</span><a></a>
+		<!-- 这个a标签是模态框上的叉叉 -->
+	</div>
+	<div class="invorkInfo-div">
+		<fieldset>
+			
+			<ul class="forminfo">
+				<li><label>联系电话：</label>{{busNeed.bune_tel}}</li>
+				<li><label>乘车人数：</label>{{busNeed.bune_num}}</li>
+				<li><label>用车时长：</label>{{busNeed.bune_time}}</li>
+				<li><label>集合时间：</label>{{busNeed.bune_gath_time.time| dateType}}</li>
+				<li><label>集合地点：</label>{{busNeed.bune_gath_pla}}</li>
+				<li><label>目的地：</label>{{busNeed.bune_goal_pla}}</li>
+				<li><label>包车用途：</label>{{busNeed.bune_purp}}</li>			
+				<li><div class="remark-div">备注：{{busNeed.bune_remark}}</div></li>
+				<!-- <li><label>交易信息：</label></li> -->
+				<li><label>交易创建时间：</label>{{busNeed.butr_time.time| dateType}}</li>
+				<li><label>交易金额：</label>{{busNeed.butr_money}}</li>
+				<li><label>车牌号：</label>{{busNeed.bune_bus}}</li>
+			</ul>
+		</fieldset>
+	</div>
+</div> 
+<!-- 查看任务模态框完 -->
+
+

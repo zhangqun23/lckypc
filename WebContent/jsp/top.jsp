@@ -14,8 +14,8 @@
 <body style="background:url(${ctx}/images/topbg.gif) repeat-x;">
 	<header>
 		<div class="topleft">
-			<a href="/CIMS/login/toIndex.do" target="_parent"><img class="img-logo"
-				src="${ctx}/images/logo1.png" title="系统首页" /></a>
+			<a href="/lckypc/login/toIndex.do" target="_parent"><img
+				class="img-logo" src="${ctx}/images/logo1.png" title="系统首页" /></a>
 		</div>
 
 
@@ -24,23 +24,27 @@
 			<ul>
 				<%-- <li><span><img src="${ctx}/images/help.png" title="帮助"  class="helpimg"/></span><a href="#">帮助</a></li> --%>
 				<!-- <li><a href="#">关于</a></li> -->
-				<li><a href="/CIMS/login/logout.do">安全退出</a></li>
+				<li><a href="/lckypc/login/logout.do">安全退出</a></li>
 			</ul>
 
 			<div class="user">
 
 				<span id="userNum"></span> <i>消息</i><a
-					href="/CIMS/alarm/toAlarmPage.do#/debtAlarmList"><b
+					href="/lckypc/alarm/toAlarmPage.do#/debtAlarmList"><b
 					id="newsNum">0</b></a>
 			</div>
 
 		</div>
 		<div id="news">
 			<ul>
-				<li><a href="${ctx}/alarm/toAlarmPage.do#/debtAlarmList">收款相关：<b id="RnAlarmCnt"></b></a></li>
-				<li><a href="${ctx}/alarm/toAlarmPage.do#/overdueAlarmList">工程相关：<b id="PsAlarmCnt"></b></a></li>
-				<li><a href="${ctx}/alarm/toAlarmPage.do#/taskAlarmList">任务超时：<b id="TskAlarmCnt"></b></a></li>
-				<li><a href="${ctx}/task/toTaskPage.do#/receiveTask">新任务：<b id="taskCnt"></b></a></li>
+				<li><a href="${ctx}/alarm/toAlarmPage.do#/debtAlarmList">收款相关：<b
+						id="RnAlarmCnt"></b></a></li>
+				<li><a href="${ctx}/alarm/toAlarmPage.do#/overdueAlarmList">工程相关：<b
+						id="PsAlarmCnt"></b></a></li>
+				<li><a href="${ctx}/alarm/toAlarmPage.do#/taskAlarmList">任务超时：<b
+						id="TskAlarmCnt"></b></a></li>
+				<li><a href="${ctx}/task/toTaskPage.do#/receiveTask">新任务：<b
+						id="taskCnt"></b></a></li>
 			</ul>
 		</div>
 		<audio id="audio" class="hidden">
@@ -49,12 +53,13 @@
 		</audio>
 	</header>
 	<section class="containner">
-	<!-- 加载模态框 -->
-<div class="overlayer"></div>
-<div class="tipLoading" >
-	<img class="tipimage" src="../images/wait.gif"/><div class="tiptext" >正在加载，请稍后……</div>
-</div>
-<!-- 加载模态框 -->		
+		<!-- 加载模态框 -->
+		<div class="overlayer"></div>
+		<div class="tipLoading">
+			<img class="tipimage" src="../images/wait.gif" />
+			<div class="tiptext">正在加载，请稍后……</div>
+		</div>
+		<!-- 加载模态框 -->
 		<script type="text/javascript"
 			src="${ctx}/js/lib/jquery.json-2.2.min.js"></script>
 		<script type="text/javascript">
@@ -119,7 +124,7 @@
 				initData();
 				var msgCnt;
 				var title = document.title;
-				window.setInterval(showalert, 1000*60*5);
+				window.setInterval(showalert, 1000 * 60 * 5);
 				function showalert() {
 					var lastMsgCnt = sessionStorage.getItem("msgCnt");
 					$.getJSON("/CIMS/login/getInitData.do", {}, function(data) {

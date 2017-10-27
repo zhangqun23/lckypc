@@ -1,0 +1,92 @@
+<div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="/lckypc/login/toIndex.do">首页</a></li>
+		<li>小件管理</li>
+		<li>小件详情信息</li>
+	</ul>
+</div>
+<!-- 录入smgo信息 -->
+<div class="formbody">
+	
+	<form>
+		<div class="formtitle">
+			<span>小件信息</span>
+		</div>
+
+        <table class="tbl tablelist">
+          <tr>
+            <td colspan='2' class="width15 text-center">货物名称</td>
+			<td colspan='2'>{{smgoInfo.smgo_name}}</td>
+			<td colspan='2' class="width15 text-center">货物重量</td>
+			<td colspan='2'>{{smgoInfo.smgo_weight}}</td>
+          </tr>
+          <tr>
+            <td colspan='2' class="width15 text-center">始发地</td>
+			<td colspan='2'>{{smgoInfo.smgo_start}}</td>
+			<td colspan='2' class="width15 text-center">目的地</td>
+			<td colspan='2'>{{smgoInfo.smgo_end}}</td>
+          </tr>
+          <tr>
+            <td colspan='2' class="width15 text-center">发件人</td>
+			<td colspan='2'>{{smgoInfo.smgo_sender}}</td>
+			<td colspan='2' class="width15 text-center">发件人联系电话</td>
+			<td colspan='2'>{{smgoInfo.smgo_sender_tel}}</td>
+          </tr>
+          <tr>
+            <td colspan='2' class="width15 text-center">收件人</td>
+			<td colspan='2'>{{smgoInfo.smgo_receiver}}</td>
+			<td colspan='2' class="width15 text-center">收件人联系电话</td>
+			<td colspan='2'>{{smgoInfo.smgo_receiver_tel}}</td>
+          </tr>
+          <tr>
+            <td colspan='2' class="width15 text-center">交易金额</td>
+			<td colspan='2'>{{smgoInfo.amgo_money | number:1}}</td>
+			<td colspan='2' class="width15 text-center">交易时间</td>
+			<td colspan='2'>{{smgoInfo.smgo_deal_time.time|dateType}}</td>
+          </tr>
+          <tr> 
+            <td colspan='2' class="width15 text-center">发件日期</td>
+			<td colspan='2'>{{smgoInfo.smgo_send_time.time|dateType}}</td>
+			<td colspan='2' class="width15 text-center">送货方式</td>
+			<td colspan='2'>{{smgoInfo.smgo_sego|findSego}}</td> 
+          </tr>
+          <tr>  
+            <td colspan='1' class="width15 text-center">送货地址</td>
+			<td colspan='6'>{{smgoInfo.smgo_add}}</td>
+		 </tr>
+		 <tr>
+			<td colspan='1' class="width15 text-center">备注</td>
+			<td colspan='6'>{{smgoInfo.smgo_remark}}</td>  
+          </tr>  
+          <tr>
+            <td colspan='2' class="width15 text-center">发货日期</td>
+			<td colspan='2'><input type="text" name="edittime" required
+					ng-model="smgoInfoss.edit_time" class="dfselect dateLayoutStyle"
+					onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></td>
+			<td colspan='2' class="width15 text-center">金额</td>
+			<td colspan='2'><input type="text"
+				ng-model="smgoInfoss.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></td> 
+          </tr>  
+        </table>
+			<input ng-click="addEdit(smgoInfo.smgo_id)" type="submit" class="btn" value="提交" /></li>
+	</form>
+</div>
+
+<!-- 模态框  -->
+<div class="overlayer"></div>
+<div class="tip" id="tipDel" style="height: 200px;width:300px;margin-top:230px;">
+	<div class="tiptop">
+		<span>提示信息</span><a></a>
+	</div>
+	<div class="tipinfo" style="padding-top:0px;margin-left:15px";>
+		<div class="tipright">
+		<p>补录成功！！</p>
+		</div>
+	</div>
+	<div class="tipbtn" style="margin-top:60px;width:200px;">
+		<a href="#smgoList" type="button" class="sureSend" id="sureDel"
+		   style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;" >确定</a>&nbsp;
+		<!-- <input name="" type="button" class="sureSend" id="sureDel" value="确定" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;" />&nbsp; -->
+	</div>
+</div>

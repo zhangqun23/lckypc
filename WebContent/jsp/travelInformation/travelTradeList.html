@@ -13,7 +13,7 @@
 
 		<form class="toolbar">
 			<input name="" type="text" class="dfinput" id="trtrTel"
-				ng-model="trtrTel" placeholder="旅游信息ID或顾客联系方式关键字" /> <input class="btn click"
+				ng-model="trtrTel" placeholder="订单号或顾客联系方式关键字" /> <input class="btn click"
 				type="submit" value="查询" ng-click="selectTravelTradeByTel()">
 		</form>
 
@@ -22,31 +22,66 @@
 	<table class="tablelist">
 		<thead>
 			<tr>
-				<th>交易ID</th>
+				<th>旅游产品</th>
+				<th>订单号</th>
+				<th>交易时间</th>
 				<th>客户联系方式</th>
 				<th>购买的成人票数</th>
 				<th>购买的儿童票数</th>
-				<th>交易额</th>
-				<th>操作</th>
+				<th>交易额(元)</th>
+				<th>付款状态</th>
+			
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="trtr in traveltrades" id={{trtr.trtr_id}}>
-				<td>{{$index + 1 }}</td>
+				<td>{{trtr.travel.travel_title}}</td>
+				<td><a class="underline" ng-click="checkTravelTrade()" 
+				ng-click="getTravelTradeId(trtr.trtr_id)">{{trtr.trtr_num}}</a></td>
+				<td>{{trtr.trade_time}}</td>
 				<td>{{trtr.trtr_tel}}</td>
 				<td>{{trtr.trtr_mnum}}</td>
 				<td>{{trtr.trtr_cnum}}</td>
-				<td>{{trtr.trtr_price}}</td>
-				<td><a ng-click="editTrtrBtn(this)" class="tablelink"
-					has-permission='tTrtrEdit'> 修改</a><a href="#travelTradeList"
-					ng-click="deleteTravelTrade(trtr.trtr_id)" class="tablelink"
-					has-permission='tTrtrDel'> 删除</a></td>
+				<td>{{trtr.trtr_price/100}}</td>
+				<td>{{trtr.is_state |trState}}</td>
+				
 			</tr>
 		</tbody>
 	</table>
+	
 	<div  class="tcdPageCode">页码容器</div>
 
 </div>
 
+<!-- 查看详情模态框 -->
+<div class="overlayer"></div>
+<div class="tip" id="tipCheck" style="height: 550px">
+	<div class="tiptop text_right">
+		<span>旅游交易信息详情</span><a></a>
+		<!-- 这个a标签是模态框上的叉叉 -->
+	</div>
+	
+	<div class="invorkInfo-div">
+		<fieldset>
+			
+			<ul class="forminfo">
+				<li><label>旅游产品：</label>{{trtr.travel.travel_title}}</li>
+				<li><label>订单号：</label>{{trtr.trtr_num}}</li>
+				<li><label>客户联系方式：</label>{{trtr.trtr_tel}}
+				<li><label>购买成人票数量：</label>{{trtr.trtr_mnum}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label>购买儿童票数量：</label>{{trtr.trtr_cnum}}</li>
+				<li><label>折扣：</label>{{trtr.trade_discount |number:2}}</li>
+				<li><label>交易额：</label>{{trtr.trtr_price}}</li>
+				<li><label>交易时间：</label>{{trtr.trade_time}}</li>
+				<li><label>交易状态：</label>{{trtr.is_state |trState}}</li>
+				<li><label>退款金额：</label>{{trtr.refund_fee}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			
+					<label>退款时间：</label>{{trtr.refund_time}}</li>
+				
+			</ul>
+		</fieldset>
+	</div>
+	
+</div>
+<!-- 查看模态框完 -->
 
 
