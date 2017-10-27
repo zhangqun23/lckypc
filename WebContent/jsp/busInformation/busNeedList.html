@@ -12,7 +12,18 @@
 	<div ng-app="" class="tools">
 
 		<form class="toolbar">
-			<input name="" type="text" class="dfinput" id="buneTel"
+			
+		<!-- 根据补录状态筛选BusNeed信息 -->
+		      	请选择审核状态：
+			<select class="dfselect" ng-model="butrState"  
+			id="butrState" style="width: 167px">
+			   <option value="">全部</option>
+			   <option value="0">未补录</option>
+			   <option value="1">已补录</option>	
+			  
+            </select>
+            	检索：
+            <input name="" type="text" class="dfinput" id="buneTel"
 				ng-model="buneTel" placeholder="目的地或联系方式关键字" /> <input class="btn click"
 				type="submit" value="查询" ng-click="selectBusNeedByTel()">
 		</form>
@@ -38,8 +49,7 @@
 		<tbody>
 			<tr ng-repeat="bune in busNeeds" id={{bune.bune_id}}>
 				<td>{{$index + 1 }}</td>
-				<td><a class="underline" href="#busNeedUpdate" 
-				ng-click="getBuneId(bune.bune_id)">{{bune.bune_tel}}</a></td>
+				<td>{{bune.bune_tel}}</td>
 				<td>{{bune.bune_num}}</td>
 				<td>{{bune.bune_time}}</td>
 				<td>{{bune.bune_gath_time.time | dateType}}</td>
@@ -47,8 +57,8 @@
 				<td>{{bune.bune_goal_pla}}</td>
 				<td>{{bune.bune_purp}}</td>
 				<td><a ng-click="checkBusNeed()" class="tablelink">查看</a>
-				<a href="#/busNeedUpdate" ng-click="saveBuneId(bune.bune_id)"class="tablelink"> 补录信息</a>
-				<a href="#busNeedList" ng-click="deleteBusNeed(bune.bune_id)" class="tablelink"
+				<a href="#/busNeedUpdate" ng-click="saveBuneId(bune.bune_id)"class="tablelink" has-permission='bnEdit'> 补录信息</a>
+				<a href="#busNeedList" ng-click="deleteBusNeed(bune.bune_id)" has-permission='bnDel' class="tablelink"
 					> 删除</a></td>
 			</tr>
 		</tbody>
@@ -78,7 +88,7 @@
 				<!-- <li><label>交易信息：</label></li> -->
 				<li><label>交易创建时间：</label>{{busNeed.butr_time.time| dateType}}</li>
 				<li><label>交易金额：</label>{{busNeed.butr_money}}</li>
-				<li><label>车牌号：</label>{{busNeed.butr_bus}}</li>
+				<li><label>车牌号：</label>{{busNeed.bune_bus}}</li>
 			</ul>
 		</fieldset>
 	</div>

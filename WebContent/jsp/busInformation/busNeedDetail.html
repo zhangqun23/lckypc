@@ -49,32 +49,32 @@
 			<tr>
 			<td colspan='2' class="width15 text-center">交易创建时间</td>
 			<td colspan='6'><input type="text" name="busTradetime" required
-					ng-model="busNeed.butr_time" class="dfselect dateLayoutStyle"
+					ng-model="BusNeedPage.butr_time" class="dfselect dateLayoutStyle"
 					onFocus="WdatePicker(WdatePicker({minDate:'%y-%M-#{%d}',lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange="">
 			</td> 			
 			</tr>
 			<tr>
-				<td colspan='2' class="width15 text-center">押金</td>
+				<td colspan='2' class="width15 text-center">押金(元)</td>
 				<td colspan='2'><input type="text"
-					ng-model="busNeed.butr_depo" class="dfinput input_border" /></td>
-				<td colspan='2' class="text-center">交易金额</td>
+					ng-model="BusNeedPage.butr_depo" class="dfinput input_border" /></td>
+				<td colspan='2' class="text-center">交易金额(元)</td>
 				<td colspan='2'><input type="text"
-					ng-model="busNeed.butr_money" class="dfinput input_border" /></td>
+					ng-model="BusNeedPage.butr_money" class="dfinput input_border" /></td>
 			</tr>
 			<tr>
 			<td colspan='2' class="width15 text-center">车牌号</td>
 			<td colspan='2'><input type="text"
-					ng-model="busNeed.butr_bus" class="dfinput input_border"  placeholder="格式：陕J-90268" /></td></td>			
+					ng-model="BusNeedPage.bune_bus" class="dfinput input_border"  placeholder="格式：陕J-90268" /></td></td>			
 			
 			<td colspan='2' class="width15 text-center">交易类型<label
 					class="left_length5 text_style">*</label></td>
 				<td colspan='2'><div class="div-checkbox">
-						<input name="butr_type" type="radio" 
-							ng-model="busNeed.butr_type" value="1" />线下
+						<input name="bune_type" type="radio" 
+							ng-model="BusNeedPage.bune_type" value="1" />线下
 					</div>
 					<div class="div-checkbox">
 						<input name="butr_type" type="radio" 
-							ng-model="busNeed.butr_type" value="0" />线上
+							ng-model="BusNeedPage.butr_type" value="0" />线上
 					</div></td>
 			</tr>
 			<tr>
@@ -83,33 +83,32 @@
 					class="left_length5 text_style">*</label></td>
 				<td colspan='2'><div class="div-checkbox">
 						<input name="invoice_if" type="radio" 
-							ng-model="busNeed.invoice_if" value="1" />已开
+							ng-model="BusNeedPage.invoice_if" value="1" />已开
 					</div>
 					<div class="div-checkbox">
 						<input name="invoice_if" type="radio" 
-							ng-model="busNeed.invoice_if" value="0" />未开
+							ng-model="BusNeedPage.invoice_if" value="0" />未开
 					</div></td>			
 			<td colspan='2' class="width15 text-center">发票号</td>
 			<td colspan='2'><input type="text"
-					ng-model="busNeed.invoice_num" class="dfinput input_border" /></td>
+					ng-model="BusNeedPage.invoice_num" class="dfinput input_border" /></td>
 			</tr>
 			<tr>
 		
-			<td colspan='2' class="width15 text-center">交易状态<label
+			<!-- <td colspan='2' class="width15 text-center">交易状态<label
 					class="left_length5 text_style">*</label></td>
 				<td colspan='2'><div class="div-checkbox">
 						<input name="butr_state" type="radio" 
-							ng-model="busNeed.butr_state" value="1" />交易结束
+							ng-model="BusNeedPage.butr_state" value="1" />已交易
 					</div>
 					<div class="div-checkbox">
 						<input name="butr_state" type="radio" 
-							ng-model="busNeed.butr_state" value="0" />交易中
-					</div></td>		
+							ng-model="BusNeedPage.butr_state" value="0" />待交易
+					</div></td>		 -->
 			</tr>
 		</table>
-	 <input type="submit" id="repeatAddBusNeed" class="btn" value="测试提交" /> 
-	<!-- <input  type="text" name="state" ng-model="bid" /> -->
-	<!-- <input type="submit" id="addBusTrade" class="btn" value="确认提交"  /> -->
+	 <input type="submit" id="repeatAddBusNeed" class="btn" value="提交补录" /> 
+	
 	</form>
 </div>
 

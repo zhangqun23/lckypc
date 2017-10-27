@@ -101,7 +101,6 @@ public class LoginController {
 		}
 		return jsonObject;
 	}
-	
 
 	/**
 	 * 验证登陆之后写入Cookie和Session
@@ -186,66 +185,80 @@ public class LoginController {
 	 * @param session
 	 * @return
 	 */
-//	@RequestMapping(value = "/getInitData.do")
-//	public @ResponseBody String getInitData(HttpServletRequest request, HttpSession session) {
-//		JSONObject jsonObject = new JSONObject();
-//		User user = (User) session.getAttribute(SessionKeyConstants.LOGIN);
-//		if (user != null) {
-//			AlarmStatistic alarmStatistic = alarmStatisticService.findAlst(user.getUser_id());
-//			jsonObject.put("waitAuditBillTaskNum", alarmStatistic.getWait_audit_bill_task_num());// 待审核发票任务
-//			jsonObject.put("assistantTaskNum", alarmStatistic.getAssistant_task_num());// 文书任务
-//			jsonObject.put("managerControlTaskNum", alarmStatistic.getManager_control_task_num());// 执行管控任务
-//			jsonObject.put("billTaskNum", alarmStatistic.getBill_task_num());// 发票任务
-//			jsonObject.put("otherTaskNum", alarmStatistic.getOther_task_num());// 普通任务
-//			jsonObject.put("debtAlarmNum", alarmStatistic.getDebt_alarm_num());// 收款超时
-//			jsonObject.put("overdueAlarmNum", alarmStatistic.getOverdue_alarm_num());// 工程逾期
-//			jsonObject.put("taskAlarmNum", alarmStatistic.getTask_alarm_num());// 任务超时
-//			jsonObject.put("remoTaskNum", alarmStatistic.getRemo_task_num());// 待核对到款任务
-//			jsonObject.put("totalReceiveTaskNum", calTotalNum(alarmStatistic, user));// 当前用户接收的所有任务
-//		}
-//		return jsonObject.toString();
-//	}
-//
-//	/**
-//	 * 根据权限计算总任务数
-//	 * 
-//	 * @param alarmStatistic
-//	 * @param user
-//	 * @return
-//	 */
-//	private Integer calTotalNum(AlarmStatistic alarmStatistic, User user) {
-//		Integer wait_audit_bill_task_num = alarmStatistic.getWait_audit_bill_task_num();// 待审核发票任务
-//		Integer assistant_task_num = alarmStatistic.getAssistant_task_num();// 文书任务
-//		Integer manager_control_task_num = alarmStatistic.getManager_control_task_num();// 执行管控任务
-//		Integer bill_task_num = alarmStatistic.getBill_task_num();// 发票任务
-//		Integer other_task_num = alarmStatistic.getOther_task_num();// 普通任务
-//		Integer remo_task_num = alarmStatistic.getRemo_task_num();// 待核对到款任务
-//
-//		String result = "";
-//		String permission = user.getRole().getRole_permission();
-//		if (permission != null && !permission.equals("")) {
-//			result = numToPermissionStr(permission);
-//		}
-//
-//		Integer total_num = other_task_num;// 每个人都有普通任务
-//		if (result.contains("iAssiTask")) {
-//			total_num += assistant_task_num;
-//		}
-//		if (result.contains("iEditTask")) {
-//			total_num += manager_control_task_num;
-//		}
-//		if (result.contains("iAudiInvoTask")) {
-//			total_num += wait_audit_bill_task_num;
-//		}
-//		if (result.contains("iFiniInvoTask")) {
-//			total_num += bill_task_num;
-//		}
-//		if (result.contains("iFiniRemoTask")) {
-//			total_num += remo_task_num;
-//		}
-//
-//		return total_num;
-//	}
+	// @RequestMapping(value = "/getInitData.do")
+	// public @ResponseBody String getInitData(HttpServletRequest request,
+	// HttpSession session) {
+	// JSONObject jsonObject = new JSONObject();
+	// User user = (User) session.getAttribute(SessionKeyConstants.LOGIN);
+	// if (user != null) {
+	// AlarmStatistic alarmStatistic =
+	// alarmStatisticService.findAlst(user.getUser_id());
+	// jsonObject.put("waitAuditBillTaskNum",
+	// alarmStatistic.getWait_audit_bill_task_num());// 待审核发票任务
+	// jsonObject.put("assistantTaskNum",
+	// alarmStatistic.getAssistant_task_num());// 文书任务
+	// jsonObject.put("managerControlTaskNum",
+	// alarmStatistic.getManager_control_task_num());// 执行管控任务
+	// jsonObject.put("billTaskNum", alarmStatistic.getBill_task_num());// 发票任务
+	// jsonObject.put("otherTaskNum", alarmStatistic.getOther_task_num());//
+	// 普通任务
+	// jsonObject.put("debtAlarmNum", alarmStatistic.getDebt_alarm_num());//
+	// 收款超时
+	// jsonObject.put("overdueAlarmNum",
+	// alarmStatistic.getOverdue_alarm_num());// 工程逾期
+	// jsonObject.put("taskAlarmNum", alarmStatistic.getTask_alarm_num());//
+	// 任务超时
+	// jsonObject.put("remoTaskNum", alarmStatistic.getRemo_task_num());//
+	// 待核对到款任务
+	// jsonObject.put("totalReceiveTaskNum", calTotalNum(alarmStatistic,
+	// user));// 当前用户接收的所有任务
+	// }
+	// return jsonObject.toString();
+	// }
+	//
+	// /**
+	// * 根据权限计算总任务数
+	// *
+	// * @param alarmStatistic
+	// * @param user
+	// * @return
+	// */
+	// private Integer calTotalNum(AlarmStatistic alarmStatistic, User user) {
+	// Integer wait_audit_bill_task_num =
+	// alarmStatistic.getWait_audit_bill_task_num();// 待审核发票任务
+	// Integer assistant_task_num = alarmStatistic.getAssistant_task_num();//
+	// 文书任务
+	// Integer manager_control_task_num =
+	// alarmStatistic.getManager_control_task_num();// 执行管控任务
+	// Integer bill_task_num = alarmStatistic.getBill_task_num();// 发票任务
+	// Integer other_task_num = alarmStatistic.getOther_task_num();// 普通任务
+	// Integer remo_task_num = alarmStatistic.getRemo_task_num();// 待核对到款任务
+	//
+	// String result = "";
+	// String permission = user.getRole().getRole_permission();
+	// if (permission != null && !permission.equals("")) {
+	// result = numToPermissionStr(permission);
+	// }
+	//
+	// Integer total_num = other_task_num;// 每个人都有普通任务
+	// if (result.contains("iAssiTask")) {
+	// total_num += assistant_task_num;
+	// }
+	// if (result.contains("iEditTask")) {
+	// total_num += manager_control_task_num;
+	// }
+	// if (result.contains("iAudiInvoTask")) {
+	// total_num += wait_audit_bill_task_num;
+	// }
+	// if (result.contains("iFiniInvoTask")) {
+	// total_num += bill_task_num;
+	// }
+	// if (result.contains("iFiniRemoTask")) {
+	// total_num += remo_task_num;
+	// }
+	//
+	// return total_num;
+	// }
 
 	/**
 	 * 获取当前用户权限
@@ -300,12 +313,16 @@ public class LoginController {
 	public static String numToPermissionStr(String permissionNum) {
 		String result = "";
 		JSONObject jsonObject = JSONObject.fromObject(permissionNum);
-		if (jsonObject.containsKey("con_per"))
-			result = toPermissionStr(jsonObject.getString("con_per"), PermissionConstants.contract, result);
-		if (jsonObject.containsKey("task_per"))
-			result = toPermissionStr(jsonObject.getString("task_per"), PermissionConstants.task, result);
-		if (jsonObject.containsKey("bill_per"))
-			result = toPermissionStr(jsonObject.getString("bill_per"), PermissionConstants.bill, result);
+		if (jsonObject.containsKey("travel_per"))
+			result = toPermissionStr(jsonObject.getString("travel_per"), PermissionConstants.travel, result);
+		if (jsonObject.containsKey("busNeed_per"))
+			result = toPermissionStr(jsonObject.getString("busNeed_per"), PermissionConstants.busNeed, result);
+		if (jsonObject.containsKey("ad_per"))
+			result = toPermissionStr(jsonObject.getString("ad_per"), PermissionConstants.ad, result);
+		if (jsonObject.containsKey("smallGoods_per"))
+			result = toPermissionStr(jsonObject.getString("smallGoods_per"), PermissionConstants.smallGoods, result);
+		if (jsonObject.containsKey("truckLoad_per"))
+			result = toPermissionStr(jsonObject.getString("truckLoad_per"), PermissionConstants.truckLoad, result);
 		if (jsonObject.containsKey("system_per"))
 			result = toPermissionStr(jsonObject.getString("system_per"), PermissionConstants.system, result);
 		if (jsonObject.containsKey("index_per"))
@@ -321,14 +338,20 @@ public class LoginController {
 		for (int i = 0; i < strArr.length; i++) {
 			if (strArr[i].equals("1")) {
 				switch (type) {
-				case "contPer":
-					strb.append(" " + PermissionConstants.contPer[i]);
+				case "travelPer":
+					strb.append(" " + PermissionConstants.travelPer[i]);
 					break;
-				case "taskPer":
-					strb.append(" " + PermissionConstants.taskPer[i]);
+				case "busNeedPer":
+					strb.append(" " + PermissionConstants.busNeedPer[i]);
 					break;
-				case "billPer":
-					strb.append(" " + PermissionConstants.billPer[i]);
+				case "adPer":
+					strb.append(" " + PermissionConstants.adPer[i]);
+					break;
+				case "smallGoodsPer":
+					strb.append(" " + PermissionConstants.smallGoodsPer[i]);
+					break;
+				case "truckLoadPer":
+					strb.append(" " + PermissionConstants.truckLoadPer[i]);
 					break;
 				case "systemPer":
 					strb.append(" " + PermissionConstants.systemPer[i]);

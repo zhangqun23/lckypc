@@ -225,17 +225,19 @@ app
 								});
 							}
 							// 功能模块权限字段名根据页数
-							var perName = [ "con_per", "task_per", "bill_per",
-									"system_per", "index_per", "left_per" ];
+							var perName = [ "travel_per", "busNeed_per",
+									"ad_per", "smallGoods_per",
+									"truckLoad_per", "system_per", "index_per",
+									"left_per" ];
 							// 初始化权限数据容器
 							function initCheckBoxData() {
 								$("input:checkbox[name='selectAllChkBx']")
 										.attr("checked", false);
 
 								user.selected = {};
-								for (var i = 0; i < 6; i++) {
+								for (var i = 0; i < 8; i++) {
 									user.selected[perName[i]] = new Array();
-									for (var j = 0; j < 12; j++)
+									for (var j = 0; j < 8; j++)
 										user.selected[perName[i]][j] = 0;
 								}
 								console.log(user.selected);
@@ -283,6 +285,7 @@ app
 								user.addinguser = "";
 								$(".overlayer").fadeIn(200);
 								$(".tip").fadeIn(200);
+								/* $("#addUser-form").fadeIn(200); */
 								$("#addUser-form").slideDown(200);
 								$("#editUser-form").hide();
 								user.addinguser = {
@@ -476,6 +479,7 @@ app
 															.parseJSON(data.role.role_permission);
 													user.selected = $
 															.parseJSON(data.role.role_permission);
+
 												});
 								$(".overlayer").fadeIn(200);
 								$(".tip").fadeIn(200);
@@ -550,6 +554,8 @@ app
 														.stringify(user.addinguser);
 												var rolePermission = JSON
 														.stringify(user.selected);
+												console.log("权限"
+														+ rolePermission);
 												services
 														.addRole(
 																{
@@ -625,16 +631,16 @@ app
 							}
 
 							// 根据输入筛选用户
-//							user.selectUserByName = function() {
-//								searchKey = user.cName;
-//								services.getUserListByPage({
-//									page : 1,
-//									searchKey : searchKey
-//								}).success(function(data) {
-//									user.users = data.list;
-//									pageTurn(data.totalPage, 1, getUserListByPage)
-//								});
-//							};
+							// user.selectUserByName = function() {
+							// searchKey = user.cName;
+							// services.getUserListByPage({
+							// page : 1,
+							// searchKey : searchKey
+							// }).success(function(data) {
+							// user.users = data.list;
+							// pageTurn(data.totalPage, 1, getUserListByPage)
+							// });
+							// };
 							function findRoleFromCookie() {
 								var cookie = {};
 
@@ -676,10 +682,12 @@ app
 									services.getUserListByPage({
 										page : 1,
 										searchKey : searchKey
-									}).success(function(data) {
-										user.users = data.list;
-										pageTurn(data.totalPage, 1, getUserListByPage)
-									});
+									}).success(
+											function(data) {
+												user.users = data.list;
+												pageTurn(data.totalPage, 1,
+														getUserListByPage)
+											});
 								} else if ($location.path().indexOf('/userAdd') == 0) {
 									getAllDepartmentList();
 									getAllRoleList();
@@ -689,10 +697,12 @@ app
 									initCheckBoxData();
 									services.getRoleListByPage({
 										page : 1
-									}).success(function(data) {
-										user.roles = data.list;
-										pageTurn(data.totalPage, 1, getRoleListByPage)
-									});
+									}).success(
+											function(data) {
+												user.roles = data.list;
+												pageTurn(data.totalPage, 1,
+														getRoleListByPage)
+											});
 								}
 							}
 

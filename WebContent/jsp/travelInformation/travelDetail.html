@@ -80,7 +80,7 @@
 				<td colspan='2' class="width15 text-center">儿童票总数</td>
 				<td colspan='1'>{{sum1.sumCNum}}</td>
 				<td colspan='2' class="width15 text-center">交易总额</td>
-				<td colspan='1'>{{sum1.sumPrice}}</td>
+				<td colspan='1'>{{sum1.sumPrice/100}}</td>
 			</tr>
 			<tr>
 			</table>
@@ -98,21 +98,27 @@
 		<thead>
 			<tr>
 				<th>编号</th>
+				<th>交易时间</th>
 				<th>客户联系方式</th>
 				<th>购买的成人票数</th>
 				<th>购买的儿童票数</th>
-				<th>交易额</th>
-				
+				<th>交易额(元)</th>
+				<th>付款状态</th>
+				<th>退款时间</th>
+				<th>退款金额</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="trtr in traveltrades" id={{trtr.trtr_id}}>
 				<td>{{$index + 1 }}</td>
+				<td>{{trtr.trade_time}}</td>
 				<td>{{trtr.trtr_tel}}</td>
 				<td>{{trtr.trtr_mnum}}</td>
 				<td>{{trtr.trtr_cnum}}</td>
-				<td>{{trtr.trtr_price}}</td>
-				
+				<td>{{trtr.trtr_price/100}}</td>
+				<td>{{trtr.is_state |trState}}</td>
+				<td>{{trtr.refund_time}}</td>
+				<td>{{trtr.refund_fee/100}}</td>
 			</tr>
 		</tbody>
 	</table>

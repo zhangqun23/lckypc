@@ -29,7 +29,9 @@
 			<li><label>保险费<b>*</b></label><input type="text"
 				ng-model="travelInfo.travel_insurance" class="dfinput"  onkeyup="changeTwoNum(this)"  required/>(元)</li>
 			<li><label>折扣</label><input type="text"
-				ng-model="travelInfo.travel_discount" class="dfinput"  onkeyup="changeTwoNum(this)" required/>若无折扣则输入1；若打88折可输入0.88</li>
+				ng-model="travelInfo.travel_discount" class="dfinput"  onkeyup="changeTwoNum(this)" 
+					onchange="if(this.value.length>1){alert('请输入正确的折扣！');this.value='';}"
+				required/>若无折扣则输入1；若打88折可输入0.88</li>
 				<!-- onchange="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')"
 				 onkeyup="this.value=this.value.replace(^\d+(\.\d{2})?$,'')" 
 				onblur="this.value=this.value.replace(^\d+(\.\d{2})?$,'')" -->
@@ -40,20 +42,23 @@
 				ng-model="travelInfo.travel_location" class="dfinput" required/></li>
 			<li><label>游玩天数<b>*</b></label><input type="text"
 				ng-model="travelInfo.travel_days" class="dfinput" 
-				onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
-				required/></li>
-			<li><label>联系电话</label><input type="text"
+				 onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" required/></li>
+				<!--  onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" --> 
+				
+			<li><label>联系电话</label><input type="text" id="travelInfo.travel_tel"
 				ng-model="travelInfo.travel_tel" class="dfinput" onchange="checkPhone(this)" required/></li>
-			<li><label>总人数<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_total_num" class="dfinput" required/></li>
-			<li><label>剩余人数<b>*</b></label><input type="text"
-				ng-model="travelInfo.travel_left_num" class="dfinput" required/></li>
+			<li><label>总票数<b>*</b></label><input type="text" id="travelInfo.travel_total_num"
+				ng-model="travelInfo.travel_total_num" class="dfinput" 
+				 onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" required/></li>
+			<li><label>剩余票数<b>*</b></label><input type="text" id="travelInfo.travel_left_num"
+				ng-model="travelInfo.travel_left_num" class="dfinput" onchange="compare(this)" 
+				 onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" required/></li>
 			<li><label>旅游承办公司</label><input type="text"
 				ng-model="travelInfo.travel_firm" class="dfinput" required/></li>
 			
-			<li id="addTravel"><label>&nbsp;</label><input href="#travelList" type="submit"
+			<li id="addTravel" has-permission='tAdd'><label>&nbsp;</label><input href="#travelList" type="submit"
 				class="btn" value="新建旅游信息" /></li>
 			
 		</ul>
-	</form>
+	</form>  
 </div>
