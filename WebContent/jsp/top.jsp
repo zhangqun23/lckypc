@@ -92,7 +92,7 @@
 			}
 
 			function initData() {
-				$.getJSON("/CIMS/login/getInitData.do", {}, function(data) {
+				$.getJSON("/lckypc/login/getInitData.do", {}, function(data) {
 					$("#taskCnt").text(data.totalReceiveTaskNum);
 					$("#RnAlarmCnt").text(data.debtAlarmNum);
 					$("#PsAlarmCnt").text(data.overdueAlarmNum);
