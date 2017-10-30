@@ -287,7 +287,6 @@ app
 
 							// 补录信息
 							bune.repeatAddBusNeed = function() {
-								console.log("success!!");
 								var busFormData = JSON.stringify(bune.BusNeedPage);
 								
 								services.repeatAddBusNeed(
