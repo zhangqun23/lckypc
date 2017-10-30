@@ -237,25 +237,49 @@ app
 									pageTurn(data.totalPage, 1, getTravelListByPage)
 								});
 							};
-						
-							// 删除旅游信息
-							travel.deleteTravel = function(travel_id) {
-								console.log("成功！");
-								if (confirm("是否删除该旅游信息？") == true) {
+							// 删除旅游信息							
+							travel.deleteTravel = function(travel_id) {								
+								$(".overlayer").fadeIn(200);
+								$("#tipDelTra").fadeIn(200);								
+								$(".tiptop a").click(function() {
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
+								$("#sureDelTra").click(function(){
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									//进入后台
 									services.deleteTravel({
 										travelId : travel_id
 									}).success(function(data) {
-
-										travel.result = data;
-										if (data == "true") {
-											console.log("删除旅游信息成功！");
-										} else {
-											console.log("删除失败！");
-										}
 										initData();
 									});
-								}
+									});
+								$("#cancelDelTra").click(function(){
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
 							}
+							// 删除旅游信息
+//							travel.deleteTravel = function(travel_id) {
+//								console.log("成功！");
+//								if (confirm("是否删除该旅游信息？") == true) {
+//									services.deleteTravel({
+//										travelId : travel_id
+//									}).success(function(data) {
+//
+//										travel.result = data;
+//										if (data == "true") {
+//											console.log("删除旅游信息成功！");
+//										} else {
+//											console.log("删除失败！");
+//										}
+//										initData();
+//									});
+//								}
+//							}
 							// 读取旅游信息
 							travel.selectTravelById=function(travelId) {
 								console.log(travelId);

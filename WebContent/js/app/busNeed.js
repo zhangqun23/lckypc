@@ -176,25 +176,50 @@ app
 
 								});
 							}
-
-							// 删除信息
-							bune.deleteBusNeed = function(bune_id) {
-								console.log("成功！");
-								if (confirm("是否删除该条信息？") == true) {
+							
+							// 删除信息							
+							bune.deleteBusNeed = function(bune_id) {								
+								$(".overlayer").fadeIn(200);
+								$("#tipDelBune").fadeIn(200);								
+								$(".tiptop a").click(function() {
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
+								$("#sureDelBune").click(function(){
+									$("#tipDelBune").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									//进入后台
 									services.deleteBusNeed({
 										busNeedId : bune_id
 									}).success(function(data) {
-
-										bune.result = data;
-										if (data == "true") {
-											console.log("删除成功！");
-										} else {
-											console.log("删除失败！");
-										}
 										initData();
 									});
-								}
+									});
+								$("#cancelDelBune").click(function(){
+									$("#tipDelBune").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
 							}
+							// 删除信息
+//							bune.deleteBusNeed = function(bune_id) {
+//								console.log("成功！");
+//								if (confirm("是否删除该条信息？") == true) {
+//									services.deleteBusNeed({
+//										busNeedId : bune_id
+//									}).success(function(data) {
+//
+//										bune.result = data;
+//										if (data == "true") {
+//											console.log("删除成功！");
+//										} else {
+//											console.log("删除失败！");
+//										}
+//										initData();
+//									});
+//								}
+//							}
 							// 读取旅游信息
 							function selectBusNeedById() {
 								var bune_id = sessionStorage
