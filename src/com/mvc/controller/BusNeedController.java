@@ -61,7 +61,9 @@ public class BusNeedController {
 		Integer totalRow = busNeedService.countBuneTotal(butrState,searchKey);
 		Pager pager = new Pager();
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		if(totalRow != 0){
 		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
+		}
 		List<BusNeed> list = busNeedService.findBusNeedByPage(butrState,searchKey, pager.getOffset(), pager.getLimit());
 		jsonObject.put("list", list);
 		jsonObject.put("totalPage", pager.getTotalPage());

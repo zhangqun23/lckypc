@@ -23,15 +23,16 @@
 		<div class="xline"></div>
 		<br> <br>
 		<div class="welinfo">
-			<span><img src="${ctx}/images/dp.png" alt="提醒" /></span> <b>待处理的新任务</b>
+			<span><img src="${ctx}/images/dp.png" alt="提醒" /></span> <b>信息统计</b>
 		</div>
 
 		<ul class="infolist">
 			<li has-permission='iAudiInvoTask'><a
-				href="${ctx}/invoice/toBillMngInvoicePage.do#/invoiceTaskList"
-				class="">待审核发票任务：{{waitAuditBillTaskNum}}</a></li>
+				href="${ctx}/travel/toTravelPage.do#/travelList"
+				class="">已发布旅游信息条数：{{waitAuditBillTaskNum}}</a></li>
 			<li has-permission='iAssiTask'><a
-				href="${ctx}/task/toTaskPage.do#/receiveTask" class="">文书任务：{{assistantTaskNum}}</a></li>
+				href="${ctx}/busNeed/toBusNeedPage.do#/busNeedList" 
+				class="">未补录的班车预订信息条数：{{assistantTaskNum}}</a></li>
 			<li has-permission='iEditTask'><a
 				href="${ctx}/task/toTaskPage.do#/receiveTask" class="">补录合同任务：{{managerControlTaskNum}}</a></li>
 			<li has-permission='iFiniInvoTask'><a
