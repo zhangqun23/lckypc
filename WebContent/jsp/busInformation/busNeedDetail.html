@@ -56,15 +56,17 @@
 			<tr>
 				<td colspan='2' class="width15 text-center">押金(元)</td>
 				<td colspan='2'><input type="text"
-					ng-model="BusNeedPage.butr_depo" class="dfinput input_border" /></td>
+					ng-model="BusNeedPage.butr_depo" class="dfinput input_border"
+					onkeyup="changeTwoNum(this)"  required /></td>
 				<td colspan='2' class="text-center">交易金额(元)</td>
 				<td colspan='2'><input type="text"
-					ng-model="BusNeedPage.butr_money" class="dfinput input_border" /></td>
+					ng-model="BusNeedPage.butr_money" class="dfinput input_border"
+					onkeyup="changeTwoNum(this)"  required /></td>
 			</tr>
 			<tr>
 			<td colspan='2' class="width15 text-center">车牌号</td>
-			<td colspan='2'><input type="text"
-					ng-model="BusNeedPage.bune_bus" class="dfinput input_border"  placeholder="格式：陕J-90268" /></td></td>			
+			<td colspan='2'><input type="text" ng-model="BusNeedPage.bune_bus" id="BusNeedPage.bune_bus" class="dfinput input_border" 
+			 placeholder="格式：陕J90268" onchange="checkBusNumber(this)" required/></td></td>			
 			
 			<td colspan='2' class="width15 text-center">交易类型<label
 					class="left_length5 text_style">*</label></td>
