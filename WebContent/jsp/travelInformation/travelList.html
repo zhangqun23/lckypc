@@ -96,10 +96,34 @@
 				<li><label>总人数：</label>{{travel.travel_total_num}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<label>剩余人数：</label>{{travel.travel_left_num}}</li>
 				<li><label>旅游承办公司：</label>{{travel.travel_firm}}</li>
-				<li><div class="remark-div">活动描述：{{travel.travel_content}}</div></li>
+				<li><div class="remark-div">活动描述：{{travel.travel_content|sgFilter}}</div></li>
 			</ul>
 		</fieldset>
 	</div>
 	
 </div>
 <!-- 模态框完 -->
+
+<!-- 删除模态框 -->
+				<div class="overlayer"></div>
+				<div class="tip" id="tipDelTra"
+					style="height: 160px; width: 260px; margin-top: 230px; margin-left: -120px;">
+					<div class="tiptop">
+						<span>提示信息</span><a></a>
+					</div>
+					<div class="tipinfo" style="padding-top: 10px;">
+						<div class="tipright" style="padding-top: 0px; padding-left: 0px;">
+							<label class="text_style">确定删除该信息？ </label>
+							
+						</div>
+					</div>
+
+					<div class="tipbtn" style="margin-top: 40px; margin-left: 120px;">
+						<input name="" type="button" class="sure" id="sureDelTra" value="确定"
+							style="height: 25px; width: 50px; font-size: 10px; line-height: 0px;" />&nbsp;
+						<input name="" type="button" class="cancel" id="cancelDelTra"
+							value="取消"
+							style="height: 25px; width: 50px; font-size: 10px; line-height: 0px;" />&nbsp;
+					</div>
+				</div>
+				<!-- 模态框完  -->

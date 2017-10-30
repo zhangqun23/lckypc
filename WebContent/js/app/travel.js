@@ -237,25 +237,49 @@ app
 									pageTurn(data.totalPage, 1, getTravelListByPage)
 								});
 							};
-						
-							// 删除旅游信息
-							travel.deleteTravel = function(travel_id) {
-								console.log("成功！");
-								if (confirm("是否删除该旅游信息？") == true) {
+							// 删除旅游信息							
+							travel.deleteTravel = function(travel_id) {								
+								$(".overlayer").fadeIn(200);
+								$("#tipDelTra").fadeIn(200);								
+								$(".tiptop a").click(function() {
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
+								$("#sureDelTra").click(function(){
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									//进入后台
 									services.deleteTravel({
 										travelId : travel_id
 									}).success(function(data) {
-
-										travel.result = data;
-										if (data == "true") {
-											console.log("删除旅游信息成功！");
-										} else {
-											console.log("删除失败！");
-										}
 										initData();
 									});
-								}
+									});
+								$("#cancelDelTra").click(function(){
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
 							}
+							// 删除旅游信息
+//							travel.deleteTravel = function(travel_id) {
+//								console.log("成功！");
+//								if (confirm("是否删除该旅游信息？") == true) {
+//									services.deleteTravel({
+//										travelId : travel_id
+//									}).success(function(data) {
+//
+//										travel.result = data;
+//										if (data == "true") {
+//											console.log("删除旅游信息成功！");
+//										} else {
+//											console.log("删除失败！");
+//										}
+//										initData();
+//									});
+//								}
+//							}
 							// 读取旅游信息
 							travel.selectTravelById=function(travelId) {
 								console.log(travelId);
@@ -578,8 +602,8 @@ function changeTwoNum(obj){
 function checkTel(obj){
 	 var tel=document.getElementById("travelInfo.travel_tel").value;
 	 if(!((/^0\d{2,3}-?\d{7,8}$/.test(tel))||(/^1(3|4|5|7|8)\d{9}$/.test(tel)))){
-			alert("电话格式有误，请重填!");
-			obj.value='';
+		 alert("电话格式有误，请重填!");
+		 obj.value='';
 	}
 	}
 //手机号
@@ -590,7 +614,13 @@ function checkPhone(obj){
         obj.value='';
     } 
 } 
-
+function checkTest(obj){ 
+    var phone = document.getElementById('travelInfo.travel_tel').value;
+    if(!(/^0\d{2,3}-?\d{7,8}$/.test(phone))){ 
+        alert("固定电话号码有误，请重填");  
+        obj.value='';
+    } 
+} 
 //比较剩余票数和总票数
 function compare(obj){
 	  var tnum=document.getElementById("travelInfo.travel_total_num").value;

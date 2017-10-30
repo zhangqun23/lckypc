@@ -23,16 +23,14 @@
 		<div class="xline"></div>
 		<br> <br>
 		<div class="welinfo">
-			<span><img src="${ctx}/images/dp.png" alt="提醒" /></span> <b>待处理的新任务</b>
+			<span><img src="${ctx}/images/dp.png" alt="提醒" /></span> <b>信息统计</b>
 		</div>
 
 		<ul class="infolist">
 			<li has-permission='iAudiInvoTask'><a
-				href="/lckypc/busNeed/toBusNeedPage.do#/busNeedList"
-				class="">班车定制需求：{{alarmStatistic.busNeed_num}}</a></li>
+				href="/lckypc/busNeed/toBusNeedPage.do#/busNeedList" class="">班车定制需求：{{alarmStatistic.busNeed_num}}</a></li>
 			<li has-permission='iAudiInvoTask'><a
-				href="/lckypc/ad/toAdPage.do#/adList"
-				class="">广告审核：{{alarmStatistic.ad_num}}</a></li>
+				href="/lckypc/ad/toAdPage.do#/adList" class="">广告审核：{{alarmStatistic.ad_num}}</a></li>
 			<li has-permission='iAudiInvoTask'><a
 				href="${ctx}/invoice/toBillMngInvoicePage.do#/invoiceTaskList"
 				class="">货车审核：{{alarmStatistic.truck_num}}</a></li>

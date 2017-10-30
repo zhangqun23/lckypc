@@ -147,6 +147,7 @@ app
 							var bune = $scope;
 							var butr = $scope;
 							var searchKey = null;
+							bune.butrState = "0";
 							// 换页
 							function pageTurn(totalPage, page, Func) {
 
@@ -168,30 +169,57 @@ app
 								services.getBusNeedListByPage({
 									page : page,
 									searchKey : searchKey,
+									butrState : ButrState
+
 								}).success(function(data) {
 									bune.busNeeds = data.list;
 
 								});
 							}
-
-							// 删除信息
-							bune.deleteBusNeed = function(bune_id) {
-								console.log("成功！");
-								if (confirm("是否删除该条信息？") == true) {
+							
+							// 删除信息							
+							bune.deleteBusNeed = function(bune_id) {								
+								$(".overlayer").fadeIn(200);
+								$("#tipDelBune").fadeIn(200);								
+								$(".tiptop a").click(function() {
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
+								$("#sureDelBune").click(function(){
+									$("#tipDelBune").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									//进入后台
 									services.deleteBusNeed({
 										busNeedId : bune_id
 									}).success(function(data) {
-
-										bune.result = data;
-										if (data == "true") {
-											console.log("删除成功！");
-										} else {
-											console.log("删除失败！");
-										}
 										initData();
 									});
-								}
+									});
+								$("#cancelDelBune").click(function(){
+									$("#tipDelBune").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
 							}
+							// 删除信息
+//							bune.deleteBusNeed = function(bune_id) {
+//								console.log("成功！");
+//								if (confirm("是否删除该条信息？") == true) {
+//									services.deleteBusNeed({
+//										busNeedId : bune_id
+//									}).success(function(data) {
+//
+//										bune.result = data;
+//										if (data == "true") {
+//											console.log("删除成功！");
+//										} else {
+//											console.log("删除失败！");
+//										}
+//										initData();
+//									});
+//								}
+//							}
 							// 读取旅游信息
 							function selectBusNeedById() {
 								var bune_id = sessionStorage
@@ -284,7 +312,6 @@ app
 
 							// 补录信息
 							bune.repeatAddBusNeed = function() {
-								console.log("success!!");
 								var busFormData = JSON.stringify(bune.BusNeedPage);
 								
 								services.repeatAddBusNeed(
@@ -338,9 +365,11 @@ app
 								$("#busNeed").show();
 								if ($location.path().indexOf('/busNeedList') == 0) {
 									searchKey = null;
+									ButrState = "0";
 									services.getBusNeedListByPage({
 										page : 1,
-										searchKey : searchKey
+										searchKey : searchKey,
+										butrState : ButrState
 									}).success(
 											function(data) {
 												bune.busNeeds = data.list;
@@ -400,29 +429,43 @@ app.filter('cutString', function() {
 	}
 });
 
-// 鼠标放置显示详情
-app.filter('onmouse', function() {
-
-	$('table').find('td').mouseover(function() {
-		var content = $(this).text(); // 获取到内容
-	});
+//没有输入详情显示为空 
+app.filter('sgFilter',function() { 
+	return function(input){ 
+		if(input == "" || input == null){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
 });
-//
-// 只允许输入两位小数的正则判断
-function changeTwoNum(value) {
-	// 清除"数字"和"."以外的字符
-	value = value.replace(/[^\d.]/g, "");
 
-	// 验证第一个字符是数字而不是
-	value = value.replace(/^\./g, "");
-
-	// 只保留第一个. 清除多余的
-	value = value.replace(/\.{2,}/g, ".");
-	value = value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-
-	// 只能输入两个小数
-	value = value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+//只允许输入两位小数的正则判断
+function changeTwoNum(obj){
+	//清除"数字"和"."以外的字符
+	  obj.value = obj.value.replace(/[^\d.]/g,"");
+	  
+    //验证第一个字符是数字而不是.
+	  obj.value = obj.value.replace(/^\./g,"");
+	 
+	//只保留第一个. 清除多余的
+	  obj.value = obj.value.replace(/\.{2,}/g,".");
+	  obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+	 
+	//只能输入两个小数 
+	  obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
 }
+//车牌号
+function checkBusNumber(obj){ 
+    var num = document.getElementById('BusNeedPage.bune_bus').value;
+    if(!(/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/.test(num))){ 
+        alert("车牌号码有误，请重填!");  
+        obj.value='';
+    } 
+} 
+
 // 小数过滤器
 app.filter('cutFloat', function() {
 	return function(input) {
