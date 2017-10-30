@@ -28,34 +28,18 @@
 
 		<ul class="infolist">
 			<li has-permission='iAudiInvoTask'><a
-				href="${ctx}/travel/toTravelPage.do#/travelList"
-				class="">已发布旅游信息条数：{{waitAuditBillTaskNum}}</a></li>
-			<li has-permission='iAssiTask'><a
-				href="${ctx}/busNeed/toBusNeedPage.do#/busNeedList" 
-				class="">未补录的班车预订信息条数：{{assistantTaskNum}}</a></li>
-			<li has-permission='iEditTask'><a
-				href="${ctx}/task/toTaskPage.do#/receiveTask" class="">补录合同任务：{{managerControlTaskNum}}</a></li>
-			<li has-permission='iFiniInvoTask'><a
+				href="/lckypc/busNeed/toBusNeedPage.do#/busNeedList" class="">班车定制需求：{{alarmStatistic.busNeed_num}}</a></li>
+			<li has-permission='iAudiInvoTask'><a
+				href="/lckypc/ad/toAdPage.do#/adList" class="">广告审核：{{alarmStatistic.ad_num}}</a></li>
+			<li has-permission='iAudiInvoTask'><a
 				href="${ctx}/invoice/toBillMngInvoicePage.do#/invoiceTaskList"
-				class="">发票任务： {{billTaskNum}}</a></li>
-			<li has-permission="iFiniRemoTask"><a 
-				href="${ctx}/receiveMoney/toBillMngInvoicePage.do#/receiveMoneyTaskList"
-				class="">核对到款任务： {{remoTaskNum}}</a></li>
-			<li><a href="${ctx}/task/toTaskPage.do#/receiveTask" class="">普通任务：{{otherTaskNum}}</a></li>
+				class="">货车审核：{{alarmStatistic.truck_num}}</a></li>
+			<li has-permission='iAudiInvoTask'><a
+				href="${ctx}/invoice/toBillMngInvoicePage.do#/invoiceTaskList"
+				class="">小件快运：{{alarmStatistic.smallGoods_num}}</a></li>
 		</ul>
 
-		<div class="welinfo">
-			<span><img src="${ctx}/images/dp.png" alt="提醒" /></span> <b>报警信息</b>
-		</div>
 
-		<ul class="infolist">
-			<li has-permission='iDebtAlarm'><a
-				href="${ctx}/alarm/toAlarmPage.do#/debtAlarmList" class="">收款相关：{{debtAlarmNum}}</a></li>
-			<li has-permission='iOverdueAlarm'><a
-				href="${ctx}/alarm/toAlarmPage.do#/overdueAlarmList" class="">工期相关：{{overdueAlarmNum}}</a></li>
-			<li><a href="${ctx}/alarm/toAlarmPage.do#/taskAlarmList"
-				class="">任务超时：{{taskAlarmNum}}</a></li>
-		</ul>
 	</div>
 </section>
 <jsp:include page="/jsp/left.jsp" />

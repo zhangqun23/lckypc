@@ -23,7 +23,7 @@ private Float trck_load;//货车载重，以吨为单位
 private Integer is_freeze;//0代表未冷冻，1代表冷冻
 private Integer trck_num;//交易次数
 private String trck_score;//评分
-private Integer trck_check;//0代表未通过审核，1代表已通过审核
+private Integer trck_check;//0代表未审核，1代表已通过审核，2表示审核未通过
 private Driver driver;//外键
 private String open_id; //openid
 private String trck_number;//车牌号
