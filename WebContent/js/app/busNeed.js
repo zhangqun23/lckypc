@@ -181,27 +181,28 @@ app
 							bune.deleteBusNeed = function(bune_id) {								
 								$(".overlayer").fadeIn(200);
 								$("#tipDelBune").fadeIn(200);								
-								$(".tiptop a").click(function() {
-									$("#tipDelTra").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									});
-								
-								$("#sureDelBune").click(function(){
-									$("#tipDelBune").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									//进入后台
-									services.deleteBusNeed({
-										busNeedId : bune_id
-									}).success(function(data) {
-										initData();
-									});
-									});
-								$("#cancelDelBune").click(function(){
-									$("#tipDelBune").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									});
-								
+								sessionStorage.setItem("buneId",bune_id);
 							}
+							$(".tiptop a").click(function() {
+								$("#tipDelTra").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								});
+							
+							$("#sureDelBune").click(function(){
+								$("#tipDelBune").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								//进入后台
+								var bune_id=sessionStorage.getItem("buneId");
+								services.deleteBusNeed({
+									busNeedId : bune_id
+								}).success(function(data) {
+									initData();
+								});
+								});
+							$("#cancelDelBune").click(function(){
+								$("#tipDelBune").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								});
 							// 删除信息
 //							bune.deleteBusNeed = function(bune_id) {
 //								console.log("成功！");

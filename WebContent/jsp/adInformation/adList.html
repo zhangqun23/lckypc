@@ -13,17 +13,17 @@
 			请选择审核状态： <select class="dfselect" ng-model="ADSLimit.ad_state"
 				ng-change="getAdListByST()" id="ad_state" style="width: 167px">
 				<option value="">全部</option>
-				<option value="0">未审核</option>
+				<option value="0">待审核</option>
 				<option value="1">审核通过</option>
-				<option value="2">驳回</option>
+				<option value="2">审核未通过</option>
 			</select>
 			<!-- 根据ad类型筛选ad信息 0招工，1旅游、2其他 -->
 			请选择广告类型： <select class="dfselect" ng-model="ADTLimit.ad_type"
 				ng-change="getAdListByST()" id="ad_type" style="width: 167px">
 				<option value="">全部</option>
-				<option value="0">招工</option>
-				<option value="1">旅游</option>
-				<option value="2">其他</option>
+				<option value="0">旅游</option>
+				<option value="1">招工</option>
+				<option value="2">其他</option>0
 			</select>
 		</form>
 	</div>
@@ -81,7 +81,7 @@
 			value="审核通过"
 			style="height: 25px; width: 70px; font-size: 10px; line-height: 20px;" />&nbsp;
 		<input name="" type="button" class="sureSend" id="sureDel12"
-			value="驳回"
+			value="审核未通过"
 			style="height: 25px; width: 70px; font-size: 10px; line-height: 20px;" />&nbsp;
 	</div>
 </div>
@@ -125,7 +125,7 @@
 </div>
 <!-- 详情模态框4 -->
 <div class="overlayer"></div>
-<div class="tip" id="tipDel4" style="height: 600px">
+<div class="tip" id="tipDel4" style="height: 420px;">
 	<div class="tiptop text_right">
 		<span>广告信息</span><a></a>
 	</div>
@@ -145,7 +145,7 @@
 		</fieldset>
 	</div>
 	<div class="tipbtn"
-		style="margin-left: 80px; margin-top: 60px; width: 200px;">
+		style="margin-left: 80px; margin-top: 30px; width: 200px;">
 		<input name="" type="button" class="sureSend" id="sureDel4" value="确定"
 			style="height: 25px; width: 50px; font-size: 10px; line-height: 20px;" />&nbsp;
 	</div>
