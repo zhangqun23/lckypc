@@ -1,7 +1,7 @@
 <div class="place">
 	<span>位置：</span>
 	<ul class="placeul">
-		<li><a href="/CIMS/login/toIndex.do">首页</a></li>
+		<li><a href="/lckywx/login/toIndex.do">首页</a></li>
 		<li>用户管理</li>
 		<li>角色列表</li>
 	</ul>
@@ -156,19 +156,24 @@
 								ng-click="updateSelection($event,'system_per',5)"
 								type="checkbox" />修改&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						</tr>
-
 						<tr>
 							<td>首页显示
 							<td>
 							<td><input class="index_per" name="0"
 								ng-checked="isSelected('index_per',0)"
-								ng-click="updateSelection($event,'index_per',0)" type="checkbox" />文书任务&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+								ng-click="updateSelection($event,'index_per',0)" type="checkbox" />显示当天旅游交易数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
 								class="index_per" name="1"
 								ng-checked="isSelected('index_per',1)"
-								ng-click="updateSelection($event,'index_per',1)" type="checkbox" />补录合同&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+								ng-click="updateSelection($event,'index_per',1)" type="checkbox" />班车定制新消息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
 								class="index_per" name="2"
 								ng-checked="isSelected('index_per',2)"
-								ng-click="updateSelection($event,'index_per',2)" type="checkbox" />审核发票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								ng-click="updateSelection($event,'index_per',2)" type="checkbox" />广告审核&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+								class="index_per" name="3"
+								ng-checked="isSelected('index_per',3)"
+								ng-click="updateSelection($event,'index_per',3)" type="checkbox" />货车审核&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+								class="index_per" name="4"
+								ng-checked="isSelected('index_per',4)"
+								ng-click="updateSelection($event,'index_per',4)" type="checkbox" />小件快运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						</tr>
 						<tr>
 							<td>左侧栏
@@ -300,13 +305,19 @@
 							<td>
 							<td><input class="index_per" name="0"
 								ng-checked="isSelected('index_per',0)"
-								ng-click="updateSelection($event,'index_per',0)" type="checkbox" />文书任务&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+								ng-click="updateSelection($event,'index_per',0)" type="checkbox" />显示当天旅游交易数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
 								class="index_per" name="1"
 								ng-checked="isSelected('index_per',1)"
-								ng-click="updateSelection($event,'index_per',1)" type="checkbox" />补录合同&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+								ng-click="updateSelection($event,'index_per',1)" type="checkbox" />班车定制新消息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
 								class="index_per" name="2"
 								ng-checked="isSelected('index_per',2)"
-								ng-click="updateSelection($event,'index_per',2)" type="checkbox" />审核发票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+								ng-click="updateSelection($event,'index_per',2)" type="checkbox" />广告审核&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+								class="index_per" name="3"
+								ng-checked="isSelected('index_per',3)"
+								ng-click="updateSelection($event,'index_per',3)" type="checkbox" />货车审核&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+								class="index_per" name="4"
+								ng-checked="isSelected('index_per',4)"
+								ng-click="updateSelection($event,'index_per',4)" type="checkbox" />小件快运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						</tr>
 						<tr>
 							<td>左侧栏

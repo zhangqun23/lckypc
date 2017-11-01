@@ -27,20 +27,19 @@
 		</div>
 
 		<ul class="infolist">
-				<li has-permission='iAudiInvoTask'><a
-				href="/lckypc/travel/toTravelTradePage.do#/travelTradeList"
-				class="">当天旅游交易数：{{alarmStatistic.travel_num}}</a></li>
-			<li has-permission='iAudiInvoTask'><a
+			<li has-permission='travel_num'><a
+				href="/lckypc/travel/toTravelTradePage.do#/travelTradeList" class="">当天旅游交易数：{{alarmStatistic.travel_num}}</a></li>
+			<li has-permission='busNeed_num'><a
 				href="/lckypc/busNeed/toBusNeedPage.do#/busNeedList" class="">班车定制需求：{{alarmStatistic.busNeed_num}}</a></li>
-			<li has-permission='iAudiInvoTask'><a
+			<li has-permission='ad_num'><a
 				href="/lckypc/ad/toAdPage.do#/adList" class="">广告审核：{{alarmStatistic.ad_num}}</a></li>
-			<li has-permission='iAudiInvoTask'><a
-				href="${ctx}/invoice/toBillMngInvoicePage.do#/invoiceTaskList"
+			<li has-permission='truck_num'><a
+				href="/lckypc/truckLoad/toTruckLoadPage.do#/truckList"
 				class="">货车审核：{{alarmStatistic.truck_num}}</a></li>
-			<li has-permission='iAudiInvoTask'><a
-				href="${ctx}/invoice/toBillMngInvoicePage.do#/invoiceTaskList"
+			<li has-permission='smallGoods_num'><a
+				href="/lckypc/smgo/toSmgoPage.do#/smgoList"
 				class="">小件快运：{{alarmStatistic.smallGoods_num}}</a></li>
-				
+
 		</ul>
 
 
