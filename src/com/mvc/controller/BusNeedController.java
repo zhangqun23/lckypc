@@ -52,13 +52,19 @@ public class BusNeedController {
 	 */
 	@RequestMapping("/getBusNeedListByPage.do")
 	public @ResponseBody String getBusNeedsByPrarm(HttpServletRequest request, HttpSession session) {
+		String butrState = null;
 		JSONObject jsonObject = new JSONObject();
 		String searchKey = request.getParameter("searchKey");
-		Integer totalRow = busNeedService.countBuneTotal(searchKey);
+		if(request.getParameter("butrState") != null){
+			butrState = request.getParameter("butrState");
+		}
+		Integer totalRow = busNeedService.countBuneTotal(butrState,searchKey);
 		Pager pager = new Pager();
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
+		if(totalRow != 0){
 		pager.setTotalRow(Integer.parseInt(totalRow.toString()));
-		List<BusNeed> list = busNeedService.findBusNeedByPage(searchKey, pager.getOffset(), pager.getLimit());
+		}
+		List<BusNeed> list = busNeedService.findBusNeedByPage(butrState,searchKey, pager.getOffset(), pager.getLimit());
 		jsonObject.put("list", list);
 		jsonObject.put("totalPage", pager.getTotalPage());
 		System.out.println("totalPage:" + pager.getTotalPage());

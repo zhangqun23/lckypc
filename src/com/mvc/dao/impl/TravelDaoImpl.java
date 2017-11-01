@@ -59,7 +59,7 @@ public  class TravelDaoImpl implements TravelDao {
 	@Override
 	public List<Travel> findTravelByPage(String searchKey, Integer offset, Integer end) {
 		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from Travel where is_delete=0";
+		String selectSql = "select * from travel where is_delete=0";
 	// 判断查找关键字是否为空
 		if (null != searchKey) {
 			selectSql += " and ( travel_title like '%" + searchKey + "%' or travel_firm like '%" + searchKey + "%')";
@@ -96,7 +96,7 @@ public  class TravelDaoImpl implements TravelDao {
 	@SuppressWarnings("unchecked")
 	public Integer countTotal(String searchKey) {
 		EntityManager em = emf.createEntityManager();
-		String countSql = " select count(travel_id) from Travel tr where is_delete=0 ";
+		String countSql = " select count(travel_id) from travel tr where is_delete=0 ";
 		if (null != searchKey) {
 			countSql += "   and (travel_title like '%" + searchKey + "%' or travel_firm like '%" + searchKey + "%')";
 		}
@@ -113,7 +113,7 @@ public  class TravelDaoImpl implements TravelDao {
 			String selectSql = "select * from travel_trade";
 		// 判断查找关键字是否为空
 			if (null != searchKey) {
-				selectSql += " where ( trtr_tel like '%" + searchKey + "%' or trave_id like '%" + searchKey + "%')";
+				selectSql += " where ( trtr_tel like '%" + searchKey + "%' or trtr_num like '%" + searchKey + "%')";
 			}
 			selectSql += " order by trtr_id desc limit :offset, :end";
 			Query query = em.createNativeQuery(selectSql, TravelTrade.class);
@@ -128,10 +128,10 @@ public  class TravelDaoImpl implements TravelDao {
 				@Override
 				public List<TravelTrade> findTravelTradeByID(Integer travel_id, String searchKey,Integer offset, Integer end) {
 						EntityManager em = emf.createEntityManager();
-						String sql = "select * from travel_trade trtr where trtr.travel_id=:travel_id";
+						String sql = "select * from travel_trade trtr where trtr.travel=:travel_id";
 						// 判断查找关键字是否为空
 						if (null != searchKey) {
-							sql += " where ( trtr_tel like '%" + searchKey + "%' or travel_id like '%" + searchKey + "%')";
+							sql += " where ( trtr_tel like '%" + searchKey + "%' or travel like '%" + searchKey + "%')";
 						}
 						sql += " order by trtr_id desc limit :offset, :end";
 						Query query = em.createNativeQuery(sql, TravelTrade.class);
@@ -161,7 +161,7 @@ public  class TravelDaoImpl implements TravelDao {
 			EntityManager em = emf.createEntityManager();
 			String countSql = " select count(trtr_id) from travel_trade";
 			if (null != searchKey) {
-				countSql += "   where (trtr_tel like '%" + searchKey + "%' or travel_id like '%" + searchKey + "%')";
+				countSql += "   where (trtr_tel like '%" + searchKey + "%' or travel like '%" + searchKey + "%')";
 			}
 			Query query = em.createNativeQuery(countSql);
 			List<Object> totalRow = query.getResultList();
@@ -174,7 +174,7 @@ public  class TravelDaoImpl implements TravelDao {
 			@SuppressWarnings("unchecked")
 			public List<Object> countTrTotalByID(Integer travel_id,String searchKey) {
 				EntityManager em = emf.createEntityManager();
-				String countSql = " select count(trtr_id),sum(trtr_mnum),sum(trtr_cnum),sum(trtr_price) from travel_trade trtr where travel_id =:travel_id";
+				String countSql = " select count(trtr_id),sum(trtr_mnum),sum(trtr_cnum),sum(trtr_price) from travel_trade trtr where travel =:travel_id";
 				if (null != searchKey) {
 					countSql += "   where (trtr_tel like '%" + searchKey + "%' )";
 				}

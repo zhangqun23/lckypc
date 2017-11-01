@@ -77,13 +77,13 @@ app.directive('hasPermission', function($timeout) {
 });
 
 // // 路由配置
-// app.config([ '$routeProvider', function($routeProvider) {
-// $routeProvider.when('/*', {
-// controller : 'IndexController'
-// }).otherwise({
-// controller : 'IndexController'
-// })
-// } ]);
+app.config([ '$routeProvider', function($routeProvider) {
+	$routeProvider.when('/*', {
+		controller : 'IndexController'
+	}).otherwise({
+		controller : 'IndexController'
+	})
+} ]);
 app.constant('baseUrl', '/lckypc/');
 app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 	var services = {};
@@ -129,15 +129,7 @@ app.controller('IndexController', [
 			function initData() {
 				console.log("初始化页面！");
 				services.getInitData().success(function(data) {
-					index.waitAuditBillTaskNum = data.waitAuditBillTaskNum;
-					index.assistantTaskNum = data.assistantTaskNum;
-					index.managerControlTaskNum = data.managerControlTaskNum;
-					index.billTaskNum = data.billTaskNum;
-					index.otherTaskNum = data.otherTaskNum;
-					index.debtAlarmNum = data.debtAlarmNum;
-					index.overdueAlarmNum = data.overdueAlarmNum;
-					index.taskAlarmNum = data.taskAlarmNum;
-					index.remoTaskNum = data.remoTaskNum;
+					index.alarmStatistic = data.alarmStatistic;
 				});
 			}
 			initData();

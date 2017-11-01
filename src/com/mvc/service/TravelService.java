@@ -60,9 +60,10 @@ public interface TravelService {
 		
 	// 根据travel_id筛选对应旅游交易信息列表
 		List<TravelTrade> findTravelTradeByID(Integer travel_id, String searchKey,Integer offset, Integer end);
-	// 根据合同ID获取合同
+	// 根据ID获取旅游信息
 		Travel selectTravelById(Integer travel_id);
-	
+	// 根据ID获取旅游信息
+		TravelTrade selectTravelTradeById(Integer trtr_id);
 	// 修改旅游基本信息
 		Boolean updateTravelBase(Integer travel_id, JSONObject jsonObject, User user) throws ParseException;
 	

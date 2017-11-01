@@ -133,8 +133,18 @@ app.controller(
 							
 							// 根据页数获取smgo信息
 							function getSmgoListByPage(page) {
+								var smgoLimit = null;
+								var gotLimit = null;
+								if(JSON.stringify(smgo.SGSLimit) != null){
+									smgoLimit = JSON.stringify(smgo.SGSLimit);
+								}
+								if(JSON.stringify(smgo.GotLimit) != null){
+									gotLimit = JSON.stringify(smgo.GotLimit);
+								}
 								services.getSmgoListByPage({
 									page : page,
+									smgoSego : smgoLimit,
+									gotNeed : gotLimit
 								}).success(function(data) {
 									smgo.smgos = data.list;
 								});
@@ -165,39 +175,79 @@ app.controller(
 									edit_price : "",
 									edit_time : ""
 							}
-							smgo.addEdit = function(){
+							smgo.addEdit = function(smgo_id){
 								var smgoLimits = JSON.stringify(smgo.smgoInfoss);
 								services.addEdit({
-									smgoId : sessionStorage.getItem('smgoid'),
+									smgoId : smgo_id,
 									smgoNeed : smgoLimits
 								}).success(function(data) {
-									alert("补录成功");
-									$location.path("smgoList/");
+									//显示模态框
+									$(".overlayer").fadeIn(200);
+									$("#tipDel").fadeIn(200);
+									//左上角的X
+									$(".tiptop a").click(function() {
+										$("#tipDel").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
+									//点击按钮,模态框隐藏
+									$("#sureDel").click(function(){
+										$("#tipDel").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
 								});
 							};
 							
 							// 删除smgo信息
 							smgo.deleteSmgo = function(smgo_id) {
-								if (confirm("是否删除该smgo信息？") == true) {
+								//显示模态框
+								$(".overlayer").fadeIn(200);
+								$("#tipDel").fadeIn(200);
+								//左上角的X
+								$(".tiptop a").click(function() {
+									$("#tipDel").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								//点击按钮,模态框隐藏
+								$("#sureDel").click(function(){
+									$("#tipDel").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									//进入后台
 									services.deleteSmgo({
 										smgoId : smgo_id
-									}).success(function(data) {
-										smgo.result = data;
-										if (data == "true") {
-											console.log("删除smgo信息成功！");
-										} else {
-											console.log("删除smgo信息失败！");
-										}
-										initData();
+										}).success(function(data) {
+											initData();
+											});
 									});
-								}
-							}
+								$("#cancelDel").click(function(){
+									$("#tipDel").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+							};
 							
 	                        // 查看ID，并记入sessionStorage
-							smgo.getSmgoId = function(smgoid) {	
+							smgo.getSmgoId = function(smgoid,is_finish) {
 								var smgoidd = JSON.stringify(smgoid);
-								sessionStorage.setItem('smgoid',smgoidd);	
-								$location.path("smgoUpdate/");
+								sessionStorage.setItem('smgoid',smgoidd);
+								//is_finish的返回值为false/true 所以直接判断
+								if(is_finish){//is_finish = 1 为 true
+
+									//显示模态框
+									$(".overlayer").fadeIn(200);
+									$("#tipDel2").fadeIn(200);
+									//左上角的X
+									$(".tiptop a").click(function() {
+										$("#tipDel2").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
+									//点击按钮,模态框隐藏
+									$("#sureDel2").click(function(){
+										$("#tipDel2").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+										});
+									$location.path("/smgoList");
+								}else{//is_finish = 0 为 false
+									$location.path("/smgoUpdate");
+								}
 							};
 							
 							//初始化
@@ -210,7 +260,7 @@ app.controller(
 										$scope.smgos = data.list;
 										pageTurn(data.totalPage, 1, getSmgoListByPage)
 									});
-								}else if ($location.path().indexOf('/smgoUpdate') == 0) {
+								}else/* if ($location.path().indexOf('/smgoUpdate') == 0)*/ {
 									//根据id获取smgo信息
 									var smgoid = sessionStorage.getItem("smgoid");
 									$scope.smgoInfo = JSON.parse(smgoid);
@@ -247,9 +297,34 @@ app.filter('findSego',function(){
 		if(input == "0"){
 			var output = "自行取货";
 			return output;
-		}else{
+		}
+		if(input == "1"){
 			var output = "送货上门";
 			return output;
+		}
+	}
+});
+//null的判定
+app.filter('sgFilter',function() { 
+	return function(input){ 
+		if(input == "" || input == null){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
+});
+//交易状态isFinish
+app.filter('IsFinish',function() { 
+	return function(input){ 
+		if(input == "0"){
+			var input = "未完成";
+			return input; 		
+		}else{
+			var input = "已完成";
+			return input; 		
 		}
 	}
 });

@@ -114,20 +114,12 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 			data : data
 		});
 	};
-	
+
 	// 补录信息
 	services.repeatAddBusNeed = function(data) {
 		return $http({
 			method : 'post',
 			url : baseUrl + 'busNeed/repeatAddBusNeed.do',
-			data : data
-		});
-	};
-	
-	services.repeatAddBusTrade = function(data) {
-		return $http({
-			method : 'post',
-			url : baseUrl + 'busNeed/repeatAddBusTrade.do',
 			data : data
 		});
 	};
@@ -155,6 +147,7 @@ app
 							var bune = $scope;
 							var butr = $scope;
 							var searchKey = null;
+							bune.butrState = "0";
 							// 换页
 							function pageTurn(totalPage, page, Func) {
 
@@ -175,31 +168,58 @@ app
 								console.log("列表成功！");
 								services.getBusNeedListByPage({
 									page : page,
-									searchKey : searchKey
+									searchKey : searchKey,
+									butrState : ButrState
+
 								}).success(function(data) {
 									bune.busNeeds = data.list;
 
 								});
 							}
-
-							// 删除信息
-							bune.deleteBusNeed = function(bune_id) {
-								console.log("成功！");
-								if (confirm("是否删除该条信息？") == true) {
+							
+							// 删除信息							
+							bune.deleteBusNeed = function(bune_id) {								
+								$(".overlayer").fadeIn(200);
+								$("#tipDelBune").fadeIn(200);								
+								$(".tiptop a").click(function() {
+									$("#tipDelTra").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
+								$("#sureDelBune").click(function(){
+									$("#tipDelBune").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									//进入后台
 									services.deleteBusNeed({
 										busNeedId : bune_id
 									}).success(function(data) {
-
-										bune.result = data;
-										if (data == "true") {
-											console.log("删除成功！");
-										} else {
-											console.log("删除失败！");
-										}
 										initData();
 									});
-								}
+									});
+								$("#cancelDelBune").click(function(){
+									$("#tipDelBune").fadeOut(100);
+									$(".overlayer").fadeOut(200);
+									});
+								
 							}
+							// 删除信息
+//							bune.deleteBusNeed = function(bune_id) {
+//								console.log("成功！");
+//								if (confirm("是否删除该条信息？") == true) {
+//									services.deleteBusNeed({
+//										busNeedId : bune_id
+//									}).success(function(data) {
+//
+//										bune.result = data;
+//										if (data == "true") {
+//											console.log("删除成功！");
+//										} else {
+//											console.log("删除失败！");
+//										}
+//										initData();
+//									});
+//								}
+//							}
 							// 读取旅游信息
 							function selectBusNeedById() {
 								var bune_id = sessionStorage
@@ -210,11 +230,11 @@ app
 										})
 										.success(
 												function(data) {
-													// bune.bun = data.busNeed;
-													bune.busNeed = data.busNeed;
-													if (data.bune.bune_time) {
-														data.bune.bune_time = changeDateType(data.bune.bune_time);
-													}
+													bune.BusNeedPage = data.busNeed;									 
+													
+							 						if (data.busNeed.butr_time.time) {
+							 							bune.BusNeedPage.butr_time= changeDateType(data.busNeed.butr_time);
+							 							}
 
 												});
 							}
@@ -223,29 +243,28 @@ app
 								var bune_id = sessionStorage
 										.getItem('busNeedId');
 								services.selectBusBusTradeByBNId({
-											bune_id : bune_id
-										})
-										.success(
-												function(data) {
-													
-													butr.busTrade = data.busTrade;
-//													if (data.bune.bune_time) {
-//														data.bune.bune_time = changeDateType(data.bune.bune_time);
-//													}
+									bune_id : bune_id
+								}).success(function(data) {
 
-												});
+									butr.busTrade = data.busTrade;
+									// if (data.bune.bune_time) {
+									// data.bune.bune_time =
+									// changeDateType(data.bune.bune_time);
+									// }
+
+								});
 							}
-							//查看ID，并记入sessionStorage,无操作
+							// 查看ID，并记入sessionStorage,无操作
 							bune.saveBuneId = function(busNeedId) {
-								 sessionStorage.setItem('busNeedId',busNeedId);
+								sessionStorage.setItem('busNeedId', busNeedId);
 							};
-							
+
 							// 查看ID，并记入sessionStorage
 							bune.getBuneId = function(busNeedId) {
 								services.selectBusNeedById({
 									bune_id : busNeedId
 								}).success(function(data) {
-									console.log(data.busNeed)
+									console.log(data.busNeed);
 									bune.BusNeedPage = data.busNeed;
 								})
 
@@ -253,10 +272,17 @@ app
 
 							// 根据联系方式筛选旅游交易信息
 							bune.selectBusNeedByTel = function() {
+								var ButrState = bune.butrState;
 								searchKey = bune.buneTel;
+								console.log(ButrState);
+								
+								if(JSON.stringify(bune.butrState) != null && JSON.stringify(bune.butrState) != ""){
+									ButrState = JSON.stringify(bune.butrState);
+								}
 								services.getBusNeedListByPage({
 									page : 1,
-									searchKey : searchKey
+									searchKey : searchKey,
+									butrState : ButrState
 								}).success(
 										function(data) {
 											bune.busNeeds = data.list;
@@ -272,7 +298,6 @@ app
 									bune_id : busNeedId
 								}).success(function(data) {
 									bune.busNeed = data.busNeed;
-									//														
 
 									$(".overlayer").fadeIn(200);
 									$("#tipCheck").fadeIn(200);
@@ -285,35 +310,21 @@ app
 								});
 							};
 
-							
-							// 测试补录信息
-							bune.repeatAddBusNeed = function() {
-								console.log("success!!");				
-									var busFormData = JSON.stringify(bune.busNeed);
-									console.log(busFormData);
-									services.repeatAddBusNeed(
-											{
-												busNeed : busFormData,
-												bune_id : sessionStorage.getItem('busNeedId')
-											}).success(function(data) {
-										alert("补录成功！");
-										console.log(data);
-									});
-							};
 							// 补录信息
-							bune.repeatAddBusTrade = function() {
-								console.log("TRa success!!");
-									var busFormData = JSON.stringify(bune.busTrade);
+							bune.repeatAddBusNeed = function() {
+								var busFormData = JSON.stringify(bune.BusNeedPage);
+								
+								services.repeatAddBusNeed(
+										{
+											busNeed : busFormData,
+											bune_id : sessionStorage
+													.getItem('busNeedId')
+										}).success(function(data) {
+									alert("补录成功！");
 									console.log(busFormData);
-									services.repeatAddBusTrade({
-											busTrade : busFormData,
-											bune_id : sessionStorage.getItem('busNeedId')
-									}).success(function(data) {
-										alert("补录成功！");
-										console.log(data);
-									});
+									$location.path('busNeedList/');
+								});
 							};
-
 
 							// 2017-8-30wdh更改时间的样式
 							function changeDateType(date) {
@@ -354,9 +365,11 @@ app
 								$("#busNeed").show();
 								if ($location.path().indexOf('/busNeedList') == 0) {
 									searchKey = null;
+									ButrState = "0";
 									services.getBusNeedListByPage({
 										page : 1,
-										searchKey : searchKey
+										searchKey : searchKey,
+										butrState : ButrState
 									}).success(
 											function(data) {
 												bune.busNeeds = data.list;
@@ -365,23 +378,28 @@ app
 											});
 								} else if ($location.path().indexOf(
 										'/busNeedUpdate') == 0) {
-									var busNeed_id = sessionStorage.getItem('busNeedId');
-//									$scope.bid=busNeed_id;
-									bune.getBuneId(busNeed_id);
+
+									var bune_id = sessionStorage.getItem('busNeedId');
 									
+										bune.getBuneId(bune_id);
+
+									services.selectBusNeedById({
+									 		bune_id : bune_id
+									 				}).success(function(data) {
+																				
+									 						bune.BusNeedPage = data.busNeed;									 
+																				
+									 						if (data.busNeed.butr_time) {
+									 							bune.BusNeedPage.butr_time = changeDateType(data.busNeed.butr_time);
+									 							}
+									 });
 
 								}
 
-								 else if ($location.path().indexOf(
-									'/busNeedAdd') == 0) {
-							}
-								 else if ($location.path().indexOf(
-									'/busTradeAdd') == 0) {
-							}
 							}
 							initData();
 
-							}]);
+						} ]);
 // 时间的格式化的判断
 app.filter('dateType', function() {
 	return function(input) {
@@ -411,29 +429,43 @@ app.filter('cutString', function() {
 	}
 });
 
-// 鼠标放置显示详情
-app.filter('onmouse', function() {
-
-	$('table').find('td').mouseover(function() {
-		var content = $(this).text(); // 获取到内容
-	});
+//没有输入详情显示为空 
+app.filter('sgFilter',function() { 
+	return function(input){ 
+		if(input == "" || input == null){
+			var input = "空";
+			return input; 		
+		}
+		else{
+			return input;
+		}
+	}
 });
-//
-// 只允许输入两位小数的正则判断
-function changeTwoNum(value) {
-	// 清除"数字"和"."以外的字符
-	value = value.replace(/[^\d.]/g, "");
 
-	// 验证第一个字符是数字而不是
-	value = value.replace(/^\./g, "");
-
-	// 只保留第一个. 清除多余的
-	value = value.replace(/\.{2,}/g, ".");
-	value = value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-
-	// 只能输入两个小数
-	value = value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3');
+//只允许输入两位小数的正则判断
+function changeTwoNum(obj){
+	//清除"数字"和"."以外的字符
+	  obj.value = obj.value.replace(/[^\d.]/g,"");
+	  
+    //验证第一个字符是数字而不是.
+	  obj.value = obj.value.replace(/^\./g,"");
+	 
+	//只保留第一个. 清除多余的
+	  obj.value = obj.value.replace(/\.{2,}/g,".");
+	  obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+	 
+	//只能输入两个小数 
+	  obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
 }
+//车牌号
+function checkBusNumber(obj){ 
+    var num = document.getElementById('BusNeedPage.bune_bus').value;
+    if(!(/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/.test(num))){ 
+        alert("车牌号码有误，请重填!");  
+        obj.value='';
+    } 
+} 
+
 // 小数过滤器
 app.filter('cutFloat', function() {
 	return function(input) {

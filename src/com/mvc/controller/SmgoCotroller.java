@@ -1,8 +1,6 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,31 +65,30 @@ public class SmgoCotroller {
 		String smgoSego = null;
 		String startDate = null;
 		String endDate = null;
-		JSONObject jsonObject = new JSONObject();
 		if(request.getParameter("smgoSego") != null){
-			smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
+			if(JSONObject.fromObject(request.getParameter("smgoSego")).containsKey("smgo_sego")){
+				//解决JSONObject “smgoSego” not found 问题
+				smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
+			}
 		}
+		JSONObject jsonObject = new JSONObject();
 		if(request.getParameter("gotNeed") != null){
 			jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				if (jsonObject.containsKey("startDate")){ 
 				    startDate = StringUtil.dayFirstTime(jsonObject.getString("startDate"));
-				    System.out.println("起始时间"+startDate);
 				}
 				if (jsonObject.containsKey("endDate")){
 				    endDate = StringUtil.dayLastTime(jsonObject.getString("endDate"));
-				    System.out.println("截止时间"+endDate);
 				}
 		}
 		Integer totalRow = smgoService.countTotal(smgoSego,startDate,endDate);//有问题
 		Pager pager = new Pager();
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
-        if(totalRow != null ){
+        if(totalRow != 0 ){
         	pager.setTotalRow(Integer.parseInt(totalRow.toString()));
 		}
 		List<SmallGoods> list = smgoService.findSmgoByPage(smgoSego,startDate,endDate,pager.getOffset(),pager.getLimit());
 		jsonObject.put("totalPage", pager.getTotalPage());
-		System.out.println("totalPage:" + pager.getTotalPage());
 		jsonObject.put("list", list);
 	    return jsonObject.toString();
 	}
@@ -110,7 +107,6 @@ public class SmgoCotroller {
 	@RequestMapping("/deleteSmgo.do")
 	public @ResponseBody String deleteSmgo(HttpServletRequest request, HttpSession session) {
 		Integer smgoid = Integer.valueOf(request.getParameter("smgoId"));
-		System.out.println("id"+smgoid);
 		boolean result = smgoService.deleteIsdelete(smgoid);
 		return JSON.toJSONString(result);
 	}
@@ -130,15 +126,14 @@ public class SmgoCotroller {
 	@RequestMapping("/addEdit.do")
 	public @ResponseBody String addEdit(HttpServletRequest request, HttpSession session) throws ParseException {
 		JSONObject jsonObject = new JSONObject();
-		Integer smgoid = null;
-		if(request.getParameter("smgoId") != null){
-			smgoid = Integer.getInteger(request.getParameter("smgoId"));
-			//无法获取id
-		}
 		jsonObject = JSONObject.fromObject(request.getParameter("smgoNeed"));
 		SmallGoods smgo = new SmallGoods();
 		String edittime = null;
 		float editprice = 0;
+		Integer smgoid = null;
+		if(request.getParameter("smgoId") != null){
+			smgoid = Integer.parseInt(request.getParameter("smgoId"));
+		}
 		if(jsonObject.containsKey("edit_time")){
 			edittime = jsonObject.getString("edit_time");
 		}
@@ -146,9 +141,6 @@ public class SmgoCotroller {
 			editprice = Float.parseFloat(jsonObject.getString("edit_price"));
 		}
 		smgo.setIs_delete(false);
-		System.out.println("补录时间"+edittime);
-		System.out.println("补录金额"+editprice);
-		System.out.println("id"+smgoid);
 		boolean result = smgoService.update(edittime, editprice, smgoid);
 		return JSON.toJSONString(result);
 	}

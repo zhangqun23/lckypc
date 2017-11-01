@@ -22,6 +22,7 @@ private Date trne_time;//需求时间
 private Integer trne_check;//0代表未审核，1代表已审核
 private String trne_remark;//备注
 private Integer is_freeze;//0代表未冰冻，1代表冰冻
+private Date trne_insert_time;//录入时间
 private String open_id; //openid
 
 @Id
@@ -118,6 +119,12 @@ public Date getTrne_time() {
 }
 public void setTrne_time(Date trne_time) {
 	this.trne_time = trne_time;
+}
+public Date getTrne_insert_time() {
+	return trne_insert_time;
+}
+public void setTrne_insert_time(Date trne_insert_time) {
+	this.trne_insert_time = trne_insert_time;
 }
 
 

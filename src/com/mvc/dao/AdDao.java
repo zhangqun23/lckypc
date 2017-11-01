@@ -19,11 +19,10 @@ public interface AdDao {
 	List<Ad> findAdByPage(String adState, String adType, Integer offset, Integer limit);
 	Integer countTotal(String adState, String adType);
 	
-	//根据id变更state
-	boolean editState(Integer ad_id);
-
 	//根据id删除ad信息
 	boolean updateState(Integer ad_id);
 	
-	
+	//审核
+	boolean editState(Integer ad_id , String adState);
+
 }

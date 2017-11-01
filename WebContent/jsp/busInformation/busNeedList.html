@@ -12,7 +12,17 @@
 	<div ng-app="" class="tools">
 
 		<form class="toolbar">
-			<input name="" type="text" class="dfinput" id="buneTel"
+			
+		<!-- 根据补录状态筛选BusNeed信息 -->
+		      	请选择审核状态：
+			<select class="dfselect" ng-model="butrState"  
+			id="butrState" style="width: 167px">	   
+			   <option value="0">未补录</option>
+			   <option value="1">已补录</option>	
+			  
+            </select>
+            	检索：
+            <input name="" type="text" class="dfinput" id="buneTel"
 				ng-model="buneTel" placeholder="目的地或联系方式关键字" /> <input class="btn click"
 				type="submit" value="查询" ng-click="selectBusNeedByTel()">
 		</form>
@@ -38,8 +48,7 @@
 		<tbody>
 			<tr ng-repeat="bune in busNeeds" id={{bune.bune_id}}>
 				<td>{{$index + 1 }}</td>
-				<td><a class="underline" href="#busNeedUpdate" 
-				ng-click="getBuneId(bune.bune_id)">{{bune.bune_tel}}</a></td>
+				<td>{{bune.bune_tel}}</td>
 				<td>{{bune.bune_num}}</td>
 				<td>{{bune.bune_time}}</td>
 				<td>{{bune.bune_gath_time.time | dateType}}</td>
@@ -47,8 +56,8 @@
 				<td>{{bune.bune_goal_pla}}</td>
 				<td>{{bune.bune_purp}}</td>
 				<td><a ng-click="checkBusNeed()" class="tablelink">查看</a>
-				<a href="#/busNeedUpdate" ng-click="saveBuneId(bune.bune_id)"class="tablelink"> 补录信息</a>
-				<a href="#busNeedList" ng-click="deleteBusNeed(bune.bune_id)" class="tablelink"
+				<a href="#/busNeedUpdate" ng-click="saveBuneId(bune.bune_id)"class="tablelink" has-permission='bnEdit'> 补录信息</a>
+				<a href="#busNeedList" ng-click="deleteBusNeed(bune.bune_id)" has-permission='bnDel' class="tablelink"
 					> 删除</a></td>
 			</tr>
 		</tbody>
@@ -58,7 +67,7 @@
 </div>
 <!-- 查看详情模态框 -->
 <div class="overlayer"></div>
-<div class="tip" id="tipCheck" style="height: 600px">
+<div class="tip" id="tipCheck" style="height: 550px">
 	<div class="tiptop text_right">
 	<span>班车预订信息详情</span><a></a>
 		<!-- 这个a标签是模态框上的叉叉 -->
@@ -74,15 +83,37 @@
 				<li><label>集合地点：</label>{{busNeed.bune_gath_pla}}</li>
 				<li><label>目的地：</label>{{busNeed.bune_goal_pla}}</li>
 				<li><label>包车用途：</label>{{busNeed.bune_purp}}</li>			
-				<li><div class="remark-div">备注：{{busNeed.bune_remark}}</div></li>
+				<li><div class="remark-div">备注：{{busNeed.bune_remark| sgFilter}}</div></li>
 				<!-- <li><label>交易信息：</label></li> -->
 				<li><label>交易创建时间：</label>{{busNeed.butr_time.time| dateType}}</li>
 				<li><label>交易金额：</label>{{busNeed.butr_money}}</li>
-				<li><label>车牌号：</label>{{busNeed.butr_bus}}</li>
+				<li><label>车牌号：</label>{{busNeed.bune_bus}}</li>
 			</ul>
 		</fieldset>
 	</div>
 </div> 
 <!-- 查看任务模态框完 -->
 
+<!-- 删除模态框 -->
+				<div class="overlayer"></div>
+				<div class="tip" id="tipDelBune"
+					style="height: 160px; width: 260px; margin-top: 230px; margin-left: -120px;">
+					<div class="tiptop">
+						<span>提示信息</span><a></a>
+					</div>
+					<div class="tipinfo" style="padding-top: 10px;">
+						<div class="tipright" style="padding-top: 0px; padding-left: 0px;">
+							<label class="text_style">确定删除该信息？ </label>
+							
+						</div>
+					</div>
 
+					<div class="tipbtn" style="margin-top: 40px; margin-left: 120px;">
+						<input name="" type="button" class="sure" id="sureDelBune" value="确定"
+							style="height: 25px; width: 50px; font-size: 10px; line-height: 0px;" />&nbsp;
+						<input name="" type="button" class="cancel" id="cancelDelBune"
+							value="取消"
+							style="height: 25px; width: 50px; font-size: 10px; line-height: 0px;" />&nbsp;
+					</div>
+				</div>
+	<!-- 模态框完  -->

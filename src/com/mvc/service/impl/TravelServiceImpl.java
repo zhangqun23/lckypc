@@ -125,12 +125,16 @@ public  class TravelServiceImpl implements TravelService {
 				}
 				return listMap;
 				}
-	// 根据ID获取
+	// 根据ID获取旅游信息
 			@Override
 			public Travel selectTravelById(Integer travel_id) {
 				return travelRepository.selectTravelById(travel_id);
 			}
-	
+	// 根据ID获取旅游交易信息
+			@Override
+			public TravelTrade selectTravelTradeById(Integer trtr_id) {
+				return travelTradeRepository.selectTravelTradeById(trtr_id);
+						}
 	
 	// 修改旅游基本信息
 			@Override

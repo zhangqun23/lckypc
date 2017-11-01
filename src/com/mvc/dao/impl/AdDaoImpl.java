@@ -32,18 +32,19 @@ public class AdDaoImpl implements AdDao{
 	EntityManagerFactory emf;
 	
 	//根据限制条件筛选信息
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	public Integer countTotal(String adState, String adType) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String countSql = " select count(ad_id) from Ad tr where is_delete=0 " ;	
-		if(adType != null){
-			if(adState != null){
-				countSql += " and ad_type = " + adType + " and ad_state = " + adState;
-			}else{
-				countSql += " and ad_type = " + adType;
-			}
-		}else if(adState != null){
+		String countSql = " select count(ad_id) from ad tr where is_delete=0 " ;
+		if((adType != null && !adType.equals("")) && (adState != null && !adState.equals(""))){
+			countSql += " and ad_type = " + adType + " and ad_state = " + adState;
+		}
+		if((adType != null && !adType.equals("")) && (adState == null || adState.equals(""))){
+			countSql += " and ad_type = " + adType;
+		}
+		if((adState != null && !adState.equals("")) && (adType == null || adType.equals(""))){
 			countSql += " and ad_state = " + adState;
 		}
 		Query query = em.createNativeQuery(countSql);
@@ -56,17 +57,17 @@ public class AdDaoImpl implements AdDao{
 	public List<Ad> findAdByPage(String adState, String adType, Integer offset, Integer limit) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String selectSql = " select * from Ad where is_delete=0 ";
-		if(adType != null){
-			if(adState != null){
-				selectSql += " and ad_type = " + adType + " and ad_state = " + adState;
-			}else{
-				selectSql += " and ad_type = " + adType;
-			}
-		}else if(adState != null){
+		String selectSql = " select * from ad where is_delete=0 ";
+		if((adType != null && !adType.equals("")) && (adState != null && !adState.equals(""))){
+			selectSql += " and ad_type = " + adType + " and ad_state = " + adState;
+		}
+		if((adType != null && !adType.equals("")) && (adState == null || adState.equals(""))){
+			selectSql += " and ad_type = " + adType;
+		}
+		if((adState != null && !adState.equals("")) && (adType == null || adType.equals(""))){
 			selectSql += " and ad_state = " + adState;
 		}
-		selectSql += " limit :offset , :end ";
+		selectSql += " order by ad_state limit :offset , :end ";
 		Query query = em.createNativeQuery(selectSql, Ad.class);
 		query.setParameter("offset", offset);
 		query.setParameter("end", limit);
@@ -75,17 +76,16 @@ public class AdDaoImpl implements AdDao{
 		return list;
 	}
 	
-	//根据id变更state
+	//审核
 	@Override
-	public boolean editState(Integer ad_id) {
+	public boolean editState(Integer ad_id , String adState) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		try {
-			String selectSql = "update ad set ad_state =:ad_state where ad_id =:ad_id ";
+			String selectSql = "update ad set ad_state = "+adState+" where ad_id = "+ad_id;
 			Query query = em.createNativeQuery(selectSql);
-			query.setParameter("ad_id", ad_id);
-			query.setParameter("ad_state",EditState.YES.value);
+			/*query.setParameter("ad_state",EditState.YES.value);*/
 			query.executeUpdate();
 			em.flush();
 			em.getTransaction().commit();
@@ -102,7 +102,7 @@ public class AdDaoImpl implements AdDao{
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		try {
-			String selectSql = "update ad set is_delete =:is_delete where ad_id =:ad_id ";
+			String selectSql = " update ad set is_delete =:is_delete where ad_id =:ad_id ";
 			Query query = em.createNativeQuery(selectSql);
 			query.setParameter("ad_id", ad_id);
 			query.setParameter("is_delete", IsDelete.YES.value);

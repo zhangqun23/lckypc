@@ -62,9 +62,9 @@
 				<td>{{travel.travel_firm}}</td>
 				<td><a href="#checktravelTrade" ng-click="getTravelId(travel.travel_id)" class="tablelink">查看</a>
 				<a href="#/travelUpdate" ng-click="getTravelId(travel.travel_id)"class="tablelink"	
-				has-permission='tTravelEdit'> 修改</a>
+				has-permission='tEdit'> 修改</a>
 				<a href="#travelList" ng-click="deleteTravel(travel.travel_id)" class="tablelink"
-					has-permission='tTravelDel'> 删除</a></td>
+					has-permission='tDel'> 删除</a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -73,7 +73,7 @@
 </div>
 <!-- 查看详情模态框 -->
 <div class="overlayer"></div>
-<div class="tip" id="tipCheck" style="height: 600px">
+<div class="tip" id="tipCheck" style="height: 550px">
 	<div class="tiptop text_right">
 		<span>旅游信息详情</span><a></a>
 		<!-- 这个a标签是模态框上的叉叉 -->
@@ -86,20 +86,44 @@
 				<li><label>标题：</label>{{travel.travel_title}}</li>
 				<li><label>路线：</label>{{travel.travel_route}}</li>
 				<li><label>成人票价格：</label>{{travel.travel_mprice |number:2}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label>儿童票价格：</label>{{travel.travel_cprice |number:2}}</li>
+					<label>儿童票价格：</label>{{travel.travel_cprice |number:2}}</li>
 				<li><label>保险费：</label>{{travel.travel_insurance |number:2}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label>折扣：</label>{{travel.travel_discount |number:2}}</li>
+					<label>折扣：</label>{{travel.travel_discount |number:2}}</li>
 				<li><label>出发时间：</label>{{travel.travel_stime.time| dateType}}</li>
 				<li><label>出发地点：</label>{{travel.travel_location}}</li>
 				<li><label>游玩天数：</label>{{travel.travel_days}}</li>
 				<li><label>联系电话：</label>{{travel.travel_tel}}</li>
 				<li><label>总人数：</label>{{travel.travel_total_num}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label>剩余人数：</label>{{travel.travel_left_num}}</li>
+					<label>剩余人数：</label>{{travel.travel_left_num}}</li>
 				<li><label>旅游承办公司：</label>{{travel.travel_firm}}</li>
-				<li><div class="remark-div">活动描述：{{travel.travel_content}}</div></li>
+				<li><div class="remark-div">活动描述：{{travel.travel_content|sgFilter}}</div></li>
 			</ul>
 		</fieldset>
 	</div>
 	
 </div>
-<!-- 查看任务模态框完 -->
+<!-- 模态框完 -->
+
+<!-- 删除模态框 -->
+				<div class="overlayer"></div>
+				<div class="tip" id="tipDelTra"
+					style="height: 160px; width: 260px; margin-top: 230px; margin-left: -120px;">
+					<div class="tiptop">
+						<span>提示信息</span><a></a>
+					</div>
+					<div class="tipinfo" style="padding-top: 10px;">
+						<div class="tipright" style="padding-top: 0px; padding-left: 0px;">
+							<label class="text_style">确定删除该信息？ </label>
+							
+						</div>
+					</div>
+
+					<div class="tipbtn" style="margin-top: 40px; margin-left: 120px;">
+						<input name="" type="button" class="sure" id="sureDelTra" value="确定"
+							style="height: 25px; width: 50px; font-size: 10px; line-height: 0px;" />&nbsp;
+						<input name="" type="button" class="cancel" id="cancelDelTra"
+							value="取消"
+							style="height: 25px; width: 50px; font-size: 10px; line-height: 0px;" />&nbsp;
+					</div>
+				</div>
+				<!-- 模态框完  -->

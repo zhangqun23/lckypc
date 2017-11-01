@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mvc.dao.AdDao;
 import com.mvc.entity.Ad;
+import com.mvc.repository.AdRepository;
 import com.mvc.service.AdService;
 
 /**
@@ -23,18 +24,18 @@ public class AdServiceImpl implements AdService{
 	@Autowired
 	AdDao adDao;
 	
-	//根据限制条件是啊选信息 
-		@Override
-		public List<Ad> findAdByPage(String adState, String adType, Integer offset, Integer limit) {
-			// TODO 自动生成的方法存根
-			return adDao.findAdByPage(adState,  adType,  offset,  limit);
-		}
-		@Override
-		public Integer countTotal(String adState, String adType) {
-			// TODO 自动生成的方法存根
-			return adDao.countTotal( adState,  adType);
-		}	
-		
+	//根据限制条件筛选信息 
+	@Override
+	public List<Ad> findAdByPage(String adState, String adType, Integer offset, Integer limit) {
+		// TODO 自动生成的方法存根
+		return adDao.findAdByPage(adState,  adType,  offset,  limit);
+	}
+	@Override
+	public Integer countTotal(String adState, String adType) {
+		// TODO 自动生成的方法存根
+		return adDao.countTotal( adState,  adType);
+	}	
+	
 	//根据id删除ad信息
 	@Override
 	public boolean deleteIsdelete(Integer ad_id) {
@@ -42,10 +43,11 @@ public class AdServiceImpl implements AdService{
 		return adDao.updateState(ad_id);
 	}
 
-	//根据id变更state
+	//审核
 	@Override
-	public boolean editState(Integer ad_id) {
+	public boolean editState(Integer ad_id , String adState) {
 		// TODO 自动生成的方法存根
-		return adDao.editState(ad_id);
+		return adDao.editState(ad_id , adState);
 	}
+	
 }

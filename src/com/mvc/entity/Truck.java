@@ -23,10 +23,11 @@ private Float trck_load;//货车载重，以吨为单位
 private Integer is_freeze;//0代表未冷冻，1代表冷冻
 private Integer trck_num;//交易次数
 private String trck_score;//评分
-private Integer trck_check;//0代表未通过审核，1代表已通过审核
+private Integer trck_check;//0代表未审核，1代表已通过审核，2表示审核未通过
 private Driver driver;//外键
 private String open_id; //openid
 private String trck_number;//车牌号
+private Boolean is_delete;// 是否删除0表示未删除，1表示删除
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
 @Column(name = "trck_id",unique = true, nullable = false, length = 11)
@@ -98,6 +99,13 @@ public String getTrck_number() {
 }
 public void setTrck_number(String trck_number) {
 	this.trck_number = trck_number;
+}
+@Column(columnDefinition = "INT not null default 0")
+public Boolean getIs_delete() {
+	return is_delete;
+}
+public void setIs_delete(Boolean is_delete) {
+	this.is_delete = is_delete;
 }
 
 
