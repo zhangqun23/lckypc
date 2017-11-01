@@ -185,7 +185,7 @@ app.controller('adController', [
 			$("#sureDel3").click(function() {
 				$("#tipDel3").fadeOut(100);
 				$(".overlayer").fadeOut(200);
-				var ad_id=sessionStorage.getItem("adid");
+				var ad_id = sessionStorage.getItem("adid");
 				services.deleteAd({
 					adId : ad_id
 				}).success(function(data) {
@@ -302,8 +302,13 @@ app.filter('cutString', function() {
 	return function(input) {
 		var content = "";
 		if (input != "") {
-			var shortInput = input.substr(0, 4);
-			content = shortInput + "……";
+			if (input.length < 8) {
+				content = input;
+			} else {
+				var shortInput = input.substr(0, 4);
+				content = shortInput + "……";
+			}
+
 		}
 		return content;
 	}
