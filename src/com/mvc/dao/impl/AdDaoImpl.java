@@ -37,7 +37,7 @@ public class AdDaoImpl implements AdDao{
 	public Integer countTotal(String adState, String adType) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String countSql = " select count(ad_id) from Ad tr where is_delete=0 " ;
+		String countSql = " select count(ad_id) from ad tr where is_delete=0 " ;
 		if((adType != null && !adType.equals("")) && (adState != null && !adState.equals(""))){
 			countSql += " and ad_type = " + adType + " and ad_state = " + adState;
 		}
@@ -57,7 +57,7 @@ public class AdDaoImpl implements AdDao{
 	public List<Ad> findAdByPage(String adState, String adType, Integer offset, Integer limit) {
 		// TODO 自动生成的方法存根
 		EntityManager em = emf.createEntityManager();
-		String selectSql = " select * from Ad where is_delete=0 ";
+		String selectSql = " select * from ad where is_delete=0 ";
 		if((adType != null && !adType.equals("")) && (adState != null && !adState.equals(""))){
 			selectSql += " and ad_type = " + adType + " and ad_state = " + adState;
 		}

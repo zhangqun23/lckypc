@@ -27,6 +27,9 @@
 		</div>
 
 		<ul class="infolist">
+				<li has-permission='iAudiInvoTask'><a
+				href="/lckypc/travel/toTravelTradePage.do#/travelTradeList"
+				class="">当天旅游交易数：{{alarmStatistic.travel_num}}</a></li>
 			<li has-permission='iAudiInvoTask'><a
 				href="/lckypc/busNeed/toBusNeedPage.do#/busNeedList" class="">班车定制需求：{{alarmStatistic.busNeed_num}}</a></li>
 			<li has-permission='iAudiInvoTask'><a
@@ -37,6 +40,7 @@
 			<li has-permission='iAudiInvoTask'><a
 				href="${ctx}/invoice/toBillMngInvoicePage.do#/invoiceTaskList"
 				class="">小件快运：{{alarmStatistic.smallGoods_num}}</a></li>
+				
 		</ul>
 
 

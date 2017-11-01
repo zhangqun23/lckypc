@@ -12,4 +12,6 @@ public interface AlarmStatisticService {
 
 	// 报警统计
 	AlarmStatistic findAlst();
+	//报警统计当天旅游交易
+	Integer findTrTrade(String startTime, String endTime);
 }

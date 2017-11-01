@@ -1,5 +1,9 @@
 package com.mvc.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +27,7 @@ import com.mvc.service.UserService;
 import com.utils.CookieUtil;
 import com.utils.HttpRedirectUtil;
 import com.utils.MD5;
+import com.utils.StringUtil;
 
 import net.sf.json.JSONObject;
 
@@ -191,8 +196,14 @@ public class LoginController {
 	@RequestMapping(value = "/getInitData.do")
 	public @ResponseBody String getInitData(HttpServletRequest request, HttpSession session) {
 		JSONObject jsonObject = new JSONObject();
-
+		DateFormat formt = new SimpleDateFormat("yyyy-MM-dd");
+		//Date date = new Date();
+		String datetime = formt.format(new Date());
+		String startTime = StringUtil.dayFirstTime(datetime);
+		String endTime = StringUtil.dayLastTime(datetime);
 		AlarmStatistic alarmStatistic = alarmStatisticService.findAlst();
+		Integer num  = alarmStatisticService.findTrTrade( startTime,endTime);
+		alarmStatistic.setTravel_num(num);
 		jsonObject.put("alarmStatistic", alarmStatistic);
 		return jsonObject.toString();
 	}
