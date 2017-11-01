@@ -1,5 +1,7 @@
 package com.mvc.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mvc.dao.AlarmStatisticDao;
 import com.mvc.entity.AlarmStatistic;
+import com.mvc.entity.TravelTrade;
 
 /**
  * 报警统计持久层实现
@@ -43,4 +46,16 @@ public class AlarmStatisticDaoImpl implements AlarmStatisticDao {
 		return object;
 	}
 
+	// 报警统计当天旅游交易
+	@Override
+	public Integer findTrTrade(String startTime, String endTime) {
+		// TODO Auto-generated method stub
+		EntityManager em = emf.createEntityManager();
+		String sql = "select coalesce(count(*),0) num from travel_trade where trade_time between '" + startTime
+				+ "' and '" + endTime + "' and is_state =1";
+		Query query = em.createNativeQuery(sql);
+		Object obj = query.getSingleResult();
+		em.close();
+		return Integer.parseInt(obj.toString());
+	}
 }

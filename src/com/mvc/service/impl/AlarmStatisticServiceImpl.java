@@ -32,4 +32,14 @@ public class AlarmStatisticServiceImpl implements AlarmStatisticService {
 		return alarmStatistic;
 	}
 
+	// 报警统计当天旅游交易
+	@SuppressWarnings("null")
+	@Override
+	public Integer findTrTrade(String startTime, String endTime) {
+		AlarmStatistic alarmStatistic = new AlarmStatistic();
+		Integer num =  alarmStatisticDao.findTrTrade(startTime, endTime);
+		System.out.println(num);
+		return num;
+	}
+
 }
