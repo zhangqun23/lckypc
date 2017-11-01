@@ -219,6 +219,7 @@ app.controller(
 											});
 									});
 								$("#cancelDel").click(function(){
+									alert("1")
 									$("#tipDel").fadeOut(100);
 									$(".overlayer").fadeOut(200);
 									});

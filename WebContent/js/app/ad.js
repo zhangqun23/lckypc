@@ -316,7 +316,7 @@ app.filter('onmouse', function() {
 app.filter('findstate',function(){
 	return function(input){
 		if(input == "0"){
-			var output = "未审核";
+			var output = "待审核";
 			return output;
 		}
 		if(input == "1"){
@@ -324,7 +324,7 @@ app.filter('findstate',function(){
 			return output;
 		}
 		if(input == "2"){
-			var output = "驳回";
+			var output = "审核未通过";
 			return output;
 		}
 	}
@@ -334,11 +334,11 @@ app.filter('findstate',function(){
 app.filter('findtype', function() {
 	return function(input) {
 		if (input == "0") {
-			var output = "招工";
+			var output = "旅游";
 			return output;
 		}
 		if(input == "1"){
-			var output = "旅游";
+			var output = "招工";
 			return output;
 		}
 		if(input == "2"){
