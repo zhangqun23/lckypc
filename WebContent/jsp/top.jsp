@@ -30,21 +30,23 @@
 			<div class="user">
 
 				<span id="userNum"></span> <i>消息</i><a
-					href="/lckypc/alarm/toAlarmPage.do#/debtAlarmList"><b
-					id="newsNum">0</b></a>
+					href="/lckypc/login/toIndex.do"><b id="newsNum">0</b></a>
 			</div>
 
 		</div>
-		<div id="news">
+		<div id="news" style="height: auto; width: auto;">
 			<ul>
-				<li><a href="${ctx}/alarm/toAlarmPage.do#/debtAlarmList">收款相关：<b
-						id="RnAlarmCnt"></b></a></li>
-				<li><a href="${ctx}/alarm/toAlarmPage.do#/overdueAlarmList">工程相关：<b
-						id="PsAlarmCnt"></b></a></li>
-				<li><a href="${ctx}/alarm/toAlarmPage.do#/taskAlarmList">任务超时：<b
-						id="TskAlarmCnt"></b></a></li>
-				<li><a href="${ctx}/task/toTaskPage.do#/receiveTask">新任务：<b
-						id="taskCnt"></b></a></li>
+				<li><a
+					href="/lckypc/travel/toTravelTradePage.do#/travelTradeList">当天旅游交易数：<b
+						id="travel_num"></b></a></li>
+				<li><a href="/lckypc/busNeed/toBusNeedPage.do#/busNeedList">班车定制：<b
+						id="busNeed_num"></b></a></li>
+				<li><a href="/lckypc/ad/toAdPage.do#/adList">广告审核：<b
+						id="ad_num"></b></a></li>
+				<li><a href="/lckypc/truckLoad/toTruckLoadPage.do#/truckList">货车审核：<b
+						id="truck_num"></b></a></li>
+				<li><a href="/lckypc/smgo/toSmgoPage.do#/smgoList">小件快运：<b
+						id="smallGoods_num"></b></a></li>
 			</ul>
 		</div>
 		<audio id="audio" class="hidden">
@@ -93,12 +95,17 @@
 
 			function initData() {
 				$.getJSON("/lckypc/login/getInitData.do", {}, function(data) {
-					$("#taskCnt").text(data.totalReceiveTaskNum);
-					$("#RnAlarmCnt").text(data.debtAlarmNum);
-					$("#PsAlarmCnt").text(data.overdueAlarmNum);
-					$("#TskAlarmCnt").text(data.taskAlarmNum);
-					msgCnt = 0 + data.totalReceiveTaskNum + data.debtAlarmNum
-							+ data.overdueAlarmNum + data.taskAlarmNum;
+					$("#travel_num").text(data.alarmStatistic.travel_num);
+					$("#busNeed_num").text(data.alarmStatistic.busNeed_num);
+					$("#ad_num").text(data.alarmStatistic.ad_num);
+					$("#truck_num").text(data.alarmStatistic.truck_num);
+					$("#smallGoods_num").text(
+							data.alarmStatistic.smallGoods_num);
+					msgCnt = 0 + data.alarmStatistic.travel_num
+							+ data.alarmStatistic.busNeed_num
+							+ data.alarmStatistic.ad_num
+							+ data.alarmStatistic.truck_num
+							+ data.alarmStatistic.smallGoods_num;
 					$("#newsNum").html(msgCnt);
 				})
 			}
@@ -127,28 +134,36 @@
 				window.setInterval(showalert, 1000 * 60 * 5);
 				function showalert() {
 					var lastMsgCnt = sessionStorage.getItem("msgCnt");
-					$.getJSON("/CIMS/login/getInitData.do", {}, function(data) {
-						$("#taskCnt").text(data.totalReceiveTaskNum);
-						$("#RnAlarmCnt").text(data.debtAlarmNum);
-						$("#PsAlarmCnt").text(data.overdueAlarmNum);
-						$("#TskAlarmCnt").text(data.taskAlarmNum);
-						msgCnt = 0 + data.totalReceiveTaskNum
-								+ data.debtAlarmNum + data.overdueAlarmNum
-								+ data.taskAlarmNum;
-						$("#newsNum").html(msgCnt);
-						sessionStorage.setItem("msgCnt", msgCnt);
-						if (msgCnt > lastMsgCnt) {
-							//todo--提示爆闪
-							var timerArr = show();
-							$('#audio')[0].play();
-							setTimeout(function() { //此处是过一定时间后自动消失
-								clear(timerArr);
-							}, 5000);
-						} else {
-							document.title = title;
-						}
+					$.getJSON("/lckypc/login/getInitData.do", {},
+							function(data) {
+								$("#travel_num").text(
+										data.alarmStatistic.travel_num);
+								$("#busNeed_num").text(
+										data.alarmStatistic.busNeed_num);
+								$("#ad_num").text(data.alarmStatistic.ad_num);
+								$("#truck_num").text(
+										data.alarmStatistic.truck_num);
+								$("#smallGoods_num").text(
+										data.alarmStatistic.smallGoods_num);
+								msgCnt = 0 + data.alarmStatistic.travel_num
+										+ data.alarmStatistic.busNeed_num
+										+ data.alarmStatistic.ad_num
+										+ data.alarmStatistic.truck_num
+										+ data.alarmStatistic.smallGoods_num;
+								$("#newsNum").html(msgCnt);
+								sessionStorage.setItem("msgCnt", msgCnt);
+								if (msgCnt > lastMsgCnt) {
+									//todo--提示爆闪
+									var timerArr = show();
+									$('#audio')[0].play();
+									setTimeout(function() { //此处是过一定时间后自动消失
+										clear(timerArr);
+									}, 5000);
+								} else {
+									document.title = title;
+								}
 
-					});
+							});
 
 				}
 				//鼠标移到user上时显示消息的div，在消息div以外任意地方点击鼠标时消息div隐藏

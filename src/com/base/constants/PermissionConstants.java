@@ -28,22 +28,20 @@ public class PermissionConstants {
 
 	// 广告所有权限:{审核、删除}
 	public static final String[] adPer = { "adAudit", "adDel" };
-	
+
 	// 小件快运所有权限:{补录 ,删除}
-	public static final String[] smallGoodsPer = { "sgEdit", "sgDel"};
+	public static final String[] smallGoodsPer = { "sgEdit", "sgDel" };
 
 	// 零担货运所有权限:{审核, 删除}
-	public static final String[] truckLoadPer = { "tlAudit", "tlDel"};
+	public static final String[] truckLoadPer = { "tlAudit", "tlDel" };
 
 	// 用户管理所有权限:{添加角色 ,删除角色, 修改角色, 添加用户, 删除用户, 修改用户}
 	public static final String[] systemPer = { "uRoleAdd", "uRoleDel", "uRoleEdit", "uUserAdd", "uUserDel",
-			"uUserEdit"};
+			"uUserEdit" };
 	// 首页显示所有权限:{文书任务, 补录合同任务, 审核发票, 完成发票, 核对到款, 收款超时 ,工期超时}
-	public static final String[] indexPer = { "iAssiTask", "iEditTask", "iAudiInvoTask", "iFiniInvoTask",
-			"iFiniRemoTask", "iDebtAlarm", "iOverdueAlarm" };
+	public static final String[] indexPer = { "travel_num", "busNeed_num", "ad_num", "truck_num", "smallGoods_num" };
 
 	// 左侧功能栏所有权限:{合同管理, 票据管理, 用户管理，发票任务, 到款任务, 收款超时 ,工期超时,报表统计}
-	public static final String[] leftPer = { "system", "travel", "busNeed", "ad", "smallGoods",
-			"truckLoad"};
+	public static final String[] leftPer = { "system", "travel", "busNeed", "ad", "smallGoods", "truckLoad" };
 
 }
