@@ -352,6 +352,7 @@ app
 									searchKey : searchKey
 								}).success(function(data) {
 									traveltrade.traveltrades = data.list;
+									console.log(data.list);
 									pageTurn(data.totalPage, 1, getTravelTradeListByPage)
 								});
 							};
