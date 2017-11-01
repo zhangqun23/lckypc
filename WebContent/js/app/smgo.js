@@ -202,27 +202,30 @@ app.controller(
 								//显示模态框
 								$(".overlayer").fadeIn(200);
 								$("#tipDel").fadeIn(200);
-								//左上角的X
-								$(".tiptop a").click(function() {
-									$("#tipDel").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									});
-								//点击按钮,模态框隐藏
-								$("#sureDel").click(function(){
-									$("#tipDel").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									//进入后台
-									services.deleteSmgo({
-										smgoId : smgo_id
-										}).success(function(data) {
-											initData();
-											});
-									});
-								$("#cancelDel").click(function(){
-									$("#tipDel").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									});
+								sessionStorage.setItem("smgoId",smgo_id);
 							};
+							//左上角的X
+							$(".tiptop a").click(function() {
+								$("#tipDel").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								});
+							//点击按钮,模态框隐藏
+							$("#sureDel").click(function(){
+								$("#tipDel").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								//进入后台
+								var smgo_id= sessionStorage.getItem("smgoId");
+								services.deleteSmgo({
+									smgoId : smgo_id
+									}).success(function(data) {
+										initData();
+										});
+								});
+							$("#cancelDel").click(function(){
+								alert("1")
+								$("#tipDel").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								});
 							
 	                        // 查看ID，并记入sessionStorage
 							smgo.getSmgoId = function(smgoid,is_finish) {

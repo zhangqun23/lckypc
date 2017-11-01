@@ -241,27 +241,29 @@ app
 							travel.deleteTravel = function(travel_id) {								
 								$(".overlayer").fadeIn(200);
 								$("#tipDelTra").fadeIn(200);								
-								$(".tiptop a").click(function() {
-									$("#tipDelTra").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									});
-								
-								$("#sureDelTra").click(function(){
-									$("#tipDelTra").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									//进入后台
-									services.deleteTravel({
-										travelId : travel_id
-									}).success(function(data) {
-										initData();
-									});
-									});
-								$("#cancelDelTra").click(function(){
-									$("#tipDelTra").fadeOut(100);
-									$(".overlayer").fadeOut(200);
-									});
+								sessionStorage.setItem("travelId",travel_id);
 								
 							}
+							$(".tiptop a").click(function() {
+								$("#tipDelTra").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								});
+							
+							$("#sureDelTra").click(function(){
+								$("#tipDelTra").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								//进入后台
+								var travel_id=sessionStorage.getItem("travelId");
+								services.deleteTravel({
+									travelId : travel_id
+								}).success(function(data) {
+									initData();
+								});
+								});
+							$("#cancelDelTra").click(function(){
+								$("#tipDelTra").fadeOut(100);
+								$(".overlayer").fadeOut(200);
+								});
 							// 删除旅游信息
 //							travel.deleteTravel = function(travel_id) {
 //								console.log("成功！");
