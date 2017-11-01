@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<User> findUserAllByPage(String searchKey, Integer offset, Integer end) {
 		EntityManager em = emf.createEntityManager();
-		String selectSql = "select * from User where user_isdelete=0";
+		String selectSql = "select * from user where user_isdelete=0";
 		// 判断查找关键字是否为空
 		if (null != searchKey) {
 			selectSql += " and ( user_name like '%" + searchKey + "%' or user_num like '%" + searchKey + "%')";
@@ -73,7 +73,7 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	public Integer countTotal(String searchKey) {
 		EntityManager em = emf.createEntityManager();
-		String countSql = " select count(user_id) from User u where user_isdelete=0 ";
+		String countSql = " select count(user_id) from user u where user_isdelete=0 ";
 		if (null != searchKey) {
 			countSql += "   and (user_name like '%" + searchKey + "%' or user_num like '%" + searchKey + "%')";
 		}
