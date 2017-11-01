@@ -15,7 +15,7 @@
 	<header>
 		<div class="topleft">
 			<a href="/lckypc/login/toIndex.do" target="_parent"><img
-				class="img-logo" src="${ctx}/images/logo1.png" title="系统首页" /></a>
+				class="img-logo" src="${ctx}/images/luochuan.gif" title="系统首页" /></a>
 		</div>
 
 
@@ -29,13 +29,13 @@
 
 			<div class="user">
 
-				<span id="userNum"></span> <i>消息</i><a
+				<span id="userNum"></span> <!-- <i>消息</i><a
 					href="/lckypc/alarm/toAlarmPage.do#/debtAlarmList"><b
-					id="newsNum">0</b></a>
+					id="newsNum">0</b></a>  -->
 			</div>
 
 		</div>
-		<div id="news">
+<%-- 		<div id="news">
 			<ul>
 				<li><a href="${ctx}/alarm/toAlarmPage.do#/debtAlarmList">收款相关：<b
 						id="RnAlarmCnt"></b></a></li>
@@ -46,7 +46,7 @@
 				<li><a href="${ctx}/task/toTaskPage.do#/receiveTask">新任务：<b
 						id="taskCnt"></b></a></li>
 			</ul>
-		</div>
+		</div> --%>
 		<audio id="audio" class="hidden">
 			<source src="${ctx}/audio/Msg.mp3"></source>
 			<source src="${ctx}/audio/msg.wav"></source>
@@ -54,7 +54,7 @@
 	</header>
 	<section class="containner">
 		<!-- 加载模态框 -->
-		<div class="overlayer"></div>
+<!-- 		<div class="overlayer"></div> -->
 		<div class="tipLoading">
 			<img class="tipimage" src="../images/wait.gif" />
 			<div class="tiptext">正在加载，请稍后……</div>

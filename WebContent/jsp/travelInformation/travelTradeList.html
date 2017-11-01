@@ -30,6 +30,7 @@
 				<th>购买的儿童票数</th>
 				<th>交易额(元)</th>
 				<th>付款状态</th>
+				<th>退款金额</th>
 			
 			</tr>
 		</thead>
@@ -44,6 +45,7 @@
 				<td>{{trtr.trtr_cnum}}</td>
 				<td>{{trtr.trtr_price/100}}</td>
 				<td>{{trtr.is_state |trState}}</td>
+				<td>{{trtr.refund_fee/100}}</td>
 				
 			</tr>
 		</tbody>
