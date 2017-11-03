@@ -109,7 +109,7 @@ app.controller('adController', [
 		'$location',
 		function($scope, services, $location) {
 			var ad = $scope
-
+			var pa=1
 			// 换页
 			function pageTurn(totalPage, page, Func) {
 				$(".tcdPageCode").empty();
@@ -119,6 +119,7 @@ app.controller('adController', [
 						pageCount : totalPage,
 						current : page,
 						backFn : function(p) {
+							pa=p;
 							Func(p);
 						}
 					});
@@ -147,7 +148,7 @@ app.controller('adController', [
 			}
 
 			// state、Type限制
-			ad.getAdListByST = function() {
+			ad.getAdListByST = function(page) {
 				var adLimit = null;
 				var adTLimit = null;
 				if (JSON.stringify(ad.ADSLimit) != null
@@ -159,12 +160,12 @@ app.controller('adController', [
 					adTLimit = JSON.stringify(ad.ADTLimit);
 				}
 				services.getAdListByPage({
-					page : 1,
+					page : page,
 					adState : adLimit,
 					adType : adTLimit
 				}).success(function(data) {
 					$scope.ads = data.list;
-					pageTurn(data.totalPage, 1, getAdListByPage)
+					pageTurn(data.totalPage, page, getAdListByPage)
 				});
 			}
 
@@ -189,7 +190,7 @@ app.controller('adController', [
 				services.deleteAd({
 					adId : ad_id
 				}).success(function(data) {
-					initData();
+					ad.getAdListByST(pa);
 				});
 			});
 			$("#cancelDel3").click(function() {
@@ -275,9 +276,17 @@ app.controller('adController', [
 			function initData() {
 				$("#ad").show();
 				if ($location.path().indexOf('/adList') == 0) {
-					var adid = sessionStorage.getItem("adid");
+					/*var adid = sessionStorage.getItem("adid");*/
+					 ad.ADSLimit ={
+							ad_state : "0",
+						}	
+					if (JSON.stringify(ad.ADSLimit) != null
+							&& JSON.stringify(ad.ADSLimit) != "") {
+						var adLimit = JSON.stringify(ad.ADSLimit);
+					}
 					services.getAdListByPage({
 						page : 1,
+						adState :adLimit
 					}).success(function(data) {
 						$scope.ads = data.list;
 						pageTurn(data.totalPage, 1, getAdListByPage)

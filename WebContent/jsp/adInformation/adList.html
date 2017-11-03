@@ -11,19 +11,18 @@
 		<form class="toolbar">
 			<!-- 根据审核状态筛选ad信息 -->
 			请选择审核状态： <select class="dfselect" ng-model="ADSLimit.ad_state"
-				ng-change="getAdListByST()" id="ad_state" style="width: 167px">
-				<option value="">全部</option>
+				ng-change="getAdListByST(1)" id="ad_state" style="width: 167px">
 				<option value="0">待审核</option>
 				<option value="1">审核通过</option>
 				<option value="2">审核未通过</option>
 			</select>
 			<!-- 根据ad类型筛选ad信息 0招工，1旅游、2其他 -->
 			请选择广告类型： <select class="dfselect" ng-model="ADTLimit.ad_type"
-				ng-change="getAdListByST()" id="ad_type" style="width: 167px">
+				ng-change="getAdListByST(1)" id="ad_type" style="width: 167px">
 				<option value="">全部</option>
 				<option value="0">旅游</option>
 				<option value="1">招工</option>
-				<option value="2">其他</option>0
+				<option value="2">其他</option>
 			</select>
 		</form>
 	</div>

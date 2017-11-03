@@ -14,14 +14,14 @@
 		<form class="toolbar">
 
 			<!-- 根据补录状态筛选BusNeed信息 -->
-			请选择审核状态： <select class="dfselect" ng-model="butrState" id="butrState"
+			请选择补录状态： <select class="dfselect" ng-model="butrState" id="butrState"
 				style="width: 167px">
 				<option value="0">未补录</option>
 				<option value="1">已补录</option>
 			</select> 检索： <input name="" type="text" class="dfinput" id="buneTel"
 				ng-model="buneTel" placeholder="目的地或联系方式关键字" /> <input
 				class="btn click" type="submit" value="查询"
-				ng-click="selectBusNeedByTel()">
+				ng-click="selectBusNeedByTel(1)">
 		</form>
 
 
