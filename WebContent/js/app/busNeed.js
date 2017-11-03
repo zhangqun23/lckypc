@@ -148,6 +148,7 @@ app
 							var butr = $scope;
 							var searchKey = null;
 							bune.butrState = "0";
+							var pa = 1;
 							// 换页
 							function pageTurn(totalPage, page, Func) {
 
@@ -157,6 +158,7 @@ app
 										pageCount : totalPage,
 										current : page,
 										backFn : function(p) {
+											pa=p;
 											Func(p);
 										}
 									});
@@ -196,7 +198,16 @@ app
 								services.deleteBusNeed({
 									busNeedId : bune_id
 								}).success(function(data) {
-									initData();
+									services.getBusNeedListByPage({
+										page : page,
+										searchKey : bune.buneTel,
+										butrState : bune.butrState
+									}).success(
+											function(data) {
+												bune.busNeeds = data.list;
+												pageTurn(data.totalPage, page,
+														getBusNeedListByPage)
+											});
 								});
 								});
 							$("#cancelDelBune").click(function(){
@@ -272,7 +283,7 @@ app
 							};
 
 							// 根据联系方式筛选旅游交易信息
-							bune.selectBusNeedByTel = function() {
+							bune.selectBusNeedByTel = function(page) {
 								var ButrState = bune.butrState;
 								searchKey = bune.buneTel;
 								console.log(ButrState);
@@ -281,13 +292,13 @@ app
 									ButrState = JSON.stringify(bune.butrState);
 								}
 								services.getBusNeedListByPage({
-									page : 1,
+									page : page,
 									searchKey : searchKey,
 									butrState : ButrState
 								}).success(
 										function(data) {
 											bune.busNeeds = data.list;
-											pageTurn(data.totalPage, 1,
+											pageTurn(data.totalPage, page,
 													getBusNeedListByPage)
 										});
 							};
@@ -323,7 +334,7 @@ app
 										}).success(function(data) {
 									alert("补录成功！");
 									console.log(busFormData);
-									$location.path('busNeedList/');
+									bune.selectBusNeedByTel(pa);
 								});
 							};
 
@@ -379,17 +390,12 @@ app
 											});
 								} else if ($location.path().indexOf(
 										'/busNeedUpdate') == 0) {
-
-									var bune_id = sessionStorage.getItem('busNeedId');
-									
+									var bune_id = sessionStorage.getItem('busNeedId');									
 										bune.getBuneId(bune_id);
-
 									services.selectBusNeedById({
 									 		bune_id : bune_id
-									 				}).success(function(data) {
-																				
-									 						bune.BusNeedPage = data.busNeed;									 
-																				
+									 				}).success(function(data) {																			
+									 						bune.BusNeedPage = data.busNeed;									 																				
 									 						if (data.busNeed.butr_time) {
 									 							bune.BusNeedPage.butr_time = changeDateType(data.busNeed.butr_time);
 									 							}

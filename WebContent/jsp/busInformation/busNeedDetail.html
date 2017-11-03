@@ -56,16 +56,16 @@
 			<tr>
 				<td colspan='2' class="width15 text-center">押金(元)</td>
 				<td colspan='2'><input type="text"
-					ng-model="BusNeedPage.butr_depo" class="dfinput input_border"
+					ng-model="BusNeedPage.butr_depo" class="dfinput ng-pristine ng-valid" 
 					onkeyup="changeTwoNum(this)"  required /></td>
 				<td colspan='2' class="text-center">交易金额(元)</td>
 				<td colspan='2'><input type="text"
-					ng-model="BusNeedPage.butr_money" class="dfinput input_border"
+					ng-model="BusNeedPage.butr_money" class="dfinput ng-pristine ng-valid"
 					onkeyup="changeTwoNum(this)"  required /></td>
 			</tr>
 			<tr>
 			<td colspan='2' class="width15 text-center">车牌号</td>
-			<td colspan='2'><input type="text" ng-model="BusNeedPage.bune_bus" id="BusNeedPage.bune_bus" class="dfinput input_border" 
+			<td colspan='2'><input type="text" ng-model="BusNeedPage.bune_bus" id="BusNeedPage.bune_bus" class="dfinput ng-pristine ng-valid" 
 			 placeholder="格式：陕J90268" onchange="checkBusNumber(this)" required/></td></td>			
 			
 			<td colspan='2' class="width15 text-center">交易类型<label
@@ -93,7 +93,7 @@
 					</div></td>			
 			<td colspan='2' class="width15 text-center">发票号</td>
 			<td colspan='2'><input type="text"
-					ng-model="BusNeedPage.invoice_num" class="dfinput input_border" /></td>
+					ng-model="BusNeedPage.invoice_num" class="dfinput ng-pristine ng-valid" /></td>
 			</tr>
 			<tr>
 		

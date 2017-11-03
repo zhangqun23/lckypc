@@ -15,7 +15,7 @@
 	<form class="toolbar">
 		<div>
 			请选择取货方式： <select class="dfselect" ng-model="SGSLimit.smgo_sego"
-				ng-change="getSmgoListBySD()" id="smgo_sego" required>
+				ng-change="getSmgoListBySD(1)" id="smgo_sego" required>
 				<option value="">全部</option>
 				<option value="0">自行取货</option>
 				<option value="1">送货上门</option>
@@ -37,7 +37,7 @@
 				class="dfselect dateLayoutStyle" placeHolder="截止时间"
 				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) "
 				required> <input type="submit" class="btn click"
-				ng-click="getSmgoListBySD()" value="查询">
+				ng-click="getSmgoListBySD(1)" value="查询">
 		</div>
 	</form>
 	<table class="tablelist">
@@ -99,7 +99,7 @@
 </div>
 
 <!-- 补录模态框  -->
-<div class="tip" id="tipDel2"
+<!-- <div class="tip" id="tipDel2"
 	style="height: 200px; width: 300px; margin-top: 230px;">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
@@ -114,4 +114,4 @@
 		<input name="" type="button" class="sureSend" id="sureDel2" value="确定"
 			style="height: 35px; width: 60px;  font-size: 10px; line-height: 20px; " />&nbsp;
 	</div>
-</div>
+</div> -->
