@@ -1,6 +1,8 @@
 package com.mvc.controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +26,7 @@ import net.sf.json.JSONObject;
  * @ClassName: SmgoCotroller
  * @Description: smgo信息
  * @author ycj
- * @date 2017年9月6日 下午8:41:53 
+ * @date 2017年9月6日 下午8:41:53
  * 
  *
  */
@@ -33,76 +35,65 @@ import net.sf.json.JSONObject;
 public class SmgoCotroller {
 	@Autowired
 	SmgoService smgoService;
-	
+
 	/**
 	 * 
 	 * 
-	 *@Title: smgoPage 
-	 *@Description: smgo首页
-	 *@param @return
-	 *@return String
-	 *@throws
+	 * @Title: smgoPage @Description: smgo首页 @param @return @return
+	 * String @throws
 	 */
 	@RequestMapping("/toSmgoPage.do")
 	public String smgoPage() {
 		return "smgoInformation/index";
 	}
-	
+
 	/**
-	 * @throws ParseException 
+	 * @throws ParseException
 	 * 
 	 * 
-	 *@Title: selectSmgoBySego 
-	 *@Description: sego、time限制
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
+	 * @Title: selectSmgoBySego @Description: sego、time限制 @param @param
+	 * request @param @param session @param @return @return String @throws
 	 */
 	@RequestMapping("/getSmgoListByPage.do")
-	public @ResponseBody String selectSmgoByPrarm(HttpServletRequest request, HttpSession session) throws ParseException {
+	public @ResponseBody String selectSmgoByPrarm(HttpServletRequest request, HttpSession session)
+			throws ParseException {
 		String smgoSego = null;
 		String startDate = null;
 		String endDate = null;
-		if(request.getParameter("smgoSego") != null){
-			if(JSONObject.fromObject(request.getParameter("smgoSego")).containsKey("smgo_sego")){
-				//解决JSONObject “smgoSego” not found 问题
+		if (request.getParameter("smgoSego") != null) {
+			if (JSONObject.fromObject(request.getParameter("smgoSego")).containsKey("smgo_sego")) {
+				// 解决JSONObject “smgoSego” not found 问题
 				smgoSego = JSONObject.fromObject(request.getParameter("smgoSego")).getString("smgo_sego");
 			}
 		}
 		JSONObject jsonObject = new JSONObject();
-		if(request.getParameter("gotNeed") != null){
+		if (request.getParameter("gotNeed") != null) {
 			jsonObject = JSONObject.fromObject(request.getParameter("gotNeed"));
-				if (jsonObject.containsKey("startDate")){ 
-				    startDate = StringUtil.dayFirstTime(jsonObject.getString("startDate"));
-				}
-				if (jsonObject.containsKey("endDate")){
-				    endDate = StringUtil.dayLastTime(jsonObject.getString("endDate"));
-				}
+			if (jsonObject.containsKey("startDate")) {
+				startDate = StringUtil.dayFirstTime(jsonObject.getString("startDate"));
+			}
+			if (jsonObject.containsKey("endDate")) {
+				endDate = StringUtil.dayLastTime(jsonObject.getString("endDate"));
+			}
 		}
-		Integer totalRow = smgoService.countTotal(smgoSego,startDate,endDate);//有问题
+		Integer totalRow = smgoService.countTotal(smgoSego, startDate, endDate);// 有问题
 		Pager pager = new Pager();
 		pager.setPage(Integer.valueOf(request.getParameter("page")));
-        if(totalRow != 0 ){
-        	pager.setTotalRow(Integer.parseInt(totalRow.toString()));
+		if (totalRow != 0) {
+			pager.setTotalRow(Integer.parseInt(totalRow.toString()));
 		}
-		List<SmallGoods> list = smgoService.findSmgoByPage(smgoSego,startDate,endDate,pager.getOffset(),pager.getLimit());
+		List<SmallGoods> list = smgoService.findSmgoByPage(smgoSego, startDate, endDate, pager.getOffset(),
+				pager.getLimit());
 		jsonObject.put("totalPage", pager.getTotalPage());
 		jsonObject.put("list", list);
-	    return jsonObject.toString();
+		return jsonObject.toString();
 	}
-	
+
 	/**
 	 * 
 	 * 
-	 *@Title: deleteSmgo 
-	 *@Description: 删除smgo
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@return String
-	 *@throws
+	 * @Title: deleteSmgo @Description: 删除smgo @param @param
+	 * request @param @param session @param @return @return String @throws
 	 */
 	@RequestMapping("/deleteSmgo.do")
 	public @ResponseBody String deleteSmgo(HttpServletRequest request, HttpSession session) {
@@ -110,18 +101,13 @@ public class SmgoCotroller {
 		boolean result = smgoService.deleteIsdelete(smgoid);
 		return JSON.toJSONString(result);
 	}
-	
+
 	/**
 	 * 
 	 * 
-	 *@Title: addEdit 
-	 *@Description: 添加补录信息
-	 *@param @param request
-	 *@param @param session
-	 *@param @return
-	 *@param @throws ParseException
-	 *@return String
-	 *@throws
+	 * @Title: addEdit @Description: 添加补录信息 @param @param request @param @param
+	 * session @param @return @param @throws ParseException @return
+	 * String @throws
 	 */
 	@RequestMapping("/addEdit.do")
 	public @ResponseBody String addEdit(HttpServletRequest request, HttpSession session) throws ParseException {
@@ -131,16 +117,19 @@ public class SmgoCotroller {
 		String edittime = null;
 		float editprice = 0;
 		Integer smgoid = null;
-		if(request.getParameter("smgoId") != null){
+		if (request.getParameter("smgoId") != null) {
 			smgoid = Integer.parseInt(request.getParameter("smgoId"));
 		}
-		if(jsonObject.containsKey("edit_time")){
-			edittime = jsonObject.getString("edit_time");
-		}
-		if(jsonObject.containsKey("edit_price")){
+		/*
+		 * if(jsonObject.containsKey("edit_time")){ edittime =
+		 * jsonObject.getString("edit_time"); }
+		 */
+		if (jsonObject.containsKey("edit_price")) {
 			editprice = Float.parseFloat(jsonObject.getString("edit_price"));
 		}
 		smgo.setIs_delete(false);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		edittime = sdf.format(new Date());
 		boolean result = smgoService.update(edittime, editprice, smgoid);
 		return JSON.toJSONString(result);
 	}
