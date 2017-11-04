@@ -187,28 +187,45 @@ app
 							}
 							smgo.addEdit = function(smgo_id) {
 								var smgoLimits = JSON.stringify(smgo.smgoInfo);
-								services.addEdit({
-									smgoId : smgo_id,
-									smgoNeed : smgoLimits
-								}).success(function(data) {
+								if(smgo.smgoInfo.edit_price==0){
 									// 显示模态框
 									$(".overlayer").fadeIn(200);
-									$("#tipDel2").fadeIn(200);
+									$("#tipUpdate").fadeIn(200);
+									// 金额为0提示模态框 左上角的X
+									$(".tiptop a").click(function() {
+										$("#tipUpdate").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+									});
+									// 金额为0提示模态框
+									smgo.backTiJiao = function() {
+										$("#tipUpdate").fadeOut(100);
+										$(".overlayer").fadeOut(200);
+									}
+								}else{
+									services.addEdit({
+										smgoId : smgo_id,
+										smgoNeed : smgoLimits
+									}).success(function(data) {
+										// 显示模态框
+										$(".overlayer").fadeIn(200);
+										$("#tipDel2").fadeIn(200);
 
-								});
-
+									});
+								}
+								
 							};
 							// 左上角的X
 							$(".tiptop a").click(function() {
 								$("#tipDel2").fadeOut(100);
 								$(".overlayer").fadeOut(200);
 							});
-							// 点击按钮,模态框隐藏
+							// 补录模态框隐藏
 							smgo.backList = function() {
 								$("#tipDel2").fadeOut(100);
 								$(".overlayer").fadeOut(200);
 								$location.path("smgoList");
 							}
+
 
 							// 删除smgo信息
 							smgo.deleteSmgo = function(smgo_id) {
@@ -288,7 +305,7 @@ app
 app.filter('dateType', function() {
 	return function(input) {
 		var type = "";
-		if (input != "") {
+		if (input != "" && input != undefined) {
 			type = new Date(input).toLocaleDateString().replace(/\//g, '-');
 		}
 		return type;

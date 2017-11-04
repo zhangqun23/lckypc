@@ -41,7 +41,7 @@
           </tr>
           <tr>
             <td colspan='2' class="width15 text-center">交易金额</td>
-			<td colspan='2'>{{smgoInfo.amgo_money | number:1}}</td>
+			<td colspan='2'>{{smgoInfo.edit_price | number:1}}</td>
 			<td colspan='2' class="width15 text-center">交易时间</td>
 			<td colspan='2'>{{smgoInfo.smgo_deal_time.time|dateType}}</td>
           </tr>
@@ -60,10 +60,6 @@
 			<td colspan='6'>{{smgoInfo.smgo_remark}}</td>  
           </tr>  
           <tr>
-           <!--  <td colspan='2' class="width15 text-center">发货日期</td>
-			<td colspan='2'><input type="text" name="edittime" required
-					ng-model="smgoInfoss.edit_time" class="dfselect dateLayoutStyle"
-				onFocus="WdatePicker(WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd',readOnly:'true',onpicked: function(){$(this).trigger('change')}})) " onChange=""></td> -->
 			<td colspan='2' class="width15 text-center">金额</td>
 			<td colspan='2'><input type="text"
 				ng-model="smgoInfo.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></td> 
@@ -85,6 +81,21 @@
 		</div>
 	</div>
 	
-		<input type="button" class="sureSend"  ng-click="backList()" value="确定" style="height: 25px; width: 50px;font-size: 10px; line-height: 20px;" />&nbsp;
+		<input type="button" class="sureSend"  ng-click="backList()" value="确定" style="height: 25px; width: 50px;margin-top: 40px; line-height: 20px;" />&nbsp;
+	
+</div>
+<!-- 补录信息为0时的模态框 -->
+<div class="overlayer"></div>
+<div class="tip" id="tipUpdate" style="height: 200px;width:300px;margin-top:230px;">
+	<div class="tiptop">
+		<span>提示信息</span><a></a>
+	</div>
+	<div class="tipinfo" style="padding-top:0px;margin-left:15px";>
+		<div class="tipright">
+		<p>请填写金额！！</p>
+		</div>
+	</div>
+	
+		<input type="button" class="sureSend"  ng-click="backTiJiao()" value="确定" style="height: 25px; width: 50px;margin-top: 40px; line-height: 20px;" />&nbsp;
 	
 </div>

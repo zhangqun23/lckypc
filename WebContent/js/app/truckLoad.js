@@ -139,7 +139,8 @@ app.factory('services', [ '$http', 'baseUrl', function($http, baseUrl) {
 
 app.controller('TruckLoadController', [ '$scope', 'services', '$location',
      function($scope, services, $location) {
-         var truckDrSdNd = $scope;      
+         var truckDrSdNd = $scope; 
+         var pa = 1;
          truckDrSdNd.trDLimit={
         	 trck_check : "0"
          }
@@ -152,6 +153,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 					pageCount : totalPage,
 					current : page,
 					backFn : function(p) {
+						pa = p;
 						Func(p);
 					}
 				});
@@ -168,23 +170,23 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 			}
 			services.getTruckDriverList({
 				trState : trLimit,
-				page : page
+				page : page,
 				}).success(function(data) {
 					truckDrSdNd.truckList = data.list;
 				});
 			}
          // 查询Truck信息
-         truckDrSdNd.getTruckDriverListByCheck = function(){
+         truckDrSdNd.getTruckDriverListByCheck = function(page){
         	 var trLimit = null;
 				if(JSON.stringify(truckDrSdNd.trDLimit) != null){
 					trLimit = JSON.stringify(truckDrSdNd.trDLimit);
 				}
 				services.getTruckDriverList({
-					page : 1,
+					page : page,
 					trState : trLimit
 				}).success(function(data){
 					truckDrSdNd.truckList = data.list;
-					pageTurn(data.totalPage, 1, getTruckDriverList);
+					pageTurn(data.totalPage, page, getTruckDriverList);
 				})
          };
          // Truck信息模态框显示
@@ -269,7 +271,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 				services.deleteTruck({
 					trckId : trck_id
 				}).success(function(data) {
-					$location.path('truckList/');
+					truckDrSdNd.getTruckDriverListByCheck(pa);
 				});
 				});
 			$("#cancelDel").click(function(){
@@ -351,7 +353,7 @@ app.controller('TruckLoadController', [ '$scope', 'services', '$location',
 							truckDrSdNd.truckList = data.list;
 							pageTurn(data.totalPage, 1, getTruckDriverList)
 						});*/
-            	   truckDrSdNd.getTruckDriverListByCheck();
+            	   truckDrSdNd.getTruckDriverListByCheck(1);
                  }else if ($location.path().indexOf('/truckSend') == 0){
                 	 truckDrSdNd.selectTruckSend();
                  }else if ($location.path().indexOf('/truckNeedList') == 0){

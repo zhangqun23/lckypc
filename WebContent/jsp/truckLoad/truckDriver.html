@@ -14,7 +14,7 @@
 		<form class="toolbar">
 			<!-- 根据truckDriver状态筛选truckDriver信息 0未审核，1已审核 -->
 			请选择车辆信息类型： <select class="dfselect" ng-model="trDLimit.trck_check"
-				ng-change="getTruckDriverListByCheck()" id="trck_check"
+				ng-change="getTruckDriverListByCheck(1)" id="trck_check"
 				style="width: 167px">
 				<option value="0">未审核</option>
 				<option value="1">审核通过</option>
