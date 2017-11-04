@@ -52,16 +52,16 @@
 			<td colspan='2'>{{smgoInfo.smgo_sego|findSego}}</td> 
           </tr>
           <tr>  
-            <td colspan='1' class="width15 text-center">送货地址</td>
+            <td colspan='2' class="width15 text-center">送货地址</td>
 			<td colspan='6'>{{smgoInfo.smgo_add}}</td>
 		 </tr>
 		 <tr>
-			<td colspan='1' class="width15 text-center">备注</td>
+			<td colspan='2' class="width15 text-center">备注</td>
 			<td colspan='6'>{{smgoInfo.smgo_remark}}</td>  
           </tr>  
           <tr>
 			<td colspan='2' class="width15 text-center">金额</td>
-			<td colspan='2'><input type="text"
+			<td colspan='6'><input type="text"
 				ng-model="smgoInfo.edit_price" class="dfinput"  onkeyup="this.value=this.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3')" required/></td> 
           </tr>  
         </table>
@@ -71,31 +71,33 @@
 
 <!-- 模态框  -->
 <div class="overlayer"></div>
-<div class="tip" id="tipDel2" style="height: 200px;width:300px;margin-top:230px;">
+<div class="tip" id="tipDel2" style="height: 160px;width:260px;margin-top:10%;margin-left:-150px;">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
 	</div>
-	<div class="tipinfo" style="padding-top:0px;margin-left:15px";>
-		<div class="tipright">
-		<p>补录成功！！</p>
+	<div class="tipinfo" style="padding-top: 15px;">
+		<div class="tipright" style="padding-top: 0px; padding-left: 0px;">
+		<label class="text_style">补录成功！ </label>
 		</div>
 	</div>
-	
-		<input type="button" class="sureSend"  ng-click="backList()" value="确定" style="height: 25px; width: 50px;margin-top: 40px; line-height: 20px;" />&nbsp;
-	
+	<div class="tipbtn" style="margin-top: 30px; margin-left: 180px;">
+		<input type="button" class="sureSend" ng-click="backList()" value="确定"
+			style="height: 25px; width: 50px;font-size: 10px; line-height: 0px;" />
+	</div>	
 </div>
 <!-- 补录信息为0时的模态框 -->
 <div class="overlayer"></div>
-<div class="tip" id="tipUpdate" style="height: 200px;width:300px;margin-top:230px;">
+<div class="tip" id="tipUpdate" style="height: 160px;width:260px;margin-top:10%;margin-left:-150px;">
 	<div class="tiptop">
 		<span>提示信息</span><a></a>
 	</div>
-	<div class="tipinfo" style="padding-top:0px;margin-left:15px";>
-		<div class="tipright">
-		<p>请填写金额！！</p>
+	<div class="tipinfo" style="padding-top: 15px;">
+		<div class="tipright" style="padding-top: 0px; padding-left: 0px;">
+		<label class="text_style">请填写金额！ </label>
 		</div>
 	</div>
-	
-		<input type="button" class="sureSend"  ng-click="backTiJiao()" value="确定" style="height: 25px; width: 50px;margin-top: 40px; line-height: 20px;" />&nbsp;
-	
+	<div class="tipbtn" style="margin-top: 30px; margin-left: 180px;">
+		<input type="button" class="sureSend" value="确定" ng-click="backTiJiao()"
+			style="height: 25px; width: 50px; font-size: 10px; line-height: 0px;" />
+	</div>
 </div>
