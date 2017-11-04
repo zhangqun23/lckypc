@@ -47,7 +47,7 @@
 				<li><a href="/lckypc/smgo/toSmgoPage.do#/smgoList">小件快运：<b
 						id="smallGoods_num"></b></a></li>
 			</ul>
-		</div> --%>
+		</div>
 		<audio id="audio" class="hidden">
 			<source src="${ctx}/audio/Msg.mp3"></source>
 			<source src="${ctx}/audio/msg.wav"></source>

@@ -328,11 +328,11 @@ app.filter('cutString', function() {
 app.filter('findSego', function() {
 	return function(input) {
 		if (input == "0") {
-			var output = "自行取货";
+			var output = "自行送货";
 			return output;
 		}
 		if (input == "1") {
-			var output = "送货上门";
+			var output = "上门取货";
 			return output;
 		}
 	}
